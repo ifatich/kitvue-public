@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue"    
+    "url": "https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue.git"    
   },
   "scripts": {
     "build": "rollup -c",
