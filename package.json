@@ -8,7 +8,7 @@
     "dist/*"
   ],
   "publishConfig": {
-    "@salt-frontend:registry": "https://repo.pegadaian.co.id/api/v4/projects/1159/packages/npm/"
+    "@client:registry": "https://repo.pegadaian.co.id/api/v4/projects/1159/packages/npm/"
   },
   "repository": {
     "type": "git",
