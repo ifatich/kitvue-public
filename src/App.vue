@@ -3,5 +3,5 @@
 </template>
 
 <style lang="scss">
-@import "./assets/scss/pegadaian-material.min.css";
+@import url(https://bucket.pegadaian.co.id/design-system-salt-bucket/css/pgd-ui-kit.min.css);
 </style>
