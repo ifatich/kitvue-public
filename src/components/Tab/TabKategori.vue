@@ -1,31 +1,23 @@
 <template>
   <ul class="nav nav-underline" id="pills-tab-section" role="tablist">
-    <li class="nav-item w-50 text-center" role="presentation">
-      <a
-        class="nav-link active"
-        id="konvensional-tab"
-        data-bs-toggle="pill"
-        data-bs-target="#konvensional-box"
-        type="button"
-        role="tab"
-        aria-controls="konvensional-box"
-        aria-selected="true"
-      >
-        Konvensional
-      </a>
-    </li>
-    <li class="nav-item w-50 text-center" role="presentation">
+    <li
+      v-for="(item, index) in items"
+      :key="index"
+      class="nav-item w-50 text-center"
+      role="presentation"
+    >
       <a
         class="nav-link"
-        id="syariah-tab"
+        :class="item.active ? ' active' : ''"
+        :id="item.label + '-tab'"
         data-bs-toggle="pill"
-        data-bs-target="#syariah-box"
+        :data-bs-target="item.label + '-box'"
         type="button"
         role="tab"
-        aria-controls="syariah-box"
-        aria-selected="false"
+        :aria-controls="item.label + '-box'"
+        aria-selected="true"
       >
-        Syariah
+        {{ item.label }}
       </a>
     </li>
   </ul>
@@ -33,7 +25,29 @@
 <script>
 export default {
   name: "k-tab-kategori",
-  props: {},
+  props: {
+    items: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            label: "Konvensional",
+            active: true,
+            action: function () {
+              return "/";
+            },
+          },
+          {
+            label: "Syariah",
+            active: false,
+            action: function () {
+              return "/";
+            },
+          },
+        ];
+      },
+    },
+  },
 };
 </script>
 <style></style>

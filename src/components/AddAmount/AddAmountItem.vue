@@ -8,12 +8,15 @@
       src="https://dl.dropboxusercontent.com/s/hwxxnep8t4gg89g/ico-add-green.svg"
       alt=""
     />
-    <a>Tambah Saham</a>
+    <a>{{ label }}</a>
   </div>
 </template>
 <script>
 export default {
   name: "k-add-amount-item",
+  props: {
+    label: String,
+  },
 };
 </script>
 <style lang=""></style>

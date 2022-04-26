@@ -1,25 +1,37 @@
 <template>
   <div class="contextual-menu">
-    <div class="contextual-menu__item">
-      <p>Ubah</p>
-      <img
-        src="https://dl.dropboxusercontent.com/s/67onewx8wj7mryc/edit-filled.svg"
-        alt=""
-      />
-    </div>
-    <div class="contextual-menu__item">
-      <p>Hapus</p>
-      <img
-        src="https://dl.dropboxusercontent.com/s/l67aq7uvo49epom/icon-delete-dark.svg"
-        alt=""
-      />
+    <div
+      v-for="(item, index) in items"
+      :key="index"
+      class="contextual-menu__item"
+    >
+      <p>{{ item.label }}</p>
+      <img :src="item.icon" alt="" />
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "k-contextual-menu",
-  props: {},
+  props: {
+    items: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            label: "Ubah",
+            action: "",
+            icon: "https://dl.dropboxusercontent.com/s/67onewx8wj7mryc/edit-filled.svg",
+          },
+          {
+            label: "Hapus",
+            action: "",
+            icon: "https://dl.dropboxusercontent.com/s/l67aq7uvo49epom/icon-delete-dark.svg",
+          },
+        ];
+      },
+    },
+  },
 };
 </script>
 <style></style>

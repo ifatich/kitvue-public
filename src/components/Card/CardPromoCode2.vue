@@ -7,14 +7,20 @@
       />
     </div>
     <div class="btn-box-promo__text">
-      <p>Gunakan Kode Promo</p>
+      <p>{{ label }}</p>
     </div>
   </a>
 </template>
 <script>
 export default {
   name: "k-card-promo-code-2",
-  props: {},
+  props: {
+    label: {
+      type: String,
+      default: "Gunakan Kode Promo",
+    },
+    action: Function,
+  },
 };
 </script>
 <style></style>

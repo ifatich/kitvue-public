@@ -3,37 +3,22 @@
     <div class="footer-pgd-top">
       <div class="footer-box">
         <div class="footer-box__div">
-          <h4>Tautan Cepat</h4>
+          <h4>{{ menu1.label }}</h4>
+
           <div class="box-map">
             <ul>
-              <li>
-                <a href="">Produk dan Layanan</a>
-              </li>
-              <li>
-                <a href="">Hubungan Investor</a>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <a href="">Profil Korporasi</a>
-              </li>
-              <li>
-                <Link to="/berita">Berita</Link>
+              <li v-for="(item, index) in menu1.items" :key="index">
+                <a :href="item.link">{{ item.action }}</a>
               </li>
             </ul>
           </div>
 
-          <h4>Bantuan</h4>
+          <h4>{{ menu2.label }}</h4>
+
           <div class="box-map">
             <ul>
-              <li>
-                <Link to="/syarat-dan-ketentuan">Syarat dan Ketentuan</Link>
-              </li>
-              <li>
-                <Link to="/faq">FAQ</Link>
-              </li>
-              <li>
-                <Link to="/kebijakan-privasi">Kebijakan Privasi</Link>
+              <li v-for="(item, index) in menu2.items" :key="index">
+                <a :href="item.link">{{ item.action }}</a>
               </li>
             </ul>
           </div>
@@ -101,8 +86,8 @@
                   target="blank"
                 >
                   <img
+                    :src="socialMedia.facebook"
                     class="box-sosmed__icon"
-                    src="https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg"
                     alt=""
                   />
                 </a>
@@ -112,8 +97,8 @@
                   target="blank"
                 >
                   <img
+                    :src="socialMedia.twitter"
                     class="box-sosmed__icon"
-                    src="https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg"
                     alt=""
                   />
                 </a>
@@ -123,8 +108,8 @@
                   target="blank"
                 >
                   <img
+                    :src="socialMedia.instagram"
                     class="box-sosmed__icon"
-                    src="https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg"
                     alt=""
                   />
                 </a>
@@ -134,8 +119,8 @@
                   target="blank"
                 >
                   <img
+                    :src="socialMedia.youtube"
                     class="box-sosmed__icon"
-                    src="https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg"
                     alt=""
                   />
                 </a>
@@ -156,7 +141,50 @@
 <script>
 export default {
   name: "k-footer-pgd-corporate",
-  props: {},
+  props: {
+    menu1: {
+      type: Object,
+      default: function () {
+        return {
+          label: "Tautan Cepat",
+          items: [
+            { link: "./promo.html", action: "Produk dan Layanan" },
+            { link: "./artikel.html", action: "Hubungan Investor" },
+            { link: "./acara.html", action: "Profil Korporasi" },
+            { link: "./simulasi-emas.html", action: "Berita" },
+          ],
+        };
+      },
+    },
+    menu2: {
+      type: Object,
+      default: function () {
+        return {
+          label: "Bantuan",
+          items: [
+            { link: "./syarat-ketentuan.html", action: "Syarat dan Ketentuan" },
+            { link: "/faq", action: "FAQ" },
+            { link: "/kebijakan-privasi", action: "Kebijakan Privasi" },
+          ],
+        };
+      },
+    },
+    socialMedia: {
+      type: Object,
+      default: function () {
+        return {
+          facebook:
+            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+          twitter:
+            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+          instagram:
+            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+          youtube:
+            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+        };
+      },
+    },
+  },
 };
 </script>
 <style></style>

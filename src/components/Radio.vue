@@ -1,27 +1,21 @@
 <template>
   <div class="group-input__box-radio">
     <label
-      class="radio-tab tab-option active"
-      for="option-1"
-      onclick="clickRadioForm('tab-option','option-1')"
-    >
-      <h6>Option 1</h6>
-      <input
-        type="radio"
-        id="option-1"
-        value="option-1"
-        name="option"
-        checked
-      />
-      <span class="checkmark"></span>
-    </label>
-    <label
+      v-for="(item, index) in items"
+      :key="index"
       class="radio-tab tab-option"
-      for="option-2"
-      onclick="clickRadioForm('tab-option', 'option-2')"
+      :class="{ active: item.checked }"
+      :for="'option' + index"
+      onclick="clickRadioForm('tab-option', 'option2')"
     >
-      <h6>Option 2</h6>
-      <input type="radio" id="option-2" value="option-2" name="option" />
+      <h6>{{ item.label }}</h6>
+      <input
+        :disabled="item.disabled"
+        type="radio"
+        :id="'option' + index"
+        :value="item.value"
+        :name="label"
+      />
       <span class="checkmark"></span>
     </label>
   </div>
@@ -29,7 +23,26 @@
 <script>
 export default {
   name: "k-navbar-radio",
-  props: {},
+  props: {
+    items: {
+      default: function () {
+        return [
+          {
+            disabled: false,
+            value: 1,
+            label: "Option 1",
+            checked: false,
+          },
+          {
+            disabled: false,
+            value: 2,
+            label: "Option 2",
+            checked: true,
+          },
+        ];
+      },
+    },
+  },
 };
 </script>
 <style></style>

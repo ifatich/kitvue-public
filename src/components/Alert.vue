@@ -1,23 +1,8 @@
 <template lang="">
   <div>
     <div class="pb-3">
-      <div class="pgd-alert-green">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </div>
-    </div>
-    <div class="pb-3">
-      <div class="pgd-alert-light-blue">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </div>
-    </div>
-    <div class="pb-3">
-      <div class="pgd-alert-red">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      </div>
-    </div>
-    <div class="pb-3">
-      <div class="pgd-alert-yellow">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      <div :class="`pgd-alert-${color}`">
+        {{ label }}
       </div>
     </div>
   </div>
@@ -25,6 +10,14 @@
 <script>
 export default {
   name: "k-alert",
+  props: {
+    label: String,
+    color: {
+      validator(value) {
+        return ["green", "light-blue", "red", "yellow"].includes(value);
+      },
+    },
+  },
 };
 </script>
 <style lang=""></style>

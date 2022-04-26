@@ -1,7 +1,7 @@
 <template>
   <button
     class="btn btn-primary"
-    data-bs-target="#get-modal"
+    data-bs-target="#getModal"
     data-bs-toggle="modal"
   >
     Show Overlay
@@ -9,7 +9,7 @@
   <section class="section-overlay-modal-pds">
     <div
       class="modal fade"
-      id="get-modal"
+      id="getModal"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
@@ -23,7 +23,12 @@
 <script>
 export default {
   name: "k-overlay",
-  props: {},
+  props: {
+    status: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 <style></style>

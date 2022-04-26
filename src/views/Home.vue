@@ -10,25 +10,25 @@
       <kAddAmountCounter />
     </div>
     <div class="col-6 p-4">
-      <kAlert />
+      <kAlert color="green" label="Lorem ipsum dolor sit amet" />
     </div>
     <div class="col-6 p-4">
       <kBreadcrumb />
     </div>
     <div class="col-6 p-4">
-      <kBreadcrumbLv4 />
+      <kBreadcrumb :items="['Root', 'Lv1', 'Lv2', 'Lv3', 'Lv4']" />
     </div>
     <div class="col-6 p-4">
-      <kBreadcrumbLv3 />
+      <kBreadcrumb :items="['Root', 'Lv1', 'Lv2', 'Lv3']" />
     </div>
     <div class="col-6 p-4">
-      <kBreadcrumbLv2 />
+      <kBreadcrumb :items="['Root', 'Lv1', 'Lv2']" />
     </div>
     <div class="col-6 p-4">
-      <kBreadcrumbLv1 />
+      <kBreadcrumb :items="['Root', 'Lv1']" />
     </div>
     <div class="col-6 p-4">
-      <kBreadcrumbRoot />
+      <kBreadcrumb :items="['Root']" />
     </div>
     <div class="col-6 p-4">
       <kButton />
@@ -79,7 +79,7 @@
       <kCardFile />
     </div>
     <div class="col-6 p-4">
-      <kCheckbox />
+      <kCheckbox label="label" value="value" />
     </div>
     <div class="col-6 p-4">
       <kContextualMenu />
@@ -120,11 +120,35 @@
     <div class="col-12 p-4">
       <kNavbarPdsOnboarding />
     </div>
+    <div class="col-12 p-4">
+      <kNavBackNavigator />
+    </div>
+    <div class="col-12 p-4">
+      <kNavBeliTabunganEmas />
+    </div>
+    <div class="col-12 p-4">
+      <kNavMenuDropdown />
+    </div>
+    <div class="col-12 p-4">
+      <kNavbarCorporate />
+    </div>
+    <div class="col-12 p-4">
+      <kBannerCarousel />
+    </div>
+    <div class="col-12 p-4">
+      <kHighlightCarousel />
+    </div>
+    <div class="col-12 p-4">
+      <kProdukKonvensional />
+    </div>
     <div class="col-6 p-4">
       <kRadio />
     </div>
     <div class="col-6 p-4">
       <kStepper />
+    </div>
+    <div class="col-6 p-4">
+      <kStepperMobile />
     </div>
     <div class="col-6 p-4">
       <kSwitch />
@@ -189,6 +213,9 @@
     <div class="col-8 p-4">
       <kModal />
     </div>
+    <div class="col-6 p-4">
+      <kPagination />
+    </div>
     <div class="col-8 p-4">
       <kSystemIcon />
     </div>
@@ -204,6 +231,30 @@
     <div class="col-8 p-4">
       <kInputTextArea />
     </div>
+    <div class="col-8 p-4">
+      <kNavBottomTab />
+    </div>
+    <div class="col-12 p-4">
+      <kHomePDS />
+    </div>
+    <div class="col-12 p-4">
+      <kPegadaianCorporate />
+    </div>
+    <div class="col-12 p-4">
+      <kProdukSyariah />
+    </div>
+    <div class="col-12 p-4">
+      <kSahabatPgd />
+    </div>
+    <div class="col-8 p-4">
+      <kChart />
+    </div>
+    <div class="col-8 p-4">
+      <kChartMeter />
+    </div>
+    <div class="col-8 p-4">
+      <kChartProgress />
+    </div>
   </div>
 </template>
 
@@ -212,12 +263,15 @@ import kAccordion from "@components/Accordion.vue";
 import kAddAmountItem from "@components/AddAmount/AddAmountItem.vue";
 import kAddAmountCounter from "@components/AddAmount/AddAmountCounter.vue";
 import kAlert from "@components/Alert.vue";
+// import kAlertBasic from "@components/AlertBasic.vue";
+
+import kHomePDS from "@components/Banner/HomePDS.vue";
+import kPegadaianCorporate from "@components/Banner/PegadaianCorporate.vue";
+import kProdukKonvensional from "@components/Banner/ProdukKonvensional.vue";
+import kProdukSyariah from "@components/Banner/ProdukSyariah.vue";
+import kSahabatPgd from "@components/Banner/SahabatPgd.vue";
+
 import kBreadcrumb from "@components/Breadcrumb/Breadcrumb.vue";
-import kBreadcrumbLv4 from "@components/Breadcrumb/BreadcrumbLv4.vue";
-import kBreadcrumbLv3 from "@components/Breadcrumb/BreadcrumbLv3.vue";
-import kBreadcrumbLv2 from "@components/Breadcrumb/BreadcrumbLv2.vue";
-import kBreadcrumbLv1 from "@components/Breadcrumb/BreadcrumbLv1.vue";
-import kBreadcrumbRoot from "@components/Breadcrumb/BreadcrumbRoot.vue";
 import kButton from "@components/Button/Button.vue";
 import kButtonSize from "@components/Button/ButtonSize.vue";
 import kCardVoucher from "@components/Card/CardVoucher.vue";
@@ -248,8 +302,16 @@ import kListGroupOrdered from "@components/ListGroup/ListGroupOrdered.vue";
 import kListGroupUnordered from "@components/ListGroup/ListGroupUnordered.vue";
 import kNavbarSahabatPgd from "@components/Navbar/NavbarSahabatPgd.vue";
 import kNavbarPdsOnboarding from "@components/Navbar/NavbarPdsOnboarding.vue";
+import kNavbarCorporate from "@components/Navbar/NavbarCorporate.vue";
+import kNavBackNavigator from "@components/Navbar/NavBackNavigator.vue";
+import kNavBeliTabunganEmas from "@components/Navbar/NavBeliTabunganEmas.vue";
+import kNavMenuDropdown from "@components/Navbar/NavMenuDropdown.vue";
+import kBannerCarousel from "@components/Banner/BannerCarousel.vue";
+import kHighlightCarousel from "@components/Carousel/HighlightCarousel.vue";
+
 import kRadio from "@components/Radio.vue";
 import kStepper from "@components/Stepper.vue";
+import kStepperMobile from "@components/StepperMobile.vue";
 import kSwitch from "@components/Switch.vue";
 import kTooltip from "@components/Tooltip.vue";
 import kWidgetSaldo from "@components/Widget/WidgetSaldo.vue";
@@ -271,23 +333,24 @@ import kImagePhoto from "@components/Image/ImagePhoto.vue";
 import kLogo from "@components/Logo.vue";
 import kLineShape from "@components/Shape/LineShape.vue";
 import kModal from "@components/Modal.vue";
+import kPagination from "@components/Pagination.vue";
 import kSystemIcon from "@components/Icon/SystemIcon.vue";
 import kProductIcon from "@components/Icon/ProductIcon.vue";
 import kInputSmallText from "@components/Input/InputSmallText.vue";
 import kInputNominal from "@components/Input/InputNominal.vue";
 import kInputTextArea from "@components/Input/InputTextArea.vue";
+import kNavBottomTab from "@components/Navbar/NavBottomTab.vue";
+import kChart from "@components/Chart/Chart.vue";
+import kChartMeter from "@components/Chart/ChartMeter.vue";
+import kChartProgress from "@components/Chart/ChartProgress.vue";
 
 export default {
   name: "Home",
   components: {
     kAccordion,
     kAlert,
+    // kAlertBasic,
     kBreadcrumb,
-    kBreadcrumbLv4,
-    kBreadcrumbLv3,
-    kBreadcrumbLv2,
-    kBreadcrumbLv1,
-    kBreadcrumbRoot,
     kButton,
     kButtonSize,
     kCardVoucher,
@@ -318,8 +381,16 @@ export default {
     kListGroupUnordered,
     kNavbarSahabatPgd,
     kNavbarPdsOnboarding,
+    kNavbarCorporate,
+    kNavBackNavigator,
+    kNavBeliTabunganEmas,
+    kNavMenuDropdown,
+    kBannerCarousel,
+    kHighlightCarousel,
+    kProdukKonvensional,
     kRadio,
     kStepper,
+    kStepperMobile,
     kSwitch,
     kTooltip,
     kWidgetSaldo,
@@ -343,12 +414,26 @@ export default {
     kLogo,
     kLineShape,
     kModal,
+    kPagination,
     kSystemIcon,
     kProductIcon,
     kInputSmallText,
     kInputNominal,
     kInputTextArea,
+    kNavBottomTab,
+    kHomePDS,
+    kPegadaianCorporate,
+    kProdukSyariah,
+    kSahabatPgd,
+    kChart,
+    kChartMeter,
+    kChartProgress,
   },
   setup() {},
+  data() {
+    return {
+      MySelectedValues: [],
+    };
+  },
 };
 </script>

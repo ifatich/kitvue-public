@@ -1,15 +1,18 @@
 <template>
+  <!-- Button trigger modal -->
   <button
+    type="button"
     class="btn btn-primary"
-    data-bs-target="#get-modal"
+    data-bs-target="#getModal"
     data-bs-toggle="modal"
   >
-    Modal
+    {{ name }}
   </button>
+  <!-- Modal -->
   <section class="section-overlay-modal-pds">
     <div
       class="modal fade"
-      id="get-modal"
+      id="getModal"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabindex="-1"
@@ -19,7 +22,7 @@
       <div class="modal-dialog modal-dialog-centered modal-layout-pds">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">{{ title }}</h5>
             <button
               type="button"
               class="btn-close"
@@ -33,12 +36,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>Your content is here.</p>
+            <slot>{{ content }}</slot>
             <a
               data-bs-dismiss="modal"
               aria-label="Close"
               class="btn btn-primary btn-block"
-              >Button</a
+              >{{ actionName }}</a
             >
           </div>
         </div>
@@ -49,7 +52,32 @@
 <script>
 export default {
   name: "k-modal",
-  props: {},
+  props: {
+    status: {
+      type: Boolean,
+      default: false,
+    },
+    title: {
+      type: String,
+      default: "title",
+    },
+    content: {
+      default: ". . . .",
+    },
+    name: {
+      default: "Modal",
+    },
+    actionName: {
+      default: "Button",
+    },
+  },
+
+  methods: {
+    isShow: function () {
+      this.props.status = !this.props.status;
+      // some code to filter users
+    },
+  },
 };
 </script>
 <style></style>

@@ -3,7 +3,16 @@
     <div class="footer-top container">
       <div class="footer-box">
         <div class="footer-box__div">
-          <h4>Tautan Cepat</h4>
+          <h4>{{ menu1.label }}</h4>
+
+          <div class="box-map">
+            <ul>
+              <li v-for="(item, index) in menu1.items" :key="index">
+                <a :href="item.link">{{ item.action }}</a>
+              </li>
+            </ul>
+          </div>
+          <!-- <h4>Tautan Cepat</h4>
           <div class="box-map">
             <ul>
               <li><a href="#tentangpgd">Tentang Pegadaian Digital</a></li>
@@ -12,7 +21,7 @@
               <li><a href="#syaratdanketentuan">Syarat & Ketentuan</a></li>
               <li><a href="#hubungikami">Hubungi Kami</a></li>
             </ul>
-          </div>
+          </div> -->
         </div>
         <div class="footer-box__div">
           <h4>Download Pegadaian Digital</h4>
@@ -86,14 +95,14 @@
               <div class="outer-box-socmed">
                 <a href="https://facebook.com/shbtpegadaian" class="box-socmed">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg"
+                    :src="socialMedia.facebook"
                     alt=""
                     class="box-socmed__icon"
                   />
                 </a>
                 <a href="https://twitter.com/shbt_pegadaian" class="box-socmed">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg"
+                    :src="socialMedia.twitter"
                     alt=""
                     class="box-socmed__icon"
                   />
@@ -103,7 +112,7 @@
                   class="box-socmed"
                 >
                   <img
-                    src="https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg"
+                    :src="socialMedia.instagram"
                     alt=""
                     class="box-socmed__icon"
                   />
@@ -113,7 +122,7 @@
                   class="box-socmed"
                 >
                   <img
-                    src="https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg"
+                    :src="socialMedia.youtube"
                     alt=""
                     class="box-socmed__icon"
                   />
@@ -134,7 +143,50 @@
 <script>
 export default {
   name: "k-footer-pds-onboarding",
-  props: {},
+  props: {
+    menu1: {
+      type: Object,
+      default: function () {
+        return {
+          label: "Tautan Cepat",
+          items: [
+            { link: "./promo.html", action: "Gadaiy" },
+            { link: "./artikel.html", action: "Pembiayaan" },
+            { link: "./acara.html", action: "Pembayaran dan Top Up" },
+            { link: "./simulasi-emas.html", action: "Cicil Emas" },
+            { link: "./ebook.html", action: "Cabang Pegadaian" },
+          ],
+        };
+      },
+    },
+    menu2: {
+      type: Object,
+      default: function () {
+        return {
+          label: "Bantuan",
+          items: [
+            { link: "./syarat-ketentuan.html", action: "Syarat dan Ketentuan" },
+            { link: "./hubungi-kami.html", action: "Hubungi Kami" },
+          ],
+        };
+      },
+    },
+    socialMedia: {
+      type: Object,
+      default: function () {
+        return {
+          facebook:
+            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+          twitter:
+            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+          instagram:
+            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+          youtube:
+            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+        };
+      },
+    },
+  },
 };
 </script>
 <style></style>

@@ -1,33 +1,45 @@
 <template>
-  <div class="pgd-status">
-    <img
-      src="https://dl.dropboxusercontent.com/s/krjoi5ihrcvu5vl/icon-crown-green.svg"
-      alt=""
-    />Status
-  </div>
-  <div class="pgd-status-blue">
+  <div :class="[classes]"><img :src="icon" alt="" />{{ text }}</div>
+  <!-- <div class="pgd-status-blue">
     <img
       src="https://dl.dropboxusercontent.com/s/8dx7mmeozqodu20/icon-crown.svg"
       alt=""
     />Status
-  </div>
-  <div class="pgd-status-red">
-    <img
-      src="https://dl.dropboxusercontent.com/s/gvup9se8s9l33k4/icon-crown-red.svg"
-      alt=""
-    />Status
-  </div>
-  <div class="pgd-status-yellow">
-    <img
-      src="https://dl.dropboxusercontent.com/s/om5jq35olgh5zxf/icon-crown-yellow.svg"
-      alt=""
-    />Status
-  </div>
+  </div> -->
 </template>
 <script>
+import { computed, reactive } from "vue";
+
 export default {
   name: "k-label-icon",
-  props: {},
+  props: {
+    text: {
+      type: String,
+      default: "Status",
+    },
+    variant: {
+      type: String,
+      default: "",
+      Validator: function (value) {
+        return ["blue", "red", "yellow"].indexOf(value) !== -1;
+      },
+    },
+    icon: {
+      type: String,
+      default:
+        "https://dl.dropboxusercontent.com/s/krjoi5ihrcvu5vl/icon-crown-green.svg",
+    },
+  },
+  setup(props) {
+    props = reactive(props);
+    return {
+      classes: computed(() => ({
+        [`${
+          props.variant ? `pgd-status-${props.variant}` : "pgd-status"
+        }`]: true,
+      })),
+    };
+  },
 };
 </script>
 <style></style>

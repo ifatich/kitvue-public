@@ -1,14 +1,23 @@
 <template>
   <ul class="styled-ul">
-    <li>Memiliki identitas yang masih berlaku (KTP/Paspor)</li>
-    <li>Mengisi formulir pembukaan Rekening Tabungan Emas</li>
-    <li>Biaya transaksi Tabungan Emas</li>
+    <li v-for="(item, index) in items" :key="index">{{ item }}</li>
   </ul>
 </template>
 <script>
 export default {
   name: "k-list-group-unordered",
-  props: {},
+  props: {
+    items: {
+      type: Array,
+      default: function () {
+        return [
+          "Memiliki identitas yang masih berlaku (KTP/Paspor)",
+          "Mengisi formulir pembukaan Rekening Tabungan Emas",
+          "Biaya transaksi Tabungan Emas",
+        ];
+      },
+    },
+  },
 };
 </script>
 <style></style>

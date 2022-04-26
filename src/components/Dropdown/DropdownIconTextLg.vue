@@ -12,7 +12,7 @@
             aria-expanded="false"
             aria-controls="collapsePilihBank2"
           >
-            <span id="getDefaultSelected2">Pilih rekening bank</span>
+            <span id="getDefaultSelected2">{{ placeholder }}</span>
             <input type="text" id="getBankVal2" hidden required />
             <div class="accordion-button__selected" id="getRekening2">
               <div class="accordion-button__selected-img">
@@ -48,46 +48,28 @@
               />
             </div>
             <div class="box-search-rekening-tujuan">
-              <div class="box-search-rekening-tujuan__top">
-                <h6>G-Cash</h6>
-                <div class="box-item">
+              <div
+                v-for="(option, index) in options"
+                :key="index"
+                class="box-search-rekening-tujuan__top"
+              >
+                <h6>{{ option.title }}</h6>
+                <div
+                  v-for="(item, index) in option.items"
+                  :key="index"
+                  class="box-item"
+                >
                   <div
                     class="box-item__content"
                     onclick="BankSelected3(this, 'G-Cash BNI', 'https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png', 'Thoriq Sadad ','2980 8131 6069 555')"
                   >
                     <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png"
-                        alt=""
-                      />
+                      <img :src="item.icon" alt="" />
                     </div>
                     <div class="box-detail">
-                      <h5>G-Cash BNI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>2980 8131 6069 555</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content"
-                    onclick="BankSelected3(this, 'G-Cash BRI', 'https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png', 'Thoriq Sadad ','8438 8131 6069 555')"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>G-Cash BRI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>8438 8131 6069 555</p>
+                      <h5>{{ item.label }}</h5>
+                      <p>{{ value }}</p>
+                      <p>{{ item.value }}</p>
                     </div>
                     <img
                       class="ico-check ml-auto"
@@ -98,101 +80,6 @@
                 </div>
               </div>
               <div class="line-divider"></div>
-              <div class="box-search-rekening-tujuan__bottom">
-                <h6>Bank</h6>
-                <div class="box-item">
-                  <div
-                    class="box-item__content"
-                    onclick="BankSelected3(this, 'Bank BCA', 'https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png', 'Thoriq Sadad ','8438 8131 6069 555')"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank BCA</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content"
-                    onclick="BankSelected3(this, 'Bank BNI', 'https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png', 'Thoriq Sadad ','8438 8131 6069 555')"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank BNI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content"
-                    onclick="BankSelected3(this, 'Bank BRI', 'https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png', 'Thoriq Sadad ','8438 8131 6069 555')"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank BRI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content no-border"
-                    onclick="BankSelected3(this,  'Bank Mandiri', 'https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png', 'Thoriq Sadad ','8438 8131 6069 555')"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank Mandiri</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -212,7 +99,7 @@
         </div>
         <div class="box-detail">
           <h6 id="kredit-mobile-text2" class="btn-pilih-jangka__text">
-            Pilih rekening bank
+            {{ placeholder }}
           </h6>
           <span id="kredit-mobile-span"></span>
           <div class="">
@@ -242,7 +129,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">
-              Pilih Rekening Bank
+              {{ placeholder }}
             </h5>
             <button
               type="button"
@@ -259,7 +146,11 @@
           </div>
           <div class="modal-body container-nopadding-mobile">
             <div class="box-search-rekening-tujuan">
-              <div class="box-search-rekening-tujuan__top">
+              <div
+                v-for="(option, index) in options"
+                :key="index"
+                class="box-search-rekening-tujuan__top"
+              >
                 <div class="pgd-box-search-grey">
                   <div class="icon">
                     <img
@@ -274,47 +165,24 @@
                     id="findsaham"
                   />
                 </div>
-                <h6>G-Cash</h6>
-                <div class="box-item">
+                <h6>{{ option.title }}</h6>
+                <div
+                  v-for="(item, index) in option.items"
+                  :key="index"
+                  class="box-item"
+                >
                   <div
                     class="box-item__content jenis-item"
                     onclick="pilihComboBox5('G-Cash BNI', 'Thoriq Sadad ',this,'2980 8131 6069 555', 'https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
                     data-bs-dismiss="modal"
                   >
                     <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png"
-                        alt=""
-                      />
+                      <img :src="item.icon" alt="" />
                     </div>
                     <div class="box-detail">
-                      <h5>G-Cash BNI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>2980 8131 6069 555</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content jenis-item"
-                    onclick="pilihComboBox5('G-Cash BRI', 'Thoriq Sadad ',this,'8438 8131 6069 555', 'https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
-                    data-bs-dismiss="modal"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>G-Cash BRI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>8438 8131 6069 555</p>
+                      <h5>{{ item.label }}</h5>
+                      <p>{{ value }}</p>
+                      <p>{{ item.value }}</p>
                     </div>
                     <img
                       class="ico-check ml-auto"
@@ -325,105 +193,6 @@
                 </div>
               </div>
               <div class="line-divider"></div>
-              <div class="box-search-rekening-tujuan__bottom">
-                <h6>Bank</h6>
-                <div class="box-item">
-                  <div
-                    class="box-item__content jenis-item"
-                    onclick="pilihComboBox5('Bank BCA', 'Thoriq Sadad ',this,'4516 7859 1241 232', 'https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
-                    data-bs-dismiss="modal"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank BCA</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content jenis-item"
-                    onclick="pilihComboBox5('Bank BNI', 'Thoriq Sadad ',this,'4516 7859 1241 232', 'https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
-                    data-bs-dismiss="modal"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank BNI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content jenis-item"
-                    onclick="pilihComboBox5('Bank BRI', 'Thoriq Sadad ',this,'4516 7859 1241 232', 'https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
-                    data-bs-dismiss="modal"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank BRI</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="box-item">
-                  <div
-                    class="box-item__content jenis-item no-border"
-                    onclick="pilihComboBox5('Bank Mandiri', 'Thoriq Sadad ',this,'4516 7859 1241 232', 'https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
-                    data-bs-dismiss="modal"
-                  >
-                    <div class="img-box">
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png"
-                        alt=""
-                      />
-                    </div>
-                    <div class="box-detail">
-                      <h5>Bank Mandiri</h5>
-                      <p>Thoriq Sadad</p>
-                      <p>4516 7859 1241 232</p>
-                    </div>
-                    <img
-                      class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
-                      alt=""
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -434,7 +203,64 @@
 <script>
 export default {
   name: "k-dropdown-icon-text-lg",
-  props: {},
+  props: {
+    placeholder: {
+      type: String,
+      default: "Pilih Rekening Bank",
+    },
+    value: {
+      type: [String, Number],
+      default: "Thoriq Sadad",
+    },
+    // icon ceklist src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
+    options: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            title: "G-Cash",
+            items: [
+              {
+                label: "G-Cash BNI",
+                value: "2980 8131 6069 555",
+                icon: "https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png",
+              },
+              {
+                label: "G-Cash BRI",
+                value: "8438 8131 6069 555",
+                icon: "https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png",
+              },
+            ],
+          },
+          {
+            title: "Bank",
+            items: [
+              {
+                value: "4516 7859 1241 232",
+                label: "Bank BCA",
+                icon: "https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png",
+              },
+              {
+                value: "4516 7859 1241 232",
+                label: "Bank BNI",
+                icon: "https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png",
+              },
+              {
+                value: "4516 7859 1241 232",
+                label: "Bank BRI",
+                icon: "https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png",
+              },
+              {
+                value: "4516 7859 1241 232",
+                label: "Bank MANDIRI",
+                icon: "https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png",
+              },
+            ],
+          },
+        ];
+      },
+    },
+  },
 };
 </script>
 <style></style>

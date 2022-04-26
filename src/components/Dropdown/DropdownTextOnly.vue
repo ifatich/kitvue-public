@@ -14,7 +14,7 @@
             aria-expanded="false"
             aria-controls="collapseOne"
           >
-            <span id="defaultSelected-jenisTransaksi">Pilih provinsi </span>
+            <span id="defaultSelected-jenisTransaksi">{{ placeholder }}</span>
             <input
               type="text"
               id="val-jenisTransaksi"
@@ -45,15 +45,19 @@
                   alt=""
                 />
               </div>
-              <input type="search" placeholder="Cari provinsi" />
+              <input type="search" :placeholder="placeholder" />
             </div>
-            <div class="box-item">
+            <div
+              v-for="(option, index) in options"
+              :key="index"
+              class="box-item"
+            >
               <div
                 class="box-item__content item-dropdown"
                 onclick="comboBoxSelected('val-jenisTransaksi', 'defaultSelected-jenisTransaksi', 'newSelected-jenisTransaksi', 'newSelectedItem-jenisTransaksi', 'DKI Jakarta')"
               >
                 <div class="box-ceklist">
-                  <h6>DKI Jakarta</h6>
+                  <h6>{{ option.label }}</h6>
                   <img
                     src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
                     alt=""
@@ -79,7 +83,7 @@
       data-bs-target="#modal-select-option-jenis"
     >
       <h6 id="jenis-mobile-text" class="btn-pilih-jangka__text">
-        Pilih provinsi
+        {{ placeholder }}
       </h6>
       <img
         src="https://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg"
@@ -101,7 +105,9 @@
       >
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Pilih Provinsi</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">
+              {{ placeholder }}
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -117,11 +123,13 @@
           <div class="modal-body">
             <div class="pilih-jangka-waktu">
               <div
+                v-for="(option, index) in options"
+                :key="index"
                 class="pilih-jangka-waktu__item jenis-item"
                 onclick="pilihComboBox('DKI Jakarta', this, 'jenisMobileInput', 'jenis-mobile-text', 'jenis-item')"
                 data-bs-dismiss="modal"
               >
-                DKI Jakarta
+                {{ option.label }}
               </div>
             </div>
           </div>
@@ -133,7 +141,36 @@
 <script>
 export default {
   name: "k-dropdown-text-only",
-  props: {},
+  props: {
+    placeholder: {
+      type: String,
+      default: "Pilih Provinsi",
+    },
+    value: {
+      type: [String, Number],
+    },
+    options: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            value: "Jakarta",
+            label: "Jakarta",
+          },
+          {
+            value: "Bandung",
+            label: "Bandung",
+          },
+        ];
+      },
+      value: {
+        type: [String, Number],
+      },
+      label: {
+        type: String,
+      },
+    },
+  },
 };
 </script>
 <style></style>

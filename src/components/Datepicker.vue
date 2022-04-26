@@ -3,7 +3,8 @@
     <div class="box-left-icon">
       <input
         type="text"
-        placeholder="Pilih tanggal"
+        :placeholder="placeholder"
+        :value="value"
         name="tanggallahir"
         id="tanggalLahir"
         required
@@ -101,7 +102,31 @@
 <script>
 export default {
   name: "k-datepicker",
-  props: {},
+  props: {
+    placeholder: {
+      type: String,
+    },
+    value: {
+      type: String,
+    },
+  },
+  data() {
+    return {
+      date: "",
+      month: "",
+      year: "",
+    };
+  },
+  watch: {
+    date: function () {},
+    month: function () {},
+    year: function () {},
+  },
+  methods: {
+    setDateValue: function () {},
+    setMonthValue: function () {},
+    setMYearValue: function () {},
+  },
 };
 </script>
 <style></style>

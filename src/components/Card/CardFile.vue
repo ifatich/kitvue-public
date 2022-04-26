@@ -3,15 +3,12 @@
     <div class="card-file">
       <div class="card-file-item">
         <div class="card-file-item-header">
-          <img
-            src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ebook2.png"
-            alt="banner-file"
-          />
+          <img :src="image" alt="banner-file" />
         </div>
         <div class="card-file-item-body">
-          <h1 class="title-card-file">Title</h1>
-          <p class="subtitle-card-file">Subtitle</p>
-          <button class="btn btn-outline-primary">Button</button>
+          <h1 class="title-card-file">{{ title }}</h1>
+          <p class="subtitle-card-file">{{ subtitle }}</p>
+          <button class="btn btn-outline-primary">{{ label }}</button>
         </div>
       </div>
     </div>
@@ -20,7 +17,26 @@
 <script>
 export default {
   name: "k-card-file",
-  props: {},
+  props: {
+    image: {
+      type: String,
+      default:
+        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ebook2.png",
+    },
+    subtitle: {
+      type: String,
+      default: "Subtitle",
+    },
+    title: {
+      type: String,
+      default: "Title",
+    },
+    label: {
+      type: String,
+      default: "Button",
+    },
+    action: Function,
+  },
 };
 </script>
 <style></style>

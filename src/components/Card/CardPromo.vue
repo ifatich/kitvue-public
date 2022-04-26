@@ -9,10 +9,10 @@
     <div class="card-promo__bottom">
       <div class="promo-title-box">
         <div class="slug-box">
-          <div class="pgd-status">108 Hari lagi</div>
-          <div class="slug-box__date">01 April – 31 Juli 2021</div>
+          <div class="pgd-status">{{ countDownLabel }}</div>
+          <div class="slug-box__date">{{ periode }}</div>
         </div>
-        <h4>Diskon 40% Buka Tabungan Emas di Pegadaian</h4>
+        <h4>{{ title }}</h4>
       </div>
       <div class="promo-code-box">
         <div class="promo-code-box__top">
@@ -23,7 +23,7 @@
           <h5>Kode Promo</h5>
         </div>
         <div class="promo-code-box__bottom">
-          <h2 id="code1">RENCANAEMAS</h2>
+          <h2 id="code1">{{ promoCode }}</h2>
           <button
             class="btn-tertiary copyPromo1"
             onclick="copyPromo('#code1');showToast('1'); "
@@ -44,7 +44,8 @@
       <div class="promo-guide">
         <ol>
           <li>
-            Kode promo RENCANAEMAS digunakan untuk transaksi buka Tabungan Emas.
+            Kode promo {{ promoCode }} digunakan untuk transaksi buka Tabungan
+            Emas.
           </li>
           <li>Diskon sebesar 40%, maksimal Rp20.000.</li>
           <li>Minimal transaksi Rp50.000,-</li>
@@ -57,12 +58,12 @@
 
         <div class="more-guide" id="guide1">
           <span
-            >Cara menggunakan Promo RENCANAEMAS di aplikasi Pegadaian
+            >Cara menggunakan Promo {{ promoCode }} di aplikasi Pegadaian
             Digital:</span
           >
           <ol>
             <li>
-              Kode promo RENCANAEMAS digunakan untuk transaksi buka Tabungan
+              Kode promo {{ promoCode }} digunakan untuk transaksi buka Tabungan
               Emas.
             </li>
             <li>Diskon sebesar 40%, maksimal Rp20.000.</li>
@@ -84,7 +85,62 @@
 <script>
 export default {
   name: "k-card-promo",
-  props: {},
+  props: {
+    title: {
+      type: String,
+      default: "Diskon 40% Buka Tabungan Emas di Pegadaian",
+    },
+    description: {
+      type: String,
+      default: "",
+    },
+    period: {
+      type: String,
+      default: "01 April – 31 Juli 2021",
+    },
+    countDownLabel: {
+      type: String,
+      default: "108 Hari lagi",
+    },
+    promoCode: {
+      type: String,
+      default: "RENCANAEMAS",
+    },
+    label: {
+      type: String,
+      default: "",
+    },
+    action: {
+      type: Function,
+      default: function (value = "action") {
+        return (window.location.href = `http://localhost/${value}`);
+      },
+    },
+    guideSteps: {
+      type: [Array, Object],
+    },
+  },
+  data() {
+    return {
+      steps: this.guideSteps || [
+        "Kode promo RENCANAEMAS digunakan untuk transaksi buka Tabungan Emas.",
+        "Diskon sebesar 40%, maksimal Rp20.000.",
+        "Minimal transaksi Rp50.000,-",
+        "Kode promo bisa digunakan pada Outlet Pegadaian, aplikasi Pegadaian Digital, dan aplikasi Pegadaian Syariah Digital.",
+        "Masa aktif kode promo berakhir pada 30 April 2021.",
+      ],
+    };
+  },
+  methods: {
+    chunk(arr, size) {
+      return arr.reduce(
+        (acc, e, i) => (
+          i % size ? acc[acc.length - 1].push(e) : acc.push([e]), acc
+        ),
+        []
+      );
+    },
+  },
 };
 </script>
 <style></style>

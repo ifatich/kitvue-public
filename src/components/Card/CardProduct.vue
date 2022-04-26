@@ -1,27 +1,21 @@
 <template>
   <div class="card-produk">
-    <a href="./produk-gadai-efek.html">
+    <a :href="action">
       <div class="card-produk__top">
-        <img
-          src="https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png"
-          alt=""
-        />
+        <img :src="image" alt="" />
       </div>
       <div class="card-produk__bottom">
         <div class="icon-box">
-          <img
-            src="https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg"
-            alt=""
-          />
+          <img :src="icon" alt="" />
         </div>
         <div class="status-box">
-          <div class="pgd-status">Konvesional</div>
+          <div class="pgd-status-blue">Konvesional</div>
+          <div v-if="syariah" class="pgd-status">Syariah</div>
         </div>
 
-        <h5>Gadai Efek</h5>
+        <h5>{{ title }}</h5>
         <p>
-          Penuhi kebutuhan di luar dugaan dengan cepat dengan gadai emas
-          batangan maupun perhiasan...
+          {{ body }}
         </p>
       </div>
     </a>
@@ -30,7 +24,40 @@
 <script>
 export default {
   name: "k-card-product",
-  props: {},
+  props: {
+    // init
+    action: {
+      type: String,
+      default: "./produk-gadai-efek.html",
+    },
+    icon: {
+      type: String,
+      default:
+        "https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg",
+    },
+    title: {
+      type: String,
+      default: "Gadai Efek",
+    },
+    label: {
+      type: String,
+      default: "",
+    },
+    image: {
+      type: String,
+      default:
+        "https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png",
+    },
+    body: {
+      type: String,
+      default: `Penuhi kebutuhan di luar dugaan dengan cepat dengan gadai emas
+          batangan maupun perhiasan...`,
+    },
+    syariah: {
+      type: Boolean,
+      default: false,
+    },
+  },
 };
 </script>
 <style></style>

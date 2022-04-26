@@ -2,17 +2,14 @@
   <header class="pgd-header sticky-top header-pds">
     <nav class="navbar navbar-expand-lg navbar-light container">
       <a class="navbar-brand mr-auto" href="./index.html">
-        <img
-          src="https://dl.dropboxusercontent.com/s/xk156lvrvyog0m8/logo-pds.svg"
-          alt=""
-        />
+        <img :src="image" alt="" />
       </a>
 
       <div class="menu-btn-registrasi">
-        <a href="../onboarding/index.html" class="btn btn-outline-primary"
-          >Masuk</a
-        >
-        <a href="../registrasi/index.html" class="btn btn-primary">Daftar</a>
+        <a :href="signIn.action" class="btn btn-outline-primary">{{
+          signIn.label
+        }}</a>
+        <a :href="signUp.action" class="btn btn-primary">{{ signUp.label }}</a>
       </div>
     </nav>
   </header>
@@ -20,7 +17,35 @@
 <script>
 export default {
   name: "k-navbar-pds-onboarding",
-  props: {},
+  props: {
+    image: {
+      type: String,
+      default:
+        "https://dl.dropboxusercontent.com/s/xk156lvrvyog0m8/logo-pds.svg",
+    },
+    signIn: {
+      type: Object,
+      default: function () {
+        return {
+          label: "MASUK",
+          action: "../onboarding/index.html",
+        };
+      },
+      label: String,
+      action: Function,
+    },
+    signUp: {
+      type: Object,
+      default: function () {
+        return {
+          label: "DAFTAR",
+          action: "/../registrasi/index.html",
+        };
+      },
+      label: String,
+      action: Function,
+    },
+  },
 };
 </script>
 <style></style>

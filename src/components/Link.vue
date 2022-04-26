@@ -1,6 +1,6 @@
 <template>
-  <a href="" class="btn btn-tertiary"
-    >Simulasi Gadai
+  <a :href="action" class="btn btn-tertiary"
+    >{{ text }}
     <img
       src="https://dl.dropboxusercontent.com/s/ft5eipwmtxysb0n/icon-chevron-right-green.svg"
       alt=""
@@ -9,7 +9,17 @@
 <script>
 export default {
   name: "k-link",
-  props: {},
+  props: {
+    text: {
+      type: String,
+      default: "Simulasi Gadai",
+    },
+    action: {
+      type: [String, Function],
+      default:
+        "https://dl.dropboxusercontent.com/s/ft5eipwmtxysb0n/icon-chevron-right-green.svg",
+    },
+  },
 };
 </script>
 <style></style>

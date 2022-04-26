@@ -1,14 +1,10 @@
 <template>
   <a href="#" class="card-content" target="blank">
     <div class="card-content-wrapper">
-      <img
-        src="https://dl.dropboxusercontent.com/s/stm8f4vuko68qs0/icon-karir.svg"
-        class="icon"
-      />
-      <h4 class="title">Karir</h4>
+      <img :src="icon" class="icon" />
+      <h4 class="title">{{ title }}</h4>
       <p class="subtitle">
-        Bangun perekonomian masyarakat Indonesia melalui kemampuanmu bersama
-        Pegadaian. Indonesia melalui kemampuanmu
+        {{ body }}
       </p>
     </div>
   </a>
@@ -16,7 +12,22 @@
 <script>
 export default {
   name: "k-card-content",
-  props: {},
+  props: {
+    icon: {
+      type: String,
+      default:
+        "https://dl.dropboxusercontent.com/s/stm8f4vuko68qs0/icon-karir.svg",
+    },
+    title: {
+      type: String,
+      default: "title-default",
+    },
+    body: {
+      type: String,
+      default: `Bangun perekonomian masyarakat Indonesia melalui kemampuanmu bersama
+        Pegadaian. Indonesia melalui kemampuanmu`,
+    },
+  },
 };
 </script>
 <style></style>

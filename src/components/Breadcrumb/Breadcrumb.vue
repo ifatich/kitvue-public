@@ -1,15 +1,15 @@
 <template>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="./index.html">Beranda</a></li>
-      <li class="breadcrumb-item">
-        <a href="./produk.html">Produk</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a href="./produk.html">Layanan Jasa</a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        Safe Deposit Box
+      <li
+        v-for="(item, index) in items"
+        :key="index"
+        class="breadcrumb-item"
+        :class="{ active: idx === items.length - 1 }"
+      >
+        <template v-if="index === items.length - 1">{{ item }}</template>
+
+        <a href="./index.html" v-if="index !== items.length - 1">{{ item }}</a>
       </li>
     </ol>
   </nav>
@@ -17,7 +17,13 @@
 <script>
 export default {
   name: "k-breadcrumbs",
-  props: {},
+  props: {
+    items: {
+      type: Array,
+      required: false,
+      default: () => ["Beranda", "Produk", "Layanan Jasa", "Safe Deposit Box"],
+    },
+  },
 };
 </script>
 <style></style>

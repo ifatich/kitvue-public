@@ -2,10 +2,7 @@
   <header class="pgd-header sticky-top">
     <nav class="navbar navbar-expand-lg navbar-light container">
       <a class="navbar-brand mr-auto" href="./index.html">
-        <img
-          src="https://dl.dropboxusercontent.com/s/3eadt2tmgsyxda7/logo-sahabat-pegadaian.svg"
-          alt=""
-        />
+        <img :src="image" alt="" />
       </a>
       <button
         class="navbar-toggler"
@@ -40,62 +37,34 @@
               </button>
             </form>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./produk.html">Produk</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./promo.html">Promo</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="./artikel.html"
-              id="navbarDropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Artikel
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="./artikel-emas.html">Emas</a>
-              <a class="dropdown-item" href="./artikel-inspirasi.html"
-                >Inspirasi</a
+          <li
+            v-for="(item, index) in items"
+            :key="index"
+            class="nav-item"
+            :class="{ dropdown: item.child }"
+          >
+            <div v-if="item.child !== null">
+              <a
+                class="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
               >
-              <a class="dropdown-item" href="./artikel-investasi.html"
-                >Investasi</a
-              >
-              <a class="dropdown-item" href="./artikel-keuangan.html"
-                >Keuangan</a
-              >
-              <a class="dropdown-item" href="./artikel-wirausaha.html"
-                >Wirausaha</a
-              >
+                {{ item.label }}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a
+                  v-for="(child_item, index) in item.child"
+                  :key="index"
+                  class="dropdown-item"
+                  :href="child_item.action"
+                  >{{ child_item.label }}</a
+                >
+              </div>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./acara.html">Acara</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              id="navbarDropdown"
-              role="button"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Simulasi
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="./simulasi-emas.html"
-                >Harga Emas Batangan</a
-              >
-              <a class="dropdown-item" href="./simulasi-tabungan.html"
-                >Simulasi Tabungan Emas</a
-              >
+            <div v-else>
+              <a class="nav-link" :href="item.action">{{ item.label }}</a>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./ebook.html">Ebook</a>
           </li>
         </ul>
         <a class="btn btn-search" onclick="openSearchModal()">
@@ -143,7 +112,73 @@
 <script>
 export default {
   name: "k-navbar-sahabat-pgd",
-  props: {},
+  props: {
+    image: {
+      type: String,
+      default:
+        "https://dl.dropboxusercontent.com/s/3eadt2tmgsyxda7/logo-sahabat-pegadaian.svg",
+    },
+    searchHandler: {
+      type: Function,
+      default: function () {
+        console.log("Your Function");
+      },
+    },
+    items: {
+      type: Array,
+      default: function () {
+        return [
+          {
+            label: "Produt",
+            action: "action",
+            child: null,
+          },
+          {
+            label: "Promo",
+            action: "action",
+            child: null,
+          },
+          {
+            label: "Artikel",
+            action: "action",
+            child: [
+              {
+                label: "Emas",
+                action: "child_action",
+              },
+              {
+                label: "Inspirasi",
+                action: "child_action",
+              },
+              {
+                label: "Wirausaha",
+                action: "child_action",
+              },
+            ],
+          },
+          {
+            label: "Acara",
+            action: "action_2",
+            child: null,
+          },
+          {
+            label: "Simulasi",
+            action: "action",
+            child: [
+              {
+                label: "Harga Emas Batangan",
+                action: "child_action",
+              },
+              {
+                label: "Simulasi Tabungan Emas",
+                action: "child_action",
+              },
+            ],
+          },
+        ];
+      },
+    },
+  },
 };
 </script>
 <style></style>

@@ -7,8 +7,8 @@
       />
     </div>
     <div class="btn-box-promo__text">
-      <h5>MULAINABUNG</h5>
-      <p>Gunakan Kode Promo</p>
+      <h5>{{ code }}</h5>
+      <p>{{ label }}</p>
     </div>
 
     <a class="btn-tertiary delete-promo"
@@ -21,7 +21,17 @@
 <script>
 export default {
   name: "k-card-promo-code-3",
-  props: {},
+  props: {
+    code: {
+      type: String,
+      default: "MULAINABUNG",
+    },
+    label: {
+      type: String,
+      default: "Gunakan Kode Promo",
+    },
+    action: Function,
+  },
 };
 </script>
 <style></style>
