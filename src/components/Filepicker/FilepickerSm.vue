@@ -17,7 +17,7 @@
       data-bs-target="#modal-upload-profile"
     >
       <img
-        src="https://dl.dropboxusercontent.com/s/mybidc5332pn1qo/ico-image-upload.svg"
+        src="/assets/images/ico-image-upload.svg"
         alt=""
       />
     </label>
@@ -50,7 +50,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>
@@ -62,7 +62,7 @@
             >
               <h6>Galeri</h6>
               <img
-                src="https://dl.dropboxusercontent.com/s/xl375rq4h2z6c26/image-outline.svg"
+                src="/assets/images/image-outline.svg"
                 alt=""
               />
             </label>
@@ -72,7 +72,7 @@
             >
               <h6>Kamera</h6>
               <img
-                src="https://dl.dropboxusercontent.com/s/lnd6rl9xjmjzdoq/camera-outline.svg"
+                src="/assets/images/camera-outline.svg"
                 alt=""
               />
             </label>
@@ -86,7 +86,7 @@
             >
               <h6>Kamera</h6>
               <img
-                src="https://dl.dropboxusercontent.com/s/lnd6rl9xjmjzdoq/camera-outline.svg"
+                src="/assets/images/camera-outline.svg"
                 alt=""
               />
             </label>
@@ -114,7 +114,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>

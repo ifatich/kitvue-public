@@ -3,7 +3,7 @@
     Beli Emas
     <div class="icon-info mobile-hide">
       <img
-        src="https://dl.dropboxusercontent.com/s/aj1b446pab7o2oo/ico-info-tips.svg"
+        src="/assets/images/ico-info-tips.svg"
         alt=""
       />
       <div class="tooltips">
@@ -17,7 +17,7 @@
       data-bs-target="#beliEmas"
     >
       <img
-        src="https://dl.dropboxusercontent.com/s/aj1b446pab7o2oo/ico-info-tips.svg"
+        src="/assets/images/ico-info-tips.svg"
         alt=""
       />
     </div>
@@ -43,7 +43,7 @@
                 aria-label="Close"
               >
                 <img
-                  src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                  src="/assets/images/close.svg"
                   alt=""
                 />
               </button>

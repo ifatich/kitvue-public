@@ -2,7 +2,7 @@
   <a :href="action" class="btn btn-tertiary"
     >{{ text }}
     <img
-      src="https://dl.dropboxusercontent.com/s/ft5eipwmtxysb0n/icon-chevron-right-green.svg"
+      src="/assets/images/icon-chevron-right-green.svg"
       alt=""
   /></a>
 </template>
@@ -17,7 +17,7 @@ export default {
     action: {
       type: [String, Function],
       default:
-        "https://dl.dropboxusercontent.com/s/ft5eipwmtxysb0n/icon-chevron-right-green.svg",
+        "/assets/images/icon-chevron-right-green.svg",
     },
   },
 };

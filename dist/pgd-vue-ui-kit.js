@@ -10,7 +10,7 @@ const _hoisted_1$1e = { class: "input-group add-amount-counter" };
 const _hoisted_2$16 = /*#__PURE__*/vue.createElementVNode("div", { class: "add-amount-counter-box" }, [
   /*#__PURE__*/vue.createElementVNode("a", { class: "add-amount-counter-box__button btn-decrement" }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/jo9wfsxd294jjr6/icon-min-outline-dark.svg",
+      src: "/assets/images/icon-min-outline-dark.svg",
       alt: ""
     })
   ]),
@@ -27,7 +27,7 @@ const _hoisted_2$16 = /*#__PURE__*/vue.createElementVNode("div", { class: "add-a
   ]),
   /*#__PURE__*/vue.createElementVNode("a", { class: "add-amount-counter-box__button btn-increment" }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/d7qbw3rdesg056n/icon-add-outline-green.svg",
+      src: "/assets/images/icon-add-outline-green.svg",
       alt: ""
     })
   ])
@@ -56,7 +56,7 @@ const _hoisted_1$1d = {
   "data-bs-target": "#modal-tambah-saham"
 };
 const _hoisted_2$15 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/hwxxnep8t4gg89g/ico-add-green.svg",
+  src: "/assets/images/ico-add-green.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 
@@ -77,8 +77,8 @@ var script$1e = {
       type: Array,
       required: false,
       default: () => [
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
       ],
     },
   },
@@ -114,8 +114,8 @@ var script$1d = {
       type: Array,
       required: false,
       default: () => [
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
       ],
     },
   },
@@ -134,7 +134,7 @@ const _hoisted_9$k = /*#__PURE__*/vue.createElementVNode("span", {
   "aria-live": "assertive",
   "aria-atomic": "true"
 }, null, -1 /* HOISTED */);
-const _hoisted_10$j = /*#__PURE__*/vue.createStaticVNode("<div class=\"carousel-navigator\"><button class=\"btn-circle btn-circle-prev\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/chevron-left.svg\" alt=\"go to previous slide\"></button><button class=\"btn-circle btn-circle-next\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/chevron-right.svg\" alt=\"go to next slide\"></button></div><div class=\"carousel-indicators\"></div>", 2);
+const _hoisted_10$j = /*#__PURE__*/vue.createStaticVNode("<div class=\"carousel-navigator\"><button class=\"btn-circle btn-circle-prev\"><img src=\"/assets/images/chevron-left.svg\" alt=\"go to previous slide\"></button><button class=\"btn-circle btn-circle-next\"><img src=\"/assets/images/chevron-right.svg\" alt=\"go to next slide\"></button></div><div class=\"carousel-indicators\"></div>", 2);
 
 function render$1d(_ctx, _cache, $props, $setup, $data, $options) {
   return (vue.openBlock(), vue.createElementBlock("div", _hoisted_1$1b, [
@@ -177,7 +177,7 @@ var script$1c = {
     mainLogo: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-down-white.svg",
+        "/assets/images/ico-down-white.svg",
     },
     mainDescription: {
       type: String,
@@ -187,7 +187,7 @@ var script$1c = {
     mainImage: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/gadai-kendaraan.png",
+        "/assets/images/gadai-kendaraan.png",
     },
     subTitle: {
       type: String,
@@ -202,7 +202,7 @@ var script$1c = {
     subLogo: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-kendaraan.svg",
+        "/assets/images/ico-kendaraan.svg",
     },
   },
 };
@@ -221,7 +221,7 @@ const _hoisted_7$q = /*#__PURE__*/vue.createTextVNode("Lihat lebih banyak ");
 const _hoisted_8$l = ["src"];
 const _hoisted_9$j = /*#__PURE__*/vue.createElementVNode("div", { class: "right-section" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/round-img5.png",
+    src: "/assets/images/round-img5.png",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -277,7 +277,7 @@ var script$1b = {
     mainLogo: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-down-white.svg",
+        "/assets/images/ico-down-white.svg",
     },
     mainDescription: {
       type: String,
@@ -287,7 +287,7 @@ var script$1b = {
     mainImage: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/gadai-kendaraan-syariah.png",
+        "/assets/images/gadai-kendaraan-syariah.png",
     },
     subTitle: {
       type: String,
@@ -303,7 +303,7 @@ var script$1b = {
     subLogo: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-kendaraan.svg",
+        "/assets/images/ico-kendaraan.svg",
     },
     items: {
       type: Array,
@@ -332,7 +332,7 @@ const _hoisted_7$p = /*#__PURE__*/vue.createTextVNode("Lihat lebih banyak ");
 const _hoisted_8$k = ["src"];
 const _hoisted_9$i = /*#__PURE__*/vue.createElementVNode("div", { class: "right-section" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/round-img10.png",
+    src: "/assets/images/round-img10.png",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -391,7 +391,7 @@ var script$1a = {
       default: () => [
         {
           imageUrl:
-            "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner.png",
+            "/assets/images/banner.png",
           tag: "Inspirasi",
           title: "Ide Hadiah untuk Ibu Tersayang",
           desc: `“Kasih sayang Ibu sepanjang masa, kasih sayang anak sepanjang galah”
@@ -401,7 +401,7 @@ var script$1a = {
         },
         {
           imageUrl:
-            "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner.png",
+            "/assets/images/banner.png",
           tag: "Inspirasi",
           title: "Ide Hadiah untuk Ibu Tersayang",
           desc: `“Kasih sayang Ibu sepanjang masa, kasih sayang anak sepanjang galah”
@@ -478,7 +478,7 @@ function render$19(_ctx, _cache, $props, $setup, $data, $options) {
           (index === $props.items.length - 1)
             ? (vue.openBlock(), vue.createElementBlock(vue.Fragment, { key: 0 }, [
                 vue.createTextVNode(vue.toDisplayString(item), 1 /* TEXT */)
-              ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
+              ], 64 /* STABLE_FRAGMENT */))
             : vue.createCommentVNode("v-if", true),
           (index !== $props.items.length - 1)
             ? (vue.openBlock(), vue.createElementBlock("a", _hoisted_3$R, vue.toDisplayString(item), 1 /* TEXT */))
@@ -674,7 +674,7 @@ var script$13 = {
         return [
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner2.png",
+              "/assets/images/image-banner2.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -689,7 +689,7 @@ var script$13 = {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner3.png",
+              "/assets/images/image-banner3.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -701,7 +701,7 @@ var script$13 = {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner2.png",
+              "/assets/images/image-banner2.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -713,7 +713,7 @@ var script$13 = {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner1.png",
+              "/assets/images/image-banner1.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -733,7 +733,7 @@ const _hoisted_1$12 = { class: "p-5" };
 const _hoisted_2$Y = { class: "pgd-carousel-promo" };
 const _hoisted_3$O = /*#__PURE__*/vue.createElementVNode("div", { class: "promo-left" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/img-promo.png",
+    src: "/assets/images/img-promo.png",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -746,7 +746,7 @@ const _hoisted_9$h = ["href"];
 const _hoisted_10$g = { class: "promo-right__code" };
 const _hoisted_11$c = /*#__PURE__*/vue.createElementVNode("div", { class: "pr-code-top" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/coupon.png",
+    src: "/assets/images/coupon.png",
     alt: ""
   }),
   /*#__PURE__*/vue.createElementVNode("h5", null, "Kode Promo")
@@ -824,7 +824,7 @@ var script$12 = {
         return [
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-artikel1.png",
+              "/assets/images/banner-artikel1.png",
             label: "Inspirasi",
             periodeLabel: "16 December 2020",
             title: "Cara Jualan Online Selama Bulan Ramadan",
@@ -838,7 +838,7 @@ var script$12 = {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner3.png",
+              "/assets/images/image-banner3.png",
             label: "Label",
             periodeLabel: "16 December 2020",
             title: "Title",
@@ -849,7 +849,7 @@ var script$12 = {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner2.png",
+              "/assets/images/image-banner2.png",
             label: "Label",
             periodeLabel: "16 December 2020",
             title: "Cara Jualan Online Selama Jelang Ramadan",
@@ -874,7 +874,7 @@ const _hoisted_7$m = { class: "content-item__tag bg-primary" };
 const _hoisted_8$i = { class: "content-item__title" };
 const _hoisted_9$g = { class: "content-item__date" };
 const _hoisted_10$f = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/clock.svg",
+  src: "/assets/images/clock.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_11$b = /*#__PURE__*/vue.createElementVNode("div", { class: "bottom-nav-background" }, null, -1 /* HOISTED */);
@@ -1036,7 +1036,7 @@ const _hoisted_3$L = /*#__PURE__*/vue.createElementVNode("div", { class: "progre
 const _hoisted_4$y = /*#__PURE__*/vue.createElementVNode("div", { class: "ajak-sahabat-info__bottom" }, [
   /*#__PURE__*/vue.createElementVNode("p", null, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-crown-yellow.svg",
+      src: "/assets/images/ico-crown-yellow.svg",
       alt: ""
     }),
     /*#__PURE__*/vue.createTextVNode(" Kamu ada di peringkat 3.880.000! ")
@@ -1119,7 +1119,7 @@ var script$_ = {
 const _hoisted_1$Z = { class: "mb-4" };
 const _hoisted_2$T = { id: "no-rek-utama" };
 const _hoisted_3$K = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/v2silnyi0qkgjda/ico-emas-black.svg",
+  src: "/assets/images/ico-emas-black.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 
@@ -1149,7 +1149,7 @@ var script$Z = {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/f36tb9d0f3lxuar/image13.png",
+        "/assets/images/image13.png",
     },
     label: {
       type: String,
@@ -1253,7 +1253,7 @@ const _hoisted_1$X = { class: "artikel-category" };
 const _hoisted_2$R = { class: "artikel-category__top" };
 const _hoisted_3$I = /*#__PURE__*/vue.createElementVNode("div", { class: "img-overlay" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/iqlg9xxgjiz884x/banner-artikel7.png",
+    src: "/assets/images/banner-artikel7.png",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -1262,7 +1262,7 @@ const _hoisted_5$r = { class: "content-item__tag bg-primary" };
 const _hoisted_6$l = { class: "content-item__title" };
 const _hoisted_7$k = { class: "content-item__date" };
 const _hoisted_8$g = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/7thjx5cu9ar75k6/clock.svg",
+  src: "/assets/images/clock.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 
@@ -1301,7 +1301,7 @@ var script$X = {
     icon: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/stm8f4vuko68qs0/icon-karir.svg",
+        "/assets/images/icon-karir.svg",
     },
     title: {
       type: String,
@@ -1358,7 +1358,7 @@ var script$W = {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/7dscsa0gxnv2mbs/img-acara.png",
+        "/assets/images/img-acara.png",
     },
     date: {
       type: String,
@@ -1462,7 +1462,7 @@ var script$V = {
     image: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ebook2.png",
+        "/assets/images/ebook2.png",
     },
     subtitle: {
       type: String,
@@ -1524,7 +1524,7 @@ var script$U = {
     icon: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg",
+        "/assets/images/pegadaian-ico.svg",
     },
     title: {
       type: String,
@@ -1537,7 +1537,7 @@ var script$U = {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png",
+        "/assets/images/product-card.png",
     },
     body: {
       type: String,
@@ -1603,7 +1603,7 @@ var script$T = {
 };
 
 const _hoisted_1$S = { class: "card-produk" };
-const _hoisted_2$M = /*#__PURE__*/vue.createStaticVNode("<a href=\"./produk-gadai-efek.html\"><div class=\"card-produk__top\"><img src=\"https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png\" alt=\"\"></div><div class=\"card-produk__bottom\"><div class=\"icon-box\"><img src=\"https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg\" alt=\"\"></div><div class=\"status-box\"><div class=\"pgd-status\">Konvesional</div><div class=\"pgd-status-blue\">Syariah</div></div><h5>Gadai Efek</h5><p> Penuhi kebutuhan di luar dugaan dengan cepat dengan gadai emas batangan maupun perhiasan... </p></div></a>", 1);
+const _hoisted_2$M = /*#__PURE__*/vue.createStaticVNode("<a href=\"./produk-gadai-efek.html\"><div class=\"card-produk__top\"><img src=\"/assets/images/product-card.png\" alt=\"\"></div><div class=\"card-produk__bottom\"><div class=\"icon-box\"><img src=\"/assets/images/pegadaian-ico.svg\" alt=\"\"></div><div class=\"status-box\"><div class=\"pgd-status\">Konvesional</div><div class=\"pgd-status-blue\">Syariah</div></div><h5>Gadai Efek</h5><p> Penuhi kebutuhan di luar dugaan dengan cepat dengan gadai emas batangan maupun perhiasan... </p></div></a>", 1);
 const _hoisted_3$D = [
   _hoisted_2$M
 ];
@@ -1621,7 +1621,7 @@ var script$S = {
 };
 
 const _hoisted_1$R = { class: "card-produk" };
-const _hoisted_2$L = /*#__PURE__*/vue.createStaticVNode("<div class=\"syariah\"><a href=\"./produk-gadai-efek.html\"><div class=\"card-produk__top\"><img src=\"https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png\" alt=\"\"></div></a></div><div class=\"card-produk__bottom\"><div class=\"icon-box\"><img src=\"https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg\" alt=\"\"></div><div class=\"status-box\"><div class=\"pgd-status\">Syariah</div></div><h5>Gadai Efek</h5><p> Penuhi kebutuhan di luar dugaan dengan cepat dengan gadai emas batangan maupun perhiasan... </p></div>", 2);
+const _hoisted_2$L = /*#__PURE__*/vue.createStaticVNode("<div class=\"syariah\"><a href=\"./produk-gadai-efek.html\"><div class=\"card-produk__top\"><img src=\"/assets/images/product-card.png\" alt=\"\"></div></a></div><div class=\"card-produk__bottom\"><div class=\"icon-box\"><img src=\"/assets/images/pegadaian-ico.svg\" alt=\"\"></div><div class=\"status-box\"><div class=\"pgd-status\">Syariah</div></div><h5>Gadai Efek</h5><p> Penuhi kebutuhan di luar dugaan dengan cepat dengan gadai emas batangan maupun perhiasan... </p></div>", 2);
 const _hoisted_4$r = [
   _hoisted_2$L
 ];
@@ -1696,7 +1696,7 @@ var script$R = {
 const _hoisted_1$Q = { class: "card-promo" };
 const _hoisted_2$K = /*#__PURE__*/vue.createElementVNode("div", { class: "card-promo__top" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/vi6mqix3kmzs6n8/img-promo.png",
+    src: "/assets/images/img-promo.png",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -1708,7 +1708,7 @@ const _hoisted_7$g = { class: "slug-box__date" };
 const _hoisted_8$c = { class: "promo-code-box" };
 const _hoisted_9$b = /*#__PURE__*/vue.createElementVNode("div", { class: "promo-code-box__top" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/9zbkljajtry1tzs/coupon.png",
+    src: "/assets/images/coupon.png",
     alt: ""
   }),
   /*#__PURE__*/vue.createElementVNode("h5", null, "Kode Promo")
@@ -1729,7 +1729,7 @@ const _hoisted_13$a = /*#__PURE__*/vue.createElementVNode("div", {
     onclick: "$('#1').hide()"
   }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/9adobynb1elkelw/close-white.svg",
+      src: "/assets/images/close-white.svg",
       alt: ""
     })
   ])
@@ -1850,7 +1850,7 @@ const _hoisted_1$O = {
 };
 const _hoisted_2$I = /*#__PURE__*/vue.createElementVNode("div", { class: "icon" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/j0g3sis191rz7ag/coupon-ico.svg",
+    src: "/assets/images/coupon-ico.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -1886,14 +1886,14 @@ var script$O = {
 const _hoisted_1$N = { class: "box-promo btn-box-promo" };
 const _hoisted_2$H = /*#__PURE__*/vue.createElementVNode("div", { class: "icon" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/j0g3sis191rz7ag/coupon-ico.svg",
+    src: "/assets/images/coupon-ico.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
 const _hoisted_3$z = { class: "btn-box-promo__text" };
 const _hoisted_4$p = /*#__PURE__*/vue.createElementVNode("a", { class: "btn-tertiary delete-promo" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+    src: "/assets/images/close.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -1918,7 +1918,7 @@ var script$N = {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/fr18rgd6lhrrqrf/voucher-active.png",
+        "/assets/images/voucher-active.png",
     },
     title: {
       type: String,
@@ -1947,7 +1947,7 @@ const _hoisted_5$l = ["href"];
 const _hoisted_6$g = { class: "voucher-period" };
 const _hoisted_7$f = { class: "voucher-period__desc" };
 const _hoisted_8$b = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/7thjx5cu9ar75k6/clock.svg",
+  src: "/assets/images/clock.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_9$a = ["href"];
@@ -2002,12 +2002,12 @@ var script$M = {
               {
                 label: "G-Cash BNI",
                 value: "2980 8131 6069 555",
-                icon: "https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png",
+                icon: "/assets/images/logo-gcash-bni.png",
               },
               {
                 label: "G-Cash BRI",
                 value: "8438 8131 6069 555",
-                icon: "https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png",
+                icon: "/assets/images/logo-gcash-bri.png",
               },
             ],
           },
@@ -2017,22 +2017,22 @@ var script$M = {
               {
                 value: "4516 7859 1241 232",
                 label: "Bank BCA",
-                icon: "https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png",
+                icon: "/assets/images/logo-bank-bca.png",
               },
               {
                 value: "4516 7859 1241 232",
                 label: "Bank BNI",
-                icon: "https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png",
+                icon: "/assets/images/logo-bank-bni.png",
               },
               {
                 value: "4516 7859 1241 232",
                 label: "Bank BRI",
-                icon: "https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png",
+                icon: "/assets/images/logo-bank-bri.png",
               },
               {
                 value: "4516 7859 1241 232",
                 label: "Bank MANDIRI",
-                icon: "https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png",
+                icon: "/assets/images/logo-bank-mandiri.png",
               },
             ],
           },
@@ -2073,7 +2073,7 @@ const _hoisted_10$a = { class: "accordion-body" };
 const _hoisted_11$7 = /*#__PURE__*/vue.createElementVNode("div", { class: "pgd-box-search-grey m-2" }, [
   /*#__PURE__*/vue.createElementVNode("div", { class: "icon" }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg",
+      src: "/assets/images/search-dark.svg",
       alt: ""
     })
   ]),
@@ -2085,14 +2085,14 @@ const _hoisted_11$7 = /*#__PURE__*/vue.createElementVNode("div", { class: "pgd-b
 const _hoisted_12$8 = { class: "box-search-rekening-tujuan" };
 const _hoisted_13$9 = {
   class: "box-item__content",
-  onclick: "BankSelected3(this, 'G-Cash BNI', 'https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png', 'Thoriq Sadad ','2980 8131 6069 555')"
+  onclick: "BankSelected3(this, 'G-Cash BNI', '/assets/images/logo-gcash-bni.png', 'Thoriq Sadad ','2980 8131 6069 555')"
 };
 const _hoisted_14$9 = { class: "img-box" };
 const _hoisted_15$9 = ["src"];
 const _hoisted_16$8 = { class: "box-detail" };
 const _hoisted_17$7 = /*#__PURE__*/vue.createElementVNode("img", {
   class: "ico-check ml-auto",
-  src: "https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg",
+  src: "/assets/images/icon-checklist.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_18$7 = /*#__PURE__*/vue.createElementVNode("div", { class: "line-divider" }, null, -1 /* HOISTED */);
@@ -2127,7 +2127,7 @@ const _hoisted_26$1 = /*#__PURE__*/vue.createElementVNode("div", { class: "" }, 
   /*#__PURE__*/vue.createElementVNode("span", { id: "kredit-mobile-span2" })
 ], -1 /* HOISTED */);
 const _hoisted_27$1 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg",
+  src: "/assets/images/icon-down.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_28$1 = { class: "section-overlay-modal-pds" };
@@ -2154,7 +2154,7 @@ const _hoisted_34 = /*#__PURE__*/vue.createElementVNode("button", {
   "aria-label": "Close"
 }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+    src: "/assets/images/close.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -2163,7 +2163,7 @@ const _hoisted_36 = { class: "box-search-rekening-tujuan" };
 const _hoisted_37 = /*#__PURE__*/vue.createElementVNode("div", { class: "pgd-box-search-grey" }, [
   /*#__PURE__*/vue.createElementVNode("div", { class: "icon" }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg",
+      src: "/assets/images/search-dark.svg",
       alt: ""
     })
   ]),
@@ -2176,7 +2176,7 @@ const _hoisted_37 = /*#__PURE__*/vue.createElementVNode("div", { class: "pgd-box
 ], -1 /* HOISTED */);
 const _hoisted_38 = {
   class: "box-item__content jenis-item",
-  onclick: "pilihComboBox5('G-Cash BNI', 'Thoriq Sadad ',this,'2980 8131 6069 555', 'https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')",
+  onclick: "pilihComboBox5('G-Cash BNI', 'Thoriq Sadad ',this,'2980 8131 6069 555', '/assets/images/logo-gcash-bni.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')",
   "data-bs-dismiss": "modal"
 };
 const _hoisted_39 = { class: "img-box" };
@@ -2184,7 +2184,7 @@ const _hoisted_40 = ["src"];
 const _hoisted_41 = { class: "box-detail" };
 const _hoisted_42 = /*#__PURE__*/vue.createElementVNode("img", {
   class: "ico-check ml-auto",
-  src: "https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg",
+  src: "/assets/images/icon-checklist.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_43 = /*#__PURE__*/vue.createElementVNode("div", { class: "line-divider" }, null, -1 /* HOISTED */);
@@ -2364,11 +2364,11 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
           /*#__PURE__*/vue.createElementVNode("div", { class: "box-item" }, [
             /*#__PURE__*/vue.createElementVNode("div", {
               class: "box-item__content",
-              onclick: "rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '100,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+              onclick: "rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '100,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
             }, [
               /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                 /*#__PURE__*/vue.createElementVNode("img", {
-                  src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                  src: "/assets/images/ico-tabungan.svg",
                   alt: ""
                 })
               ]),
@@ -2382,11 +2382,11 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
           /*#__PURE__*/vue.createElementVNode("div", { class: "box-item" }, [
             /*#__PURE__*/vue.createElementVNode("div", {
               class: "box-item__content",
-              onclick: "rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+              onclick: "rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
             }, [
               /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                 /*#__PURE__*/vue.createElementVNode("img", {
-                  src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                  src: "/assets/images/ico-tabungan.svg",
                   alt: ""
                 })
               ]),
@@ -2400,11 +2400,11 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
           /*#__PURE__*/vue.createElementVNode("div", { class: "box-item" }, [
             /*#__PURE__*/vue.createElementVNode("div", {
               class: "box-item__content",
-              onclick: "rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '300,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+              onclick: "rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '300,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
             }, [
               /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                 /*#__PURE__*/vue.createElementVNode("img", {
-                  src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                  src: "/assets/images/ico-tabungan.svg",
                   alt: ""
                 })
               ]),
@@ -2418,11 +2418,11 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
           /*#__PURE__*/vue.createElementVNode("div", { class: "box-item" }, [
             /*#__PURE__*/vue.createElementVNode("div", {
               class: "box-item__content",
-              onclick: "rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '400,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+              onclick: "rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '400,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
             }, [
               /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                 /*#__PURE__*/vue.createElementVNode("img", {
-                  src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                  src: "/assets/images/ico-tabungan.svg",
                   alt: ""
                 })
               ]),
@@ -2436,11 +2436,11 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
           /*#__PURE__*/vue.createElementVNode("div", { class: "box-item" }, [
             /*#__PURE__*/vue.createElementVNode("div", {
               class: "box-item__content",
-              onclick: "rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+              onclick: "rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
             }, [
               /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                 /*#__PURE__*/vue.createElementVNode("img", {
-                  src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                  src: "/assets/images/ico-tabungan.svg",
                   alt: ""
                 })
               ]),
@@ -2454,11 +2454,11 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
           /*#__PURE__*/vue.createElementVNode("div", { class: "box-item" }, [
             /*#__PURE__*/vue.createElementVNode("div", {
               class: "box-item__content",
-              onclick: "rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+              onclick: "rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
             }, [
               /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                 /*#__PURE__*/vue.createElementVNode("img", {
-                  src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                  src: "/assets/images/ico-tabungan.svg",
                   alt: ""
                 })
               ]),
@@ -2490,7 +2490,7 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
         id: "kredit-img-box"
       }, [
         /*#__PURE__*/vue.createElementVNode("img", {
-          src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+          src: "/assets/images/ico-tabungan.svg",
           alt: ""
         })
       ]),
@@ -2503,7 +2503,7 @@ const _hoisted_1$K = /*#__PURE__*/vue.createElementVNode("div", { class: "group-
       ])
     ]),
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "ps://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg",
+      src: "/assets/images/icon-down.svg",
       alt: ""
     })
   ])
@@ -2531,7 +2531,7 @@ const _hoisted_2$E = /*#__PURE__*/vue.createElementVNode("section", { class: "se
             "aria-label": "Close"
           }, [
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+              src: "/assets/images/close.svg",
               alt: ""
             })
           ])
@@ -2546,7 +2546,7 @@ const _hoisted_2$E = /*#__PURE__*/vue.createElementVNode("section", { class: "se
               /*#__PURE__*/vue.createElementVNode("div", { class: "option-with-img" }, [
                 /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                   /*#__PURE__*/vue.createElementVNode("img", {
-                    src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                    src: "/assets/images/ico-tabungan.svg",
                     alt: ""
                   })
                 ]),
@@ -2564,7 +2564,7 @@ const _hoisted_2$E = /*#__PURE__*/vue.createElementVNode("section", { class: "se
               /*#__PURE__*/vue.createElementVNode("div", { class: "option-with-img" }, [
                 /*#__PURE__*/vue.createElementVNode("div", { class: "img-box" }, [
                   /*#__PURE__*/vue.createElementVNode("img", {
-                    src: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+                    src: "/assets/images/ico-tabungan.svg",
                     alt: ""
                   })
                 ]),
@@ -2668,7 +2668,7 @@ const _hoisted_10$9 = { class: "accordion-body" };
 const _hoisted_11$6 = { class: "pgd-box-search-grey m-2" };
 const _hoisted_12$7 = /*#__PURE__*/vue.createElementVNode("div", { class: "icon" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg",
+    src: "/assets/images/search-dark.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -2679,7 +2679,7 @@ const _hoisted_14$8 = {
 };
 const _hoisted_15$8 = { class: "box-ceklist" };
 const _hoisted_16$7 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg",
+  src: "/assets/images/icon-checklist.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_17$6 = /*#__PURE__*/vue.createElementVNode("input", {
@@ -2699,7 +2699,7 @@ const _hoisted_19$6 = {
   class: "btn-pilih-jangka__text"
 };
 const _hoisted_20$6 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg",
+  src: "/assets/images/icon-down.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_21$6 = { class: "section-overlay-modal-pds" };
@@ -2725,7 +2725,7 @@ const _hoisted_27 = /*#__PURE__*/vue.createElementVNode("button", {
   "aria-label": "Close"
 }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+    src: "/assets/images/close.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -2849,7 +2849,7 @@ const _hoisted_2$C = /*#__PURE__*/vue.createElementVNode("div", {
 const _hoisted_3$v = /*#__PURE__*/vue.createElementVNode("div", { class: "custom-file-upload__box-input" }, [
   /*#__PURE__*/vue.createElementVNode("span", { class: "custom-file-upload__box-input-icon" }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/mybidc5332pn1qo/ico-image-upload.svg",
+      src: "/assets/images/ico-image-upload.svg",
       alt: ""
     })
   ]),
@@ -2930,7 +2930,7 @@ const _hoisted_2$B = /*#__PURE__*/vue.createElementVNode("div", { class: "box-up
     "data-bs-target": "#modal-upload-profile"
   }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/mybidc5332pn1qo/ico-image-upload.svg",
+      src: "/assets/images/ico-image-upload.svg",
       alt: ""
     })
   ]),
@@ -2961,7 +2961,7 @@ const _hoisted_3$u = /*#__PURE__*/vue.createElementVNode("section", { class: "se
             "aria-label": "Close"
           }, [
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+              src: "/assets/images/close.svg",
               alt: ""
             })
           ])
@@ -2973,7 +2973,7 @@ const _hoisted_3$u = /*#__PURE__*/vue.createElementVNode("section", { class: "se
           }, [
             /*#__PURE__*/vue.createElementVNode("h6", null, "Galeri"),
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/xl375rq4h2z6c26/image-outline.svg",
+              src: "/assets/images/image-outline.svg",
               alt: ""
             })
           ]),
@@ -2983,7 +2983,7 @@ const _hoisted_3$u = /*#__PURE__*/vue.createElementVNode("section", { class: "se
           }, [
             /*#__PURE__*/vue.createElementVNode("h6", null, "Kamera"),
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/lnd6rl9xjmjzdoq/camera-outline.svg",
+              src: "/assets/images/camera-outline.svg",
               alt: ""
             })
           ]),
@@ -2997,7 +2997,7 @@ const _hoisted_3$u = /*#__PURE__*/vue.createElementVNode("section", { class: "se
           }, [
             /*#__PURE__*/vue.createElementVNode("h6", null, "Kamera"),
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/lnd6rl9xjmjzdoq/camera-outline.svg",
+              src: "/assets/images/camera-outline.svg",
               alt: ""
             })
           ])
@@ -3028,7 +3028,7 @@ const _hoisted_3$u = /*#__PURE__*/vue.createElementVNode("section", { class: "se
             "aria-label": "Close"
           }, [
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+              src: "/assets/images/close.svg",
               alt: ""
             })
           ])
@@ -3096,13 +3096,13 @@ var script$H = {
       default: function () {
         return {
           facebook:
-            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+            "/assets/images/facebook.svg",
           twitter:
-            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+            "/assets/images/twitter.svg",
           instagram:
-            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+            "/assets/images/instagram.svg",
           youtube:
-            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+            "/assets/images/youtube.svg",
         };
       },
     },
@@ -3116,9 +3116,9 @@ const _hoisted_4$k = { class: "box-map" };
 const _hoisted_5$i = ["href"];
 const _hoisted_6$d = { class: "box-map" };
 const _hoisted_7$c = ["href"];
-const _hoisted_8$9 = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div\"><h4>Download Pegadaian Digital</h4><div class=\"box-download-app\"><a href=\"https://play.google.com/store/apps/details?id=com.pegadaiandigital&amp;hl=en&amp;gl=US\"><img src=\"https://dl.dropboxusercontent.com/s/l5rwge1z23cq4ge/google-play-badge.png\" alt=\"\"></a><a href=\"https://apps.apple.com/us/app/pegadaian-digital/id1350501409\"><img src=\"https://dl.dropboxusercontent.com/s/5e5cty67bqpc887/badge-app.png\" alt=\"\"></a></div><span>PT. Pegadaian (Persero) terdaftar dan diawasi oleh</span><br><img src=\"https://dl.dropboxusercontent.com/s/u0hdhxyv9hcmar3/ojk.png\" alt=\"\" class=\"ojk\"></div>", 1);
+const _hoisted_8$9 = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div\"><h4>Download Pegadaian Digital</h4><div class=\"box-download-app\"><a href=\"https://play.google.com/store/apps/details?id=com.pegadaiandigital&amp;hl=en&amp;gl=US\"><img src=\"/assets/images/google-play-badge.png\" alt=\"\"></a><a href=\"/assets/images/id1350501409\"><img src=\"/assets/images/badge-app.png\" alt=\"\"></a></div><span>PT. Pegadaian (Persero) terdaftar dan diawasi oleh</span><br><img src=\"/assets/images/ojk.png\" alt=\"\" class=\"ojk\"></div>", 1);
 const _hoisted_9$7 = { class: "footer-box__div-3" };
-const _hoisted_10$8 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-2\"><div class=\"location\"><img class=\"location__icon\" src=\"https://dl.dropboxusercontent.com/s/6zfu1my4mi6zsbp/pinpoint.svg\"><span class=\"location__text\">Jl. Kramat Raya 162 Jakarta Pusat 10430<br> Indonesia</span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"https://dl.dropboxusercontent.com/s/zha8knznkbyigrh/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"https://dl.dropboxusercontent.com/s/rh0hy2qyn0hwfjh/box-mail.svg\" alt=\"\"><span>021 8063 5162 </span></div></div><img src=\"https://dl.dropboxusercontent.com/s/h6guv72qux35urd/call-center.svg\" class=\"call-center\" alt=\"\"></div>", 2);
+const _hoisted_10$8 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-2\"><div class=\"location\"><img class=\"location__icon\" src=\"/assets/images/pinpoint.svg\"><span class=\"location__text\">Jl. Kramat Raya 162 Jakarta Pusat 10430<br> Indonesia</span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"/assets/images/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"/assets/images/box-mail.svg\" alt=\"\"><span>021 8063 5162 </span></div></div><img src=\"/assets/images/call-center.svg\" class=\"call-center\" alt=\"\"></div>", 2);
 const _hoisted_12$6 = { class: "social-media-desktop" };
 const _hoisted_13$7 = /*#__PURE__*/vue.createElementVNode("h4", null, "Ikuti Media Sosial Kami", -1 /* HOISTED */);
 const _hoisted_14$7 = { class: "box-map-2" };
@@ -3260,13 +3260,13 @@ var script$G = {
       default: function () {
         return {
           facebook:
-            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+            "/assets/images/facebook.svg",
           twitter:
-            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+            "/assets/images/twitter.svg",
           instagram:
-            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+            "/assets/images/instagram.svg",
           youtube:
-            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+            "/assets/images/youtube.svg",
         };
       },
     },
@@ -3278,9 +3278,9 @@ const _hoisted_2$z = { class: "footer-box" };
 const _hoisted_3$s = { class: "footer-box__div" };
 const _hoisted_4$j = { class: "box-map" };
 const _hoisted_5$h = ["href"];
-const _hoisted_6$c = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div\"><h4>Download Pegadaian Digital</h4><div class=\"box-download-app\"><a href=\"https://play.google.com/store/apps/details?id=com.pegadaiandigital&amp;hl=en&amp;gl=US\"><img src=\"https://dl.dropboxusercontent.com/s/l5rwge1z23cq4ge/google-play-badge.png\" alt=\"\"></a><a href=\"https://apps.apple.com/us/app/pegadaian-digital/id1350501409\"><img src=\"https://dl.dropboxusercontent.com/s/5e5cty67bqpc887/badge-app.png\" alt=\"\"></a></div><span>PT. Pegadaian (Persero) terdaftar dan diawasi oleh</span><br><img src=\"https://dl.dropboxusercontent.com/s/u0hdhxyv9hcmar3/ojk.png\" alt=\"\" class=\"ojk\"></div>", 1);
+const _hoisted_6$c = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div\"><h4>Download Pegadaian Digital</h4><div class=\"box-download-app\"><a href=\"https://play.google.com/store/apps/details?id=com.pegadaiandigital&amp;hl=en&amp;gl=US\"><img src=\"/assets/images/google-play-badge.png\" alt=\"\"></a><a href=\"https://apps.apple.com/us/app/pegadaian-digital/id1350501409\"><img src=\"/assets/images/badge-app.png\" alt=\"\"></a></div><span>PT. Pegadaian (Persero) terdaftar dan diawasi oleh</span><br><img src=\"/assets/images/ojk.png\" alt=\"\" class=\"ojk\"></div>", 1);
 const _hoisted_7$b = { class: "footer-box__div-3" };
-const _hoisted_8$8 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-2\"><div class=\"location\"><img class=\"location__icon\" src=\"https://dl.dropboxusercontent.com/s/6zfu1my4mi6zsbp/pinpoint.svg\"><span class=\"location__text\">Jl. Kramat Raya 162 Jakarta Pusat 10430<br> Indonesia</span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"https://dl.dropboxusercontent.com/s/zha8knznkbyigrh/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"https://dl.dropboxusercontent.com/s/rh0hy2qyn0hwfjh/box-mail.svg\" alt=\"\"><span>021 8063 5162 </span></div></div><img src=\"https://dl.dropboxusercontent.com/s/h6guv72qux35urd/call-center.svg\" class=\"call-center\" alt=\"\"></div>", 2);
+const _hoisted_8$8 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-2\"><div class=\"location\"><img class=\"location__icon\" src=\"/assets/images/pinpoint.svg\"><span class=\"location__text\">Jl. Kramat Raya 162 Jakarta Pusat 10430<br> Indonesia</span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"/assets/images/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"/assets/images/box-mail.svg\" alt=\"\"><span>021 8063 5162 </span></div></div><img src=\"/assets/images/call-center.svg\" class=\"call-center\" alt=\"\"></div>", 2);
 const _hoisted_10$7 = { class: "social-media-desktop" };
 const _hoisted_11$5 = /*#__PURE__*/vue.createElementVNode("h4", null, "Ikuti Media Sosial Kami", -1 /* HOISTED */);
 const _hoisted_12$5 = { class: "box-map-2" };
@@ -3411,13 +3411,13 @@ var script$F = {
       default: function () {
         return {
           facebook:
-            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+            "/assets/images/facebook.svg",
           twitter:
-            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+            "/assets/images/twitter.svg",
           instagram:
-            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+            "/assets/images/instagram.svg",
           youtube:
-            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+            "/assets/images/youtube.svg",
         };
       },
     },
@@ -3432,9 +3432,9 @@ const _hoisted_5$g = { class: "box-map" };
 const _hoisted_6$b = ["href"];
 const _hoisted_7$a = { class: "box-map" };
 const _hoisted_8$7 = ["href"];
-const _hoisted_9$6 = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div-2\"><div class=\"box-map-2\"><h4>PT Pegadaian (Persero) terdaftar dan diawasi oleh</h4><img src=\"https://dl.dropboxusercontent.com/s/u0hdhxyv9hcmar3/ojk.png\"></div><div class=\"box-map-2\"><h4>PT Pegadaian (Persero) telah terverifikasi</h4><img src=\"https://dl.dropboxusercontent.com/s/x9bkfnvtuyoniqp/logo_safegard.png\"></div></div>", 1);
+const _hoisted_9$6 = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div-2\"><div class=\"box-map-2\"><h4>PT Pegadaian (Persero) terdaftar dan diawasi oleh</h4><img src=\"/assets/images/ojk.png\"></div><div class=\"box-map-2\"><h4>PT Pegadaian (Persero) telah terverifikasi</h4><img src=\"/assets/images/logo_safegard.png\"></div></div>", 1);
 const _hoisted_10$6 = { class: "footer-box__div-3" };
-const _hoisted_11$4 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-3\"><div class=\"location\"><img class=\"location__icon\" src=\"https://dl.dropboxusercontent.com/s/6zfu1my4mi6zsbp/pinpoint.svg\" alt=\"\"><span class=\"location__text\"> Jl. Kramat Raya 162 Jakarta Pusat 10430 Indonesia </span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"https://dl.dropboxusercontent.com/s/zha8knznkbyigrh/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"https://dl.dropboxusercontent.com/s/rh0hy2qyn0hwfjh/box-mail.svg\" alt=\"\"><span>021 8063 5162</span></div></div><img class=\"call-center\" src=\"https://dl.dropboxusercontent.com/s/h6guv72qux35urd/call-center.svg\" alt=\"\"></div>", 2);
+const _hoisted_11$4 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-3\"><div class=\"location\"><img class=\"location__icon\" src=\"/assets/images/pinpoint.svg\" alt=\"\"><span class=\"location__text\"> Jl. Kramat Raya 162 Jakarta Pusat 10430 Indonesia </span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"/assets/images/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"/assets/images/box-mail.svg\" alt=\"\"><span>021 8063 5162</span></div></div><img class=\"call-center\" src=\"/assets/images/call-center.svg\" alt=\"\"></div>", 2);
 const _hoisted_13$5 = { class: "social-media" };
 const _hoisted_14$5 = /*#__PURE__*/vue.createElementVNode("h4", null, "Ikuti Media Sosial Kami", -1 /* HOISTED */);
 const _hoisted_15$5 = { class: "box-map-3" };
@@ -3580,13 +3580,13 @@ var script$E = {
       default: function () {
         return {
           facebook:
-            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+            "/assets/images/facebook.svg",
           twitter:
-            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+            "/assets/images/twitter.svg",
           instagram:
-            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+            "/assets/images/instagram.svg",
           youtube:
-            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+            "/assets/images/youtube.svg",
         };
       },
     },
@@ -3600,9 +3600,9 @@ const _hoisted_4$h = { class: "box-map" };
 const _hoisted_5$f = ["href"];
 const _hoisted_6$a = { class: "box-map" };
 const _hoisted_7$9 = ["href"];
-const _hoisted_8$6 = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div\"><h4>Download Pegadaian Digital</h4><div class=\"box-download-app\"><a href=\"https://play.google.com/store/apps/details?id=com.pegadaiandigital&amp;hl=en&amp;gl=US\"><img src=\"https://dl.dropboxusercontent.com/s/l5rwge1z23cq4ge/google-play-badge.png\" alt=\"\"></a><a href=\"https://apps.apple.com/us/app/pegadaian-digital/id1350501409\"><img src=\"https://dl.dropboxusercontent.com/s/5e5cty67bqpc887/badge-app.png\" alt=\"\"></a></div><span>PT. Pegadaian (Persero) terdaftar dan diawasi oleh</span><br><img src=\"https://dl.dropboxusercontent.com/s/u0hdhxyv9hcmar3/ojk.png\" alt=\"\" class=\"ojk\"></div>", 1);
+const _hoisted_8$6 = /*#__PURE__*/vue.createStaticVNode("<div class=\"footer-box__div\"><h4>Download Pegadaian Digital</h4><div class=\"box-download-app\"><a href=\"https://play.google.com/store/apps/details?id=com.pegadaiandigital&amp;hl=en&amp;gl=US\"><img src=\"/assets/images/google-play-badge.png\" alt=\"\"></a><a href=\"https://apps.apple.com/us/app/pegadaian-digital/id1350501409\"><img src=\"/assets/images/badge-app.png\" alt=\"\"></a></div><span>PT. Pegadaian (Persero) terdaftar dan diawasi oleh</span><br><img src=\"/assets/images/ojk.png\" alt=\"\" class=\"ojk\"></div>", 1);
 const _hoisted_9$5 = { class: "footer-box__div-3" };
-const _hoisted_10$5 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-2\"><div class=\"location\"><img class=\"location__icon\" src=\"https://dl.dropboxusercontent.com/s/6zfu1my4mi6zsbp/pinpoint.svg\"><span class=\"location__text\">Jl. Kramat Raya 162 Jakarta Pusat 10430<br> Indonesia</span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"https://dl.dropboxusercontent.com/s/zha8knznkbyigrh/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"https://dl.dropboxusercontent.com/s/rh0hy2qyn0hwfjh/box-mail.svg\" alt=\"\"><span>021 8063 5162 </span></div></div><img src=\"https://dl.dropboxusercontent.com/s/h6guv72qux35urd/call-center.svg\" class=\"call-center\" alt=\"\"></div>", 2);
+const _hoisted_10$5 = /*#__PURE__*/vue.createStaticVNode("<h4>Kantor Pusat Pegadaian</h4><div class=\"box-map-2\"><div class=\"location\"><img class=\"location__icon\" src=\"/assets/images/pinpoint.svg\"><span class=\"location__text\">Jl. Kramat Raya 162 Jakarta Pusat 10430<br> Indonesia</span></div><div class=\"contact\"><div class=\"contact__phone\"><img src=\"/assets/images/phone.svg\" alt=\"\"><span>021 3155 550 </span></div><div class=\"contact__box\"><img src=\"/assets/images/box-mail.svg\" alt=\"\"><span>021 8063 5162 </span></div></div><img src=\"/assets/images/call-center.svg\" class=\"call-center\" alt=\"\"></div>", 2);
 const _hoisted_12$4 = { class: "social-media-desktop" };
 const _hoisted_13$4 = /*#__PURE__*/vue.createElementVNode("h4", null, "Ikuti Media Sosial Kami", -1 /* HOISTED */);
 const _hoisted_14$4 = { class: "box-map-2" };
@@ -3714,7 +3714,7 @@ var script$D = {
 };
 
 const _hoisted_1$C = { class: "p-5" };
-const _hoisted_2$w = /*#__PURE__*/vue.createStaticVNode("<div class=\"row\"><div class=\"col\"><img class=\"product-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-tabungan.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-uang.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-gadai-titipan-emas-fisik.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-haji.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-riwayat-emas-batangan.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-pembayaran-no-bg.svg\" alt=\"system-icons\"></div></div>", 1);
+const _hoisted_2$w = /*#__PURE__*/vue.createStaticVNode("<div class=\"row\"><div class=\"col\"><img class=\"product-icons\" src=\"/assets/images/ico-tabungan.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"/assets/images/ico-uang.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"/assets/images/ico-gadai-titipan-emas-fisik.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"/assets/images/ico-haji.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"/assets/images/ico-riwayat-emas-batangan.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"product-icons\" src=\"/assets/images/ico-pembayaran-no-bg.svg\" alt=\"system-icons\"></div></div>", 1);
 const _hoisted_3$p = [
   _hoisted_2$w
 ];
@@ -3732,7 +3732,7 @@ var script$C = {
 };
 
 const _hoisted_1$B = { class: "p-5" };
-const _hoisted_2$v = /*#__PURE__*/vue.createStaticVNode("<div class=\"row\"><div class=\"col\"><img class=\"system-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/close-round-dark.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-checklist.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-point-pegadaian.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-calendar-outline.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-email-outline-green.svg\" alt=\"system-icons\"></div></div>", 1);
+const _hoisted_2$v = /*#__PURE__*/vue.createStaticVNode("<div class=\"row\"><div class=\"col\"><img class=\"system-icons\" src=\"/assets/images/close-round-dark.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"/assets/images/icon-checklist.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"/assets/images/ico-point-pegadaian.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"/assets/images/icon-info.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"/assets/images/ico-calendar-outline.svg\" alt=\"system-icons\"></div><div class=\"col\"><img class=\"system-icons\" src=\"/assets/images/ico-email-outline-green.svg\" alt=\"system-icons\"></div></div>", 1);
 const _hoisted_3$o = [
   _hoisted_2$v
 ];
@@ -3751,7 +3751,7 @@ var script$B = {
 
 const _hoisted_1$A = { class: "ilustration-ellipse" };
 const _hoisted_2$u = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/006yoksxjm0duco/round-img2.png",
+  src: "/assets/images/round-img2.png",
   alt: "ilustration-ellipse"
 }, null, -1 /* HOISTED */);
 const _hoisted_3$n = [
@@ -3772,7 +3772,7 @@ var script$A = {
 
 const _hoisted_1$z = { class: "ilustration-released" };
 const _hoisted_2$t = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/0zp2zxesdcntdrd/image-released.png",
+  src: "/assets/images/image-released.png",
   alt: "ilustration-released"
 }, null, -1 /* HOISTED */);
 const _hoisted_3$m = [
@@ -3796,7 +3796,7 @@ var script$z = {
     icon: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg",
+        "/assets/images/icon-info.svg",
     },
     placeholder: {
       type: String,
@@ -3917,7 +3917,7 @@ var script$y = {
     icon: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg",
+        "/assets/images/icon-info.svg",
     },
     placeholder: {
       type: String,
@@ -3965,7 +3965,7 @@ const _hoisted_4$f = ["src"];
 const _hoisted_5$d = { class: "input-group custom-input-group-icon" };
 const _hoisted_6$9 = /*#__PURE__*/vue.createElementVNode("div", { class: "input-group-icon" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-avatar.svg",
+    src: "/assets/images/icon-avatar.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -4014,7 +4014,7 @@ var script$x = {
     icon: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg",
+        "/assets/images/icon-info.svg",
     },
     placeholder: {
       type: String,
@@ -4062,13 +4062,13 @@ const _hoisted_3$j = {
   class: "group-input__label"
 };
 const _hoisted_4$e = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg",
+  src: "/assets/images/icon-info.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_5$c = { class: "input-group custom-input-group-lg-icon" };
 const _hoisted_6$8 = /*#__PURE__*/vue.createElementVNode("div", { class: "input-group-icon" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-avatar.svg",
+    src: "/assets/images/icon-avatar.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -4154,7 +4154,7 @@ var script$v = {
     icon: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/krjoi5ihrcvu5vl/icon-crown-green.svg",
+        "/assets/images/icon-crown-green.svg",
     },
   },
   setup(props) {
@@ -4250,7 +4250,7 @@ var script$t = {
 
 const _hoisted_1$t = { class: "p-2" };
 const _hoisted_2$p = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/m8h38r2os2il1xe/checklist.svg",
+  src: "/assets/images/checklist.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_3$i = /*#__PURE__*/vue.createElementVNode("p", null, " Dapatx dicicil dan dilunasi sewaktu-waktu, serta bisa diperpanjang berkali-kali. ", -1 /* HOISTED */);
@@ -4260,7 +4260,7 @@ const _hoisted_4$d = [
 ];
 const _hoisted_5$b = { class: "p-2" };
 const _hoisted_6$7 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/m8h38r2os2il1xe/checklist.svg",
+  src: "/assets/images/checklist.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_7$6 = /*#__PURE__*/vue.createElementVNode("p", null, " Dapat dicicil dan dilunasi sewaktu-waktu, serta bisa diperpanjang berkali-kali. ", -1 /* HOISTED */);
@@ -4322,7 +4322,7 @@ var script$r = {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/xk156lvrvyog0m8/logo-pds.svg",
+        "/assets/images/logo-pds.svg",
     },
     signIn: {
       type: Object,
@@ -4392,7 +4392,7 @@ var script$q = {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/3eadt2tmgsyxda7/logo-sahabat-pegadaian.svg",
+        "/assets/images/logo-sahabat-pegadaian.svg",
     },
     searchHandler: {
       type: Function,
@@ -4483,7 +4483,7 @@ const _hoisted_7$4 = { class: "navbar-nav mr-auto" };
 const _hoisted_8$4 = /*#__PURE__*/vue.createElementVNode("li", { class: "nav-item search-responsive" }, [
   /*#__PURE__*/vue.createElementVNode("form", { class: "search-responsive__box" }, [
     /*#__PURE__*/vue.createElementVNode("img", {
-      src: "https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg",
+      src: "/assets/images/search-dark.svg",
       alt: ""
     }),
     /*#__PURE__*/vue.createElementVNode("input", {
@@ -4496,7 +4496,7 @@ const _hoisted_8$4 = /*#__PURE__*/vue.createElementVNode("li", { class: "nav-ite
       id: "clearSearchMobile"
     }, [
       /*#__PURE__*/vue.createElementVNode("img", {
-        src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+        src: "/assets/images/close.svg",
         alt: ""
       })
     ])
@@ -4521,7 +4521,7 @@ const _hoisted_15$3 = /*#__PURE__*/vue.createElementVNode("a", {
   onclick: "openSearchModal()"
 }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/3zlqhzh6ucukomf/Search.svgg",
+    src: "/assets/images/Search.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -4533,7 +4533,7 @@ const _hoisted_16$2 = /*#__PURE__*/vue.createElementVNode("div", { class: "searc
     }, [
       /*#__PURE__*/vue.createElementVNode("div", { class: "box-border-input" }, [
         /*#__PURE__*/vue.createElementVNode("img", {
-          src: "https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg",
+          src: "/assets/images/search-dark.svg",
           alt: ""
         }),
         /*#__PURE__*/vue.createElementVNode("input", {
@@ -4547,7 +4547,7 @@ const _hoisted_16$2 = /*#__PURE__*/vue.createElementVNode("div", { class: "searc
           id: "clearSearch"
         }, [
           /*#__PURE__*/vue.createElementVNode("img", {
-            src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+            src: "/assets/images/close.svg",
             alt: ""
           })
         ])
@@ -4643,7 +4643,7 @@ var script$p = {
 const _hoisted_1$p = { class: "section-bg-top bg-white" };
 const _hoisted_2$m = { class: "section-bg-top__back bg-white container" };
 const _hoisted_3$f = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/arrow-left-green.svg",
+  src: "/assets/images/arrow-left-green.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_4$a = [
@@ -4673,7 +4673,7 @@ var script$o = {
     image: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/logo-pegadaian-small.svg",
+        "/assets/images/logo-pegadaian-small.svg",
     },
     items: {
       type: Array,
@@ -4682,13 +4682,13 @@ var script$o = {
           {
             label: "Kerjasama",
             action: "",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/world.svg",
+            icon: "/assets/images/world.svg",
             child: null,
           },
           {
             label: "Promo",
             action: "",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/bag-dark.svg",
+            icon: "/assets/images/bag-dark.svg",
             child: null,
           },
           {
@@ -4769,7 +4769,7 @@ const _hoisted_8$3 = { class: "small-app-bar-box-top" };
 const _hoisted_9$3 = { class: "small-app-bar-box-top-item-left" };
 const _hoisted_10$3 = /*#__PURE__*/vue.createElementVNode("div", { class: "left" }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/other-square.svg",
+    src: "/assets/images/other-square.svg",
     alt: ""
   }),
   /*#__PURE__*/vue.createElementVNode("h5", null, "Menu Lainnya")
@@ -4785,9 +4785,9 @@ const _hoisted_15$2 = {
 const _hoisted_16$1 = ["src"];
 const _hoisted_17$1 = ["href"];
 const _hoisted_18$1 = ["src"];
-const _hoisted_19$1 = /*#__PURE__*/vue.createStaticVNode("<div class=\"small-app-bar-box-top-item-right\"><div class=\"left\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/flag_id.svg\" alt=\"\"><h5>ID</h5></div><i class=\"chevron-icon\"></i><div class=\"overlay-header-sm-mobile\"><div class=\"modal-language\"><div class=\"modal-language__box\"><div class=\"modal-language__box-content\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/flag_id2.svg\" alt=\"\"><p class=\"active\">ID</p></div><div class=\"modal-language__box-content\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/flag_en.svg\" alt=\"\"><p>EN</p></div></div></div></div></div>", 1);
-const _hoisted_20$1 = /*#__PURE__*/vue.createStaticVNode("<div class=\"small-app-bar-box-bottom\"><div class=\"small-app-bar-box-bottom-item\"><div class=\"left\"><img class=\"icon\" src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/lock_icon.svg\" alt=\"\"><h5>Masuk</h5></div><i class=\"chevron-icon\"></i><div class=\"overlay-header-sm-mobile\"><div class=\"modal-type-in\"><div class=\"modal-type-in__box\"><div class=\"modal-type-in__box-content\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/logo-pegadaian-digital.svg\" alt=\"\"></div><div class=\"modal-type-in__box-content\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/logo-pegadaian-digital-syariah.svg\" alt=\"\"></div></div></div></div></div></div>", 1);
-const _hoisted_21$1 = /*#__PURE__*/vue.createStaticVNode("<div class=\"main-app-bar-box\"><div class=\"main-app-bar-box-search\"><form><div class=\"input-group left-icon\"><span class=\"input-group-text\"><img src=\"https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-search-dark.svg\" alt=\"\"></span><input type=\"search\" class=\"form-control\" placeholder=\"Cari kebutuhanmu di sini...\" value=\"\"></div></form></div><div class=\"main-app-bar-box-menu\"><div class=\"accordion accordion-flush\" id=\"accordionMobileMenu\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-menuOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseMenuOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseMenuOne\"> Produk dan Layanan </button></h2><div id=\"flush-collapseMenuOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-menuOne\" data-bs-parent=\"#accordionMobileMenu\"><div class=\"accordion-body\"><h5 class=\"title-menu\">PINJAMAN GADAI</h5><div class=\"link-menu\"><a href=\"/produk/gadai-emas\">Gadai Emas</a><a href=\"/produk/gadai-tabungan-emas\">Gadai Tabungan Emas</a><a href=\"/\">Gadai Titipan Emas</a><a href=\"/produk/gadai-non-emas\">Gadai Non Emas</a><a href=\"/produk/gadai-efek\">Gadai Efek</a><a href=\"/produk/gadai-kendaraan\">Gadai Kendaraan</a><a href=\"/produk/pembiayaan-porsi-haji\">Pembiayaan Porsi Haji</a><a href=\"/produk/pembiayaan-wisata-religi\">Pembiayaan Wisata Religi</a></div><h5 class=\"title-menu\">PINJAMAN NON GADAI</h5><div class=\"link-menu\"><a href=\"/produk/pinjaman-usaha\">Pinjaman Usaha</a><a href=\"/produk/pinjaman-serbaguna\">Pinjaman Serbaguna</a><a href=\"/produk/gadai-sertifikat\">Gadai Sertifikat</a><a href=\"/produk/cicil-emas\">Cicil Emas</a><a href=\"/\">Cicil Kendaraan</a><a href=\"/\">Pinjaman Modal Produktif</a></div><h5 class=\"title-menu\">LAYANAN JASA</h5><div class=\"link-menu\"><a href=\"/produk/tabungan-emas\">Tabungan Emas</a><a href=\"/produk/jasa-taksiran\">Jasa Taksiran</a><a href=\"/produk/jasa-sertifikasi\">Jasa Sertifikasi</a><a href=\"/produk/jasa-titipan\">Jasa Titipan</a><a href=\"/produk/safe-deposit-box\">Safe Deposit Box</a><a href=\"/produk/jasa-pembayaran-online\">Jasa Pembayaran Online</a><a href=\"/produk/jasa-pengiriman-uang\">Jasa Pengiriman Uang</a><a href=\"/produk/titipan-emas-fisik\">Titipan Emas Fisik</a></div><h5 class=\"title-menu\">KORPORASI</h5><div class=\"link-menu\"><a href=\"/\">Pinjaman Kredit Instansi</a><a href=\"/produk/pinjaman-modal-produktif\">Pinjaman Modal Produktif</a><a href=\"/\">Kerja Sama/Partnership</a></div><h5 class=\"title-menu\">HARGA EMAS</h5><div class=\"link-menu\"><a href=\"/produk/harga-emas-batangan-dan-tabungan-tabungan-emas\">Harga Emas Batangan dan Tabungan Emas</a></div></div></div></div><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-menuTwo\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseMenuTwo\" aria-expanded=\"false\" aria-controls=\"flush-collapseMenuTwo\"> Hubungan Investor </button></h2><div id=\"flush-collapseMenuTwo\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-menuTwo\" data-bs-parent=\"#accordionMobileMenu\"><div class=\"accordion-body\"><h5 class=\"title-menu\">KINERJA KEUANGAN</h5><div class=\"link-menu\"><a href=\"/kinerja-keuangan/laporan-tahunan\">Laporan Tahunan</a><a href=\"/kinerja-keuangan/laporan-keuangan\">Laporan Keuangan</a><a href=\"/kinerja-keuangan/laporan-penawaran-umum\">Laporan Penawaran Umum</a><a href=\"/kinerja-keuangan/rapat-umum-pemegang-saham\">Rapat Umum Pemegang Saham</a><a href=\"/kinerja-keuangan/rapat-umum-pemegang-obligasi\">Informasi Obligasi</a><a href=\"/kinerja-keuangan/propektus-penawaran-umum\">Prospektus Penawaran Umum</a></div><h5 class=\"title-menu\">KEBERLANJUTAN</h5><div class=\"link-menu\"><a href=\"/keberlanjutan/sustainability-report\">Sustainability Report</a><a href=\"/keberlanjutan/kemitraan\">Kemitraan</a><a href=\"/keberlanjutan/bina-lingkungan\">Bina Lingkungan</a><a href=\"/keberlanjutan/lingkungan-hidup\">Lingkungan Hidup</a><a href=\"/keberlanjutan/ketenagakerjaan-kesehatan-keselamtan-kerja\">Ketenagakerjaan, Kesehatan, dan Keselamatan Kerja</a><a href=\"/keberlanjutan/tanggung-jawab-produk-layanan\">Pengembangan Sosial dan Kemasyarakatan</a><a href=\"/keberlanjutan/pengembangan-sosial-dan-kemasyarakatan\">Tanggung Jawab Produk dan/atau Layanan</a></div></div></div></div><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-menuThree\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseMenuThree\" aria-expanded=\"false\" aria-controls=\"flush-collapseMenuThree\"> Profil Korporasi </button></h2><div id=\"flush-collapseMenuThree\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-menuThree\" data-bs-parent=\"#accordionMobileMenu\"><div class=\"accordion-body\"><h5 class=\"title-menu\">TENTANG KAMI</h5><div class=\"link-menu\"><a href=\"/profile/sejarah-pegadaian\">Sejarah Pegadaian</a><a href=\"/profile/visi-misi\">Visi &amp; Misi</a><a href=\"/profile/budaya-perusahaan\">Budaya Perusahaan</a><a href=\"/profile/struktur-organisasi\">Struktur Organisasi</a><a href=\"/profile/struktur-grup-perusahaan\">Struktur Grup Perusahaan</a><a href=\"/profile/penghargaan\">Penghargaan</a><a href=\"/profile/dokumen-anggaran-dasar\">Dokumen Anggaran Dasar</a><div class=\"sub-link-menu\"><div class=\"accordion accordion-flush\" id=\"accordionManejemen\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-headingManajemenOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseManajemenOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseManajemenOne\"> Manajemen </button></h2><div id=\"flush-collapseManajemenOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingManajemenOne\" data-bs-parent=\"#accordionManejemen\"><div class=\"accordion-body\"><a href=\"/profile/komisaris\">Jajaran Komisaris</a><a href=\"/profile/direksi\">Jajaran Direksi</a><a href=\"/profile/komite\">Komite</a><a href=\"/profile/sekertaris-perusahaan\">Sekretaris Perusahaan</a><a target=\"_blank\" href=\"https://ppid.pegadaian.co.id/\">Layanan Informasi Publik</a></div></div></div></div></div></div><h5 class=\"title-menu\">TATA KELOLA</h5><div class=\"link-menu\"><a href=\"/tata-kelola/pedoman-kerja\">Pedoman Kerja</a><div class=\"sub-link-menu\"><div class=\"accordion accordion-flush\" id=\"accordionPengangkatandanPemberhentian\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-headingPengangkatandanPemberhentianOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapsePengangkatandanPemberhentianOne\" aria-expanded=\"false\" aria-controls=\"flush-collapsePengangkatandanPemberhentianOne\"> Pengangkatan &amp; Pemberhentian </button></h2><div id=\"flush-collapsePengangkatandanPemberhentianOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingPengangkatandanPemberhentianOne\" data-bs-parent=\"#accordionPengangkatandanPemberhentian\"><div class=\"accordion-body\"><a href=\"/tata-kelola/pengangkatan-dan-pemberhentian-sekretaris-perusahaan\">Sekretaris Perusahaan</a><a href=\"/tata-kelola/pengangkatan-dan-pemberhentian-anggota-komite-audit\">Anggota Komite Audit</a></div></div></div></div></div><a href=\"/tata-kelola/kode-etik\">Kode Etik</a><a href=\"/tata-kelola/sistem-pelaporan-pelanggan\">Sistem Pelaporan Pelanggaran</a><div class=\"sub-link-menu\"><div class=\"accordion accordion-flush\" id=\"accordionKebijakan\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-headingKebijakanOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseKebijakanOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseKebijakanOne\"> Kebijakan </button></h2><div id=\"flush-collapseKebijakanOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingKebijakanOne\" data-bs-parent=\"#accordionKebijakan\"><div class=\"accordion-body\"><a href=\"/tata-kelola/kebijakan-manajemen-resiko\">Manajemen Risiko</a><a href=\"/tata-kelola/kebijakan-anti-korupsi\">Anti Korupsi</a><a href=\"/tata-kelola/kebijakan-seleksi-pemasok\">Seleksi Pemasok</a></div></div></div></div></div><a href=\"/tata-kelola/adaptasi-kebiasaan-baru\">Adaptasi Kebiasaan Baru</a><a href=\"/\">e-Announcement</a></div><h5 class=\"title-menu\">PENGADAAN</h5><div class=\"link-menu\"><a href=\"/pengadaan/pengadaan-barang-jasa\">Pengadaan Barang dan Jasa</a><a href=\"/pengadaan/kebijakan-seleksi-pemasok\">Kebijakan Seleksi Pemasok dan Hak Kreditur</a><a href=\"/pengadaan/kebijakan-peningkatan-kemampuan-vendor\">Kebijakan Peningkatan Kemampuan Vendor</a></div></div></div></div></div><div class=\"menu-link\"><a href=\"/berita\">Berita</a></div></div></div>", 1);
+const _hoisted_19$1 = /*#__PURE__*/vue.createStaticVNode("<div class=\"small-app-bar-box-top-item-right\"><div class=\"left\"><img src=\"/assets/images/flag_id.svg\" alt=\"\"><h5>ID</h5></div><i class=\"chevron-icon\"></i><div class=\"overlay-header-sm-mobile\"><div class=\"modal-language\"><div class=\"modal-language__box\"><div class=\"modal-language__box-content\"><img src=\"/assets/images/flag_id2.svg\" alt=\"\"><p class=\"active\">ID</p></div><div class=\"modal-language__box-content\"><img src=\"/assets/images/flag_en.svg\" alt=\"\"><p>EN</p></div></div></div></div></div>", 1);
+const _hoisted_20$1 = /*#__PURE__*/vue.createStaticVNode("<div class=\"small-app-bar-box-bottom\"><div class=\"small-app-bar-box-bottom-item\"><div class=\"left\"><img class=\"icon\" src=\"/assets/images/lock_icon.svg\" alt=\"\"><h5>Masuk</h5></div><i class=\"chevron-icon\"></i><div class=\"overlay-header-sm-mobile\"><div class=\"modal-type-in\"><div class=\"modal-type-in__box\"><div class=\"modal-type-in__box-content\"><img src=\"/assets/images/logo-pegadaian-digital.svg\" alt=\"\"></div><div class=\"modal-type-in__box-content\"><img src=\"/assets/images/logo-pegadaian-digital-syariah.svg\" alt=\"\"></div></div></div></div></div></div>", 1);
+const _hoisted_21$1 = /*#__PURE__*/vue.createStaticVNode("<div class=\"main-app-bar-box\"><div class=\"main-app-bar-box-search\"><form><div class=\"input-group left-icon\"><span class=\"input-group-text\"><img src=\"/assets/images/icon-search-dark.svg\" alt=\"\"></span><input type=\"search\" class=\"form-control\" placeholder=\"Cari kebutuhanmu di sini...\" value=\"\"></div></form></div><div class=\"main-app-bar-box-menu\"><div class=\"accordion accordion-flush\" id=\"accordionMobileMenu\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-menuOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseMenuOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseMenuOne\"> Produk dan Layanan </button></h2><div id=\"flush-collapseMenuOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-menuOne\" data-bs-parent=\"#accordionMobileMenu\"><div class=\"accordion-body\"><h5 class=\"title-menu\">PINJAMAN GADAI</h5><div class=\"link-menu\"><a href=\"/produk/gadai-emas\">Gadai Emas</a><a href=\"/produk/gadai-tabungan-emas\">Gadai Tabungan Emas</a><a href=\"/\">Gadai Titipan Emas</a><a href=\"/produk/gadai-non-emas\">Gadai Non Emas</a><a href=\"/produk/gadai-efek\">Gadai Efek</a><a href=\"/produk/gadai-kendaraan\">Gadai Kendaraan</a><a href=\"/produk/pembiayaan-porsi-haji\">Pembiayaan Porsi Haji</a><a href=\"/produk/pembiayaan-wisata-religi\">Pembiayaan Wisata Religi</a></div><h5 class=\"title-menu\">PINJAMAN NON GADAI</h5><div class=\"link-menu\"><a href=\"/produk/pinjaman-usaha\">Pinjaman Usaha</a><a href=\"/produk/pinjaman-serbaguna\">Pinjaman Serbaguna</a><a href=\"/produk/gadai-sertifikat\">Gadai Sertifikat</a><a href=\"/produk/cicil-emas\">Cicil Emas</a><a href=\"/\">Cicil Kendaraan</a><a href=\"/\">Pinjaman Modal Produktif</a></div><h5 class=\"title-menu\">LAYANAN JASA</h5><div class=\"link-menu\"><a href=\"/produk/tabungan-emas\">Tabungan Emas</a><a href=\"/produk/jasa-taksiran\">Jasa Taksiran</a><a href=\"/produk/jasa-sertifikasi\">Jasa Sertifikasi</a><a href=\"/produk/jasa-titipan\">Jasa Titipan</a><a href=\"/produk/safe-deposit-box\">Safe Deposit Box</a><a href=\"/produk/jasa-pembayaran-online\">Jasa Pembayaran Online</a><a href=\"/produk/jasa-pengiriman-uang\">Jasa Pengiriman Uang</a><a href=\"/produk/titipan-emas-fisik\">Titipan Emas Fisik</a></div><h5 class=\"title-menu\">KORPORASI</h5><div class=\"link-menu\"><a href=\"/\">Pinjaman Kredit Instansi</a><a href=\"/produk/pinjaman-modal-produktif\">Pinjaman Modal Produktif</a><a href=\"/\">Kerja Sama/Partnership</a></div><h5 class=\"title-menu\">HARGA EMAS</h5><div class=\"link-menu\"><a href=\"/produk/harga-emas-batangan-dan-tabungan-tabungan-emas\">Harga Emas Batangan dan Tabungan Emas</a></div></div></div></div><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-menuTwo\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseMenuTwo\" aria-expanded=\"false\" aria-controls=\"flush-collapseMenuTwo\"> Hubungan Investor </button></h2><div id=\"flush-collapseMenuTwo\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-menuTwo\" data-bs-parent=\"#accordionMobileMenu\"><div class=\"accordion-body\"><h5 class=\"title-menu\">KINERJA KEUANGAN</h5><div class=\"link-menu\"><a href=\"/kinerja-keuangan/laporan-tahunan\">Laporan Tahunan</a><a href=\"/kinerja-keuangan/laporan-keuangan\">Laporan Keuangan</a><a href=\"/kinerja-keuangan/laporan-penawaran-umum\">Laporan Penawaran Umum</a><a href=\"/kinerja-keuangan/rapat-umum-pemegang-saham\">Rapat Umum Pemegang Saham</a><a href=\"/kinerja-keuangan/rapat-umum-pemegang-obligasi\">Informasi Obligasi</a><a href=\"/kinerja-keuangan/propektus-penawaran-umum\">Prospektus Penawaran Umum</a></div><h5 class=\"title-menu\">KEBERLANJUTAN</h5><div class=\"link-menu\"><a href=\"/keberlanjutan/sustainability-report\">Sustainability Report</a><a href=\"/keberlanjutan/kemitraan\">Kemitraan</a><a href=\"/keberlanjutan/bina-lingkungan\">Bina Lingkungan</a><a href=\"/keberlanjutan/lingkungan-hidup\">Lingkungan Hidup</a><a href=\"/keberlanjutan/ketenagakerjaan-kesehatan-keselamtan-kerja\">Ketenagakerjaan, Kesehatan, dan Keselamatan Kerja</a><a href=\"/keberlanjutan/tanggung-jawab-produk-layanan\">Pengembangan Sosial dan Kemasyarakatan</a><a href=\"/keberlanjutan/pengembangan-sosial-dan-kemasyarakatan\">Tanggung Jawab Produk dan/atau Layanan</a></div></div></div></div><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-menuThree\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseMenuThree\" aria-expanded=\"false\" aria-controls=\"flush-collapseMenuThree\"> Profil Korporasi </button></h2><div id=\"flush-collapseMenuThree\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-menuThree\" data-bs-parent=\"#accordionMobileMenu\"><div class=\"accordion-body\"><h5 class=\"title-menu\">TENTANG KAMI</h5><div class=\"link-menu\"><a href=\"/profile/sejarah-pegadaian\">Sejarah Pegadaian</a><a href=\"/profile/visi-misi\">Visi &amp; Misi</a><a href=\"/profile/budaya-perusahaan\">Budaya Perusahaan</a><a href=\"/profile/struktur-organisasi\">Struktur Organisasi</a><a href=\"/profile/struktur-grup-perusahaan\">Struktur Grup Perusahaan</a><a href=\"/profile/penghargaan\">Penghargaan</a><a href=\"/profile/dokumen-anggaran-dasar\">Dokumen Anggaran Dasar</a><div class=\"sub-link-menu\"><div class=\"accordion accordion-flush\" id=\"accordionManejemen\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-headingManajemenOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseManajemenOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseManajemenOne\"> Manajemen </button></h2><div id=\"flush-collapseManajemenOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingManajemenOne\" data-bs-parent=\"#accordionManejemen\"><div class=\"accordion-body\"><a href=\"/profile/komisaris\">Jajaran Komisaris</a><a href=\"/profile/direksi\">Jajaran Direksi</a><a href=\"/profile/komite\">Komite</a><a href=\"/profile/sekertaris-perusahaan\">Sekretaris Perusahaan</a><a target=\"_blank\" href=\"https://ppid.pegadaian.co.id/\">Layanan Informasi Publik</a></div></div></div></div></div></div><h5 class=\"title-menu\">TATA KELOLA</h5><div class=\"link-menu\"><a href=\"/tata-kelola/pedoman-kerja\">Pedoman Kerja</a><div class=\"sub-link-menu\"><div class=\"accordion accordion-flush\" id=\"accordionPengangkatandanPemberhentian\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-headingPengangkatandanPemberhentianOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapsePengangkatandanPemberhentianOne\" aria-expanded=\"false\" aria-controls=\"flush-collapsePengangkatandanPemberhentianOne\"> Pengangkatan &amp; Pemberhentian </button></h2><div id=\"flush-collapsePengangkatandanPemberhentianOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingPengangkatandanPemberhentianOne\" data-bs-parent=\"#accordionPengangkatandanPemberhentian\"><div class=\"accordion-body\"><a href=\"/tata-kelola/pengangkatan-dan-pemberhentian-sekretaris-perusahaan\">Sekretaris Perusahaan</a><a href=\"/tata-kelola/pengangkatan-dan-pemberhentian-anggota-komite-audit\">Anggota Komite Audit</a></div></div></div></div></div><a href=\"/tata-kelola/kode-etik\">Kode Etik</a><a href=\"/tata-kelola/sistem-pelaporan-pelanggan\">Sistem Pelaporan Pelanggaran</a><div class=\"sub-link-menu\"><div class=\"accordion accordion-flush\" id=\"accordionKebijakan\"><div class=\"accordion-item\"><h2 class=\"accordion-header\" id=\"flush-headingKebijakanOne\"><button class=\"accordion-button collapsed\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#flush-collapseKebijakanOne\" aria-expanded=\"false\" aria-controls=\"flush-collapseKebijakanOne\"> Kebijakan </button></h2><div id=\"flush-collapseKebijakanOne\" class=\"accordion-collapse collapse\" aria-labelledby=\"flush-headingKebijakanOne\" data-bs-parent=\"#accordionKebijakan\"><div class=\"accordion-body\"><a href=\"/tata-kelola/kebijakan-manajemen-resiko\">Manajemen Risiko</a><a href=\"/tata-kelola/kebijakan-anti-korupsi\">Anti Korupsi</a><a href=\"/tata-kelola/kebijakan-seleksi-pemasok\">Seleksi Pemasok</a></div></div></div></div></div><a href=\"/tata-kelola/adaptasi-kebiasaan-baru\">Adaptasi Kebiasaan Baru</a><a href=\"/\">e-Announcement</a></div><h5 class=\"title-menu\">PENGADAAN</h5><div class=\"link-menu\"><a href=\"/pengadaan/pengadaan-barang-jasa\">Pengadaan Barang dan Jasa</a><a href=\"/pengadaan/kebijakan-seleksi-pemasok\">Kebijakan Seleksi Pemasok dan Hak Kreditur</a><a href=\"/pengadaan/kebijakan-peningkatan-kemampuan-vendor\">Kebijakan Peningkatan Kemampuan Vendor</a></div></div></div></div></div><div class=\"menu-link\"><a href=\"/berita\">Berita</a></div></div></div>", 1);
 const _hoisted_22$1 = /*#__PURE__*/vue.createElementVNode("div", {
   class: "collapse navbar-collapse head-menu",
   id: "navbarSupportedContent"
@@ -4826,7 +4826,7 @@ const _hoisted_22$1 = /*#__PURE__*/vue.createElementVNode("div", {
         /*#__PURE__*/vue.createElementVNode("div", { class: "input-group left-icon" }, [
           /*#__PURE__*/vue.createElementVNode("span", { class: "input-group-text" }, [
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-search-dark.svg",
+              src: "/assets/images/icon-search-dark.svg",
               alt: ""
             })
           ]),
@@ -5077,7 +5077,7 @@ var script$n = {
 const _hoisted_1$n = { class: "section-bg-top" };
 const _hoisted_2$k = { class: "section-bg-top__back container" };
 const _hoisted_3$d = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/arrow-left-white.svg",
+  src: "/assets/images/arrow-left-white.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_4$8 = [
@@ -5106,22 +5106,22 @@ var script$m = {
         return [
           {
             label: "Beranda",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-home-active.svg",
+            icon: "/assets/images/icon-home-active.svg",
             action: () => console.log("Clicked"),
           },
           {
             label: "Riwayat",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-history-idle.svg",
+            icon: "/assets/images/icon-history-idle.svg",
             action: () => console.log("Clicked"),
           },
           {
             label: "Notifikasi",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-notif-idle.svg",
+            icon: "/assets/images/icon-notif-idle.svg",
             action: () => console.log("Clicked"),
           },
           {
             label: "Profil",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-profile-idle.svg",
+            icon: "/assets/images/icon-profile-idle.svg",
             action: () => console.log("Clicked"),
           },
         ];
@@ -5175,28 +5175,28 @@ var script$l = {
       default: function () {
         return {
           label: "Menu Lainnya",
-          icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-other-square-green.svg",
+          icon: "/assets/images/icon-other-square-green.svg",
           child: [
             {
               label: "Kerjasama",
               action: "",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-world.svg",
+              icon: "/assets/icon/icon-system/icon-world.svg",
             },
             {
               label: "Cabang",
               action: "/lokasi-cabang",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-location-outline.svg",
+              icon: "/assets/icon/icon-system/icon-location-outline.svg",
             },
 
             {
               label: "Karir",
               action: "/karir",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-case.svg",
+              icon: "/assets/icon/icon-system/icon-case.svg",
             },
             {
               label: "Hubungi Kami",
               action: "/hubungi-kami",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-send.svg",
+              icon: "/assets/icon/icon-system/icon-send.svg",
             },
           ],
         };
@@ -5258,7 +5258,7 @@ const _hoisted_9$2 = ["href"];
 const _hoisted_10$2 = ["src"];
 const _hoisted_11$1 = { class: "small-app-bar__box-item box-language" };
 const _hoisted_12$1 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-flag-Indonesian.svg",
+  src: "/assets/icon/icon-system/icon-flag-Indonesian.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 const _hoisted_13$1 = /*#__PURE__*/vue.createElementVNode("i", { class: "chevron-icon" }, null, -1 /* HOISTED */);
@@ -5389,7 +5389,7 @@ var script$j = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+            icon: "/assets/images/ico-tabungan.svg",
           },
           {
             label: "title 2",
@@ -5397,7 +5397,7 @@ var script$j = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/4fss4cse7xzzoj3/ico-uang.svg",
+            icon: "/assets/images/ico-uang.svg",
           },
           {
             label: "title_3",
@@ -5405,7 +5405,7 @@ var script$j = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/fjz95u3y4971f1h/ico-invest-emas.svg",
+            icon: "/assets/images/ico-invest-emas.svg",
           },
         ];
       },
@@ -5524,7 +5524,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+            icon: "/assets/images/ico-tabungan.svg",
           },
           {
             label: "Pinjamattn",
@@ -5532,7 +5532,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/4fss4cse7xzzoj3/ico-uang.svg",
+            icon: "/assets/images/ico-uang.svg",
           },
           {
             label: "Gadai",
@@ -5540,7 +5540,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/fjz95u3y4971f1h/ico-invest-emas.svg",
+            icon: "/assets/images/ico-invest-emas.svg",
           },
           {
             label: "Pembiayaan",
@@ -5548,7 +5548,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/uii4k7saj8mnt7k/ico-pembiayaan-no-bg.svg",
+            icon: "/assets/images/ico-pembiayaan-no-bg.svg",
           },
           {
             label: "Cicil Emas",
@@ -5556,7 +5556,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/pk9uy9mzfbsd5g8/ico-cicil-emas-no-bg.svg",
+            icon: "/assets/images/ico-cicil-emas-no-bg.svg",
           },
           {
             label: "Pembayaran & Topup",
@@ -5564,7 +5564,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/xdrg0r4nzkn91lk/ico-pembayaran-no-bg.svg",
+            icon: "/assets/images/ico-pembayaran-no-bg.svg",
           },
           {
             label: "Titipan Emas",
@@ -5572,7 +5572,7 @@ var script$h = {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/ky6om7jgy9jjrdr/ico-gadai-titipan-emas-fisik.svg",
+            icon: "/assets/images/ico-gadai-titipan-emas-fisik.svg",
           },
         ];
       },
@@ -5768,7 +5768,7 @@ var script$e = {
 };
 
 const _hoisted_1$e = { class: "wrap-section-saldo" };
-const _hoisted_2$c = /*#__PURE__*/vue.createStaticVNode("<div class=\"section-saldo\"><div class=\"section-saldo__left\"><div class=\"pgd-alert-green open-tabungan\"> Investasi tanpa cemas dengan nabung emas! <a href=\"\" class=\"btn btn-primary\">Buka Tabungan</a></div></div><div class=\"section-saldo__right\"><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\">Beli Emas <img src=\"https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg\" alt=\"\"></a></div><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\">Jual Emas <img src=\"https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg\" alt=\"\"></a></div></div></div>", 1);
+const _hoisted_2$c = /*#__PURE__*/vue.createStaticVNode("<div class=\"section-saldo\"><div class=\"section-saldo__left\"><div class=\"pgd-alert-green open-tabungan\"> Investasi tanpa cemas dengan nabung emas! <a href=\"\" class=\"btn btn-primary\">Buka Tabungan</a></div></div><div class=\"section-saldo__right\"><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\">Beli Emas <img src=\"/assets/images/icon-right.svg\" alt=\"\"></a></div><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\">Jual Emas <img src=\"/assets/images/icon-right.svg\" alt=\"\"></a></div></div></div>", 1);
 const _hoisted_3$7 = [
   _hoisted_2$c
 ];
@@ -5786,7 +5786,7 @@ var script$d = {
 };
 
 const _hoisted_1$d = { class: "wrap-section-saldo" };
-const _hoisted_2$b = /*#__PURE__*/vue.createStaticVNode("<div class=\"section-saldo\"><div class=\"section-saldo__left\"><div class=\"saldo-showed\"><div class=\"saldo-showed__left\"><p>Saldo Efektif</p><div class=\"hide-value\"><div class=\"hide-value__dot\"><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div></div><h5 class=\"hide-value__text\">250,1234 gram</h5></div><div class=\"hide-value\"><p>Saldo blokir:</p><div class=\"hide-value__dot\"><div class=\"dot-div-sm\"></div><div class=\"dot-div-sm\"></div><div class=\"dot-div-sm\"></div><div class=\"dot-div-sm\"></div></div><span class=\"hide-value__text\"> 100,9876 gr</span></div></div><div class=\"saldo-showed__right\"><button id=\"show-saldo\"><img src=\"https://dl.dropboxusercontent.com/s/uisj308dan9b71b/eye-off.svg\" id=\"eye-saldo\" alt=\"\"></button></div></div></div><div class=\"section-saldo__right\"><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\">Beli Emas <img src=\"https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg\" alt=\"\"></a></div><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\">Jual Emas <img src=\"https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg\" alt=\"\"></a></div></div></div>", 1);
+const _hoisted_2$b = /*#__PURE__*/vue.createStaticVNode("<div class=\"section-saldo\"><div class=\"section-saldo__left\"><div class=\"saldo-showed\"><div class=\"saldo-showed__left\"><p>Saldo Efektif</p><div class=\"hide-value\"><div class=\"hide-value__dot\"><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div><div class=\"dot-div\"></div></div><h5 class=\"hide-value__text\">250,1234 gram</h5></div><div class=\"hide-value\"><p>Saldo blokir:</p><div class=\"hide-value__dot\"><div class=\"dot-div-sm\"></div><div class=\"dot-div-sm\"></div><div class=\"dot-div-sm\"></div><div class=\"dot-div-sm\"></div></div><span class=\"hide-value__text\"> 100,9876 gr</span></div></div><div class=\"saldo-showed__right\"><button id=\"show-saldo\"><img src=\"/assets/images/eye-off.svg\" id=\"eye-saldo\" alt=\"\"></button></div></div></div><div class=\"section-saldo__right\"><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\"> Beli Emas <img src=\"/assets/images/icon-right.svg\" alt=\"\"></a></div><div class=\"harga-jual-beli\"><h6>Rp 5.000<span>/ 0,01 gr</span></h6><a href=\"\"> Jual Emas <img src=\"/assets/images/icon-right.svg\" alt=\"\"></a></div></div></div>", 1);
 const _hoisted_3$6 = [
   _hoisted_2$b
 ];
@@ -5868,12 +5868,12 @@ var script$b = {
           {
             label: "Ubah",
             action: "",
-            icon: "https://dl.dropboxusercontent.com/s/67onewx8wj7mryc/edit-filled.svg",
+            icon: "/assets/images/edit-filled.svg",
           },
           {
             label: "Hapus",
             action: "",
-            icon: "https://dl.dropboxusercontent.com/s/l67aq7uvo49epom/icon-delete-dark.svg",
+            icon: "/assets/images/icon-delete-dark.svg",
           },
         ];
       },
@@ -5941,12 +5941,12 @@ const _hoisted_4$3 = /*#__PURE__*/vue.createElementVNode("a", {
   "data-bs-target": "#tangalLahirModal"
 }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/ju7cwwhnvje3vda/ico-calendar-outline.svg",
+    src: "/assets/images/ico-calendar-outline.svg",
     id: "eye",
     alt: ""
   })
 ], -1 /* HOISTED */);
-const _hoisted_5$3 = /*#__PURE__*/vue.createStaticVNode("<section class=\"section-overlay-modal-pds\"><div class=\"modal fade\" id=\"tangalLahirModal\" data-bs-backdrop=\"static\" data-bs-keyboard=\"false\" tabindex=\"-1\" aria-labelledby=\"staticBackdropLabel\" aria-hidden=\"true\"><div class=\"modal-dialog modal-dialog-centered tangalLahirModal modal-sm\"><div class=\"modal-content\"><div class=\"modal-header\"><h5 class=\"modal-title\" id=\"staticBackdropLabel\">Pilih Tanggal</h5><button type=\"button\" id=\"close-modal\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"><img src=\"https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg\" alt=\"\"></button></div><div class=\"modal-body\"><form name=\"setDateBirth\"><div class=\"custom-datepicker\"><div class=\"field-input-box\"><label>Tanggal</label><label>Bulan</label><label>Tahun</label></div><div class=\"field-input-box\"><input type=\"text\" id=\"date\" pattern=\"[0-9]*\" minlength=\"2\" maxlength=\"2\" size=\"2\" class=\"date-field\" placeholder=\"DD\" required><input type=\"text\" id=\"month\" pattern=\"[0-9]*\" minlength=\"2\" maxlength=\"2\" size=\"2\" class=\"date-field\" placeholder=\"MM\" required><input type=\"text\" id=\"year\" pattern=\"[0-9]*\" minlength=\"4\" maxlength=\"4\" size=\"4\" class=\"date-field\" placeholder=\"YYYY\" required></div></div></form></div></div></div></div></section>", 1);
+const _hoisted_5$3 = /*#__PURE__*/vue.createStaticVNode("<section class=\"section-overlay-modal-pds\"><div class=\"modal fade\" id=\"tangalLahirModal\" data-bs-backdrop=\"static\" data-bs-keyboard=\"false\" tabindex=\"-1\" aria-labelledby=\"staticBackdropLabel\" aria-hidden=\"true\"><div class=\"modal-dialog modal-dialog-centered tangalLahirModal modal-sm\"><div class=\"modal-content\"><div class=\"modal-header\"><h5 class=\"modal-title\" id=\"staticBackdropLabel\">Pilih Tanggal</h5><button type=\"button\" id=\"close-modal\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"><img src=\"/assets/images/close.svg\" alt=\"\"></button></div><div class=\"modal-body\"><form name=\"setDateBirth\"><div class=\"custom-datepicker\"><div class=\"field-input-box\"><label>Tanggal</label><label>Bulan</label><label>Tahun</label></div><div class=\"field-input-box\"><input type=\"text\" id=\"date\" pattern=\"[0-9]*\" minlength=\"2\" maxlength=\"2\" size=\"2\" class=\"date-field\" placeholder=\"DD\" required><input type=\"text\" id=\"month\" pattern=\"[0-9]*\" minlength=\"2\" maxlength=\"2\" size=\"2\" class=\"date-field\" placeholder=\"MM\" required><input type=\"text\" id=\"year\" pattern=\"[0-9]*\" minlength=\"4\" maxlength=\"4\" size=\"4\" class=\"date-field\" placeholder=\"YYYY\" required></div></div></form></div></div></div></div></section>", 1);
 
 function render$a(_ctx, _cache, $props, $setup, $data, $options) {
   return (vue.openBlock(), vue.createElementBlock(vue.Fragment, null, [
@@ -5983,14 +5983,14 @@ var script$9 = {
     action: {
       type: [String, Function],
       default:
-        "https://dl.dropboxusercontent.com/s/ft5eipwmtxysb0n/icon-chevron-right-green.svg",
+        "/assets/images/icon-chevron-right-green.svg",
     },
   },
 };
 
 const _hoisted_1$9 = ["href"];
 const _hoisted_2$7 = /*#__PURE__*/vue.createElementVNode("img", {
-  src: "https://dl.dropboxusercontent.com/s/ft5eipwmtxysb0n/icon-chevron-right-green.svg",
+  src: "/assets/images/icon-chevron-right-green.svg",
   alt: ""
 }, null, -1 /* HOISTED */);
 
@@ -6012,7 +6012,7 @@ var script$8 = {
   props: {
     image: {
       type: String,
-      default: "https://dl.dropboxusercontent.com/s/wca0lc73wnzszqp/BUMN.svg",
+      default: "/assets/images/BUMN.svg",
     },
   },
 };
@@ -6086,7 +6086,7 @@ const _hoisted_8$1 = /*#__PURE__*/vue.createElementVNode("button", {
   "aria-label": "Close"
 }, [
   /*#__PURE__*/vue.createElementVNode("img", {
-    src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+    src: "/assets/images/close.svg",
     alt: ""
   })
 ], -1 /* HOISTED */);
@@ -6455,7 +6455,7 @@ var script = {
 };
 
 const _hoisted_1 = { class: "d-flex align-items-center" };
-const _hoisted_2 = /*#__PURE__*/vue.createStaticVNode(" Beli Emas <div class=\"icon-info mobile-hide\"><img src=\"https://dl.dropboxusercontent.com/s/aj1b446pab7o2oo/ico-info-tips.svg\" alt=\"\"><div class=\"tooltips\"> Harga saat Pegadaian membeli emas Anda, yang Anda terima saat menjual emas. Harga dapat berubah sewaktu-waktu. </div></div><div class=\"icon-info mobile-show\" data-bs-toggle=\"modal\" data-bs-target=\"#beliEmas\"><img src=\"https://dl.dropboxusercontent.com/s/aj1b446pab7o2oo/ico-info-tips.svg\" alt=\"\"></div>", 3);
+const _hoisted_2 = /*#__PURE__*/vue.createStaticVNode(" Beli Emas <div class=\"icon-info mobile-hide\"><img src=\"/assets/images/ico-info-tips.svg\" alt=\"\"><div class=\"tooltips\"> Harga saat Pegadaian membeli emas Anda, yang Anda terima saat menjual emas. Harga dapat berubah sewaktu-waktu. </div></div><div class=\"icon-info mobile-show\" data-bs-toggle=\"modal\" data-bs-target=\"#beliEmas\"><img src=\"/assets/images/ico-info-tips.svg\" alt=\"\"></div>", 3);
 const _hoisted_5 = /*#__PURE__*/vue.createElementVNode("section", { class: "section-overlay-modal-pds mobile-version" }, [
   /*#__PURE__*/vue.createElementVNode("div", {
     class: "modal fade",
@@ -6479,7 +6479,7 @@ const _hoisted_5 = /*#__PURE__*/vue.createElementVNode("section", { class: "sect
             "aria-label": "Close"
           }, [
             /*#__PURE__*/vue.createElementVNode("img", {
-              src: "https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg",
+              src: "/assets/images/close.svg",
               alt: ""
             })
           ])

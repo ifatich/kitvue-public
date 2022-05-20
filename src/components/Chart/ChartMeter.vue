@@ -16,7 +16,7 @@
     <div class="ajak-sahabat-info__bottom">
       <p>
         <img
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-crown-yellow.svg"
+          src="/assets/images/ico-crown-yellow.svg"
           alt=""
         />
         Kamu ada di peringkat 3.880.000!

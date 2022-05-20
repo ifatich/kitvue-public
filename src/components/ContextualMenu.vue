@@ -21,12 +21,12 @@ export default {
           {
             label: "Ubah",
             action: "",
-            icon: "https://dl.dropboxusercontent.com/s/67onewx8wj7mryc/edit-filled.svg",
+            icon: "/assets/images/edit-filled.svg",
           },
           {
             label: "Hapus",
             action: "",
-            icon: "https://dl.dropboxusercontent.com/s/l67aq7uvo49epom/icon-delete-dark.svg",
+            icon: "/assets/images/icon-delete-dark.svg",
           },
         ];
       },

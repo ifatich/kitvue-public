@@ -2,7 +2,7 @@
   <div class="p-2">
     <div :class="['card-why-produk', classes]">
       <img
-        src="https://dl.dropboxusercontent.com/s/m8h38r2os2il1xe/checklist.svg"
+        src="/assets/images/checklist.svg"
         alt=""
       />
       <p>
@@ -15,7 +15,7 @@
   <div class="p-2">
     <div :class="['card-why-produk', classes]">
       <img
-        src="https://dl.dropboxusercontent.com/s/m8h38r2os2il1xe/checklist.svg"
+        src="/assets/images/checklist.svg"
         alt=""
       />
       <p>

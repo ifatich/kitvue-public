@@ -22,7 +22,7 @@
             <div class="small-app-bar-box-top-item-left">
               <div class="left">
                 <img
-                  src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/other-square.svg"
+                  src="/assets/images/other-square.svg"
                   alt=""
                 />
                 <h5>Menu Lainnya</h5>
@@ -54,7 +54,7 @@
             <div class="small-app-bar-box-top-item-right">
               <div class="left">
                 <img
-                  src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/flag_id.svg"
+                  src="/assets/images/flag_id.svg"
                   alt=""
                 />
                 <h5>ID</h5>
@@ -65,14 +65,14 @@
                   <div class="modal-language__box">
                     <div class="modal-language__box-content">
                       <img
-                        src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/flag_id2.svg"
+                        src="/assets/images/flag_id2.svg"
                         alt=""
                       />
                       <p class="active">ID</p>
                     </div>
                     <div class="modal-language__box-content">
                       <img
-                        src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/flag_en.svg"
+                        src="/assets/images/flag_en.svg"
                         alt=""
                       />
                       <p>EN</p>
@@ -87,7 +87,7 @@
               <div class="left">
                 <img
                   class="icon"
-                  src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/lock_icon.svg"
+                  src="/assets/images/lock_icon.svg"
                   alt=""
                 />
                 <h5>Masuk</h5>
@@ -98,13 +98,13 @@
                   <div class="modal-type-in__box">
                     <div class="modal-type-in__box-content">
                       <img
-                        src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/logo-pegadaian-digital.svg"
+                        src="/assets/images/logo-pegadaian-digital.svg"
                         alt=""
                       />
                     </div>
                     <div class="modal-type-in__box-content">
                       <img
-                        src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/logo-pegadaian-digital-syariah.svg"
+                        src="/assets/images/logo-pegadaian-digital-syariah.svg"
                         alt=""
                       />
                     </div>
@@ -120,7 +120,7 @@
               <div class="input-group left-icon">
                 <span class="input-group-text"
                   ><img
-                    src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-search-dark.svg"
+                    src="/assets/images/icon-search-dark.svg"
                     alt="" /></span
                 ><input
                   type="search"
@@ -484,7 +484,7 @@
               <div class="input-group left-icon">
                 <span class="input-group-text"
                   ><img
-                    src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-search-dark.svg"
+                    src="/assets/images/icon-search-dark.svg"
                     alt="" /></span
                 ><input
                   type="search"
@@ -703,7 +703,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/logo-pegadaian-small.svg",
+        "/assets/images/logo-pegadaian-small.svg",
     },
     items: {
       type: Array,
@@ -712,13 +712,13 @@ export default {
           {
             label: "Kerjasama",
             action: "",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/world.svg",
+            icon: "/assets/images/world.svg",
             child: null,
           },
           {
             label: "Promo",
             action: "",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/bag-dark.svg",
+            icon: "/assets/images/bag-dark.svg",
             child: null,
           },
           {

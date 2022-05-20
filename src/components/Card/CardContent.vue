@@ -16,7 +16,7 @@ export default {
     icon: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/stm8f4vuko68qs0/icon-karir.svg",
+        "/assets/images/icon-karir.svg",
     },
     title: {
       type: String,

@@ -17,6 +17,6 @@ export default {
 </script>
 
 <style lang="css">
-@import "https://bucket.pegadaian.co.id/design-system-salt-bucket/css/main.css";
-@import "https://bucket.pegadaian.co.id/design-system-salt-bucket/css/pgd-ui-kit.min.css";
+@import "../node_modules/@client/pegadaian-design-system/dist/css/main.css";
+@import "../node_modules/@client/pegadaian-design-system/dist/css/pegadaian-material.min.css";
 </style>

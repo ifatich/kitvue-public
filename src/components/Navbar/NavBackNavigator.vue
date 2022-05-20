@@ -3,7 +3,7 @@
     <div class="section-bg-top__back bg-white container">
       <a @onclick="action">
         <img
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/arrow-left-green.svg"
+          src="/assets/images/arrow-left-green.svg"
           alt=""
         />
       </a>

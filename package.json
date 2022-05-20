@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue.git"    
+    "url": "https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue.git"
   },
   "scripts": {
     "build": "rollup -c",
@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.7",
+    "@client/pegadaian-design-system": "0.0.1",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",

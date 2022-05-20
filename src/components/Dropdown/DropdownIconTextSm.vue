@@ -38,11 +38,11 @@
             <div class="box-item">
               <div
                 class="box-item__content"
-                onclick="rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '100,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+                onclick="rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '100,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
               >
                 <div class="img-box">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                    src="/assets/images/ico-tabungan.svg"
                     alt=""
                   />
                 </div>
@@ -56,11 +56,11 @@
             <div class="box-item">
               <div
                 class="box-item__content"
-                onclick="rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+                onclick="rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
               >
                 <div class="img-box">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                    src="/assets/images/ico-tabungan.svg"
                     alt=""
                   />
                 </div>
@@ -74,11 +74,11 @@
             <div class="box-item">
               <div
                 class="box-item__content"
-                onclick="rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '300,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+                onclick="rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '300,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
               >
                 <div class="img-box">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                    src="/assets/images/ico-tabungan.svg"
                     alt=""
                   />
                 </div>
@@ -92,11 +92,11 @@
             <div class="box-item">
               <div
                 class="box-item__content"
-                onclick="rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '400,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+                onclick="rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '400,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
               >
                 <div class="img-box">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                    src="/assets/images/ico-tabungan.svg"
                     alt=""
                   />
                 </div>
@@ -110,11 +110,11 @@
             <div class="box-item">
               <div
                 class="box-item__content"
-                onclick="rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+                onclick="rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
               >
                 <div class="img-box">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                    src="/assets/images/ico-tabungan.svg"
                     alt=""
                   />
                 </div>
@@ -128,11 +128,11 @@
             <div class="box-item">
               <div
                 class="box-item__content"
-                onclick="rekeningSelected4('rekeningSendiri', 'https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
+                onclick="rekeningSelected4('rekeningSendiri', '/assets/images/ico-tabungan.svg', '200,1234 gram', '1234 5678 9101 2345', this, 'pilih-nomor-kredit'), checkKredit('jenis-transaksi1', 'getrekeningEmasVal1')"
               >
                 <div class="img-box">
                   <img
-                    src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                    src="/assets/images/ico-tabungan.svg"
                     alt=""
                   />
                 </div>
@@ -158,7 +158,7 @@
       <div class="option-with-img">
         <div class="img-box" id="kredit-img-box">
           <img
-            src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+            src="/assets/images/ico-tabungan.svg"
             alt=""
           />
         </div>
@@ -171,7 +171,7 @@
       </div>
 
       <img
-        src="ps://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg"
+        src="/assets/images/icon-down.svg"
         alt=""
       />
     </button>
@@ -200,7 +200,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>
@@ -215,7 +215,7 @@
                 <div class="option-with-img">
                   <div class="img-box">
                     <img
-                      src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                      src="/assets/images/ico-tabungan.svg"
                       alt=""
                     />
                   </div>
@@ -233,7 +233,7 @@
                 <div class="option-with-img">
                   <div class="img-box">
                     <img
-                      src="https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg"
+                      src="/assets/images/ico-tabungan.svg"
                       alt=""
                     />
                   </div>

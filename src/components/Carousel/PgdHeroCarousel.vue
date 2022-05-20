@@ -3,7 +3,7 @@
     <a href="" class="pgd-hero-carousel__item">
       <div class="img-overlay">
         <img
-          src="https://dl.dropboxusercontent.com/s/he7w8wxs8nqelt4/banner.png"
+          src="/assets/images/banner.png"
           alt=""
         />
       </div>
@@ -19,7 +19,7 @@
     <a href="" class="pgd-hero-carousel__item">
       <div class="img-overlay">
         <img
-          src="https://dl.dropboxusercontent.com/s/he7w8wxs8nqelt4/banner.png"
+          src="/assets/images/banner.png"
           alt=""
         />
       </div>
@@ -37,7 +37,7 @@
     <a href="" class="pgd-hero-carousel__item">
       <div class="img-overlay">
         <img
-          src="https://dl.dropboxusercontent.com/s/he7w8wxs8nqelt4/banner.png"
+          src="/assets/images/banner.png"
           alt=""
         />
       </div>
@@ -55,7 +55,7 @@
     <a href="" class="pgd-hero-carousel__item">
       <div class="img-overlay">
         <img
-          src="https://dl.dropboxusercontent.com/s/he7w8wxs8nqelt4/banner.png"
+          src="/assets/images/banner.png"
           alt=""
         />
       </div>

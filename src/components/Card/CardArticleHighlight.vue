@@ -25,7 +25,7 @@
       <a v-for="(item, index) in items" :key="index" href="" class="card-list">
         <div class="img-overlay">
           <img
-            src="https://dl.dropboxusercontent.com/s/iqlg9xxgjiz884x/banner-artikel7.png"
+            src="/assets/images/banner-artikel7.png"
             alt=""
           />
         </div>
@@ -34,7 +34,7 @@
           <h2 class="content-item__title">{{ item.title }}</h2>
           <div class="content-item__date">
             <img
-              src="https://dl.dropboxusercontent.com/s/7thjx5cu9ar75k6/clock.svg"
+              src="/assets/images/clock.svg"
               alt=""
             />
             <span>{{ item.date }}</span>

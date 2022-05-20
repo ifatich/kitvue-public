@@ -8,7 +8,7 @@
       <span>{{ holder }}</span>
 
       <img
-        src="https://dl.dropboxusercontent.com/s/v2silnyi0qkgjda/ico-emas-black.svg"
+        src="/assets/images/ico-emas-black.svg"
         alt=""
       />
     </div>

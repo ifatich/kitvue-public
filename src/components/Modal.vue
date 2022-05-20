@@ -30,7 +30,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>

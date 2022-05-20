@@ -27,7 +27,7 @@ export default {
     icon: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/krjoi5ihrcvu5vl/icon-crown-green.svg",
+        "/assets/images/icon-crown-green.svg",
     },
   },
   setup(props) {

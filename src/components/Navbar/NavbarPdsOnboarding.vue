@@ -21,7 +21,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/xk156lvrvyog0m8/logo-pds.svg",
+        "/assets/images/logo-pds.svg",
     },
     signIn: {
       type: Object,

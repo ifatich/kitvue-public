@@ -38,7 +38,7 @@
             <div class="pgd-box-search-grey m-2">
               <div class="icon">
                 <img
-                  src="https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg"
+                  src="/assets/images/search-dark.svg"
                   alt=""
                 />
               </div>
@@ -61,7 +61,7 @@
                 >
                   <div
                     class="box-item__content"
-                    onclick="BankSelected3(this, 'G-Cash BNI', 'https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png', 'Thoriq Sadad ','2980 8131 6069 555')"
+                    onclick="BankSelected3(this, 'G-Cash BNI', '/assets/images/logo-gcash-bni.png', 'Thoriq Sadad ','2980 8131 6069 555')"
                   >
                     <div class="img-box">
                       <img :src="item.icon" alt="" />
@@ -73,7 +73,7 @@
                     </div>
                     <img
                       class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
+                      src="/assets/images/icon-checklist.svg"
                       alt=""
                     />
                   </div>
@@ -109,7 +109,7 @@
       </div>
 
       <img
-        src="https://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg"
+        src="/assets/images/icon-down.svg"
         alt=""
       />
     </button>
@@ -139,7 +139,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>
@@ -154,7 +154,7 @@
                 <div class="pgd-box-search-grey">
                   <div class="icon">
                     <img
-                      src="https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg"
+                      src="/assets/images/search-dark.svg"
                       alt=""
                     />
                   </div>
@@ -173,7 +173,7 @@
                 >
                   <div
                     class="box-item__content jenis-item"
-                    onclick="pilihComboBox5('G-Cash BNI', 'Thoriq Sadad ',this,'2980 8131 6069 555', 'https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
+                    onclick="pilihComboBox5('G-Cash BNI', 'Thoriq Sadad ',this,'2980 8131 6069 555', '/assets/images/logo-gcash-bni.png','kreditMobileInput', 'kredit-mobile-text2', 'jenis-item','kredit-mobile-span','kredit-mobile-span2','kredit-img-box2')"
                     data-bs-dismiss="modal"
                   >
                     <div class="img-box">
@@ -186,7 +186,7 @@
                     </div>
                     <img
                       class="ico-check ml-auto"
-                      src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
+                      src="/assets/images/icon-checklist.svg"
                       alt=""
                     />
                   </div>
@@ -223,12 +223,12 @@ export default {
               {
                 label: "G-Cash BNI",
                 value: "2980 8131 6069 555",
-                icon: "https://dl.dropboxusercontent.com/s/3madk1etpplza3f/logo-gcash-bni.png",
+                icon: "/assets/images/logo-gcash-bni.png",
               },
               {
                 label: "G-Cash BRI",
                 value: "8438 8131 6069 555",
-                icon: "https://dl.dropboxusercontent.com/s/5ch6s8vueahzplv/logo-gcash-bri.png",
+                icon: "/assets/images/logo-gcash-bri.png",
               },
             ],
           },
@@ -238,22 +238,22 @@ export default {
               {
                 value: "4516 7859 1241 232",
                 label: "Bank BCA",
-                icon: "https://dl.dropboxusercontent.com/s/r41fp49vk2bq7gy/logo-bank-bca.png",
+                icon: "/assets/images/logo-bank-bca.png",
               },
               {
                 value: "4516 7859 1241 232",
                 label: "Bank BNI",
-                icon: "https://dl.dropboxusercontent.com/s/hyv5xxicm3u1vh4/logo-bank-bni.png",
+                icon: "/assets/images/logo-bank-bni.png",
               },
               {
                 value: "4516 7859 1241 232",
                 label: "Bank BRI",
-                icon: "https://dl.dropboxusercontent.com/s/gz3bnrh7t0cjij0/logo-bank-bri.png",
+                icon: "/assets/images/logo-bank-bri.png",
               },
               {
                 value: "4516 7859 1241 232",
                 label: "Bank MANDIRI",
-                icon: "https://dl.dropboxusercontent.com/s/jlg4emd77bwcxd3/logo-bank-mandiri.png",
+                icon: "/assets/images/logo-bank-mandiri.png",
               },
             ],
           },

@@ -3,7 +3,7 @@
     <div class="add-amount-counter-box">
       <a class="add-amount-counter-box__button btn-decrement">
         <img
-          src="https://dl.dropboxusercontent.com/s/jo9wfsxd294jjr6/icon-min-outline-dark.svg"
+          src="/assets/images/icon-min-outline-dark.svg"
           alt=""
         />
       </a>
@@ -20,7 +20,7 @@
       </div>
       <a class="add-amount-counter-box__button btn-increment">
         <img
-          src="https://dl.dropboxusercontent.com/s/d7qbw3rdesg056n/icon-add-outline-green.svg"
+          src="/assets/images/icon-add-outline-green.svg"
           alt=""
         />
       </a>

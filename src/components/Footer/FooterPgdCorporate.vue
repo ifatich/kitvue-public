@@ -28,14 +28,14 @@
           <div class="box-map-2">
             <h4>PT Pegadaian (Persero) terdaftar dan diawasi oleh</h4>
             <img
-              src="https://dl.dropboxusercontent.com/s/u0hdhxyv9hcmar3/ojk.png"
+              src="/assets/images/ojk.png"
             />
           </div>
 
           <div class="box-map-2">
             <h4>PT Pegadaian (Persero) telah terverifikasi</h4>
             <img
-              src="https://dl.dropboxusercontent.com/s/x9bkfnvtuyoniqp/logo_safegard.png"
+              src="/assets/images/logo_safegard.png"
             />
           </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="location">
               <img
                 class="location__icon"
-                src="https://dl.dropboxusercontent.com/s/6zfu1my4mi6zsbp/pinpoint.svg"
+                src="/assets/images/pinpoint.svg"
                 alt=""
               />
               <span class="location__text">
@@ -56,14 +56,14 @@
             <div class="contact">
               <div class="contact__phone">
                 <img
-                  src="https://dl.dropboxusercontent.com/s/zha8knznkbyigrh/phone.svg"
+                  src="/assets/images/phone.svg"
                   alt=""
                 />
                 <span>021 3155 550 </span>
               </div>
               <div class="contact__box">
                 <img
-                  src="https://dl.dropboxusercontent.com/s/rh0hy2qyn0hwfjh/box-mail.svg"
+                  src="/assets/images/box-mail.svg"
                   alt=""
                 />
                 <span>021 8063 5162</span>
@@ -71,7 +71,7 @@
             </div>
             <img
               class="call-center"
-              src="https://dl.dropboxusercontent.com/s/h6guv72qux35urd/call-center.svg"
+              src="/assets/images/call-center.svg"
               alt=""
             />
           </div>
@@ -174,13 +174,13 @@ export default {
       default: function () {
         return {
           facebook:
-            "https://dl.dropboxusercontent.com/s/td9ju6ilnuz9w4h/facebook.svg",
+            "/assets/images/facebook.svg",
           twitter:
-            "https://dl.dropboxusercontent.com/s/l12f586kdmxxch8/twitter.svg",
+            "/assets/images/twitter.svg",
           instagram:
-            "https://dl.dropboxusercontent.com/s/nxamq3dx5osmmib/instagram.svg",
+            "/assets/images/instagram.svg",
           youtube:
-            "https://dl.dropboxusercontent.com/s/945mjb6z4ipeahj/youtube.svg",
+            "/assets/images/youtube.svg",
         };
       },
     },

@@ -6,8 +6,8 @@ export default {
       type: Array,
       required: false,
       default: () => [
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
       ],
     },
   },

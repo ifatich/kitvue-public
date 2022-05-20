@@ -21,7 +21,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ebook2.png",
+        "/assets/images/ebook2.png",
     },
     subtitle: {
       type: String,

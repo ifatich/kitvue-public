@@ -52,7 +52,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/7dscsa0gxnv2mbs/img-acara.png",
+        "/assets/images/img-acara.png",
     },
     date: {
       type: String,

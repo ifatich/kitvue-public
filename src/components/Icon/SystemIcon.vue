@@ -4,42 +4,42 @@
       <div class="col">
         <img
           class="system-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/close-round-dark.svg"
+          src="/assets/images/close-round-dark.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="system-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-checklist.svg"
+          src="/assets/images/icon-checklist.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="system-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-point-pegadaian.svg"
+          src="/assets/images/ico-point-pegadaian.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="system-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg"
+          src="/assets/images/icon-info.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="system-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-calendar-outline.svg"
+          src="/assets/images/ico-calendar-outline.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="system-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-email-outline-green.svg"
+          src="/assets/images/ico-email-outline-green.svg"
           alt="system-icons"
         />
       </div>

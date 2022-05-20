@@ -4,13 +4,13 @@
       <label for="" class="group-input__label"
         >{{ title }}
         <img
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg"
+          src="/assets/images/icon-info.svg"
           alt=""
       /></label>
       <div class="input-group custom-input-group-lg-icon">
         <div class="input-group-icon">
           <img
-            src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-avatar.svg"
+            src="/assets/images/icon-avatar.svg"
             alt=""
           />
         </div>
@@ -40,7 +40,7 @@ export default {
     icon: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg",
+        "/assets/images/icon-info.svg",
     },
     placeholder: {
       type: String,

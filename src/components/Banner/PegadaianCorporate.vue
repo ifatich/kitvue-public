@@ -6,8 +6,8 @@ export default {
       type: Array,
       required: false,
       default: () => [
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
+        "/assets/images/banner-1.png",
       ],
     },
   },
@@ -38,13 +38,13 @@ export default {
     <div class="carousel-navigator">
       <button class="btn-circle btn-circle-prev">
         <img
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/chevron-left.svg"
+          src="/assets/images/chevron-left.svg"
           alt="go to previous slide"
         />
       </button>
       <button class="btn-circle btn-circle-next">
         <img
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/chevron-right.svg"
+          src="/assets/images/chevron-right.svg"
           alt="go to next slide"
         />
       </button>

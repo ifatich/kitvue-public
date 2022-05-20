@@ -19,7 +19,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/f36tb9d0f3lxuar/image13.png",
+        "/assets/images/image13.png",
     },
     label: {
       type: String,

@@ -7,7 +7,7 @@ export default {
   props: {
     image: {
       type: String,
-      default: "https://dl.dropboxusercontent.com/s/wca0lc73wnzszqp/BUMN.svg",
+      default: "/assets/images/BUMN.svg",
     },
   },
 };

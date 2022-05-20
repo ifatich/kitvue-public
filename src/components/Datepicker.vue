@@ -14,7 +14,7 @@
       />
       <a data-bs-toggle="modal" data-bs-target="#tangalLahirModal">
         <img
-          src="https://dl.dropboxusercontent.com/s/ju7cwwhnvje3vda/ico-calendar-outline.svg"
+          src="/assets/images/ico-calendar-outline.svg"
           id="eye"
           alt=""
         />
@@ -43,7 +43,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>

@@ -3,14 +3,14 @@
     <a href="./produk-gadai-efek.html">
       <div class="card-produk__top">
         <img
-          src="https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png"
+          src="/assets/images/product-card.png"
           alt=""
         />
       </div>
       <div class="card-produk__bottom">
         <div class="icon-box">
           <img
-            src="https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg"
+            src="/assets/images/pegadaian-ico.svg"
             alt=""
           />
         </div>

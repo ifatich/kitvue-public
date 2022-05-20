@@ -16,7 +16,7 @@
         </div>
         <div class="right-section">
           <img
-            src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/round-img10.png"
+            src="/assets/images/round-img10.png"
             alt=""
           />
         </div>
@@ -42,7 +42,7 @@ export default {
     mainLogo: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-down-white.svg",
+        "/assets/images/ico-down-white.svg",
     },
     mainDescription: {
       type: String,
@@ -52,7 +52,7 @@ export default {
     mainImage: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/gadai-kendaraan-syariah.png",
+        "/assets/images/gadai-kendaraan-syariah.png",
     },
     subTitle: {
       type: String,
@@ -68,7 +68,7 @@ export default {
     subLogo: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-kendaraan.svg",
+        "/assets/images/ico-kendaraan.svg",
     },
     items: {
       type: Array,

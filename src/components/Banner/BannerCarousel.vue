@@ -8,7 +8,7 @@
       >
         <div class="promo-left">
           <img
-            src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/img-promo.png"
+            src="/assets/images/img-promo.png"
             alt=""
           />
         </div>
@@ -27,7 +27,7 @@
           <div class="promo-right__code">
             <div class="pr-code-top">
               <img
-                src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/coupon.png"
+                src="/assets/images/coupon.png"
                 alt=""
               />
               <h5>Kode Promo</h5>
@@ -64,7 +64,7 @@ export default {
         return [
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner2.png",
+              "/assets/images/image-banner2.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -79,7 +79,7 @@ export default {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner3.png",
+              "/assets/images/image-banner3.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -91,7 +91,7 @@ export default {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner2.png",
+              "/assets/images/image-banner2.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",
@@ -103,7 +103,7 @@ export default {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner1.png",
+              "/assets/images/image-banner1.png",
             statusLabel: "Label",
             periodeLabel: "Periode",
             title: "Title",

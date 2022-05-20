@@ -33,7 +33,7 @@ export default {
     icon: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/0t42wwdladvwz8v/pegadaian-ico.svg",
+        "/assets/images/pegadaian-ico.svg",
     },
     title: {
       type: String,
@@ -46,7 +46,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/ctyhm3c98u6kn2z/product-card.png",
+        "/assets/images/product-card.png",
     },
     body: {
       type: String,

@@ -5,7 +5,7 @@
     <div class="custom-file-upload__box-input">
       <span class="custom-file-upload__box-input-icon">
         <img
-          src="https://dl.dropboxusercontent.com/s/mybidc5332pn1qo/ico-image-upload.svg"
+          src="/assets/images/ico-image-upload.svg"
           alt=""
         />
       </span>

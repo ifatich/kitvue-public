@@ -23,7 +23,7 @@
       </div>
       <div class="small-app-bar__box-item box-language">
         <img
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-flag-Indonesian.svg"
+          src="/assets/icon/icon-system/icon-flag-Indonesian.svg"
           alt=""
         />
         <h5>{{ languageMenu.default }}</h5>
@@ -78,28 +78,28 @@ export default {
       default: function () {
         return {
           label: "Menu Lainnya",
-          icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-other-square-green.svg",
+          icon: "/assets/images/icon-other-square-green.svg",
           child: [
             {
               label: "Kerjasama",
               action: "",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-world.svg",
+              icon: "/assets/icon/icon-system/icon-world.svg",
             },
             {
               label: "Cabang",
               action: "/lokasi-cabang",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-location-outline.svg",
+              icon: "/assets/icon/icon-system/icon-location-outline.svg",
             },
 
             {
               label: "Karir",
               action: "/karir",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-case.svg",
+              icon: "/assets/icon/icon-system/icon-case.svg",
             },
             {
               label: "Hubungi Kami",
               action: "/hubungi-kami",
-              icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-send.svg",
+              icon: "/assets/icon/icon-system/icon-send.svg",
             },
           ],
         };

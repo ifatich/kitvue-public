@@ -43,7 +43,7 @@ export default {
     icon: {
       type: String,
       default:
-        "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/icon-info.svg",
+        "/assets/images/icon-info.svg",
     },
     placeholder: {
       type: String,

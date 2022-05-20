@@ -27,22 +27,22 @@ export default {
         return [
           {
             label: "Beranda",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-home-active.svg",
+            icon: "/assets/images/icon-home-active.svg",
             action: () => console.log("Clicked"),
           },
           {
             label: "Riwayat",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-history-idle.svg",
+            icon: "/assets/images/icon-history-idle.svg",
             action: () => console.log("Clicked"),
           },
           {
             label: "Notifikasi",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-notif-idle.svg",
+            icon: "/assets/images/icon-notif-idle.svg",
             action: () => console.log("Clicked"),
           },
           {
             label: "Profil",
-            icon: "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/icons/icon-system/icon-profile-idle.svg",
+            icon: "/assets/images/icon-profile-idle.svg",
             action: () => console.log("Clicked"),
           },
         ];

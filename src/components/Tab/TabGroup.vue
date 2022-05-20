@@ -36,7 +36,7 @@ export default {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/ux03pl3svfxp9ir/ico-tabungan.svg",
+            icon: "/assets/images/ico-tabungan.svg",
           },
           {
             label: "title 2",
@@ -44,7 +44,7 @@ export default {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/4fss4cse7xzzoj3/ico-uang.svg",
+            icon: "/assets/images/ico-uang.svg",
           },
           {
             label: "title_3",
@@ -52,7 +52,7 @@ export default {
             action: function () {
               return "/";
             },
-            icon: "https://dl.dropboxusercontent.com/s/fjz95u3y4971f1h/ico-invest-emas.svg",
+            icon: "/assets/images/ico-invest-emas.svg",
           },
         ];
       },

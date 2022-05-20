@@ -17,7 +17,7 @@
             </h2>
             <div class="content-item__date">
               <img
-                src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/clock.svg"
+                src="/assets/images/clock.svg"
                 alt=""
               />
               <span>{{ item.periodeLabel }}</span>
@@ -39,7 +39,7 @@ export default {
         return [
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner-artikel1.png",
+              "/assets/images/banner-artikel1.png",
             label: "Inspirasi",
             periodeLabel: "16 December 2020",
             title: "Cara Jualan Online Selama Bulan Ramadan",
@@ -53,7 +53,7 @@ export default {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner3.png",
+              "/assets/images/image-banner3.png",
             label: "Label",
             periodeLabel: "16 December 2020",
             title: "Title",
@@ -64,7 +64,7 @@ export default {
           },
           {
             image:
-              "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/image-banner2.png",
+              "/assets/images/image-banner2.png",
             label: "Label",
             periodeLabel: "16 December 2020",
             title: "Cara Jualan Online Selama Jelang Ramadan",

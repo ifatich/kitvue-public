@@ -8,7 +8,7 @@
       <div class="voucher-period">
         <div class="voucher-period__desc">
           <img
-            src="https://dl.dropboxusercontent.com/s/7thjx5cu9ar75k6/clock.svg"
+            src="/assets/images/clock.svg"
             alt=""
           />
           <span>{{ subtitle }}</span>
@@ -27,7 +27,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/fr18rgd6lhrrqrf/voucher-active.png",
+        "/assets/images/voucher-active.png",
     },
     title: {
       type: String,

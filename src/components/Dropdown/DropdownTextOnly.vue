@@ -41,7 +41,7 @@
             <div class="pgd-box-search-grey m-2">
               <div class="icon">
                 <img
-                  src="https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg"
+                  src="/assets/images/search-dark.svg"
                   alt=""
                 />
               </div>
@@ -59,7 +59,7 @@
                 <div class="box-ceklist">
                   <h6>{{ option.label }}</h6>
                   <img
-                    src="https://dl.dropboxusercontent.com/s/6bfvnm1yap7qvi3/icon-checklist.svg"
+                    src="/assets/images/icon-checklist.svg"
                     alt=""
                   />
                 </div>
@@ -86,7 +86,7 @@
         {{ placeholder }}
       </h6>
       <img
-        src="https://dl.dropboxusercontent.com/s/vnj3lkbwbskynob/icon-down.svg"
+        src="/assets/images/icon-down.svg"
         alt=""
       />
     </button>
@@ -115,7 +115,7 @@
               aria-label="Close"
             >
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>

@@ -13,7 +13,7 @@
           <a href=""
             >Beli Emas
             <img
-              src="https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg"
+              src="/assets/images/icon-right.svg"
               alt=""
           /></a>
         </div>
@@ -22,7 +22,7 @@
           <a href=""
             >Jual Emas
             <img
-              src="https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg"
+              src="/assets/images/icon-right.svg"
               alt=""
           /></a>
         </div>

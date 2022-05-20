@@ -21,7 +21,7 @@
           <li class="nav-item search-responsive">
             <form class="search-responsive__box">
               <img
-                src="https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg"
+                src="/assets/images/search-dark.svg"
                 alt=""
               />
               <input
@@ -31,7 +31,7 @@
               />
               <button type="reset" id="clearSearchMobile">
                 <img
-                  src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                  src="/assets/images/close.svg"
                   alt=""
                 />
               </button>
@@ -69,7 +69,7 @@
         </ul>
         <a class="btn btn-search" onclick="openSearchModal()">
           <img
-            src="https://dl.dropboxusercontent.com/s/3zlqhzh6ucukomf/Search.svgg"
+            src="/assets/images/Search.svg"
             alt=""
           />
         </a>
@@ -81,7 +81,7 @@
         <form class="box-input-search container" action="./search-page.html">
           <div class="box-border-input">
             <img
-              src="https://dl.dropboxusercontent.com/s/5lzaf2xg0qfabgd/search-dark.svg"
+              src="/assets/images/search-dark.svg"
               alt=""
             />
             <input
@@ -92,7 +92,7 @@
             />
             <button type="reset" id="clearSearch">
               <img
-                src="https://dl.dropboxusercontent.com/s/t0czo3brgkjtpoi/close.svg"
+                src="/assets/images/close.svg"
                 alt=""
               />
             </button>
@@ -116,7 +116,7 @@ export default {
     image: {
       type: String,
       default:
-        "https://dl.dropboxusercontent.com/s/3eadt2tmgsyxda7/logo-sahabat-pegadaian.svg",
+        "/assets/images/logo-sahabat-pegadaian.svg",
     },
     searchHandler: {
       type: Function,

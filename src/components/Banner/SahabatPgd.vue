@@ -8,7 +8,7 @@ export default {
       default: () => [
         {
           imageUrl:
-            "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner.png",
+            "/assets/images/banner.png",
           tag: "Inspirasi",
           title: "Ide Hadiah untuk Ibu Tersayang",
           desc: `“Kasih sayang Ibu sepanjang masa, kasih sayang anak sepanjang galah”
@@ -18,7 +18,7 @@ export default {
         },
         {
           imageUrl:
-            "https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/banner.png",
+            "/assets/images/banner.png",
           tag: "Inspirasi",
           title: "Ide Hadiah untuk Ibu Tersayang",
           desc: `“Kasih sayang Ibu sepanjang masa, kasih sayang anak sepanjang galah”

@@ -2,7 +2,7 @@
   <div class="card-promo">
     <div class="card-promo__top">
       <img
-        src="https://dl.dropboxusercontent.com/s/vi6mqix3kmzs6n8/img-promo.png"
+        src="/assets/images/img-promo.png"
         alt=""
       />
     </div>
@@ -17,7 +17,7 @@
       <div class="promo-code-box">
         <div class="promo-code-box__top">
           <img
-            src="https://dl.dropboxusercontent.com/s/9zbkljajtry1tzs/coupon.png"
+            src="/assets/images/coupon.png"
             alt=""
           />
           <h5>Kode Promo</h5>
@@ -34,7 +34,7 @@
             <span>Kode Promo berhasil disalin</span>
             <button class="btn-tertiary" onclick="$('#1').hide()">
               <img
-                src="https://dl.dropboxusercontent.com/s/9adobynb1elkelw/close-white.svg"
+                src="/assets/images/close-white.svg"
                 alt=""
               />
             </button>

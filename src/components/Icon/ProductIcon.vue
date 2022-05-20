@@ -4,42 +4,42 @@
       <div class="col">
         <img
           class="product-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-tabungan.svg"
+          src="/assets/images/ico-tabungan.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="product-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-uang.svg"
+          src="/assets/images/ico-uang.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="product-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-gadai-titipan-emas-fisik.svg"
+          src="/assets/images/ico-gadai-titipan-emas-fisik.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="product-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-haji.svg"
+          src="/assets/images/ico-haji.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="product-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-riwayat-emas-batangan.svg"
+          src="/assets/images/ico-riwayat-emas-batangan.svg"
           alt="system-icons"
         />
       </div>
       <div class="col">
         <img
           class="product-icons"
-          src="https://bucket.pegadaian.co.id/design-system-salt-bucket/assets/images/ico-pembayaran-no-bg.svg"
+          src="/assets/images/ico-pembayaran-no-bg.svg"
           alt="system-icons"
         />
       </div>

@@ -30,11 +30,7 @@
           </div>
           <div class="saldo-showed__right">
             <button id="show-saldo">
-              <img
-                src="https://dl.dropboxusercontent.com/s/uisj308dan9b71b/eye-off.svg"
-                id="eye-saldo"
-                alt=""
-              />
+              <img src="/assets/images/eye-off.svg" id="eye-saldo" alt="" />
             </button>
           </div>
         </div>
@@ -42,21 +38,16 @@
       <div class="section-saldo__right">
         <div class="harga-jual-beli">
           <h6>Rp 5.000<span>/ 0,01 gr</span></h6>
-          <a href=""
-            >Beli Emas
-            <img
-              src="https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg"
-              alt=""
-          /></a>
+          <a href="">
+            Beli Emas <img src="/assets/images/icon-right.svg" alt="" />
+          </a>
         </div>
         <div class="harga-jual-beli">
           <h6>Rp 5.000<span>/ 0,01 gr</span></h6>
-          <a href=""
-            >Jual Emas
-            <img
-              src="https://dl.dropboxusercontent.com/s/uecmhmqqol5trjz/icon-right.svg"
-              alt=""
-          /></a>
+          <a href="">
+            Jual Emas
+            <img src="/assets/images/icon-right.svg" alt="" />
+          </a>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
   <a href="" class="box-promo btn-box-promo">
     <div class="icon">
       <img
-        src="https://dl.dropboxusercontent.com/s/j0g3sis191rz7ag/coupon-ico.svg"
+        src="/assets/images/coupon-ico.svg"
         alt=""
       />
     </div>
