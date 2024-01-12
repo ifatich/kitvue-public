@@ -80,15 +80,15 @@ $validation-messages: "";
             border-color: $text-secondary;
 
             &::-moz-placeholder {
-                color: $text-secondary;
+                color: $text-tertiary;
             }
 
             &:-ms-input-placeholder {
-                color: $text-secondary;
+                color: $text-tertiary;
             }
 
             &::placeholder {
-                color: $text-secondary;
+                color: $text-tertiary;
             }
         }
 
@@ -100,21 +100,21 @@ $validation-messages: "";
             font-size: var(--g-kit-font-size-omicron);
             line-height: var(--g-kit-line-height-omicron);
             font-weight: var(--g-kit-font-weight-normal);
-            color: $text-secondary;
+            color: $text-tertiary;
         }
 
         &:-ms-input-placeholder {
             font-size: var(--g-kit-font-size-omicron);
             line-height: var(--g-kit-line-height-omicron);
             font-weight: var(--g-kit-font-weight-normal);
-            color: $text-secondary;
+            color: $text-tertiary;
         }
 
         &::placeholder {
             font-size: var(--g-kit-font-size-omicron);
             line-height: var(--g-kit-line-height-omicron);
             font-weight: var(--g-kit-font-weight-normal);
-            color: $text-secondary;
+            color: $text-tertiary;
         }
 
         &:focus {
