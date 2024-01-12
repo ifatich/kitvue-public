@@ -89,11 +89,33 @@
                         <div class="col-lg-12 mt-4">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Button</h5>
-                                    <p class="mb-0"><code>&lt;Button type="primary" size="md" label="Button"&gt;</code></p>
+                                    <h5>Dropdown</h5>
+                                    <p class="mb-0"><code>&lt;Dropdown type="primary" size="md" label="Button"&gt;</code></p>
                                 </div>
                                 <div class="card-body">
                                     <Dropdown />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 mt-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Accordion</h5>
+                                    <p class="mb-0"><code>&lt;Button type="primary" size="md" label="Button"&gt;</code></p>
+                                </div>
+                                <div class="card-body">
+                                    <Accordion header="Test header accordion" class="mb-2">
+                                        <InputNominal title="Nominal" required=""/>
+                                        <InputNominal title="Nominal" required=""/>
+                                        <InputNominal title="Nominal" required=""/>
+                                    </Accordion>
+
+                                    <Accordion header="Test header accordion 2">
+                                        <InputNominal title="Nominal" required=""/>
+                                        <InputNominal title="Nominal" required=""/>
+                                        <InputNominal title="Nominal" required=""/>
+                                    </Accordion>
                                 </div>
                             </div>
                         </div>
@@ -109,31 +131,34 @@
 </template>
 
 <script>
-    import Button from './Button/Button.vue';
-    import Alert from './Alert/AlertVarian.vue';
-    import AlertVarian from './Alert/Alert.vue';
-    import Breadcrumb from './Breadcrumb/Breadcrumb.vue'
+import Button from './Button/Button.vue';
+import Alert from './Alert/AlertVarian.vue';
+import AlertVarian from './Alert/Alert.vue';
+import Breadcrumb from './Breadcrumb/Breadcrumb.vue'
 
-    import AddAmount from './AddAmount/AddAmountCounter.vue'
-    import InputSmallText from './Input/InputSmallText.vue'
-    import InputNominal from './Input/InputRupiah.vue'
-    import InputPersen from './Input/InputPersen.vue'
-    import InputTextArea from './Input/InputTextArea.vue'
-    import Dropdown from './Dropdown/Dropdown.vue'
+import AddAmount from './AddAmount/AddAmountCounter.vue'
+import InputSmallText from './Input/InputSmallText.vue'
+import InputNominal from './Input/InputRupiah.vue'
+import InputPersen from './Input/InputPersen.vue'
+import InputTextArea from './Input/InputTextArea.vue'
+import Dropdown from './Dropdown/Dropdown.vue'
 
-    export default {
-        name: 'App',
-        components: {
-            Button,
-            Alert,
-            AlertVarian,
-            Breadcrumb,
-            AddAmount,
-            InputSmallText,
-            InputNominal,
-            InputTextArea,
-            InputPersen,
-            Dropdown
-        }
+import Accordion from './Accordion/Accordion.vue'
+
+export default {
+    name: 'App',
+    components: {
+        Button,
+        Alert,
+        AlertVarian,
+        Breadcrumb,
+        AddAmount,
+        InputSmallText,
+        InputNominal,
+        InputTextArea,
+        InputPersen,
+        Dropdown,
+        Accordion,
     }
+}
 </script>
