@@ -1,0 +1,23 @@
+body {
+    font-family: NunitoSans-SemiBold;
+    src: url(../fonts/NunitoSans-SemiBold.ttf);
+    font-size: var(--g-kit-font-size-sigma);
+    line-height: var(--g-kit-line-height-sigma);
+    font-weight: var(--g-kit-font-weight-normal);
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin-bottom: 0;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.w-360 {
+    max-width: 360px;
+}
+
+.w-270 {
+    max-width: 270px;
+}

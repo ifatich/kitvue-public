@@ -1,0 +1,12 @@
+.form-label {
+    font-family: NunitoSans-ExtraBold;
+    line-height: $form-label-line-height-;
+    &__mandatory {
+        margin-left: .25rem;
+        display: none;
+    }
+    img{
+        width: 1rem;
+        vertical-align: sub;
+    }
+}

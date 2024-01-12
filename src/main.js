@@ -1,10 +1,9 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import BootstrapVue3 from 'bootstrap-vue-3'
 
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "jquery/src/jquery.js";
-import "bootstrap/dist/js/bootstrap.min.js";
-// import "./global-concat.min.js";
+import "./assets/scss/g-kit.scss";
 
-createApp(App).use(router).mount("#app");
+
+createApp(App).use(router).use(BootstrapVue3).mount("#app");

@@ -1,44 +1,64 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <div class="p-5">
-    <div class="group-input">
-      <label :for="title" class="group-input__label"
-        >{{ title }} <img :src="icon" alt=""
-      /></label>
-      <div class="input-group custom-input-group-icon">
-        <div class="input-group-icon">
-          <img
-            src="/assets/images/icon-avatar.svg"
-            alt=""
-          />
-        </div>
-        <input
-          :type="type"
-          :class="['form-control', classes]"
-          :id="name"
-          @input="$emit('input', $event.target.value)"
-          :disabled="disabled"
-          :required="required"
-          :error="error"
-          :placeholder="placeholder"
+  <div class="group-input">
+    <label
+      v-if="title"
+      :for="id"
+      class="form-label"
+      :class="{ 'hide': !title }"
+    >
+      {{ title }}
+      <img
+        v-if="icon && iconLabel"
+        :src="iconLabel || '../../assets/images/world.svg'"
+      />
+    </label>
+    <div class="input-group custom-input-group-icon">
+      <div class="input-group-icon">
+        <img
+          v-if="icon"
+          :src="icon || '../../assets/images/world.svg'"
+          :class="{ 'hide': !icon }"
         />
       </div>
+      <input
+        :type="type"
+        :class="['form-control', classes]"
+        :id="id"
+        :aria-label="id" 
+        :aria-describedby="id" 
+        :disabled="disabled"
+        :required="required"
+        :placeholder="['Pilih ' + (title || placeholder || '').toLowerCase()]"
+        @input="handleInput"
+      />
+    </div>
+    <div :class="{ 'error-text': localError, 'mt-1': localError }" v-if="localError">
+      Masukkan {{ (title || '').toLowerCase() }}
     </div>
   </div>
 </template>
+
 <script>
-import { computed, reactive } from "vue";
+import { computed, ref, watch } from "vue";
 
 export default {
-  name: "k-input",
   props: {
     title: {
       type: String,
-      default: "Title",
+      default: null,
+    },
+    iconLabel: {
+      type: String,
+      default: null,
     },
     icon: {
       type: String,
-      default:
-        "/assets/images/icon-info.svg",
+      default: null,
+    },
+    iconRight:{
+      type: String,
+      default: null,
     },
     placeholder: {
       type: String,
@@ -68,15 +88,37 @@ export default {
       type: String,
       default: "text",
     },
+    id: {
+      type: String,
+      default: "inputField",
+    },
   },
-  setup(props) {
-    props = reactive(props);
+  setup(props, { emit }) {
+    const classes = computed(() => ({
+      'is-invalids': props.error || (props.required && !props.value),
+    }));
+
+    const localError = ref(false);
+
+    watch(
+      () => props.value,
+      (newVal) => {
+        if (props.required) {
+          localError.value = newVal.trim() === "";
+        }
+      }
+    );
+
+    const handleInput = (event) => {
+      localError.value = props.required && event.target.value.trim() === "";
+      emit("input", event.target.value);
+    };
+
     return {
-      classes: computed(() => ({
-        [`${props.error ? "is-invalid" : ""}`]: true,
-      })),
+      classes,
+      localError,
+      handleInput,
     };
   },
 };
 </script>
-<style></style>

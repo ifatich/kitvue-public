@@ -1,74 +1,59 @@
 <template>
-  <div class="p-5">
     <div class="group-input">
-      <label for="" class="group-input__label"
-        >{{ title }}
-        <img
-          src="/assets/images/icon-info.svg"
-          alt=""
-      /></label>
-      <div class="input-group custom-input-group-lg-icon">
-        <div class="input-group-icon">
-          <img
-            src="/assets/images/icon-avatar.svg"
-            alt=""
-          />
+        <label for="" class="form-label">
+            {{ title }}
+            <img :src="require('../../assets/images/icon-info.svg')" />
+        </label>
+        <div class="input-group custom-input-group-icon lg">
+            <div class="input-group-icon">
+                <img :src="require('../../assets/images/world.svg')" />
+            </div>
+            <textarea :type="type" :class="['form-control', classes]" :id="name"
+                @input="$emit('input', $event.target.value)" :disabled="disabled" :required="required"
+                :error="error" :placeholder="placeholder" />
         </div>
-        <textarea  
-          :type="type"
-          :class="['form-control', classes]"
-          :id="name"
-          @input="$emit('input', $event.target.value)"
-          :disabled="disabled"
-          :required="required"
-          :error="error"
-          :placeholder="placeholder"/>
-      </div>
     </div>
-  </div>
 </template>
 <script>
 import { computed, reactive } from "vue";
 
 export default {
-  name: "k-input",
   props: {
     title: {
-      type: String,
-      default: "Title",
+        type: String,
+        default: "Title",
     },
     icon: {
-      type: String,
-      default:
-        "/assets/images/icon-info.svg",
+        type: String,
+        default: "/assets/images/icon-info.svg",
     },
     placeholder: {
-      type: String,
-      default: "placeholder Textarea . . .",
+        type: String,
+        default: "placeholder Textarea . . .",
     },
     value: {
-      type: String,
-      default: "",
+        type: String,
+        default: "",
     },
     required: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false,
     },
     disabled: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false,
     },
     error: {
-      type: Boolean,
-      default: false,
+        type: Boolean,
+        default: false,
     },
     errorMessage: {
-      type: String,
-      default: "",
+        type: String,
+        default: "",
     },
     type: {
-      type: String,
-      default: "text",
+        type: String,
+        default: "text",
     },
   },
   setup(props) {
