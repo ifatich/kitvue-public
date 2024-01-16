@@ -1,3 +1,8 @@
+// Configuration
+
+@import "bootstrap/dist/css/bootstrap.css";
+@import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
+
 @import "g-kit/colors";
 @import "g-kit/font";
 @import "g-kit/typography";
@@ -6,10 +11,6 @@
 
 
 // Bootstrap scss-docs-start import-stack
-// Configuration
-
-@import "bootstrap/dist/css/bootstrap.css";
-@import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";

@@ -1,15 +1,14 @@
 <template>
-    <div>
+    <div class="group-input">
         <input class="form-control" type="text" v-model="selectedDate" @click="showDatePicker" readonly />
         <div v-if="showCalendar" ref="calendar" class="datepicker">
             <div>
                 <button @click="previousYear">&lt;&lt;</button>
                 <button @click="previousMonth">&lt;</button>
-                <select v-model="currentYear" @change="updateCalendar">
-                    <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
-                </select>
-                <select v-model="currentMonth" @change="updateCalendar">
-                    <option v-for="(month, index) in months" :key="month" :value="index + 1">{{ month }}</option>
+                <select v-model="selectedMonthYear" @change="updateCalendar">
+                    <option v-for="(option, index) in monthYearOptions" :key="index" :value="option.value">
+                        {{ option.label }}
+                    </option>
                 </select>
                 <button @click="nextMonth">&gt;</button>
                 <button @click="nextYear">&gt;&gt;</button>
@@ -77,14 +76,27 @@
 
                 return calendar;
             },
-            years() {
-                const startYear = this.currentYear - 10;
-                const endYear = this.currentYear + 10;
-                const years = [];
-                for (let year = startYear; year <= endYear; year++) {
-                    years.push(year);
+            selectedMonthYear: {
+                get() {
+                    return `${this.currentYear}-${this.currentMonth.toString().padStart(2, '0')}`;
+                },
+                set(value) {
+                    const [year, month] = value.split('-');
+                    this.currentYear = parseInt(year);
+                    this.currentMonth = parseInt(month);
+                },
+            },
+            monthYearOptions() {
+                const options = [];
+                for (let year = this.currentYear - 10; year <= this.currentYear + 10; year++) {
+                    for (let month = 1; month <= 12; month++) {
+                        options.push({
+                            label: `${this.months[month - 1]} ${year}`,
+                            value: `${year}-${month.toString().padStart(2, '0')}`,
+                        });
+                    }
                 }
-                return years;
+                return options;
             },
         },
         methods: {
@@ -127,6 +139,10 @@
 </script>
 
 <style scoped>
+
+    .form-control{
+        font-family: NunitoSans-SemiBold;
+    }
     .datepicker {
         position: absolute;
         z-index: 999;
@@ -156,11 +172,9 @@
 
     .datepicker td:hover {
         background-color: #e6e6e6;
-        cursor: pointer;
     }
 
     .datepicker button {
-        cursor: pointer;
         background-color: transparent;
         border: none;
         font-size: 14px;

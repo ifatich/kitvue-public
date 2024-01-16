@@ -1,28 +1,9 @@
 @use "sass:map";
 
-@font-face {
-    font-family: NunitoSans-ExtraBold;
-    src: url(../fonts/NunitoSans-ExtraBold.ttf)
-}
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800');
 
-@font-face {
-    font-family: NunitoSans-SemiBold;
-    src: url(../fonts/NunitoSans-SemiBold.ttf)
-}
-
-@font-face {
-    font-family: NunitoSans-Regular;
-    src: url(../fonts/NunitoSans-Regular.ttf)
-}
-
-@font-face {
-    font-family: NunitoSans-Light;
-    src: url(../fonts/NunitoSans-Light.ttf)
-}
-
-$font-family-sans-serif: 'nunito sans', sans-serif;
+$font-family-sans-serif: 'Nunito Sans', sans-serif;
 $font-family-base: $font-family-sans-serif;
-
 
 $typography-sizes: (
         "alpha": ("font-size": 72px, "line-height": 108px),
