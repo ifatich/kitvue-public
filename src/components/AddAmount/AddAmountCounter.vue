@@ -25,7 +25,7 @@
 
 <script>
     export default {
-        name: "k-add-amount-counter",
+        name: "AddAmount",
         data() {
             return {
                 countValue: 1,

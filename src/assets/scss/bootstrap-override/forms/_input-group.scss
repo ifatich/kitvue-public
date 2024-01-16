@@ -120,6 +120,10 @@ $validation-messages: "";
         &:focus {
             border: none;
         }
+
+        &.text-area {
+            padding: 12px 0;
+        }
     }
 }
 

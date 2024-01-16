@@ -7,6 +7,7 @@
 
 <script>
     export default {
+        name: "ButtonComponent",
         props: {
             label: String,
             type: {

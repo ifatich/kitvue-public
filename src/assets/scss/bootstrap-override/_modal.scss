@@ -3,7 +3,31 @@
     --bs-modal-box-shadow: none;
 
     .modal-footer {
+        padding: var(--g-bs-modal-padding);
+        padding-top: .5rem;
         border-top: 0px;
+        .row {
+            gap: 16px;
+            margin: 0px;
+            justify-content: space-between;
+            .col-6 {
+                max-width: 48%;
+                padding: 0px;
+            }
+        }
+    }
+
+    img {
+        object-fit: contain;
+    }
+
+    p {
+        margin-bottom: 0px;
+        font-family: NunitoSans-SemiBold;
+        font-size: var(--g-kit-font-size-omicron);
+        line-height: var(--g-kit-line-height-omicron);
+        font-weight: var(--g-kit-font-weight-normal);
+        color: $text-secondary;
     }
 }
 
@@ -12,20 +36,27 @@
         --g-bs-modal-width: 360px;
     }
 }
-    
-.modal img{
-    margin-bottom: .5rem;
-}
 
 .modal h4{
-    font-size: var(--g-kit-font-size-lamda);
-    line-height: var(--g-kit-line-height-lamda);
+    font-family: NunitoSans-ExtraBold;
+    font-size: var(--g-kit-font-size-kappa);
+    line-height: var(--g-kit-line-height-kappa);
+    font-weight: var(--g-kit-font-weight-bold);
+    margin-bottom: 0;
+    color: $text-primary;
+}
+
+.modal h5{
+    font-family: NunitoSans-ExtraBold;
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
     font-weight: var(--g-kit-font-weight-bold);
     margin-bottom: 0;
     color: $text-primary;
 }
 
 .modal h6{
+    font-family: NunitoSans-ExtraBold;
     font-size: var(--g-kit-font-size-lamda);
     line-height: var(--g-kit-line-height-lamda);
     font-weight: var(--g-kit-font-weight-bold);
@@ -34,6 +65,7 @@
 }
 
 .modal .modal-body {
+    font-family: NunitoSans-SemiBold;
     font-size: var(--g-kit-font-size-omicron);
     line-height: var(--g-kit-line-height-omicron);
     font-weight: var(--g-kit-font-weight-normal);

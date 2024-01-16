@@ -14,6 +14,7 @@
 
 <script>
     export default {
+        name: "BreadcrumbComponent",
         props: {
             items: {
                 type: Array,

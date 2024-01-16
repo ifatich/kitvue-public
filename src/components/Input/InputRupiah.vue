@@ -1,17 +1,19 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="group-input">
-        <label :for="id" class="form-label" :id="id">
+        <label :for="id" class="form-label">
             {{ title }}
             <img :src="require('../../assets/images/icon-info.svg')" />
         </label>
 
         <div class="input-group custom-input-group-icon p-0">
-            <span class="input-group-text border-0" :id="id">Rupiah</span>
+            <span class="input-group-text border-0">Rupiah</span>
             <input 
                 type="tel" :class="['form-control prevent-zero rupiah', { 'is-invalid': localError }]" 
                 :placeholder="['Masukkan ' + title.toLowerCase()]"
                 :aria-label="id" 
                 :aria-describedby="id" 
+                :id="id" 
                 :disabled="disabled" 
                 :required="required"
                 v-model="currentValue"
@@ -27,6 +29,7 @@
 <script>
 
 export default {
+    name: "InputNominal",
     props: {
         id: {
             type: String,

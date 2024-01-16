@@ -24,6 +24,7 @@
 
 <script>
     export default {
+        name: "DropdownComponent",
         props: {
             title: {
                 type: String,

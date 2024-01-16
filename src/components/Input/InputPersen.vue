@@ -1,6 +1,7 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="group-input">
-        <label :for="id" class="form-label" :id="id">
+        <label :for="id" class="form-label">
             {{ title }}
             <img :src="require('../../assets/images/icon-info.svg')" />
         </label>
@@ -10,13 +11,14 @@
                 type="tel" :class="['form-control prevent-zero', { 'is-inval': localError }]" 
                 :placeholder="['Masukkan ' + title.toLowerCase()]"
                 :aria-label="id" 
-                :aria-describedby="id" 
+                :aria-describedby="id"
+                :id="id" 
                 :disabled="disabled" 
                 :required="required"
                 v-model="currentValue"
                 @input="handleInput" 
             />
-            <span class="input-group-text border-0" :id="id">%</span>
+            <span class="input-group-text border-0">%</span>
         </div>
         <div :class="{ 'error-text': localError, 'mt-1': localError }" v-if="localError">
             Masukkan {{ title.toLowerCase() }}
@@ -27,6 +29,7 @@
 <script>
 
 export default {
+    name: "InputPersen",
     props: {
         id: {
             type: String,

@@ -22,6 +22,7 @@
 
 <script>
     export default {
+        name: "AlertComponent",
         data() {
             return {
                 dismissSecs: 10,

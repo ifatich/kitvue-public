@@ -75,6 +75,14 @@
     &-right-icon {
         margin-left: .5rem;
     }
+
+    &.btn-100 {
+        width: 100%;
+    }
+    
+    &.btn-50{
+        width: 50%;
+    }
 }
 
 .btn-contextual {
