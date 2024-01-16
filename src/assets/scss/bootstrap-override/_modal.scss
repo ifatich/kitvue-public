@@ -10,7 +10,7 @@
             gap: 16px;
             margin: 0px;
             justify-content: space-between;
-            .col-6 {
+            .col-xl-6 {
                 max-width: 48%;
                 padding: 0px;
             }
@@ -30,9 +30,13 @@
     }
 }
 
-@media (min-width: 576px){
+@media screen and (max-width: 576px){
     .modal-sm {
         --g-bs-modal-width: 360px;
+    }
+
+    .col-xl-6 {
+        max-width: 100% !important;
     }
 }
 

@@ -27,6 +27,9 @@ import Input from './Input/InputSmallText.vue';
 import TextArea from './Input/InputTextArea.vue';
 import ModalComponent from './Modal/Modal.vue'
 import InputSmallDate from './Input/InputSmallDate.vue'
+import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue'
+import ListGroupUnit from './ListGroup/ListGroupUnit.vue'
+import ListOrdered from './ListGroup/ListOrdered.vue'
 
 export default {
     Accordion,
@@ -58,5 +61,9 @@ export default {
     Input,
     InputSmallDate,
     TextArea,
-    ModalComponent
+    ModalComponent,
+    ListGroupUnordered,
+    ListGroupUnit,
+    ListOrdered,
+    
 }

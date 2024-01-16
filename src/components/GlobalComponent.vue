@@ -1,5 +1,5 @@
 <template>
-    <div class="home p-5">
+    <div class="home">
         <div class="container">
             <div class="row">
 
@@ -44,6 +44,7 @@
                             <p class="mb-0"><code>&lt;Button type="primary" size="md" label="Button"&gt;</code></p>
                         </div>
                         <div class="card-body">
+                            <InputSmallDate />
                             <InputSmallText id="13" title="Test Judul"
                                 icon="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                                 iconLabel="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
@@ -139,10 +140,10 @@
                                 </template>
                                 <template v-slot:footer>
                                     <div class="row w-100">
-                                        <div class="col-6">
+                                        <div class="col-xl-6 col-12">
                                             <Button type="secondary" size="100" label="Button Seccondary" />
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-xl-6 col-12">
                                             <Button type="primary" size="100" label="Button Primary" />
                                         </div>
                                     </div>
@@ -274,10 +275,10 @@
                                 </template>
                                 <template v-slot:footer>
                                     <div class="row w-100">
-                                        <div class="col-6">
+                                        <div class="col-xl-6 col-12">
                                             <Button type="secondary" size="100" label="Button Seccondary" />
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-xl-6 col-12">
                                             <Button type="primary" size="100" label="Button Primary" />
                                         </div>
                                     </div>
@@ -314,7 +315,21 @@
                                 type="date"
                                 required="" />
 
-                            <InputSmallDate />
+                            <InputSmallDate id="someId" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>List</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+                            <ListGroupOrdered />
+                            <ListGroupUnit />
+                            <ListGroupUnordered />
                         </div>
                     </div>
                 </div>
@@ -344,6 +359,9 @@
     import ModalComponent from './Modal/Modal.vue'
     import InputDatePicker from './Input/InputDatePicker.vue';
     import InputSmallDate from './Input/InputSmallDate.vue';
+    import ListGroupOrdered from './ListGroup/ListGroupOrdered.vue';
+    import ListGroupUnit from './ListGroup/ListGroupUnit.vue';
+    import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue';
 
     export default {
         name: 'App',
@@ -362,7 +380,10 @@
             FilePickerLG,
             ModalComponent,
             InputDatePicker,
-            InputSmallDate
+            InputSmallDate,
+            ListGroupOrdered,
+            ListGroupUnit,
+            ListGroupUnordered
         }
     }
 </script>
