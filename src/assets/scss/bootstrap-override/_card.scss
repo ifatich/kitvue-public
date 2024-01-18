@@ -5,15 +5,50 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 .card {
 	--g-bs-card-border-width: 0px !important;
 	filter: $elevation-1;
-}
-.card-header {
-    padding: .5rem 1rem;
-}
-.card-body {
-	padding: 1rem;
-	color: var(--g-kit-black-80);
-    h5 {
-		color: $text-green;
+
+	.card-body {
+		padding: 1rem;
+		color: var(--g-kit-black-80);
+
+		h5 {
+			color: $text-green;
+		}
+
+		.d-flex {
+			.heading {
+				font-size: var(--g-kit-font-size-omicron);
+				line-height: var(--g-kit-line-height-omicron);
+				font-weight: var(--g-kit-font-weight-bold);
+			}
+		}
+
+		.card-item {
+			display: flex;
+			justify-content: space-between;
+			color: $black-60;
+			font-size: var(--g-kit-font-size-omega);
+			line-height: var(--g-kit-line-height-omega);
+			font-weight: var(--g-kit-font-weight-normal);
+
+			&:not(:first-child){
+				.card-lable,
+				.card-value {
+					margin-bottom: 4px;
+				}
+			}
+
+			&:last-child {
+				margin-bottom: unset;
+			}
+
+			
+		}
+	}
+
+	.card-footer {
+		.d-flex {
+			column-gap: 12px
+		}
 	}
 }
 
@@ -72,6 +107,7 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 
 			.badge {
 				margin-bottom: 16px;
+
 				&.bg-success {
 					margin-right: 8px;
 				}
@@ -96,12 +132,13 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 
 	.card-body {
 		padding: 0;
+
 		.card-title {
 			font-size: var(--g-kit-font-size-kappa);
 			line-height: var(--g-kit-line-height-kappa);
 			font-weight: var(--g-kit-font-weight-bold);
 		}
-	
+
 		.card-text {
 			font-size: var(--g-kit-font-size-sigma);
 			line-height: var(--g-kit-line-height-sigma);
@@ -159,6 +196,7 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 
 			color: $black-50;
 		}
+
 		h5 {
 			color: $lime-50;
 		}
@@ -168,7 +206,7 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 		font-size: var(--g-kit-font-size-sigma);
 		line-height: var(--g-kit-line-height-sigma);
 		font-weight: var(--g-kit-font-weight-regular);
-		
+
 		color: $black-60;
 	}
 
@@ -181,7 +219,7 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 	.top {
 		border-radius: 6px 6px 0 0;
 	}
-	
+
 	p.label {
 		font-size: var(--g-kit-font-size-sigma);
 		line-height: var(--g-kit-line-height-sigma);
@@ -224,6 +262,7 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 
 .voucher {
 	overflow: hidden;
+
 	.mt--1 {
 		margin-top: -4px;
 		opacity: .7;
@@ -238,6 +277,7 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 
 		color: $black-60;
 	}
+
 	&::before {
 		background-color: #fff;
 		border-radius: 40px;
@@ -247,8 +287,9 @@ $elevation-2 : drop-shadow(0px 6px 14px rgba(0, 0, 0, 0.16)) drop-shadow(0px 0px
 		left: -25px;
 		position: absolute;
 		top: 160px;
-		width: 50px;	
+		width: 50px;
 	}
+
 	&::after {
 		background-color: #fff;
 		border-radius: 40px;

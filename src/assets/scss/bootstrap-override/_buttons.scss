@@ -83,6 +83,15 @@
     &.btn-50{
         width: 50%;
     }
+
+    &.btn-sm, .btn-group-sm > .btn {
+        --g-bs-btn-padding-y: 2px;
+        --g-bs-btn-padding-x: 10px;
+        --g-bs-btn-border-radius: var(--g-bs-border-radius-sm);
+        font-size: var(--g-kit-font-size-omega);
+        line-height: var(--g-kit-line-height-omega);
+        font-weight: var(--g-kit-font-weight-bold);
+    }
 }
 
 .btn-contextual {

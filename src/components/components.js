@@ -25,11 +25,14 @@ import FilePickerSM from './Filepicker/FilePickerSM.vue';
 import InputPersen from './Input/InputPersen.vue';
 import Input from './Input/InputSmallText.vue';
 import TextArea from './Input/InputTextArea.vue';
-import ModalComponent from './Modal/Modal.vue'
-import InputSmallDate from './Input/InputSmallDate.vue'
-import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue'
-import ListGroupUnit from './ListGroup/ListGroupUnit.vue'
-import ListOrdered from './ListGroup/ListOrdered.vue'
+import ModalComponent from './Modal/Modal.vue';
+import InputSmallDate from './Input/InputSmallDate.vue';
+import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue';
+import ListGroupUnit from './ListGroup/ListGroupUnit.vue';
+import ListOrdered from './ListGroup/ListOrdered.vue';
+import TableData from './Table/Table.vue';
+import DataTable from './Table/DataTable.vue';
+import DataApps from './Table/Data.vue';
 
 export default {
     Accordion,
@@ -65,5 +68,7 @@ export default {
     ListGroupUnordered,
     ListGroupUnit,
     ListOrdered,
-    
+    TableData,
+    DataTable,
+    DataApps
 }
