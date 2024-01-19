@@ -20,7 +20,6 @@
 
 <script>
     import Button from '../Button/Button.vue';
-    import BModal from 'bootstrap-vue-3';
 
     export default {
         name: 'ModalComponent',
