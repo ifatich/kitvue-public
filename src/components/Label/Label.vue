@@ -9,17 +9,16 @@
     } from "vue";
 
     export default {
-        name: "Label",
+        name: "LabelVue",
         props: {
             text: {
-                type: String,
                 default: "Status",
             },
             variant: {
                 type: String,
                 default: "",
                 Validator: function (value) {
-                    return ["blue", "red", "yellow"].indexOf(value) !== -1;
+                    return ["green", "blue", "red", "yellow"].indexOf(value) !== -1;
                 },
             },
         },
@@ -35,4 +34,3 @@
         },
     };
 </script>
-<style></style>

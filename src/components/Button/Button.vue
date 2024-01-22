@@ -18,6 +18,7 @@
                         "link",
                         "tertiary",
                         "secondary",
+                        "neutral",
                     ].includes(value);
                 },
             },

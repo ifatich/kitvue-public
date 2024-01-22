@@ -82,10 +82,12 @@
 @import "bootstrap-override/progress";
 @import "bootstrap-override/tables";
 @import "bootstrap-override/dropdown";
+@import "bootstrap-override/label";
 
 
 // Custom Styles
 @import "g-kit/filepicker";
+@import "g-kit/data-table";
 @import "g-kit/add-amount";
 @import "g-kit/counter";
 @import "g-kit/button-ripple";
