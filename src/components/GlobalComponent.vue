@@ -44,7 +44,8 @@
                             <p class="mb-0"><code>&lt;Button type="primary" size="md" label="Button"&gt;</code></p>
                         </div>
                         <div class="card-body">
-                            <InputSmallDate />
+                            <InputSmallDate v-model="selectedDate" id="birthdate" placeholder="Pilih Tanggal Lahir" />
+                            <p>Selected Date: {{ selectedDate }}</p>
                             <InputSmallText id="13" title="Test Judul"
                                 icon="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                                 iconLabel="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
@@ -53,7 +54,20 @@
                             <InputNominal id="14" title="Nominal" required="" />
                             <InputPersen id="15" title="Persentase DP" required="" />
                             <InputTextArea id="16" />
-                            <Dropdown />
+                            <Dropdown
+                                v-model="selectedOption"
+                                :id="'custom-id'"
+                                :label="'label'"
+                                :title="selectedOption"
+                                :items="dropdownItems"
+                                :options="dropdownOptions"
+                                @change="myFunc()"
+                            />
+                            <p>Selected: {{ selectedOption }}</p>
+                            <p>Selected: {{ selectedOption }}</p>
+                            <p>Selected: {{ selectedOption }}</p>
+                            <p>Selected: {{ selectedOption }}</p>
+                            <p>Selected: {{ selectedOption }}</p>
                         </div>
                     </div>
                 </div>
@@ -442,6 +456,18 @@
         },
         data() {
             return {
+                selectedOption: null,
+                dropdownItems: [
+                    { id: 1, label: 'Item 1' },
+                    { id: 2, label: 'Item 2' },
+                    { id: 3, label: 'Item 3' },
+                ],
+                dropdownOptions: [
+                    { value: 'option1', label: 'Option 1' },
+                    { value: 'option2', label: 'Option 2' },
+                    { value: 'option3', label: 'Option 3' },
+                ],
+                selectedDate: null,
                 tableData: [
                     { id: 1, name: "John Doe", age: 30, ages: 123, agess: 123 },
                     { id: 2, name: "Jane Doe", age: 25, ages: 123, agess: 123 },
