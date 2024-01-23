@@ -173,8 +173,9 @@
 
                     this.selectedDate = selectedDate.toISOString().split('T')[0];
                     this.showCalendar = false;
-
+                    
                     console.log(this.selectedDate);
+                    this.$emit('update:modelValue', this.selectedDate);
                 }
             },
             previousMonth() {

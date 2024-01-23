@@ -1,33 +1,57 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <b-dropdown v-model="selectedOption" toggle-class="w-100 btn-neutral gkit-dd">
-        <template #button-content>
-            {{ selectedOption || 'Pilih ' + title.toLowerCase() }}
-            <span>
-                <img :src="require('../../assets/icon/chevron_down.svg')" />
-            </span>
-        </template>
-        <b-dropdown-form @submit.stop.prevent>
-            <b-form-input v-model="searchTerm" :placeholder="'Pilih '+ title.toLowerCase()"></b-form-input>
-        </b-dropdown-form>
-        <b-dropdown-item v-for="option in options" :key="option.value" @click="selectOption(option)">
-            {{ option.label }}
-        </b-dropdown-item>
-    </b-dropdown>
+    <div>
+        <label :for="id" class="form-label">
+            {{ 'Pilih ' + label.toLowerCase() }}
+            <img :src="require('../../assets/images/icon-info.svg')" />
+        </label>
+        <BDropdown v-model="selectedOption"
+            toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
+            :aria-label="id" 
+            :aria-describedby="id"
+            :id="id" >
+
+            <template #button-content>
+                {{ title || 'Pilih ' + label.toLowerCase() }}
+                <span>
+                    <img :src="require('../../assets/icon/chevron_down.svg')" />
+                </span>
+            </template>
+
+            <BDropdownForm @submit.stop.prevent>
+                <b-form-input v-model="searchTerm" :placeholder="'Cari ' + label.toLowerCase()"></b-form-input>
+            </BDropdownForm>
+            <BDropdownItem v-for="option in filteredOptions" :key="option.value" @click="selectOption(option)">
+                {{ option.label }}
+            </BDropdownItem>
+        </BDropdown>
+    </div>
 </template>
 
 <script>
     import {
+        BDropdown,
+        BDropdownItem,
+        BDropdownForm
+    } from 'bootstrap-vue-next';
+    import {
         computed
-    } from 'vue'
+    } from 'vue';
 
     export default {
         name: "DropdownComponent",
+        components: {
+            BDropdown,
+            BDropdownItem,
+            BDropdownForm
+        },
         props: {
             modelValue: String,
             id: {
                 type: String,
-                default: "id-dropdown",
+            },
+            label: {
+                type: String,
+                default: "Title",
             },
             title: {
                 type: String,
@@ -37,13 +61,10 @@
                 type: String,
                 default: "placeholder . . .",
             },
-            items: {
-                type: Array,
+            buttonText: {
+                type: String,
             },
-            options: {
-                type: Array,
-                default: () => [],
-            },
+            items: Array
         },
         setup(props, {
             emit
@@ -75,9 +96,10 @@
             selectOption(option) {
                 this.selectedOption = option.label;
                 this.searchTerm = "";
-                this.selectedValue = option.id;
+                this.selectedValue = option.label;
             },
         },
+
     };
 </script>
 

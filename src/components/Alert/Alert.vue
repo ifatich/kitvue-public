@@ -1,42 +1,37 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div>
-        <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-            Dismissible Alert!
-        </b-alert>
+        <BAlert :model-value="true">Default Alert</BAlert>
 
-        <b-alert v-model="dismissCountDown" dismissible variant="warning" @dismissed="dismissCountDown=0"
-            @dismiss-count-down="countDownChanged">
-            <p>This alert will dismiss after {{ dismissCountDown }} seconds...</p>
-            <b-progress :value="dismissCountDown"></b-progress>
-        </b-alert>
+        <BAlert variant="success" :model-value="true">Success Alert</BAlert>
 
-        <b-button @click="dismissCountDown=true" variant="info" class="m-1">
-            Show alert with count-down timer
-        </b-button>
-        <b-button @click="showDismissibleAlert=true" variant="info" class="m-1">
-            Show dismissible alert ({{ showDismissibleAlert ? 'visible' : 'hidden' }})
-        </b-button>
+        <BAlert v-model="showDismissibleAlert" variant="danger" dismissible> Dismissible Alert! </BAlert>
+
+        <BAlert v-model="dismissCountDown" dismissible variant="warning" @close-countdown="countdown = $event">
+            <p>This alert will dismiss after {{ countdown / 1000 }} seconds...</p>
+            <BProgress variant="success" :max="dismissCountDown" :value="countdown" height="4px" />
+        </BAlert>
+
+        <Button @click="dismissCountDown = true" type="primary" size="md" class="m-1"
+            label="Show alert with count-down timer" />
+
+        <Button @click="showDismissibleAlert = true" type="primary" size="md" :label="`Show dismissible alert (${
+          showDismissibleAlert ? 'visible' : 'hidden'
+        })`" />
     </div>
 </template>
 
-<script>
-    export default {
-        name: "AlertComponent",
-        data() {
-            return {
-                dismissSecs: 10,
-                dismissCountDown: 0,
-                showDismissibleAlert: false
-            }
-        },
-        methods: {
-            countDownChanged(dismissCountDown) {
-                this.dismissCountDown = dismissCountDown
-            },
-            showAlert() {
-                this.dismissCountDown = this.dismissSecs
-            }
-        },
-    }
+<script setup>
+    import {
+        ref
+    } from 'vue';
+    import {
+        BAlert,
+        BProgress
+    } from 'bootstrap-vue-next';
+    import Button from '../Button/Button.vue';
+
+    const showDismissibleAlert = ref(false)
+    const dismissCountDown = ref(10000)
+    const countdown = ref(0)
 </script>
