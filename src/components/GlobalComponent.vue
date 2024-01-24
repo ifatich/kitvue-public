@@ -100,11 +100,11 @@
                 label="Ini label"
               />
               <InputNominal
+                id="input-rupiah"
                 label="Input Rupiah"
-                id="14"
-                title="Nominal"
-                required=""
+                v-model="rupiah"
               />
+              {{ rupiah }}
               <InputPersen id="15" title="Persentase DP" required="" />
               <InputTextArea id="16" />
               <Dropdown
@@ -688,6 +688,7 @@
 import { ref } from 'vue'
 
 const text = ref('ini value')
+const rupiah = ref(12000000)
 </script>
 
 <script>
