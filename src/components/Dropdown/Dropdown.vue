@@ -1,26 +1,27 @@
 <template>
     <div>
         <label :for="id" class="form-label">
-            {{ 'Pilih ' + label.toLowerCase() }}
-            <img :src="require('../../assets/images/icon-info.svg')" />
+            {{ label }}
+            <img src="../../assets/images/icon-info.svg" />
         </label>
-        <BDropdown v-model="selectedOption"
+        <BDropdown
+            v-model="show"
             toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
-            :aria-label="id" 
+            :aria-label="id"
             :aria-describedby="id"
             :id="id" >
 
             <template #button-content>
-                {{ title || 'Pilih ' + label.toLowerCase() }}
+                {{ selectedOption || placeholder }}
                 <span>
-                    <img :src="require('../../assets/icon/chevron_down.svg')" />
+                    <img src="../../assets/icon/chevron_down.svg" />
                 </span>
             </template>
 
-            <BDropdownForm @submit.stop.prevent>
+            <BDropdownForm>
                 <b-form-input v-model="searchTerm" :placeholder="'Cari ' + label.toLowerCase()"></b-form-input>
             </BDropdownForm>
-            <BDropdownItem v-for="option in filteredOptions" :key="option.value" @click="selectOption(option)">
+            <BDropdownItem v-for="option in filteredOptions" :key="option.id" @click="selectOption(option)">
                 {{ option.label }}
             </BDropdownItem>
         </BDropdown>
@@ -31,7 +32,8 @@
     import {
         BDropdown,
         BDropdownItem,
-        BDropdownForm
+        BDropdownForm,
+        BFormInput
     } from 'bootstrap-vue-next';
     import {
         computed
@@ -42,10 +44,14 @@
         components: {
             BDropdown,
             BDropdownItem,
-            BDropdownForm
+            BDropdownForm,
+            BFormInput
         },
         props: {
-            modelValue: String,
+            modelValue: {
+                type: String,
+                default: ''
+            },
             id: {
                 type: String,
             },
@@ -53,18 +59,19 @@
                 type: String,
                 default: "Title",
             },
-            title: {
-                type: String,
-                default: "Title",
-            },
             placeholder: {
                 type: String,
                 default: "placeholder . . .",
             },
-            buttonText: {
-                type: String,
+            items: Array,
+            itemText: {
+              type: String,
+              default: "label"
             },
-            items: Array
+            itemValue: {
+              type: String,
+              default: "id"
+            }
         },
         setup(props, {
             emit
@@ -80,8 +87,9 @@
         },
         data() {
             return {
-                selectedOption: null,
+                selectedOption: '',
                 searchTerm: "",
+                show: false
             };
         },
         computed: {
@@ -94,9 +102,9 @@
         },
         methods: {
             selectOption(option) {
-                this.selectedOption = option.label;
                 this.searchTerm = "";
-                this.selectedValue = option.label;
+                this.selectedValue = option[this.itemValue];
+                this.selectedOption = option[this.itemText];
             },
         },
 
