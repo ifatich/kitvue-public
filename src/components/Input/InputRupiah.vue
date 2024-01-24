@@ -1,5 +1,5 @@
 <script setup>
-import { defineOptions, computed } from 'vue'
+import { defineOptions, computed, defineProps, defineEmits } from 'vue'
 import InputText from './InputText.vue'
 
 defineOptions({
