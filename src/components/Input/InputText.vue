@@ -1,5 +1,5 @@
 <script setup>
-import { defineOptions, defineModel, defineProps } from 'vue'
+import { defineOptions, defineModel } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
