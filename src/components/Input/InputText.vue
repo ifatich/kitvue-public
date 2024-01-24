@@ -3,13 +3,13 @@ import { defineOptions, defineModel } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'suffixIcon'])
+const props = defineProps(['error', 'label', 'suffixIcon', 'class'])
 
 const model = defineModel()
 </script>
 
 <template>
-  <div class="group-input">
+  <div :class="['group-input', props.class]">
     <label v-if="label" :for="$attrs.id" class="form-label">
       {{ label }}
     </label>
