@@ -5,11 +5,8 @@
             <img :src="require('../../assets/images/icon-info.svg')" />
         </label>
         <BDropdown v-model="selectedOption"
-            toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
-            :aria-label="id" 
-            :aria-describedby="id"
-            :id="id" >
-
+            toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center" :aria-label="id"
+            :aria-describedby="id" :id="id">
             <template #button-content>
                 {{ title || 'Pilih ' + label.toLowerCase() }}
                 <span>
@@ -18,14 +15,18 @@
             </template>
 
             <BDropdownForm @submit.stop.prevent>
-                <b-form-input v-model="searchTerm" :placeholder="'Cari ' + label.toLowerCase()"></b-form-input>
+                <b-form-input :model="searchTerm" :placeholder="'Cari ' + label.toLowerCase()"></b-form-input>
             </BDropdownForm>
             <BDropdownItem v-for="option in filteredOptions" :key="option.value" @click="selectOption(option)">
                 {{ option.label }}
             </BDropdownItem>
         </BDropdown>
+        <div v-if="localError" class="error-text mt-1">
+            Pilih {{ label.toLowerCase() }}
+        </div>
     </div>
 </template>
+
 
 <script>
     import {
@@ -82,7 +83,13 @@
             return {
                 selectedOption: null,
                 searchTerm: "",
+                localError: false,
             };
+        },
+        watch: {
+            selectedOption(newVal) {
+                this.localError = !newVal;
+            },
         },
         computed: {
             filteredOptions() {
@@ -90,6 +97,9 @@
                 return this.items.filter((option) =>
                     option.label.toLowerCase().includes(searchTermLowerCase)
                 );
+            },
+            isDropdownValid() {
+                return this.selectedOption !== null && this.selectedOption !== undefined;
             },
         },
         methods: {
@@ -106,5 +116,12 @@
 <style scoped>
     .btn-group {
         width: 100%;
+    }
+
+    .error-text {
+        color: #ae1e22;
+        font-size: var(--g-kit-font-size-omega);
+        line-height: var(--g-kit-line-height-omega);
+        font-weight: var(--g-kit-font-weight-normal);
     }
 </style>

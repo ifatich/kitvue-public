@@ -1,6 +1,7 @@
 <template>
     <div class="home">
         <div class="container">
+            <BerandaHeader />
             <div class="row">
 
                 <div class="col-lg-6">
@@ -61,12 +62,7 @@
                                 :title="selectedOption"
                                 :items="dropdownItems"
                                 :options="dropdownOptions"
-                                @change="myFunc()"
                             />
-                            <p>Selected: {{ selectedOption }}</p>
-                            <p>Selected: {{ selectedOption }}</p>
-                            <p>Selected: {{ selectedOption }}</p>
-                            <p>Selected: {{ selectedOption }}</p>
                             <p>Selected: {{ selectedOption }}</p>
                         </div>
                     </div>
@@ -355,6 +351,37 @@
                             <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
                         </div>
                         <div class="card-body">
+
+                            <Dropdown
+                                v-model="selectedOption"
+                                :id="'custom-id'"
+                                :label="'label'"
+                                :title="selectedOption"
+                                :items="dropdownItems"
+                                :options="dropdownOptions"
+                            />
+                            <AutoCompleteComponent
+                                v-model="selectedValue"
+                                :items="dropdownItems"
+                                label="Item"
+                                item-text="label"
+                                item-value="id"
+                                :disabled="false"
+                                size="md"
+                                palceholder="Pilih salah satu"
+                            />
+                            <p>Selected: {{ selectedValue }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
                             <!-- <TableData :data="tableData" :columns="tableColumns" @row-click="handleRowClick" @action-click:view="handleViewAction" @action-click:edit="handleEditAction" /> -->
                             <div class="card overflow-x-auto p-3 mt-4">
                                 <TableData :data="tableData" :columns="tableColumns" @row-click="handleRowClick" @action-click:view="handleViewAction" @action-click:edit="handleEditAction" />
@@ -401,6 +428,8 @@
                     </div>
                 </div>
 
+               
+
             </div>
         </div>
     </div>
@@ -430,6 +459,9 @@
     import TableData from './Table/Table.vue';
     import DataTable from './Table/DataTable.vue';
 
+    import BerandaHeader from './Navbar/BerandaHeader.vue';
+    import AutoCompleteComponent from './SelectOption/AutoComplete.vue'
+
     export default {
         name: 'App',
         components: {
@@ -452,11 +484,14 @@
             ListGroupUnit,
             ListGroupUnordered,
             TableData,
-            DataTable
+            DataTable,
+            BerandaHeader,
+            AutoCompleteComponent
         },
         data() {
             return {
                 selectedOption: null,
+                selectedValue: '', 
                 dropdownItems: [
                     { id: 1, label: 'Item 1' },
                     { id: 2, label: 'Item 2' },
