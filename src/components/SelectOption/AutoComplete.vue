@@ -12,9 +12,11 @@
       :text-field="itemText"
       :disabled="disabled"
       :size="size"
-      :palceholder="palceholder"
       v-bind="$attrs"
     >
+      <template #first>
+        <BFormSelectOption value="" disabled>{{ placeholder }}</BFormSelectOption>
+      </template>
     </b-form-select>
     <div v-if="error" class="error-text mt-1">{{ error }}</div>
   </div>
@@ -22,11 +24,11 @@
 
 <script>
   import { computed } from 'vue'
-  import { BFormSelect } from 'bootstrap-vue-next'
+  import { BFormSelect, BFormSelectOption } from 'bootstrap-vue-next'
   export default {
     name: "AutoCompleteComponent",
     inheritAttrs: false,
-    components: { BFormSelect },
+    components: { BFormSelect, BFormSelectOption },
     props: {
       modelValue: {
         type: String,
@@ -53,7 +55,7 @@
         type: String,
         default: 'md'
       },
-      palceholder: {
+      placeholder: {
         type: String,
         default: ''
       },
