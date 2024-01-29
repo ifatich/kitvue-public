@@ -129,6 +129,15 @@
             .select2-results__option--highlighted.select2-results__option--selectable {
                 background-color: unset;
                 color: var(--g-kit-lime-50);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                &::after {
+                    content: url('../../assets/icon/check_round.svg');
+                    width: 24px;
+                    height: 24px;
+                }
             }
 
             .select2-results__option--selected {

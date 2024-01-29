@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="sticky-top my-3">
+    <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="sticky-top my-3 exa-header">
         <BNavbarBrand href="#">
             <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
         </BNavbarBrand>
@@ -13,28 +13,33 @@
 
             <!-- Right aligned nav items -->
             <BNavForm class="d-flex">
-                <BNavItemDropdown class="dd-nav" text="Lang" right>
-                    <div class="card">
-                        <b-card no-body>
-                            <b-tabs card align="center">
-                                <b-tab title="Tugasku" active>
-                                    <ListGroupOrdered />
-                                </b-tab>
-                                <b-tab title="Informasi">
-                                    <b-card-text>Tab contents 2</b-card-text>
-                                </b-tab>
-                            </b-tabs>
-                        </b-card>
-                    </div>
+                <BNavItemDropdown class="dd-nav" text="Riwayat">
+                    
+                    <b-card no-body>
+                        <b-tabs card align="center">
+                            <b-tab title="Tugasku" active>
+                                <ListGroupOrdered />
+                            </b-tab>
+                            <b-tab title="Informasi">
+                                <b-card-text>Tab contents 2</b-card-text>
+                            </b-tab>
+                        </b-tabs>
+                    </b-card>
                 </BNavItemDropdown>
 
-                <BNavItemDropdown class="dd-nav" text="Lang" right>
+                <BNavItemDropdown class="dd-nav" text="Notifikasi" >
                     <div class="card p-3">
                         <ListGroupUnit />
                     </div>
                 </BNavItemDropdown>
-            </BNavForm>
 
+                <BNavItemDropdown class="dd-nav last-child">
+                    <template v-slot:button-content>
+                        <b>Thoriq saddad</b>
+                        Business Process Outsourcing
+                    </template>
+                </BNavItemDropdown>
+            </BNavForm>
         </BCollapse>
     </BNavbar>
 </template>
@@ -77,36 +82,94 @@
 </script>
 
 <style lang="scss">
-    nav.navbar {
-        padding: 1rem;
-        border-radius: 1rem;
-        background-color: var(--g-kit-broccoli-50) !important;
 
-        li {
-            list-style-type: none;
-            
-            .dd-nav {
-            
-                .dropdown-menu {
-                    padding: 0px;
+    nav.navbar{
+        &.exa-header {
+            padding: 1rem;
+            border-radius: 1rem;
+            background-color: var(--g-kit-broccoli-50) !important;
+
+            form {
+                li.dd-nav {
+                    list-style-type: none;
+                    display: flex;
+                    align-items: center;
+
+                    &:not(:last-child) {
+                        &::before {
+                            content: url('../../assets/icon/check_round.svg');
+                            width: 24px;
+                            height: 24px;
+                        }
+                    }
+                    &:last-child {
+                        border-left: 2px solid white;
+
+                        
+                    }
+
+                    &.last-child{
+                        .btn-group {
+                            .btn{
+                                display: flex;
+                                flex-direction: column;
+                                font-size: var(--g-kit-font-size-omega);
+                                line-height: var(--g-kit-line-height-omega);
+                                font-weight: var(--g-kit-font-weight-normal);
+                                b {
+                                    font-size: var(--g-kit-font-size-sigma);
+                                    line-height: var(--g-kit-line-height-sigma);
+                                }
     
-                    &.show.overflow-auto {
-                        position: absolute;
-                        inset: 0px auto auto 0px;
-                        margin: 0px;
-                        border-radius: 6px;
-                        max-width: 360px !important;
-                        width: 360px !important;
-                        margin-top: 34px;
+                                
+                            }
+                        }
                     }
                 }
-    
+                
             }
+    
+            ul {
+                flex-wrap: nowrap;
+            }
+    
+            li {
+                list-style-type: none;
+    
+                button {
+                    width: 100%;
+                }
+                
+                .dd-nav {
+                    .card-header {
+                        background-color: white;
+    
+                        .nav-item {
+                            width: 100%;
+                        }
+                    }
+                
+                    .dropdown-menu {
+                        padding: 0px;
+        
+                        &.show.overflow-auto {
+                            position: absolute;
+                            inset: 0px auto auto 0px;
+                            margin: 0px;
+                            border-radius: 6px;
+                            max-width: 360px !important;
+                            width: 360px !important;
+                            margin-top: 34px;
+                        }
+                    }
+        
+                }
+            }
+    
+            &.sticky-top {
+                top: 1rem;
+            }
+    
         }
-
-        &.sticky-top {
-            top: 1rem;
-        }
-
     }
 </style>
