@@ -370,7 +370,6 @@
                                 size="md"
                                 palceholder="Pilih salah satu"
                             />
-                            <p>Selected: {{ selectedValue }}</p>
                         </div>
                     </div>
                 </div>
@@ -491,7 +490,6 @@
         data() {
             return {
                 selectedOption: null,
-                selectedValue: '', 
                 dropdownItems: [
                     { id: 1, label: 'Item 1' },
                     { id: 2, label: 'Item 2' },
