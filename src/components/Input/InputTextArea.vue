@@ -2,7 +2,7 @@
 <template>
   <div class="group-input">
     <label :for="id" class="form-label">
-      {{ title }}
+      {{ label }}
     </label>
     <div class="input-group custom-input-group-icon lg">
       <textarea
@@ -13,7 +13,7 @@
         :disabled="disabled"
         :required="required"
         :error="error"
-        :placeholder="['Masukkan ' + title.toLowerCase()]"
+        :placeholder="placeholder"
       />
     </div>
   </div>
@@ -27,17 +27,15 @@ export default {
     id: {
       default: '150'
     },
-    title: {
-      type: String,
-      default: 'Title'
+    label: {
+      type: String
     },
     icon: {
       type: String,
       default: '/assets/images/icon-info.svg'
     },
     placeholder: {
-      type: String,
-      default: 'placeholder Textarea . . .'
+      type: String
     },
     value: {
       type: String,
