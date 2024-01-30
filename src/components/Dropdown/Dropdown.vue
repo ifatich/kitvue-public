@@ -1,24 +1,24 @@
 <template>
     <div>
         <label :for="id" class="form-label">
-            {{ 'Pilih ' + label.toLowerCase() }}
-            <img :src="require('../../assets/images/icon-info.svg')" />
+            {{ label }}
+            <img src="../../assets/images/icon-info.svg" />
         </label>
         <BDropdown v-model="selectedOption"
             toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center" :aria-label="id"
             :class="['prevent-zero gkit-dd', { 'is-inval': localError }]"
             :aria-describedby="id" :id="id">
             <template #button-content>
-                {{ title || 'Pilih ' + label.toLowerCase() }}
+                {{ selectedOption || placeholder }}
                 <span>
-                    <img :src="require('../../assets/icon/chevron_down.svg')" />
+                    <img src="../../assets/icon/chevron_down.svg" />
                 </span>
             </template>
 
             <BDropdownForm @submit.stop.prevent>
                 <b-form-input :model="searchTerm" :placeholder="'Cari ' + label.toLowerCase()"></b-form-input>
             </BDropdownForm>
-            <BDropdownItem v-for="option in filteredOptions" :key="option.value" @click="selectOption(option)">
+            <BDropdownItem v-for="option in filteredOptions" :key="option.id" @click="selectOption(option)">
                 {{ option.label }}
             </BDropdownItem>
         </BDropdown>
