@@ -25,6 +25,30 @@ const showCalendar = ref(false)
 const currentMonth = ref(new Date().getMonth() + 1)
 const currentYear = ref(new Date().getFullYear())
 
+const getFormattedDate = (value) => {
+  let formatted = ''
+  if (value && value !== 'null') {
+    const [year, month, day] = value.split('-')
+    formatted = `${day}-${month}-${year}`
+  }
+  return formatted
+}
+const getUnformattedDate = (value) => {
+  let unformatted = ''
+  if (value && value !== 'null') {
+    const [day, month, year] = value.split('-')
+    unformatted = `${year}-${month}-${day}`
+  }
+  return unformatted
+}
+
+const selectedDate = computed({
+  get: () => getFormattedDate(props.modelValue),
+  set: (value) => {
+    emit('update:modelValue', getUnformattedDate(value))
+  }
+})
+
 const calendar = computed(() => {
   const firstDayOfMonth = new Date(currentYear.value, currentMonth.value - 1, 1)
   const lastDayOfMonth = new Date(currentYear.value, currentMonth.value, 0)
@@ -88,7 +112,7 @@ const showDatePicker = () => (showCalendar.value = !showCalendar.value)
 const selectDate = (day) => {
   if (day.date) {
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
-    emit('update:modelValue', day.date.toLocaleDateString('en-GB', options))
+    selectedDate.value = day.date.toLocaleDateString('en-GB', options)
     showCalendar.value = false
   }
 }
@@ -122,9 +146,10 @@ const updateCalendar = () => {
       <input
         type="text"
         class="form-control"
-        :value="props.modelValue"
+        :value="selectedDate"
         @click="showDatePicker"
         readonly
+        v-bind="$attrs"
       />
       <div class="input-group-icon">
         <img src="../../assets/icon/icon-system/icon-calendar.svg" />
