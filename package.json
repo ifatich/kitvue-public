@@ -17,6 +17,7 @@
         "datatables.net-responsive-dt": "^2.5.0",
         "sass": "^1.69.7",
         "sass-loader": "^13.3.3",
+        "select2": "^4.1.0-rc.0",
         "vue": "^3.4.7",
         "vue-router": "^4.2.5"
     },
