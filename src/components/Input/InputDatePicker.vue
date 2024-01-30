@@ -215,6 +215,7 @@ const updateCalendar = () => {
         </div>
       </div>
     </div>
+    <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
   </div>
 </template>
 
