@@ -1,43 +1,51 @@
 <template>
-  <b-form-select
-    toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
-    v-model="currentValue"
-    :options="items"
-    :value-field="itemValue"
-    :text-field="itemText"
-    :disabled="disabled"
-    :search="true"
-    :size="size"
-    required
-  >
-    <template #default>
-      <!-- <BFormSelectOption :value="null"> -->
-        <!-- <b-form-input v-model="searchTerm" placeholder="Cari"></b-form-input> -->
-        <h5>ini Slot</h5>
-      <!-- </BFormSelectOption> -->
-    </template>
-  </b-form-select>
+  <div class="group-input">
+    <label v-if="label" :for="$attrs.id" class="form-label">
+      {{ label }}
+    </label>
+    <b-form-select
+      toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
+      class="form-control"
+      v-model="currentValue"
+      :options="items"
+      :value-field="itemValue"
+      :text-field="itemText"
+      :disabled="disabled"
+      :size="size"
+      v-bind="$attrs"
+    >
+      <template #first>
+        <BFormSelectOption value="" disabled>{{ placeholder }}</BFormSelectOption>
+      </template>
+    </b-form-select>
+    <div v-if="error" class="error-text mt-1">{{ error }}</div>
+  </div>
 </template>
 
 <script>
   import { computed } from 'vue'
-  import { BFormSelect, BFormInput, BFormSelectOption } from 'bootstrap-vue-next'
+  import { BFormSelect, BFormSelectOption } from 'bootstrap-vue-next'
   export default {
     name: "AutoCompleteComponent",
-    components: { BFormSelect, BFormInput, BFormSelectOption },
+    inheritAttrs: false,
+    components: { BFormSelect, BFormSelectOption },
     props: {
       modelValue: {
         type: String,
         default: ''
       },
       items: Array,
+      label: {
+        type: String,
+        default: ''
+      },
       itemText: {
         type: String,
-        default: 'text'
+        default: 'label'
       },
       itemValue: {
         type: String,
-        default: 'value'
+        default: 'id'
       },
       disabled: {
         type: Boolean,
@@ -46,7 +54,12 @@
       size: {
         type: String,
         default: 'md'
-      }
+      },
+      placeholder: {
+        type: String,
+        default: ''
+      },
+      error: String
     },
     setup(props, { emit }) {
       const currentValue = computed({
@@ -57,11 +70,6 @@
       return {
         currentValue
       }
-    },
-    data() {
-      return {
-        searchTerm: '',
-      };
-    },
+    }
   }
 </script>
