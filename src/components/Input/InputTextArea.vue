@@ -3,7 +3,7 @@ import { defineOptions, defineModel, defineProps } from 'vue'
 
 defineOptions({ name: 'InputTextArea', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'suffixIcon', 'class'])
+const props = defineProps(['error', 'label', 'class'])
 
 const model = defineModel()
 </script>
