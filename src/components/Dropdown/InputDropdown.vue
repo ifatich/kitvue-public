@@ -7,7 +7,7 @@ import {
   defineEmits,
   useAttrs
 } from 'vue'
-import { BDropdown, BDropdownItem, BDropdownItemButton } from 'bootstrap-vue-next'
+import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
