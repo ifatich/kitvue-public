@@ -1,9 +1,17 @@
 <script setup>
-import { computed, defineOptions, defineProps, ref, defineEmits } from 'vue'
+import {
+  computed,
+  defineOptions,
+  defineProps,
+  ref,
+  defineEmits,
+  useAttrs
+} from 'vue'
 import { BDropdown, BDropdownItem } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
+const attrs = useAttrs()
 const props = defineProps([
   'error',
   'label',
@@ -12,7 +20,7 @@ const props = defineProps([
   'value',
   'modelValue'
 ])
-const emit = defineEmits(['update:modelValue', 'input', 'change', 'blur'])
+const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
 
@@ -33,9 +41,11 @@ const selectedValue = computed({
 
 const handleOptionClick = (option) => {
   selectedValue.value = option
-  emit('blur')
-  emit('change')
-  emit('input')
+  if (attrs.onChange && attrs.onInput && attrs.onBlur) {
+    attrs.onChange()
+    attrs.onInput()
+    attrs.onBlur()
+  }
 }
 </script>
 
