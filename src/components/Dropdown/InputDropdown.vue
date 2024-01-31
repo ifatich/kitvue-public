@@ -7,7 +7,7 @@ import {
   defineEmits,
   useAttrs
 } from 'vue'
-import { BDropdown, BDropdownItem } from 'bootstrap-vue-next'
+import { BDropdown, BDropdownItem, BDropdownItemButton } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
@@ -16,11 +16,11 @@ const props = defineProps([
   'error',
   'label',
   'items',
-  'class',
   'itemValue',
   'itemText',
   'modelValue',
-  'placeholder'
+  'placeholder',
+  'class'
 ])
 const emit = defineEmits(['update:modelValue'])
 
@@ -30,7 +30,7 @@ const selectedText = ref()
 const filteredItems = computed(() =>
   search.value
     ? props.items.filter((i) =>
-        i[props.itemValue].toLowerCase().includes(search.value.toLowerCase())
+        i[props.itemText].toLowerCase().includes(search.value.toLowerCase())
       )
     : props.items
 )
@@ -54,7 +54,7 @@ const handleOptionClick = (option) => {
 </script>
 
 <template>
-  <div>
+  <div :class="['group-input', props.class]">
     <label v-if="props.label" :for="$attrs.id" class="form-label">
       {{ props.label }}
     </label>
@@ -81,7 +81,14 @@ const handleOptionClick = (option) => {
         :key="index"
         @click="handleOptionClick(option)"
       >
-        {{ option[props.itemText] }}
+        <BDropdownItemButton
+          buttonClass="d-flex justify-content-between mt-1"
+        >
+          {{ option[props.itemText] }}
+          <span v-if="selectedValue === option[props.itemValue]">
+            <img src="../../assets/icon/check_round.svg" />
+          </span>
+        </BDropdownItemButton>
       </BDropdownItem>
     </BDropdown>
     <div class="error-text" v-if="props.error">
