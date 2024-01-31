@@ -12,7 +12,7 @@ const props = defineProps([
   'value',
   'modelValue'
 ])
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'input', 'change', 'blur'])
 
 const search = ref()
 
@@ -33,6 +33,9 @@ const selectedValue = computed({
 
 const handleOptionClick = (option) => {
   selectedValue.value = option
+  emit('blur')
+  emit('change')
+  emit('input')
 }
 </script>
 
@@ -40,7 +43,6 @@ const handleOptionClick = (option) => {
   <div>
     <label v-if="props.label" :for="$attrs.id" class="form-label">
       {{ props.label }}
-      <img src="../../assets/images/icon-info.svg" />
     </label>
     <BDropdown
       :value="selectedValue"
@@ -49,7 +51,7 @@ const handleOptionClick = (option) => {
       v-bind="$attrs"
     >
       <template #button-content>
-        {{ selectedValue || placeholder }}
+        {{ selectedValue || props.placeholder }}
         <span>
           <img src="../../assets/icon/chevron_down.svg" />
         </span>
