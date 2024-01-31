@@ -18,7 +18,8 @@ const props = defineProps([
   'items',
   'class',
   'value',
-  'modelValue'
+  'modelValue',
+  'placeholder'
 ])
 const emit = defineEmits(['update:modelValue'])
 
