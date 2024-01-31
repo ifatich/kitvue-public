@@ -17,31 +17,34 @@ const props = defineProps([
   'label',
   'items',
   'class',
-  'value',
+  'itemValue',
+  'itemText',
   'modelValue',
   'placeholder'
 ])
 const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
+const selectedText = ref()
 
 const filteredItems = computed(() =>
   search.value
     ? props.items.filter((i) =>
-        i[props.value].toLowerCase().includes(search.value.toLowerCase())
+        i[props.itemValue].toLowerCase().includes(search.value.toLowerCase())
       )
     : props.items
 )
 
 const selectedValue = computed({
-  get: () => (props.modelValue ? props.modelValue[props.value] : null),
-  set: (value) => {
-    emit('update:modelValue', value)
+  get: () => (props.modelValue ? props.modelValue : null),
+  set: (newValue) => {
+    emit('update:modelValue', newValue)
   }
 })
 
 const handleOptionClick = (option) => {
-  selectedValue.value = option
+  selectedValue.value = option[props.itemValue]
+  selectedText.value = option[props.itemText]
   if (attrs.onChange && attrs.onInput && attrs.onBlur) {
     attrs.onChange()
     attrs.onInput()
@@ -62,7 +65,7 @@ const handleOptionClick = (option) => {
       v-bind="$attrs"
     >
       <template #button-content>
-        {{ selectedValue || props.placeholder }}
+        {{ selectedText || props.placeholder }}
         <span>
           <img src="../../assets/icon/chevron_down.svg" />
         </span>
@@ -78,7 +81,7 @@ const handleOptionClick = (option) => {
         :key="index"
         @click="handleOptionClick(option)"
       >
-        {{ option[props.value] }}
+        {{ option[props.itemText] }}
       </BDropdownItem>
     </BDropdown>
     <div class="error-text" v-if="props.error">
