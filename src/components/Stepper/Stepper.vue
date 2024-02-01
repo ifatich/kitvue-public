@@ -52,6 +52,8 @@
 <style lang="scss">
     .card.stepper {
         max-width: 270px;
+        filter: unset;
+        background-color: var(--g-kit-black-10);
 
         .card-body {
 
@@ -68,7 +70,7 @@
                 margin-bottom: 2rem;
             
                 &:before {
-                    background: var(--g-kit-black-10);
+                    background: var(--g-kit-black-20);
                     color: var(--g-kit-black-40);
                 }
     
