@@ -18,6 +18,8 @@
 
         </div>
 
+        <div v-if="props.error" class="error-text mt-1">{{ error }}</div>   
+
         <div class="content-date">
 
             <div v-if="showCalendar" class="card">
@@ -79,6 +81,8 @@
 
 <script>
     export default {
+        name: 'DatePicker',
+        inheritAttrs: false,
         props: {
             title: {
                 type: String,
