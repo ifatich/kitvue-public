@@ -14,7 +14,11 @@ const model = defineModel()
       {{ props.label }}
     </label>
     <div class="input-group custom-input-group-icon lg">
-      <textarea class="form-control text-area" v-model="model" />
+      <textarea
+        v-bind="$attrs"
+        class="form-control text-area"
+        v-model="model"
+      />
     </div>
     <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
   </div>

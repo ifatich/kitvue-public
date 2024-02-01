@@ -8,8 +8,12 @@
 </template>
 
 <script>
+import { BAccordion, BAccordionItem } from 'bootstrap-vue-next'
 export default {
     name: "AccordionComponent",
+    components: {
+      BAccordion, BAccordionItem
+    },
     props: {
         header: String,
     },
