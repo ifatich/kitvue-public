@@ -18,3 +18,21 @@ h1, h2, h3, h4, h5, h6{
 .w-270 {
     max-width: 270px;
 }
+
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .desktop {
+        display: none;
+    }
+    
+    .mobile {
+        display: block;
+    }
+}
