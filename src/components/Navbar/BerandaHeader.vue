@@ -19,7 +19,7 @@
                         <b-card no-body>
                             <b-tabs card align="center">
                                 <b-tab title="Tugasku" active>
-                                    <ListGroupOrdered />
+                                    <Stepper />
                                 </b-tab>
                                 <b-tab title="Informasi">
                                     <b-card-text>Tab contents 2</b-card-text>
@@ -53,7 +53,6 @@
 </template>
 
 <script>
-    import ListGroupOrdered from '../ListGroup/ListGroupOrdered.vue';
     import ListGroupUnit from '../ListGroup/ListGroupUnit.vue';
     import {
         BNavbar,
@@ -62,18 +61,19 @@
         BNavbarNav,
         BNavForm,
     } from 'bootstrap-vue-next';
+import Stepper from '../Stepper/Stepper.vue';
 
     export default {
         name: "BerandaHeader",
         components: {
-            BNavbar,
-            BNavbarBrand,
-            BNavbarToggle,
-            BNavbarNav,
-            BNavForm,
-            ListGroupOrdered,
-            ListGroupUnit
-        },
+    BNavbar,
+    BNavbarBrand,
+    BNavbarToggle,
+    BNavbarNav,
+    BNavForm,
+    ListGroupUnit,
+    Stepper
+},
         props: {
             label: {
                 type: String,

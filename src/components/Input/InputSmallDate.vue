@@ -18,8 +18,6 @@
 
         </div>
 
-        <div v-if="props.error" class="error-text mt-1">{{ error }}</div>   
-
         <div class="content-date">
 
             <div v-if="showCalendar" class="card">
@@ -178,9 +176,9 @@
                     const year = selectedDate.getFullYear();
 
                     this.displayedDate = 
-                        `${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}/${month < 10 ? '0' : ''}${month}/${year}`;
+                        `${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}-${month < 10 ? '0' : ''}${month}-${year}`;
                     this.internalDate =
-                        `${year}/${month < 10 ? '0' : ''}${month}/${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}`;
+                        `${year}-${month < 10 ? '0' : ''}${month}-${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}`;
 
                     this.showCalendar = false;
 

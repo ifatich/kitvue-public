@@ -26,7 +26,7 @@
                     <div class="offcanvas-body">
                         <BListGroup>
                             <BListGroupItem v-for="(item, index) in items" :key="index" class="flex-column align-items-start border-0 list-dropdowns" @click="selectItem(item)">
-                                {{ item }}
+                                {{ item.label }}
                             </BListGroupItem>
                         </BListGroup>
                     </div>
@@ -101,8 +101,8 @@
             };
 
             const selectItem = (item) => {
-                selectedValue.value = item;
-                currentValue.value = item; // If you want to update the model value too
+                selectedValue.value = item.label;
+                currentValue.value = item.label; // If you want to update the model value too
                 show.value = false; // Close the offcanvas after selection
             };
 

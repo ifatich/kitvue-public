@@ -3,7 +3,7 @@
         <div class="container">
             <BerandaHeader />
             <div class="row">
-
+  
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
@@ -32,12 +32,12 @@
                             <Alert color="warning" label="Lorem ipsum dolor sit amet" />
                             <Alert color="link" label="Lorem ipsum dolor sit amet" />
                             <Alert color="danger" label="Lorem ipsum dolor sit amet" />
-
+  
                             <AlertVarian />
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-header">
@@ -52,7 +52,10 @@
                                 iconLabel="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                                 iconRight="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                                 required="" />
-                            <InputNominal id="14" title="Nominal" required="" />
+                            <InputText id="ini-id" placeholder="hello world!" v-model="text" error="ini error"
+                            label="Ini label" />
+                            <InputNominal id="input-rupiah" label="Input Rupiah" v-model="rupiah" />
+                            {{ rupiah }}
                             <InputPersen id="15" title="Persentase DP" required="" />
                             <InputTextArea id="16" />
                             <Dropdown v-model="selectedOption" :id="'custom-id'" :label="'label'"
@@ -61,10 +64,10 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="row">
-
+  
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
@@ -78,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-
+  
                         <div class="col-lg-12 mt-4">
                             <div class="card">
                                 <div class="card-header">
@@ -91,7 +94,7 @@
                                 </div>
                             </div>
                         </div>
-
+  
                         <div class="col-lg-12 mt-4">
                             <div class="card">
                                 <div class="card-header">
@@ -105,7 +108,7 @@
                                         <InputNominal id="2" title="Nominal" required="" />
                                         <InputNominal id="3" title="Nominal" required="" />
                                     </Accordion>
-
+  
                                     <Accordion header="Test header accordion 2">
                                         <InputPersen id="4" title="Persentase DP" required="" />
                                         <InputPersen id="5" title="Persentase DP" required="" />
@@ -116,7 +119,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -128,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -153,7 +156,7 @@
                                     </div>
                                 </template>
                             </ModalComponent>
-
+  
                             <ModalComponent title="Test Modal" btnValue="Test Modal" class="mb-2">
                                 <template v-slot:body>
                                     <div class="text-center">
@@ -289,12 +292,12 @@
                                     </div>
                                 </template>
                             </ModalComponent>
-
+  
                             <ModalComponent title="Test Modal 11">
                                 <template v-slot:trigger>
                                     <Button>Open Modal</Button>
                                 </template>
-
+  
                                 <template v-slot:body>
                                     <InputPersen id="10" title="Persentase DP" required="" />
                                     <InputPersen id="11" title="Persentase DP" required="" />
@@ -304,7 +307,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -318,12 +321,12 @@
                                 iconLabel="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                                 iconRight="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                                 type="date" required="" />
-
+  
                             <InputSmallDate id="someId" />
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -337,7 +340,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -345,14 +348,16 @@
                             <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
                         </div>
                         <div class="card-body">
-
+  
                             <Dropdown v-model="selectedOption" :id="'custom-id'" :label="'label'"
                                 :title="selectedOption" :items="dropdownItems" :options="dropdownOptions" />
-                            <AutoCompleteComponent :label="'label'" v-model="currentValue" :items="dropdownList" />
+                            <AutoCompleteComponent v-model="selectedValue" :items="dropdownItems" label="Item"
+                                item-text="label" item-value="id" :disabled="false" size="md"
+                                palceholder="Pilih salah satu" />
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -368,7 +373,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -390,7 +395,7 @@
                         </div>
                     </div>
                 </div>
-
+  
                 <div class="col-lg-12 mt-4">
                     <div class="card">
                         <div class="card-header">
@@ -413,51 +418,50 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 mt-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Table Basic</h5>
-                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
-                        </div>
-                        <div class="card-body">
-                            <StepperComponents :activeStep="1" />
-                        </div>
-                    </div>
-                </div>
-
+                <StepperComponents :activeStep="1" />
+  
             </div>
         </div>
     </div>
-</template>
-
-<script>
-    import Button from './Button/Button.vue';
-    import Alert from './Alert/AlertVarian.vue';
-    import AlertVarian from './Alert/Alert.vue';
+  </template>
+  
+  <script setup>
+    import {
+        ref
+    } from 'vue'
+  
+    const text = ref('ini value')
+    const rupiah = ref(12000000)
+  </script>
+  
+  <script>
+    import Button from './Button/Button.vue'
+    import Alert from './Alert/AlertVarian.vue'
+    import AlertVarian from './Alert/Alert.vue'
     import Breadcrumb from './Breadcrumb/Breadcrumb.vue'
-
-    import AddAmount from './AddAmount/AddAmountCounter.vue';
-    import InputSmallText from './Input/InputSmallText.vue';
-    import InputNominal from './Input/InputRupiah.vue';
-    import InputPersen from './Input/InputPersen.vue';
-    import InputTextArea from './Input/InputTextArea.vue';
-    import Dropdown from './Dropdown/Dropdown.vue';
-
-    import Accordion from './Accordion/Accordion.vue';
-    import FilePickerLG from './Filepicker/FilePickerLG.vue';
+  
+    import AddAmount from './AddAmount/AddAmountCounter.vue'
+    import InputSmallText from './Input/InputSmallText.vue'
+    import InputText from './Input/InputText.vue'
+    import InputNominal from './Input/InputRupiah.vue'
+    import InputPersen from './Input/InputPersen.vue'
+    import InputTextArea from './Input/InputTextArea.vue'
+    import Dropdown from './Dropdown/InputDropdown.vue'
+  
+    import Accordion from './Accordion/Accordion.vue'
+    import FilePickerLG from './Filepicker/FilePickerLG.vue'
     import ModalComponent from './Modal/Modal.vue'
-    import InputDatePicker from './Input/InputDatePicker.vue';
-    import InputSmallDate from './Input/InputSmallDate.vue';
-    import ListGroupOrdered from './ListGroup/ListGroupOrdered.vue';
-    import ListGroupUnit from './ListGroup/ListGroupUnit.vue';
-    import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue';
-    import TableData from './Table/Table.vue';
-    import DataTable from './Table/DataTable.vue';
-
-    import BerandaHeader from './Navbar/BerandaHeader.vue';
-    import AutoCompleteComponent from './SelectOption/AutoComplete.vue';
+    import InputDatePicker from './Input/InputDatePicker.vue'
+    import InputSmallDate from './Input/InputSmallDate.vue'
+    import ListGroupOrdered from './ListGroup/ListGroupOrdered.vue'
+    import ListGroupUnit from './ListGroup/ListGroupUnit.vue'
+    import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue'
+    import TableData from './Table/Table.vue'
+    import DataTable from './Table/DataTable.vue'
+    import BerandaHeader from './Navbar/BerandaHeader.vue'
+    import AutoCompleteComponent from './SelectOption/AutoComplete.vue'
     import StepperComponents from './Stepper/Stepper.vue'
-
+  
     export default {
         name: 'App',
         components: {
@@ -467,10 +471,10 @@
             Breadcrumb,
             AddAmount,
             InputSmallText,
+            InputText,
             InputNominal,
             InputTextArea,
             InputPersen,
-            Dropdown,
             Accordion,
             FilePickerLG,
             ModalComponent,
@@ -481,13 +485,13 @@
             ListGroupUnordered,
             TableData,
             DataTable,
+            Dropdown,
             BerandaHeader,
             AutoCompleteComponent,
             StepperComponents
         },
         data() {
             return {
-                dropdownList: ['op1', 'op2', 'op3'],
                 selectedOption: null,
                 dropdownItems: [{
                         id: 1,
@@ -500,7 +504,7 @@
                     {
                         id: 3,
                         label: 'Item 3'
-                    },
+                    }
                 ],
                 dropdownOptions: [{
                         value: 'option1',
@@ -513,103 +517,103 @@
                     {
                         value: 'option3',
                         label: 'Option 3'
-                    },
+                    }
                 ],
                 selectedDate: null,
                 tableData: [{
                         id: 1,
-                        name: "John Doe",
+                        name: 'John Doe',
                         age: 30,
                         ages: 123,
                         agess: 123
                     },
                     {
                         id: 2,
-                        name: "Jane Doe",
+                        name: 'Jane Doe',
                         age: 25,
                         ages: 123,
                         agess: 123
                     },
                     {
                         id: 3,
-                        name: "Jane Doe",
+                        name: 'Jane Doe',
                         age: 25,
                         ages: 123,
                         agess: 123
                     },
                     {
                         id: 4,
-                        name: "Jane Doe",
+                        name: 'Jane Doe',
                         age: 25,
                         ages: 123,
                         agess: 123
                     },
                     {
                         id: 5,
-                        name: "Jane Doe",
+                        name: 'Jane Doe',
                         age: 25,
                         ages: 123,
                         agess: 123
                     },
                     {
                         id: 6,
-                        name: "Jane Doe",
+                        name: 'Jane Doe',
                         age: 25,
                         ages: 123,
                         agess: 123
                     },
                     {
                         id: 7,
-                        name: "Jane Doe",
+                        name: 'Jane Doe',
                         age: 25,
                         ages: 123,
                         agess: 123
-                    },
+                    }
                 ],
                 tableColumns: [{
-                        key: "id",
-                        label: "ID",
+                        key: 'id',
+                        label: 'ID',
                         isAction: false
                     },
                     {
-                        key: "name",
-                        label: "Name",
+                        key: 'name',
+                        label: 'Name',
                         isAction: false
                     },
                     {
-                        key: "age",
-                        label: "Age",
+                        key: 'age',
+                        label: 'Age',
                         isAction: false
                     },
                     {
-                        key: "ages",
-                        label: "Ages",
+                        key: 'ages',
+                        label: 'Ages',
                         isAction: false
                     },
                     {
-                        key: "agess",
-                        label: "Agess",
+                        key: 'agess',
+                        label: 'Agess',
                         isAction: false
                     },
                     {
-                        key: "actions",
-                        label: "Actions",
+                        key: 'actions',
+                        label: 'Actions',
                         isAction: true,
                         showAction: true,
                         actions: [{
-                                name: "view",
-                                label: "View",
-                                type: "neutral",
-                                size: "sm"
+                                name: 'view',
+                                label: 'View',
+                                type: 'neutral',
+                                size: 'sm'
                             },
                             {
-                                name: "edit",
-                                label: "Edit",
-                                type: "outline-primary",
-                                size: "sm"
-                            },
-                        ],
-                    },
+                                name: 'edit',
+                                label: 'Edit',
+                                type: 'outline-primary',
+                                size: 'sm'
+                            }
+                        ]
+                    }
                 ],
                 tableDatas: [{
                         id: 1,
@@ -750,7 +754,7 @@
                         city: 'Charlotte',
                         occupation: 'Product Designer',
                         salary: 90000
-                    },
+                    }
                 ],
                 tableColumnss: [{
                         data: 'id',
@@ -771,20 +775,20 @@
                     {
                         data: 'salary',
                         title: 'Salary'
-                    },
-                ],
-            };
+                    }
+                ]
+            }
         },
         methods: {
             handleRowClick(item) {
-                console.log("Row clicked:", item);
+                console.log('Row clicked:', item)
             },
             handleViewAction(item) {
-                console.log("View action clicked for item:", item);
+                console.log('View action clicked for item:', item)
             },
             handleEditAction(item) {
-                console.log("Edit action clicked for item:", item);
-            },
-        },
+                console.log('Edit action clicked for item:', item)
+            }
+        }
     }
-</script>
+  </script>
