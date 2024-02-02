@@ -1,51 +1,58 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="sticky-top my-3 exa-header">
-        <BNavbarBrand href="#">
-            <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
-        </BNavbarBrand>
-        <BNavbarToggle target="nav-collapse" />
-        <BCollapse id="nav-collapse" is-nav>
+    <div class="sprint-nav">
+        <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="sticky-top my-3 exa-header desktop">
+            <BNavbarBrand href="#">
+                <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
+            </BNavbarBrand>
+            <BNavbarToggle target="nav-collapse" />
+            <BCollapse id="nav-collapse" is-nav>
+    
+                <BNavbarNav>
+                    <BFormInput class="me-2" placeholder="Search" />
+                </BNavbarNav>
+    
+                <!-- Right aligned nav items -->
+                <BNavForm class="d-flex">
+                    <BNavItemDropdown class="dd-nav" text="Riwayat">
+                        
+                        <b-card no-body>
+                            <b-tabs card align="center">
+                                <b-tab title="Tugasku" active>
+                                    <Stepper />
+                                </b-tab>
+                                <b-tab title="Informasi">
+                                    <b-card-text>Tab contents 2</b-card-text>
+                                </b-tab>
+                            </b-tabs>
+                        </b-card>
+                    </BNavItemDropdown>
+    
+                    <BNavItemDropdown class="dd-nav" text="Notifikasi" >
+                        <div class="card p-3">
+                            <ListGroupUnit />
+                        </div>
+                    </BNavItemDropdown>
+    
+                    <BNavItemDropdown class="dd-nav last-child">
+                        <template v-slot:button-content>
+                            <b>Thoriq saddad</b>
+                            Business Process Outsourcing
+                        </template>
+                    </BNavItemDropdown>
+                </BNavForm>
+            </BCollapse>
+        </BNavbar>
 
-            <BNavbarNav>
-                <BFormInput class="me-2" placeholder="Search" />
-            </BNavbarNav>
-
-            <!-- Right aligned nav items -->
-            <BNavForm class="d-flex">
-                <BNavItemDropdown class="dd-nav" text="Riwayat">
-                    
-                    <b-card no-body>
-                        <b-tabs card align="center">
-                            <b-tab title="Tugasku" active>
-                                <ListGroupOrdered />
-                            </b-tab>
-                            <b-tab title="Informasi">
-                                <b-card-text>Tab contents 2</b-card-text>
-                            </b-tab>
-                        </b-tabs>
-                    </b-card>
-                </BNavItemDropdown>
-
-                <BNavItemDropdown class="dd-nav" text="Notifikasi" >
-                    <div class="card p-3">
-                        <ListGroupUnit />
-                    </div>
-                </BNavItemDropdown>
-
-                <BNavItemDropdown class="dd-nav last-child">
-                    <template v-slot:button-content>
-                        <b>Thoriq saddad</b>
-                        Business Process Outsourcing
-                    </template>
-                </BNavItemDropdown>
-            </BNavForm>
-        </BCollapse>
-    </BNavbar>
+        <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="navbar fixed-bottom exa-header my-2 mx-2 mobile">
+            <BNavbarBrand href="#">
+                <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
+            </BNavbarBrand>
+        </BNavbar>
+    </div>
 </template>
 
 <script>
-    import ListGroupOrdered from '../ListGroup/ListGroupOrdered.vue';
     import ListGroupUnit from '../ListGroup/ListGroupUnit.vue';
     import {
         BNavbar,
@@ -54,18 +61,19 @@
         BNavbarNav,
         BNavForm,
     } from 'bootstrap-vue-next';
+import Stepper from '../Stepper/Stepper.vue';
 
     export default {
         name: "BerandaHeader",
         components: {
-            BNavbar,
-            BNavbarBrand,
-            BNavbarToggle,
-            BNavbarNav,
-            BNavForm,
-            ListGroupOrdered,
-            ListGroupUnit
-        },
+    BNavbar,
+    BNavbarBrand,
+    BNavbarToggle,
+    BNavbarNav,
+    BNavForm,
+    ListGroupUnit,
+    Stepper
+},
         props: {
             label: {
                 type: String,
@@ -168,6 +176,12 @@
     
             &.sticky-top {
                 top: 1rem;
+            }
+
+            @media only screen and (max-width: 768px) {
+                &.sticky-top {
+                    bottom: 1rem;
+                }
             }
     
         }
