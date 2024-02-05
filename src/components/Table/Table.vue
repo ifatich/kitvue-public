@@ -17,6 +17,11 @@
                     </span>
                 </td>
             </tr>
+            <tr v-if="sortedData.length === 0">
+                <td :colspan="columns.length" style="text-align: center; vertical-align: middle; height: 116px;">
+                  {{ nodataMessage }}
+                </td>
+            </tr>
         </tbody>
     </table>
 </template>
@@ -43,6 +48,10 @@
             },
             size: {
                 type: String,
+            },
+            nodataMessage: {
+              type: String,
+              default: 'Tidak ada data yang ditampilkan'
             }
         },
         data() {
