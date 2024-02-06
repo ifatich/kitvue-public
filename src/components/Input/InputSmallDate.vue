@@ -1,15 +1,15 @@
 <template>
     <div class="group-input">
 
-        <label :for="id" class="form-label">
+        <label :for="$attrs.id" class="form-label">
             {{ title || "Tanggal Lahir" }}
         </label>
 
         <div class="input-group custom-input-group-icon">
 
-            <input type="text" :class="['form-control', classes]" :id="id" :aria-label="title" :aria-describedby="title"
+            <input type="text" :class="['form-control', classes]" v-bind="$attrs" :aria-label="title" :aria-describedby="title"
                 :disabled="disabled" :required="required"
-                :placeholder="['Pilih ' + (title || placeholder || '').toLowerCase()]" v-model="selectedDate"
+                :placeholder="['Pilih ' + (title || placeholder || '').toLowerCase()]" v-model="displayedDate"
                 @click="showDatePicker" readonly />
 
             <div class="input-group-icon">
@@ -79,17 +79,15 @@
 
 <script>
     export default {
+        name: 'DatePicker',
+        inheritAttrs: false,
         props: {
-            id: {
-                required: true,
-            },
             title: {
                 type: String,
-                default:"Tanggal Lahir"
+                default: "Tanggal Lahir"
             },
             placeholder: {
                 type: String,
-                required: true,
             },
             disabled: {
                 type: Boolean,
@@ -108,6 +106,8 @@
                 showYearMenu: false,
                 currentMonth: new Date().getMonth() + 1,
                 currentYear: new Date().getFullYear(),
+                displayedDate: '',
+                internalDate: '',
                 days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                 months: [
                     'January', 'February', 'March', 'April', 'May', 'June',
@@ -169,13 +169,21 @@
             selectDate(day) {
                 if (day.date) {
                     const selectedDate = new Date(day.date);
-                    selectedDate.setDate(selectedDate.getDate() + 1);
+                    selectedDate.setDate(selectedDate.getDate() + 0);
 
-                    this.selectedDate = selectedDate.toISOString().split('T')[0];
+                    const dayOfMonth = selectedDate.getDate();
+                    const month = selectedDate.getMonth() + 1;
+                    const year = selectedDate.getFullYear();
+
+                    this.displayedDate = 
+                        `${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}-${month < 10 ? '0' : ''}${month}-${year}`;
+                    this.internalDate =
+                        `${year}-${month < 10 ? '0' : ''}${month}-${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}`;
+
                     this.showCalendar = false;
-                    
-                    console.log(this.selectedDate);
-                    this.$emit('update:modelValue', this.selectedDate);
+
+                    console.log(this.internalDate);
+                    this.$emit('update:modelValue', this.internalDate);
                 }
             },
             previousMonth() {
@@ -207,9 +215,14 @@
 </script>
 
 <style scoped>
-    .form-control{
+    .form-control {
         cursor: pointer;
     }
+
+    .content-date {
+        position: relative;
+    }
+
     .card {
         position: absolute;
         z-index: 999;
@@ -319,7 +332,7 @@
         position: absolute;
         z-index: 1080;
         background-color: white;
-        top: 275px;
+        top: 120px;
         width: 360px;
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;

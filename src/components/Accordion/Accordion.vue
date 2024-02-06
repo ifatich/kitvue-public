@@ -1,22 +1,31 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <BAccordion>
-        <BAccordionItem :id="dynamicId" class="accordion-item" :title="header">
-            <slot></slot>
-        </BAccordionItem>
+    <BAccordion v-model="currentValue" :free="free">
+        <slot></slot>
     </BAccordion>
 </template>
 
 <script>
+import { BAccordion } from 'bootstrap-vue-next'
+import { computed } from 'vue'
 export default {
     name: "AccordionComponent",
+    components: {
+      BAccordion
+    },
     props: {
-        header: String,
+        modelValue: {
+            type: Array
+        },
+        free: Boolean
     },
-    data() {
-        return {
-        dynamicId: 'gkitacc' + Math.floor(Math.random() * 1000),
-        };
-    },
+    setup(props, { emit }) {
+        const currentValue = computed({
+            get: () => props.modelValue,
+            set: (value) => emit('update:modelValue', value)
+        })
+
+        return { currentValue }
+    }
 };
 </script>
