@@ -418,7 +418,54 @@
                     </div>
                 </div>
 
-                <StepperComponents :activeStep="1" />
+                <div class="col-lg-12 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+                            <StepperComponents :activeStep="1" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+                            <StepperRadio />
+                            <h1>{{ activeStep }}</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+
+                            <SideStepper title="Langkah" :labels="dropdownItems">
+                                <template v-slot:1>
+                                    <StepperComponents :activeStep="1" />
+                                </template>
+                                <template v-slot:2>
+                                    <StepperComponents :activeStep="2" />
+                                </template>
+                                <template v-slot:3>
+                                    <StepperComponents :activeStep="3" />
+                                </template>
+                            </SideStepper>
+                              
+                        </div>
+                    </div>
+                </div>
   
             </div>
         </div>
@@ -461,6 +508,8 @@
     import BerandaHeader from './Navbar/BerandaHeader.vue'
     import AutoCompleteComponent from './SelectOption/AutoComplete.vue'
     import StepperComponents from './Stepper/Stepper.vue'
+    import StepperRadio from './Stepper/StepperVarian.vue'
+    import SideStepper from './SideStepper/SideStepper.vue'
   
     export default {
         name: 'App',
@@ -488,11 +537,24 @@
             Dropdown,
             BerandaHeader,
             AutoCompleteComponent,
-            StepperComponents
+            StepperComponents,
+            StepperRadio,
+            SideStepper
         },
         data() {
             return {
+                selectedRadio: "",
                 selectedOption: null,
+                TabsItems: [{
+                        label: 'Item 112ioue'
+                    },
+                    {
+                        label: 'Item 2askdn'
+                    },
+                    {
+                        label: 'Item 3alksmndl'
+                    }
+                ],
                 dropdownItems: [{
                         id: 1,
                         label: 'Item 1'
