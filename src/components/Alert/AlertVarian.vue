@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="`alert alert-${color}`">
+        <div :class="`alert alert-${color} ${variantClass}`">
             {{ label }}
         </div>
     </div>
@@ -15,6 +15,12 @@
                 validator(value) {
                     return ["green", "light-blue", "red", "yellow"].includes(value);
                 },
+            },
+            variant: String,
+        },
+        computed: {
+            variantClass() {
+                return this.variant ? `alert-${this.variant}` : '';
             },
         },
     };

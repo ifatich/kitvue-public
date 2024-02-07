@@ -34,6 +34,11 @@
                             <Alert color="warning" label="Lorem ipsum dolor sit amet" />
                             <Alert color="link" label="Lorem ipsum dolor sit amet" />
                             <Alert color="danger" label="Lorem ipsum dolor sit amet" />
+
+                            <Alert class="variant" color="success" label="Lorem ipsum dolor sit amet" />
+                            <Alert class="variant" color="info" label="Lorem ipsum dolor sit amet" />
+                            <Alert class="variant" color="warning" label="Lorem ipsum dolor sit amet" />
+                            <Alert class="variant" color="danger" label="Lorem ipsum dolor sit amet" />
   
                             <AlertVarian />
                         </div>
