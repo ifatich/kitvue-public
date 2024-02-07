@@ -2,6 +2,8 @@
     <div class="home">
         <div class="container">
             <BerandaHeader />
+            <LoadAnimate />
+
             <div class="row">
   
                 <div class="col-lg-6">
@@ -466,6 +468,19 @@
                                     <StepperComponents :activeStep="3" />
                                 </template>
                             </SideStepper>
+
+
+                            <SideStepperTest title="Langkah" :labels="dropdownItems">
+                                <template v-slot:1>
+                                    <StepperComponents :activeStep="1" />
+                                </template>
+                                <template v-slot:2>
+                                    <StepperComponents :activeStep="2" />
+                                </template>
+                                <template v-slot:3>
+                                    <StepperComponents :activeStep="3" />
+                                </template>
+                            </SideStepperTest>
                               
                         </div>
                     </div>
@@ -515,6 +530,9 @@
     import StepperComponents from './Stepper/Stepper.vue'
     import StepperRadio from './Stepper/StepperVarian.vue'
     import SideStepper from './SideStepper/SideStepper.vue'
+    import SideStepperTest from './SideStepper/SideStepperTest.vue'
+
+    import LoadAnimate from './Modal/Load.vue'
   
     export default {
         name: 'App',
@@ -545,7 +563,9 @@
             AutoCompleteComponent,
             StepperComponents,
             StepperRadio,
-            SideStepper
+            SideStepper,
+            LoadAnimate,
+            SideStepperTest
         },
         data() {
             return {
