@@ -1,0 +1,106 @@
+<template>
+    <b-modal class="fit-content" v-model="showModal" hide-header hide-footer size="sm" centered>
+        <div class="text-center">
+            <div id="loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <p>Memproses Data</p>
+            <p>{{ count + '%' }}</p>
+        </div>
+    </b-modal>
+</template>
+
+<script>
+    export default {
+        name: 'LoadAnimate',
+        props: {
+            count: {
+                type: Number,
+                default: 0,
+            },
+        },
+        data() {
+            return {
+                showModal: false,
+                dots: Array.from({
+                    length: 3
+                }, (_, index) => index)
+            };
+        },
+        methods: {
+            show() {
+                this.showModal = true;
+            },
+            hide() {
+                this.showModal = false;
+            },
+        },
+    };
+</script>
+
+<style lang="scss">
+    .fit-content {
+        .modal-sm {
+            width: fit-content;
+        }
+    }
+
+    #loader {
+        display: flex;
+        padding: 2rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .dot {
+        height: 2rem;
+        width: 2rem;
+        border-radius: 2rem;
+        margin-right: -4px;
+        animation-name: bounce;
+        animation-duration: 2.1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+    }
+
+    #loader .dot:nth-child(1) {
+        background-color: var(--g-kit-kiwi-50);
+        animation-delay: 0.3s;
+    }
+
+    #loader .dot:nth-child(2) {
+        background-color: var(--g-kit-lime-50);
+        animation-delay: 0.6s;
+    }
+
+    #loader .dot:nth-child(3) {
+        background-color: var(--g-kit-broccoli-50);
+        animation-delay: 0.9s;
+    }
+
+    @keyframes bounce {
+        20% {
+            transform: translateY(-0.6em);
+        }
+
+        40% {
+            transform: translateY(0.4em);
+            opacity: .7;
+        }
+
+        60% {
+            transform: translateY(-0.2em);
+        }
+
+        80% {
+            transform: translateY(-0.1em);
+        }
+
+        100% {
+            transform: translateY(0em);
+        }
+    }
+</style>
