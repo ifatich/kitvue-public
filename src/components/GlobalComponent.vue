@@ -103,18 +103,22 @@
                                     <h5>Accordion</h5>
                                     <p class="mb-0"><code>&lt;Button type="primary" size="md" label="Button"&gt;</code>
                                     </p>
+                                    <p>
+                                        {{ modelAccordion }}
+                                    </p>
                                 </div>
                                 <div class="card-body">
-                                    <Accordion header="Test header accordion" class="mb-2">
-                                        <InputNominal id="1" title="Nominal" required="" />
-                                        <InputNominal id="2" title="Nominal" required="" />
-                                        <InputNominal id="3" title="Nominal" required="" />
-                                    </Accordion>
-  
-                                    <Accordion header="Test header accordion 2">
-                                        <InputPersen id="4" title="Persentase DP" required="" />
-                                        <InputPersen id="5" title="Persentase DP" required="" />
-                                        <InputPersen id="6" title="Persentase DP" required="" />
+                                    <Accordion class="mb-2" v-model="modelAccordion">
+                                        <AccordionItem header="Test header accordion" active>
+                                            <InputNominal id="1" title="Nominal" required="" />
+                                            <InputNominal id="2" title="Nominal" required="" />
+                                            <InputNominal id="3" title="Nominal" required="" />
+                                        </AccordionItem>
+                                        <AccordionItem header="Test header accordion 2" active>
+                                            <InputPersen id="4" title="Persentase DP" required="" />
+                                            <InputPersen id="5" title="Persentase DP" required="" />
+                                            <InputPersen id="6" title="Persentase DP" required="" />
+                                        </AccordionItem>
                                     </Accordion>
                                 </div>
                             </div>
@@ -511,6 +515,7 @@
     import Dropdown from './Dropdown/InputDropdown.vue'
   
     import Accordion from './Accordion/Accordion.vue'
+    import AccordionItem from './Accordion/AccordionItem.vue'
     import FilePickerLG from './Filepicker/FilePickerLG.vue'
     import ModalComponent from './Modal/Modal.vue'
     import InputDatePicker from './Input/InputDatePicker.vue'
@@ -543,6 +548,7 @@
             InputTextArea,
             InputPersen,
             Accordion,
+            AccordionItem,
             FilePickerLG,
             ModalComponent,
             InputDatePicker,
