@@ -1,18 +1,19 @@
 <template>
-    <b-modal class="fit-content" v-model="showModal" hide-header hide-footer size="sm" centered>
+    <b-modal class="fit-content" v-model="showModal" hide-header hide-footer size="sm" centered :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
         <div class="text-center">
             <div id="loader">
                 <div class="dot"></div>
                 <div class="dot"></div>
                 <div class="dot"></div>
             </div>
-            <p>Memproses Data</p>
-            <p>{{ count + '%' }}</p>
+            <p>{{ title }}</p>
+            <p v-if="count">{{ count + '%' }}</p>
         </div>
     </b-modal>
 </template>
 
 <script>
+    import { computed } from 'vue'
     export default {
         name: 'LoadAnimate',
         props: {
@@ -20,10 +21,28 @@
                 type: Number,
                 default: 0,
             },
+            persistent: {
+                type: Boolean,
+                default: true
+            },
+            title: {
+                type: String,
+                default: 'Memproses Data'
+            },
+            modelValue: {
+                type: Boolean
+            }
+        },
+        setup(props, { emit }) {
+            const showModal = computed({
+                get: () => props.modelValue,
+                set: (value) => emit('update:modelValue', value)
+            })
+
+            return { showModal }
         },
         data() {
             return {
-                showModal: false,
                 dots: Array.from({
                     length: 3
                 }, (_, index) => index)
