@@ -1,13 +1,13 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div>
-        <BAlert :model-value="true">Default Alert</BAlert>
+        <BAlert class="variant" :model-value="true">Default Alert</BAlert>
 
-        <BAlert variant="success" :model-value="true">Success Alert</BAlert>
+        <BAlert class="variant" variant="success" :model-value="true">Success Alert</BAlert>
 
-        <BAlert v-model="showDismissibleAlert" variant="danger" dismissible> Dismissible Alert! </BAlert>
+        <BAlert class="variant" v-model="showDismissibleAlert" variant="danger" dismissible> Dismissible Alert! </BAlert>
 
-        <BAlert v-model="dismissCountDown" dismissible variant="warning" @close-countdown="countdown = $event">
+        <BAlert class="variant" v-model="dismissCountDown" dismissible variant="warning" @close-countdown="countdown = $event">
             <p>This alert will dismiss after {{ countdown / 1000 }} seconds...</p>
             <BProgress variant="success" :max="dismissCountDown" :value="countdown" height="4px" />
         </BAlert>
