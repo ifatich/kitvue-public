@@ -1,6 +1,9 @@
 <!-- DataTable.vue -->
 <template>
-    <table ref="dataable" class="table rounded-corners">
+    <div>
+        <slot name="table-header"></slot>
+    </div>
+    <table class="table rounded-corners" style="width: 100%">
         <thead>
             <tr>
                 <th v-for="column in columns" :key="column.key" @click="sortTable(column.key)">
@@ -11,10 +14,13 @@
         <tbody>
             <tr v-for="item in sortedData" :key="item.id" @click="handleRowClick(item)">
                 <td v-for="column in columns" :key="column.key">
-                    <span v-if="!column.isAction">{{ item[column.key] }}</span>
-                    <span v-else-if="column.isAction && column.showAction">
-                        <Button class="me-2" :type="action.type" :size="action.size" v-for="action in column.actions" :key="action.name" @click="handleActionClick(action, item)" :label="action.label" />
-                    </span>
+                    <slot
+                        :name="column.key"
+                        :value="item[column.key]"
+                        :item="item"
+                    >
+                        {{ item[column.key] }}
+                    </slot>
                 </td>
             </tr>
             <tr v-if="sortedData.length === 0">
@@ -24,16 +30,11 @@
             </tr>
         </tbody>
     </table>
-</template>
-
-<script>
-    import Button from '../Button/Button.vue';
-
+  </template>
+  
+  <script>
     export default {
         name: "TableData",
-        components: {
-            Button
-        },
         props: {
             data: {
                 type: Array,
@@ -66,9 +67,9 @@
                     const modifier = this.sortOrder;
                     const x = a[this.sortKey];
                     const y = b[this.sortKey];
-
+  
                     if (x === y) return 0;
-
+  
                     return x > y ? modifier : -modifier;
                 });
             },
@@ -85,15 +86,7 @@
             handleRowClick(item) {
                 this.$emit("row-click", item);
             },
-            handleActionClick(action, item) {
-                this.$emit(`action-click:${action.name}`, item);
-            },
         },
     };
-</script>
-
-<style scoped>
-    .w-1000{
-        width: 50vw;
-    }
-</style>
+  </script>
+  
