@@ -14,8 +14,10 @@
 
 <script>
     import { computed } from 'vue'
+    import { BModal } from 'bootstrap-vue-next'
     export default {
         name: 'LoadAnimate',
+        components: { BModal },
         props: {
             count: {
                 type: Number,

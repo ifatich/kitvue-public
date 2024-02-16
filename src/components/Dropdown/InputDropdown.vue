@@ -7,21 +7,31 @@ import {
   defineEmits,
   useAttrs
 } from 'vue'
-import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton } from 'bootstrap-vue-next'
+import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton, BSpinner } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
 const attrs = useAttrs()
-const props = defineProps([
-  'error',
-  'label',
-  'items',
-  'itemValue',
-  'itemText',
-  'modelValue',
-  'placeholder',
-  'class'
-])
+
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  error: String,
+  label: String,
+  items: Array,
+  itemValue: String,
+  itemText: String,
+  modelValue: String,
+  placeholder: String,
+  class: String
+})
+
 const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
@@ -63,11 +73,13 @@ const handleOptionClick = (option) => {
       toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
       class="prevent-zero gkit-dd"
       v-bind="$attrs"
+      :disabled="disabled || loading"
     >
       <template #button-content>
         {{ selectedText || props.placeholder }}
         <span>
-          <img src="../../assets/icon/chevron_down.svg" />
+          <BSpinner v-if="loading" small />
+          <img v-else src="../../assets/icon/chevron_down.svg" />
         </span>
       </template>
 
