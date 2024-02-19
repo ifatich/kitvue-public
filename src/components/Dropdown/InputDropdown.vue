@@ -5,7 +5,8 @@ import {
   defineProps,
   ref,
   defineEmits,
-  useAttrs
+  useAttrs,
+  watch
 } from 'vue'
 import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton, BSpinner } from 'bootstrap-vue-next'
 
@@ -50,6 +51,10 @@ const selectedValue = computed({
   set: (newValue) => {
     emit('update:modelValue', newValue)
   }
+})
+
+watch(selectedValue, (newValue) => {
+  if (newValue === null || newValue === '') selectedText.value = ''
 })
 
 const handleOptionClick = (option) => {
