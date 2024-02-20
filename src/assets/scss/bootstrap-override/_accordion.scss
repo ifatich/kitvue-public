@@ -91,7 +91,7 @@
 .accordion-body{
     padding: .75rem;
     color: var(--g-kit-black-60);
-	overflow: auto;
+	overflow: visible !important;
 }
 .accordion-item {
 	&:first-of-type {

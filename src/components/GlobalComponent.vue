@@ -1,7 +1,29 @@
 <template>
     <div class="home">
         <div class="container">
-            <BerandaHeader />
+            <BerandaHeader> 
+                <template #search>
+                    <InputDropdownHeader 
+                        v-model="nilaiTerpilih"
+                        :label="'Pilihan Anda'"
+                        :items="daftarPilihan"
+                        :itemValue="'id'"
+                        :itemImg="'img'"
+                        :itemText="'nama'"
+                        :itemLink="'link'"
+                        :placeholder="'Pengajuan kredit'"
+                        :class="'input-dropdown-kustom'"
+                        :error="teksError" />
+                </template>
+                <template #riwayat>
+                    <Button type="link" size="md" label="Button Link" />
+                </template>
+                <template #notifikasi>
+                    <Button class="me-2 mb-2" type="link" size="md" label="Button Link" />
+                    <Button class="me-2 mb-2" type="secondary" size="md" label="Button Seccondary" />
+                    <Button class="me-2 mb-2" type="secondary" size="md" label="Button Seccondary" />
+                </template>
+            </BerandaHeader>
             <LoadAnimate />
 
             <div class="row">
@@ -68,6 +90,20 @@
                             <Dropdown v-model="selectedOption" :id="'custom-id'" :label="'label'"
                                 :title="selectedOption" :items="dropdownItems" :options="dropdownOptions" />
                             <p>Selected: {{ selectedOption }}</p>
+
+
+
+                            <Accordion class="mb-2" v-model="modelAccordion">
+                                <AccordionItem header="Test header accordion" active>
+                                    <InputSmallDate v-model="selectedDate" id="birthdate" placeholder="Pilih Tanggal Lahir" />
+                                    <InputSmallDate id="someId" />
+
+                                </AccordionItem>
+                                <AccordionItem header="Test header accordion 2" active>
+                                    <InputSmallDate v-model="selectedDate" id="birthdate" placeholder="Pilih Tanggal Lahir" />
+
+                                </AccordionItem>
+                            </Accordion>
                         </div>
                     </div>
                 </div>
@@ -486,7 +522,7 @@
                                     <StepperComponents :activeStep="3" />
                                 </template>
                             </SideStepperTest>
-                              
+
                         </div>
                     </div>
                 </div>
@@ -503,6 +539,7 @@
   
     const text = ref('ini value')
     const rupiah = ref(12000000)
+    
   </script>
   
   <script>
@@ -537,6 +574,8 @@
     import SideStepper from './SideStepper/SideStepper.vue'
     import SideStepperTest from './SideStepper/SideStepperTest.vue'
 
+    import InputDropdownHeader from './Dropdown/InputDropdownHeader.vue'
+
     import LoadAnimate from './Modal/Load.vue'
   
     export default {
@@ -570,10 +609,24 @@
             StepperRadio,
             SideStepper,
             LoadAnimate,
-            SideStepperTest
+            SideStepperTest,
+            InputDropdownHeader
         },
         data() {
             return {
+                nilaiTerpilih: null,
+                daftarPilihan: [
+                    { id: 1, img: 'beli_emas', nama: 'Pilihan Pilihanb', link: 'asa' },
+                    { id: 2, img: 'beli_emas', nama: 'Pilihan 2', link: 'b.html' },
+                    { id: 3, img: 'beli_emas', nama: 'Pilihan 3', link: 'c.html' },
+                    { id: 4, img: 'beli_emas', nama: 'Pilihan 4', link: 'd.html' },
+                ],
+                propertiNilaiPilihan: 'id',
+                propertiTeksPilihan: 'nama',
+                teksPlaceholder: 'Pilih salah satu',
+                kelasKustom: 'input-dropdown-kustom',
+                teksError: null,
+
                 selectedRadio: "",
                 selectedOption: null,
                 TabsItems: [{
