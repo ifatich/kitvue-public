@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div class="sprint-nav">
-        <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="sticky-top my-3 exa-header desktop">
+        <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="fixed-top my-3 exa-header desktop container">
             <BNavbarBrand href="#">
                 <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
             </BNavbarBrand>
@@ -9,35 +9,28 @@
             <BCollapse id="nav-collapse" is-nav>
     
                 <BNavbarNav>
-                    <BFormInput class="me-2" placeholder="Search" />
+                    <slot name="search"></slot>
                 </BNavbarNav>
     
                 <!-- Right aligned nav items -->
                 <BNavForm class="d-flex">
                     <BNavItemDropdown class="dd-nav" text="Riwayat">
                         
-                        <b-card no-body>
-                            <b-tabs card align="center">
-                                <b-tab title="Tugasku" active>
-                                    <Stepper />
-                                </b-tab>
-                                <b-tab title="Informasi">
-                                    <b-card-text>Tab contents 2</b-card-text>
-                                </b-tab>
-                            </b-tabs>
+                        <b-card>
+                            <slot name="riwayat"></slot>
                         </b-card>
                     </BNavItemDropdown>
     
-                    <BNavItemDropdown class="dd-nav" text="Notifikasi" >
-                        <div class="card p-3">
-                            <ListGroupUnit />
-                        </div>
+                    <BNavItemDropdown class="dd-nav notif" text="Notifikasi" >
+                        <b-card>
+                            <slot name="notifikasi"></slot>
+                        </b-card>
                     </BNavItemDropdown>
     
                     <BNavItemDropdown class="dd-nav last-child">
                         <template v-slot:button-content>
-                            <b>Thoriq saddad</b>
-                            Business Process Outsourcing
+                            <b>  {{ user||'Thoriq Shadad' }} </b>
+                            {{ jabatan||'Business Process Outsourcing' }}
                         </template>
                     </BNavItemDropdown>
                 </BNavForm>
@@ -53,7 +46,6 @@
 </template>
 
 <script>
-    import ListGroupUnit from '../ListGroup/ListGroupUnit.vue';
     import {
         BNavbar,
         BNavbarBrand,
@@ -61,7 +53,6 @@
         BNavbarNav,
         BNavForm,
     } from 'bootstrap-vue-next';
-import Stepper from '../Stepper/Stepper.vue';
 
     export default {
         name: "BerandaHeader",
@@ -71,10 +62,14 @@ import Stepper from '../Stepper/Stepper.vue';
     BNavbarToggle,
     BNavbarNav,
     BNavForm,
-    ListGroupUnit,
-    Stepper
 },
         props: {
+            username: {
+                type: String
+            },
+            jabatan: {
+                type: String
+            },
             label: {
                 type: String,
                 default: "Beli Tabungan Emas",
@@ -91,6 +86,11 @@ import Stepper from '../Stepper/Stepper.vue';
 
 <style lang="scss">
 
+    .container {
+        --g-bs-gutter-x: 0 !important;
+        --g-bs-gutter-y: 0;
+    }
+
     nav.navbar{
         &.exa-header {
             padding: 1rem;
@@ -103,17 +103,23 @@ import Stepper from '../Stepper/Stepper.vue';
                     display: flex;
                     align-items: center;
 
-                    &:not(:last-child) {
+                    &:first-child {
                         &::before {
-                            content: url('../../assets/icon/check_round.svg');
+                            content: url('../../assets/icon/notification_outline.svg');
+                            width: 24px;
+                            height: 24px;
+                        }
+                    }
+
+                    &:not(:first-child):not(:last-child) {
+                        &::before {
+                            content: url('../../assets/icon/history_flat.svg');
                             width: 24px;
                             height: 24px;
                         }
                     }
                     &:last-child {
                         border-left: 2px solid white;
-
-                        
                     }
 
                     &.last-child{
@@ -176,6 +182,7 @@ import Stepper from '../Stepper/Stepper.vue';
     
             &.sticky-top {
                 top: 1rem;
+                position: fixed;
             }
 
             @media only screen and (max-width: 768px) {
@@ -183,7 +190,25 @@ import Stepper from '../Stepper/Stepper.vue';
                     bottom: 1rem;
                 }
             }
-    
+
+            .navbar-nav {
+                width: 360px;
+                .group-input {
+                    margin-bottom: 0;
+                    width: 100%;
+                    label {
+                        display: none
+                    }
+
+                    .select2-container {
+                        width: 100% !important;
+                    }
+                    
+                    .select2-container--open .select2-dropdown {
+                        left: auto;
+                    }
+                }
+            }
         }
     }
 </style>
