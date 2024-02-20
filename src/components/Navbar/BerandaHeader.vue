@@ -3,7 +3,7 @@
     <div class="sprint-nav">
         <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="fixed-top my-3 exa-header desktop container">
             <BNavbarBrand href="#">
-                <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
+                <img :src="require('../../assets/images/BG-Broccolli.svg')" />
             </BNavbarBrand>
             <BNavbarToggle target="nav-collapse" />
             <BCollapse id="nav-collapse" is-nav>
@@ -32,6 +32,10 @@
                             <b>  {{ user||'Thoriq Shadad' }} </b>
                             {{ jabatan||'Business Process Outsourcing' }}
                         </template>
+
+                        <b-card>
+                            <slot name="profil"></slot>
+                        </b-card>
                     </BNavItemDropdown>
                 </BNavForm>
             </BCollapse>
@@ -93,9 +97,16 @@
 
     nav.navbar{
         &.exa-header {
-            padding: 1rem;
+            background-image: url('../../assets/images/background-broccolli-header.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: .4rem;
             border-radius: 1rem;
             background-color: var(--g-kit-broccoli-50) !important;
+
+            .navbar-brand img{
+                height: 60px;
+            }
 
             form {
                 li.dd-nav {
@@ -146,7 +157,11 @@
             ul {
                 flex-wrap: nowrap;
             }
-    
+
+            form {
+                gap: 1.5rem;
+            }
+
             li {
                 list-style-type: none;
     
