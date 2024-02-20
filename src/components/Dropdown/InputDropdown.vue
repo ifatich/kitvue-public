@@ -92,11 +92,13 @@ const handleOptionClick = (option) => {
         @click.stop
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
+        :id="$attrs.id + '_search'"
       ></b-form-input>
       <BDropdownItem
         v-for="(option, index) in filteredItems"
         :key="index"
         @click="handleOptionClick(option)"
+        :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
         <BDropdownItemButton
           buttonClass="d-flex justify-content-between mt-1"
