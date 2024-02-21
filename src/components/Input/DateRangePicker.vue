@@ -2,50 +2,46 @@
 <template>
     <div>
         <div class="date-range-picker">
-            <InputSmallDate v-model="internalStartDate" title="Dari" placeholder="DD / MM / YYYY"
-                @update:modelValue="updateStartDate" />
-            <InputSmallDate v-model="internalEndDate" title="Hingga" placeholder="DD / MM / YYYY"
-                @update:modelValue="updateEndDate" />
+            <InputSmallDate
+                v-model="startDate"
+                title="Dari"
+                placeholder="DD / MM / YYYY"
+            />
+            <InputSmallDate
+                v-model="endDate"
+                title="Hingga"
+                placeholder="DD / MM / YYYY"
+            />
         </div>
-        <div v-if="endDateError" class="error-text mt-1">{{ endDateError }}</div>
+        <div v-if="errorValidation" class="error-text mt-1">{{ errorValidation }}</div>
     </div>
-</template>
-
-<script setup>
+  </template>
+  
+  <script setup>
     import InputSmallDate from './InputSmallDate.vue';
     import {
-        ref
+        computed
     } from 'vue';
-
-    const internalStartDate = ref(null);
-    const internalEndDate = ref(null);
-    const endDateError = ref(null);
-
-    const updateStartDate = (value) => {
-        internalStartDate.value = value;
-        validateEndDate();
-    };
-
-    const updateEndDate = (value) => {
-        internalEndDate.value = value;
-        validateEndDate();
-    };
-
-    const validateEndDate = () => {
-        if (internalStartDate.value && internalEndDate.value && internalStartDate.value > internalEndDate.value) {
-            endDateError.value = "Tanggal akhir harus lebih besar dari tanggal awal";
+  
+    const startDate = defineModel('startDate')
+    const endDate = defineModel('endDate')
+  
+    const errorValidation = computed(() => {
+        if (startDate.value && endDate.value && startDate.value > endDate.value) {
+            return "Tanggal akhir harus lebih besar dari tanggal awal";
         } else {
-            endDateError.value = null;
+            return null;
         }
-    };
-</script>
-<style scoped>
+    })
+  </script>
+  <style scoped>
     .form-label {
         display: none;
     }
-
+  
     .date-range-picker {
         display: flex;
         gap: 16px;
     }
-</style>
+  </style>
+  
