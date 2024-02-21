@@ -36,7 +36,6 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
-const selectedText = ref()
 
 const filteredItems = computed(() =>
   search.value
@@ -45,6 +44,14 @@ const filteredItems = computed(() =>
       )
     : props.items
 )
+
+const selectedText = computed(() => {
+  if (selectedValue.value && props.items.length > 0) {
+    const findItem = props.items.find(v => v[props.itemValue] === selectedValue.value)
+    if (findItem) return findItem[props.itemText]
+    return ''
+  }
+})
 
 const selectedValue = computed({
   get: () => (props.modelValue ? props.modelValue : null),
@@ -59,7 +66,6 @@ watch(selectedValue, (newValue) => {
 
 const handleOptionClick = (option) => {
   selectedValue.value = option[props.itemValue]
-  selectedText.value = option[props.itemText]
   if (attrs.onChange && attrs.onInput && attrs.onBlur) {
     attrs.onChange()
     attrs.onInput()

@@ -1,11 +1,24 @@
 <script setup>
-import { defineOptions, defineModel, defineProps } from 'vue'
+import { defineOptions, defineProps, defineEmits, computed } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'suffixIcon', 'class'])
+const props = defineProps(['error', 'label', 'suffixIcon', 'class', 'modelValue', 'type'])
+const emit = defineEmits(['update:modelValue'])
 
-const model = defineModel()
+const inputValue = computed({
+  get() {
+    return toUppercaseString(props.modelValue)
+  },
+  set(newValue) {
+    emit('update:modelValue', toUppercaseString(newValue))
+  }
+})
+
+function toUppercaseString(val) {
+  if (val) return val.toUpperCase()
+}
+
 </script>
 
 <template>
@@ -15,7 +28,7 @@ const model = defineModel()
     </label>
     <div class="input-group custom-input-group-icon p-0">
       <slot name="prefix" />
-      <input type="text" v-model="model" class="form-control" v-bind="$attrs" />
+      <input type="text" v-model="inputValue" class="form-control" v-bind="$attrs" />
       <div v-if="suffixIcon" class="input-group-icon mx-2">
         <img :src="suffixIcon" />
       </div>
