@@ -102,7 +102,7 @@ const handleOptionClick = (option) => {
       ></b-form-input>
       <BDropdownItem
         v-for="(option, index) in filteredItems"
-        :key="index"
+        :key="option[props.itemValue]"
         @click="handleOptionClick(option)"
         :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
