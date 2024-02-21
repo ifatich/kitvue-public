@@ -9,7 +9,7 @@
 
             <input type="text" :class="['form-control', classes]" v-bind="$attrs" :aria-label="title" :aria-describedby="title"
                 :disabled="disabled" :required="required"
-                :placeholder="['Pilih ' + (title || placeholder || '').toLowerCase()]" v-model="displayedDate"
+                :placeholder=" placeholder || ['Pilih ' + (title || '').toLowerCase()]  " v-model="displayedDate"
                 @click="showDatePicker" readonly />
 
             <div class="input-group-icon">

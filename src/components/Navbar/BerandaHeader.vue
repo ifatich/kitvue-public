@@ -33,7 +33,7 @@
                             {{ jabatan||'Business Process Outsourcing' }}
                         </template>
 
-                        <b-card>
+                        <b-card class="content-profil">
                             <slot name="profil"></slot>
                         </b-card>
                     </BNavItemDropdown>
@@ -133,9 +133,16 @@
                         border-left: 2px solid white;
                     }
 
-                    &.last-child{
+                    &.last-child {
+                        .dropdown-menu.show.overflow-auto{
+                            .btn {
+                                font-size: var(--g-kit-font-size-omicron);
+                                line-height: var(--g-kit-line-height-omicron);
+                                font-weight: var(--g-kit-font-weight-bold);
+                            }
+                        }
                         .btn-group {
-                            .btn{
+                            .btn {
                                 display: flex;
                                 flex-direction: column;
                                 font-size: var(--g-kit-font-size-omega);
@@ -145,8 +152,6 @@
                                     font-size: var(--g-kit-font-size-sigma);
                                     line-height: var(--g-kit-line-height-sigma);
                                 }
-    
-                                
                             }
                         }
                     }
