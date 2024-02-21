@@ -23,6 +23,11 @@
                     <Button class="me-2 mb-2" type="secondary" size="md" label="Button Seccondary" />
                     <Button class="me-2 mb-2" type="secondary" size="md" label="Button Seccondary" />
                 </template>
+                <template #profil>
+                    <Button class="me-2 mb-2" type="link" size="md" label="Button Link" />
+                    <Button class="me-2 mb-2" type="secondary" size="md" label="Button Seccondary" />
+                    <Button class="me-2 mb-2" type="secondary" size="md" label="Button Seccondary" />
+                </template>
             </BerandaHeader>
             <LoadAnimate />
 
@@ -87,16 +92,30 @@
                             {{ rupiah }}
                             <InputPersen id="15" title="Persentase DP" required="" />
                             <InputTextArea id="16" />
-                            <Dropdown v-model="selectedOption" :id="'custom-id'" :label="'label'"
-                                :title="selectedOption" :items="dropdownItems" :options="dropdownOptions" />
-                            <p>Selected: {{ selectedOption }}</p>
+                            <Dropdown v-model="nilaiTerpilih"
+                            :label="'Pilihan Anda'"
+                            :items="daftarPilihan"
+                            :itemValue="'id'"
+                            :itemText="'nama'"
+                            :placeholder="'Pengajuan kredit'"
+                            :class="'input-dropdown-kustom'"
+                            :error="teksError" />
+                            <p>Selected: {{ nilaiTerpilih }}</p>
 
 
 
                             <Accordion class="mb-2" v-model="modelAccordion">
                                 <AccordionItem header="Test header accordion" active>
                                     <InputSmallDate v-model="selectedDate" id="birthdate" placeholder="Pilih Tanggal Lahir" />
-                                    <InputSmallDate id="someId" />
+                                    <Dropdown 
+                                        v-model="nilaiTerpilih"
+                                        :label="'Pilihan Anda'"
+                                        :items="daftarPilihan"
+                                        :itemValue="'id'"
+                                        :itemText="'nama'"
+                                        :placeholder="'Pengajuan kredit'"
+                                        :class="'input-dropdown-kustom'"
+                                        :error="teksError" />
 
                                 </AccordionItem>
                                 <AccordionItem header="Test header accordion 2" active>
