@@ -1,6 +1,6 @@
 <script setup>
 import { defineOptions, defineProps, defineModel } from 'vue'
-import { BModal } from 'bootstrap-vue-next'
+import { BModal, BButton } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'ModalComponent' })
 
@@ -13,8 +13,8 @@ const model = defineModel()
   <div>
     <BModal v-model="model" :title="props.title">
       <template #modal-header="{ close }">
-        <Button class="btn btn-outline-danger" @click="close()"
-          >Close Modal</Button
+        <BButton class="btn btn-outline-danger" @click="close()"
+          >Close Modal</BButton>
         >
       </template>
 
