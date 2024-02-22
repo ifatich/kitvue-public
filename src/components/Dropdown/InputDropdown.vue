@@ -50,6 +50,8 @@ const selectedText = computed(() => {
     const findItem = props.items.find(v => v[props.itemValue] === selectedValue.value)
     if (findItem) return findItem[props.itemText]
     return ''
+  } else {
+    return ''
   }
 })
 
@@ -58,10 +60,6 @@ const selectedValue = computed({
   set: (newValue) => {
     emit('update:modelValue', newValue)
   }
-})
-
-watch(selectedValue, (newValue) => {
-  if (newValue === null || newValue === '') selectedText.value = ''
 })
 
 const handleOptionClick = (option) => {
