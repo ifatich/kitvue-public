@@ -5,8 +5,7 @@ import {
   defineProps,
   ref,
   defineEmits,
-  useAttrs,
-  watch
+  useAttrs
 } from 'vue'
 import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton, BSpinner } from 'bootstrap-vue-next'
 

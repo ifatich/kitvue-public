@@ -3,7 +3,7 @@ import { defineOptions, defineEmits, defineProps, computed } from 'vue'
 
 defineOptions({ name: 'InputTextArea', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'class', 'modelValue'])
+const props = defineProps(['error', 'label', 'class', 'modelValue', 'rows'])
 const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
@@ -31,7 +31,10 @@ function toUppercaseString(val) {
         v-bind="$attrs"
         class="form-control text-area"
         v-model="inputValue"
-      />
+        :rows="rows"
+      >
+        {{ inputValue }}
+      </textarea>
     </div>
     <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
   </div>

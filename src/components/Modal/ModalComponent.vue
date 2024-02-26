@@ -4,14 +4,14 @@ import { BModal, BButton } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'ModalComponent' })
 
-const props = defineProps(['title'])
+const props = defineProps(['title', 'persistent'])
 
 const model = defineModel()
 </script>
 
 <template>
   <div>
-    <BModal v-model="model" :title="props.title">
+    <BModal v-model="model" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
       <template #modal-header="{ close }">
         <BButton class="btn btn-outline-danger" @click="close()"
           >Close Modal</BButton>

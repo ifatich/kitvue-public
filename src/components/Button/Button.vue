@@ -16,18 +16,7 @@
         components: { BSpinner },
         props: {
             label: String,
-            type: {
-                validator(value) {
-                    return [
-                        "primary",
-                        "outline-primary",
-                        "link",
-                        "tertiary",
-                        "secondary",
-                        "neutral",
-                    ].includes(value);
-                },
-            },
+            type: String,
             loading: {
               type: Boolean,
               default: false
