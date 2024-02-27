@@ -1,11 +1,24 @@
 <script setup>
-import { defineOptions, defineModel, defineProps } from 'vue'
+import { defineOptions, defineEmits, defineProps, computed } from 'vue'
 
 defineOptions({ name: 'InputTextArea', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'class'])
+const props = defineProps(['error', 'label', 'class', 'modelValue', 'rows'])
+const emit = defineEmits(['update:modelValue'])
 
-const model = defineModel()
+const inputValue = computed({
+  get() {
+    return toUppercaseString(props.modelValue)
+  },
+  set(newValue) {
+    emit('update:modelValue', toUppercaseString(newValue))
+  }
+})
+
+function toUppercaseString(val) {
+  if (val) return val.toUpperCase()
+}
+
 </script>
 
 <template>
@@ -17,8 +30,11 @@ const model = defineModel()
       <textarea
         v-bind="$attrs"
         class="form-control text-area"
-        v-model="model"
-      />
+        v-model="inputValue"
+        :rows="rows"
+      >
+        {{ inputValue }}
+      </textarea>
     </div>
     <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
   </div>

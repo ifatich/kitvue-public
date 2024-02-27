@@ -7,25 +7,34 @@ import {
   defineEmits,
   useAttrs
 } from 'vue'
-import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton } from 'bootstrap-vue-next'
+import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton, BSpinner } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
 const attrs = useAttrs()
-const props = defineProps([
-  'error',
-  'label',
-  'items',
-  'itemValue',
-  'itemText',
-  'modelValue',
-  'placeholder',
-  'class'
-])
+
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  error: String,
+  label: String,
+  items: Array,
+  itemValue: String,
+  itemText: String,
+  modelValue: String,
+  placeholder: String,
+  class: String
+})
+
 const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
-const selectedText = ref()
 
 const filteredItems = computed(() =>
   search.value
@@ -34,6 +43,16 @@ const filteredItems = computed(() =>
       )
     : props.items
 )
+
+const selectedText = computed(() => {
+  if (selectedValue.value && props.items.length > 0) {
+    const findItem = props.items.find(v => v[props.itemValue] === selectedValue.value)
+    if (findItem) return findItem[props.itemText]
+    return ''
+  } else {
+    return ''
+  }
+})
 
 const selectedValue = computed({
   get: () => (props.modelValue ? props.modelValue : null),
@@ -44,7 +63,6 @@ const selectedValue = computed({
 
 const handleOptionClick = (option) => {
   selectedValue.value = option[props.itemValue]
-  selectedText.value = option[props.itemText]
   if (attrs.onChange && attrs.onInput && attrs.onBlur) {
     attrs.onChange()
     attrs.onInput()
@@ -63,11 +81,13 @@ const handleOptionClick = (option) => {
       toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
       class="prevent-zero gkit-dd"
       v-bind="$attrs"
+      :disabled="disabled || loading"
     >
       <template #button-content>
         {{ selectedText || props.placeholder }}
         <span>
-          <img src="../../assets/icon/chevron_down.svg" />
+          <BSpinner v-if="loading" small />
+          <img v-else src="../../assets/icon/chevron_down.svg" />
         </span>
       </template>
 
@@ -75,11 +95,13 @@ const handleOptionClick = (option) => {
         @click.stop
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
+        :id="$attrs.id + '_search'"
       ></b-form-input>
       <BDropdownItem
         v-for="(option, index) in filteredItems"
-        :key="index"
+        :key="option[props.itemValue]"
         @click="handleOptionClick(option)"
+        :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
         <BDropdownItemButton
           buttonClass="d-flex justify-content-between mt-1"
