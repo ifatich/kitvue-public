@@ -545,6 +545,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-12 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+
+                            <DateRangePicker v-model:start-date="startDate" v-model:end-date="endDate" />
+
+                            <p>Selected Date: {{ startDate }}</p>
+                            <p>Selected Date: {{ endDate }}</p>
+
+                        </div>
+                    </div>
+                </div>
   
             </div>
         </div>
@@ -596,6 +613,7 @@
     import InputDropdownHeader from './Dropdown/InputDropdownHeader.vue'
 
     import LoadAnimate from './Modal/Load.vue'
+    import DateRangePicker from './Input/DateRangePicker.vue'
   
     export default {
         name: 'App',
@@ -629,10 +647,14 @@
             SideStepper,
             LoadAnimate,
             SideStepperTest,
-            InputDropdownHeader
+            InputDropdownHeader,
+            DateRangePicker
         },
         data() {
             return {
+                startDate: ref(null),
+                endDate: ref(null),
+                
                 nilaiTerpilih: null,
                 daftarPilihan: [
                     { id: 1, img: 'beli_emas', nama: 'Pilihan Pilihanb', link: 'asa' },
