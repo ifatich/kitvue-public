@@ -2,30 +2,22 @@
 <template>
     <div>
         <div class="date-range-picker">
-            <InputSmallDate
-                v-model="startDate"
-                title="Dari"
-                placeholder="DD / MM / YYYY"
-            />
-            <InputSmallDate
-                v-model="endDate"
-                title="Hingga"
-                placeholder="DD / MM / YYYY"
-            />
+            <InputSmallDate v-model="startDate" title="Dari" placeholder="DD / MM / YYYY" />
+            <InputSmallDate v-model="endDate" title="Hingga" placeholder="DD / MM / YYYY" />
         </div>
         <div v-if="errorValidation" class="error-text mt-1">{{ errorValidation }}</div>
     </div>
-  </template>
-  
-  <script setup>
+</template>
+
+<script setup>
     import InputSmallDate from './InputSmallDate.vue';
     import {
         computed
     } from 'vue';
-  
+
     const startDate = defineModel('startDate') // eslint-disable-line
     const endDate = defineModel('endDate') // eslint-disable-line
-  
+
     const errorValidation = computed(() => {
         if (startDate.value && endDate.value && startDate.value > endDate.value) {
             return "Tanggal akhir harus lebih besar dari tanggal awal";
@@ -33,14 +25,20 @@
             return null;
         }
     })
-  </script>
-  <style scoped>
+</script>
+
+<script>
+    export default {
+        name: "DateRangePicker"
+    }
+</script>
+<style scoped>
     .form-label {
         display: none;
     }
-  
+
     .date-range-picker {
         display: flex;
         gap: 16px;
     }
-  </style>
+</style>
