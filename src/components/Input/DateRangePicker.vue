@@ -23,8 +23,8 @@
         computed
     } from 'vue';
   
-    const startDate = defineModel('startDate')
-    const endDate = defineModel('endDate')
+    const startDate = defineModel('startDate') // eslint-disable-line
+    const endDate = defineModel('endDate') // eslint-disable-line
   
     const errorValidation = computed(() => {
         if (startDate.value && endDate.value && startDate.value > endDate.value) {
@@ -44,4 +44,3 @@
         gap: 16px;
     }
   </style>
-  

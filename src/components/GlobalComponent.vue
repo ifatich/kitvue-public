@@ -554,10 +554,10 @@
                         </div>
                         <div class="card-body">
 
-                            <DateRangePicker v-model:internalStartDate="internalStartDate" v-model:externalEndDate="externalEndDate" />
+                            <DateRangePicker v-model:start-date="startDate" v-model:end-date="endDate" />
 
-                            <p>Selected Date: {{ internalStartDate }}</p>
-                            <p>Selected Date: {{ internalStartDate }}</p>
+                            <p>Selected Date: {{ startDate }}</p>
+                            <p>Selected Date: {{ endDate }}</p>
 
                         </div>
                     </div>
@@ -652,8 +652,8 @@
         },
         data() {
             return {
-                externalStartDate: ref(null),
-                externalEndDate: ref(null),
+                startDate: ref(null),
+                endDate: ref(null),
                 
                 nilaiTerpilih: null,
                 daftarPilihan: [
