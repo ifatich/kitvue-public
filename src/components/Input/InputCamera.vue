@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineEmits, defineOptions } from 'vue'
+import { ref, defineEmits, defineOptions, defineModel } from 'vue'
 import Button from '@/components/Button/Button.vue';
 
 defineOptions({ name: 'InputCamera', inheritAttrs: false })
@@ -9,8 +9,9 @@ const cameraDialog = ref(false)
 const video = ref()
 const fileInput = ref()
 
-const props = defineProps(['file', 'imgCompressThreshold'])
+// const props = defineProps(['imgCompressThreshold'])
 const emit = defineEmits(['fileDropped', 'fileRemoved'])
+const fileSrc = defineModel()
 
 const handleSourceCameraClick = () => {
     cameraDialog.value = true
@@ -24,14 +25,11 @@ const handleSourceGalleryClick = () => {
 }
 
 const handleRemoveFileClick = () => {
+    fileSrc.value = ''
     emit('fileRemoved')
 }
 
 const handleCameraSnap = () => {}
-
-const handleFilePicked =  () => {
-    emit('fileDropped')
-}
 
 const handleCameraChosen = () => {
     emit('fileDropped')
@@ -52,29 +50,37 @@ const stopCamera = async () => {
 }
 
 const handleCameraDialogValueChange = (isShowing) => {
-    console.log('called!')
     if(!isShowing) stopCamera()
+}
+
+const handleFilePicked = (event) => {
+    const file = event.target.files[0];
+    if(!file) return
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        fileSrc.value = reader.result;
+    };
 }
 </script>
 
 <template>
     <div class="custom-file-upload">
-        <b-button-close @click="handleRemoveFileClick" v-if="props.file" type="button" class="d-block remove-button btn-close" />
-        <div class="custom-file-upload__box-input" v-if="!props.file">
+        <b-button-close @click="handleRemoveFileClick" v-if="fileSrc" type="button" class="d-block remove-button btn-close" />
+        <div v-if="!fileSrc" @click="fileSourceChooserDialog = true" class="custom-file-upload__box-input" >
             <span class="custom-file-upload__box-input-icon">
                 <img src="../../assets/images/ico-image-upload.svg" alt="Upload Icon" />
             </span>
-            <input v-bind="$attrs" @change="handleFileChange" @click="fileSourceChooserDialog = true" label="Launch" id="gallery-photo-add" class="custom-file-upload__box-input-file" ref="fileInput" multiple accept="image/*" required />
+            <input type="file" ref="fileInput" style="display: none" @change="handleFilePicked" />
         </div>
         <div v-else class="custom-file-upload__box-preview d-block" id="box-preview-image">
-            <img :src="props.file" alt="Captured Image" class="imgCaptured" />
+            <img :src="fileSrc" alt="Captured Image" class="imgCaptured" />
         </div>
     </div>
 
     <BModal v-model="fileSourceChooserDialog" size="sm" title="Upload Foto KTP" ok-only no-stacking hide-footer>
         <div class="d-flex justify-content-center flex-column">
             <Button @click="handleSourceGalleryClick" class="mb-2" type="primary" label="Pilih File" />
-            <input type="file" ref="fileInput" style="display: none" @change="handleFilePicked" />
             <Button @click="handleSourceCameraClick" type="primary" label="Kamera" />
         </div>
     </BModal>

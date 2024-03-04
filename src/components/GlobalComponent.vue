@@ -571,7 +571,7 @@
                         </div>
                         <div class="card-body">
 
-                            <InputCamera />
+                            <InputCamera v-model="myFileSrc" @fileDropped="handleFileDropped" />
 
                             <p>{{ generatedFileName }}</p>
                             <p>{{ receivedImgFile }}</p>
@@ -590,6 +590,12 @@
   
     const text = ref('ini value')
     const rupiah = ref(12000000)
+    const myFileSrc = ref()
+
+    const handleFileDropped = (file) => {
+        // myFileSrc.value = file
+        console.log(file)
+    }
     
   </script>
   
@@ -988,9 +994,6 @@
             }
         },
         methods: {
-            handleImageDropped(file) {
-                console.log(file)
-            },
             handleRowClick(item) {
                 console.log('Row clicked:', item)
             },

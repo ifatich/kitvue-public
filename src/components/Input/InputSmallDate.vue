@@ -182,7 +182,6 @@
 
                     this.showCalendar = false;
 
-                    console.log(this.internalDate);
                     this.$emit('update:modelValue', this.internalDate);
                 }
             },
