@@ -571,7 +571,7 @@
                         </div>
                         <div class="card-body">
 
-                            <InputCamera @generateFileName="generatedFileName = $event" @imgFile="receivedImgFile" />
+                            <InputCamera />
 
                             <p>{{ generatedFileName }}</p>
                             <p>{{ receivedImgFile }}</p>
@@ -674,7 +674,6 @@
                 endDate: ref(null),
 
                 generatedFileName: '',
-                capturedImageFromChild: '',
                 receivedImgFile: "",
 
                 nilaiTerpilih: null,
@@ -989,6 +988,9 @@
             }
         },
         methods: {
+            handleImageDropped(file) {
+                console.log(file)
+            },
             handleRowClick(item) {
                 console.log('Row clicked:', item)
             },
