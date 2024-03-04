@@ -8,6 +8,7 @@ const fileSourceChooserDialog = ref(false)
 const cameraDialog = ref(false)
 const video = ref()
 const fileInput = ref()
+const snappedCameraPict = ref()
 
 // const props = defineProps(['imgCompressThreshold'])
 const emit = defineEmits(['fileDropped', 'fileRemoved'])
@@ -29,7 +30,15 @@ const handleRemoveFileClick = () => {
     emit('fileRemoved')
 }
 
-const handleCameraSnap = () => {}
+const handleCameraSnap = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = video.value.videoWidth;
+    canvas.height = video.value.videoHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video.value, 0, 0, canvas.width, canvas.height);
+    stopCamera()
+    snappedCameraPict.value =  canvas.toDataURL('image/jpeg');
+}
 
 const handleCameraChosen = () => {
     emit('fileDropped')
@@ -62,6 +71,11 @@ const handleFilePicked = (event) => {
         fileSrc.value = reader.result;
     };
 }
+
+const handleRetakePhotoClick = () => {
+    snappedCameraPict.value = ''
+    startCamera()
+}
 </script>
 
 <template>
@@ -86,12 +100,14 @@ const handleFilePicked = (event) => {
     </BModal>
 
     <BModal @update:model-value="handleCameraDialogValueChange" v-model="cameraDialog" class="inputCamera" title="Ambil Foto">
-        <video v-if="!capturedImage" ref="video" autoplay></video>
-        <img v-if="capturedImage" :src="capturedImage" alt="Captured Image" />
+        <video v-if="!snappedCameraPict" ref="video" autoplay></video>
+        <img v-else :src="snappedCameraPict" alt="Captured Image" />
         <div class="flex">
-            <Button @click="handleCameraSnap" class="me-2 mb-2" type="primary" label="Ambil Gambar" v-if="!capturedImage" />
-            <Button @click="retryCapture" class="me-2 mb-2" type="neutral" label="Ambil Ulang Foto" v-if="capturedImage" />
-            <Button @click="handleCameraChosen" class="me-2 mb-2" type="primary" label="Gunakan Foto" v-if="capturedImage" />
+            <Button @click="handleCameraSnap" class="me-2 mb-2" type="primary" label="Ambil Gambar" v-if="!snappedCameraPict" />
+            <template v-else>
+                <Button @click="handleRetakePhotoClick" class="me-2 mb-2" type="neutral" label="Ambil Ulang Foto"  />
+                <Button @click="handleCameraChosen" class="me-2 mb-2" type="primary" label="Gunakan Foto"  />
+            </template>
         </div>
     </BModal>
 </template>
