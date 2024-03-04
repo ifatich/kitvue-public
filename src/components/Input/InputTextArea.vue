@@ -1,4 +1,5 @@
 <script setup>
+/* eslint-disable */
 import { defineOptions, defineEmits, defineProps, computed } from 'vue'
 
 defineOptions({ name: 'InputTextArea', inheritAttrs: false })
