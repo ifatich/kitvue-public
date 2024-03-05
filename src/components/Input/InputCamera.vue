@@ -64,10 +64,12 @@ const blobToDataUrl = (blob) =>
     reader.readAsDataURL(blob)
   })
 
-const handleCameraChosen = () => {
+const handleCameraChosen = async () => {
   fileSrc.value = snappedCameraPict.value
   const file = dataUrlToFile(snappedCameraPict.value)
   emit('fileDropped', file)
+  const compressedImg = await compressImg(maxSizeInKb, snappedCameraPict.value)
+  emit('imgCompressed', compressedImg)
   cameraDialog.value = false
   snappedCameraPict.value = ''
 }
@@ -112,7 +114,6 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   new Promise((resolve, reject) => {
     const image = new Image()
     image.src = dataUrl
-    console.log(image.src)
 
     image.onload = () => {
       const canvas = document.createElement('canvas')
