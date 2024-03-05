@@ -6,11 +6,9 @@
             <span class="custom-file-upload__box-input-icon">
                 <img src="../../assets/images/ico-image-upload.svg" alt="" :class="{ hide: previewImage }" />
             </span>
-            <input type="file" id="gallery-photo-add" class="custom-file-upload__box-input-file"
-                @change="handleFileChange" ref="file" multiple accept="image/*" required />
+            <input type="file" id="gallery-photo-add" class="custom-file-upload__box-input-file" @change="handleFileChange" ref="file" multiple accept="image/*" required />
         </div>
-        <div class="custom-file-upload__box-preview" id="box-preview-image" v-if="previewImage"
-            :class="{ 'd-block': previewImage }">
+        <div class="custom-file-upload__box-preview" id="box-preview-image" v-if="previewImage" :class="{ 'd-block': previewImage }">
             <img class="drop-zoon__image" :src="previewImage" alt="Preview" />
         </div>
     </div>
