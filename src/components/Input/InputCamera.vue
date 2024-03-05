@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits, defineOptions, defineModel } from 'vue'
+import { ref, defineEmits, defineOptions, defineModel, defineProps } from 'vue'
 import Button from '@/components/Button/Button.vue'
 
 defineOptions({ name: 'InputCamera', inheritAttrs: false })
@@ -10,9 +10,13 @@ const video = ref()
 const fileInput = ref()
 const snappedCameraPict = ref()
 const imgElement = ref()
-const maxSizeInKb = 1024
 
-// const props = defineProps(['imgCompressThreshold'])
+const props = defineProps({
+    compressionMaxKb: {
+        required: false,
+        default: 1024
+    }
+})
 const emit = defineEmits(['fileDropped', 'fileRemoved'])
 const fileSrc = defineModel()
 
@@ -53,7 +57,7 @@ const blobToDataUrl = (blob) =>
 
 const handleCameraChosen = async () => {
   fileSrc.value = snappedCameraPict.value
-  const compressedImg = await compressImg(maxSizeInKb, snappedCameraPict.value)
+  const compressedImg = await compressImg(props.compressionMaxKb, snappedCameraPict.value)
   emit('fileDropped', compressedImg)
   cameraDialog.value = false
   snappedCameraPict.value = ''
@@ -84,7 +88,7 @@ const handleFilePicked = async (event) => {
   reader.readAsDataURL(file)
   reader.onload = async () => {
     fileSrc.value = reader.result
-    const compressedImg = await compressImg(maxSizeInKb, reader.result)
+    const compressedImg = await compressImg(props.compressionMaxKb, reader.result)
     emit('fileDropped', compressedImg)
   }
 }
