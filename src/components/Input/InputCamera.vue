@@ -13,7 +13,7 @@ const imgElement = ref()
 const maxSizeInKb = 1024
 
 // const props = defineProps(['imgCompressThreshold'])
-const emit = defineEmits(['fileDropped', 'fileRemoved', 'imgCompressed'])
+const emit = defineEmits(['fileDropped', 'fileRemoved'])
 const fileSrc = defineModel()
 
 const handleSourceCameraClick = () => {
@@ -42,19 +42,6 @@ const handleCameraSnap = () => {
   snappedCameraPict.value = canvas.toDataURL('image/jpeg')
 }
 
-const dataUrlToFile = (dataURL) => {
-  const arr = dataURL.split(',')
-  const mime = arr[0].match(/:(.*?);/)[1]
-  const bstr = atob(arr[1])
-  let n = bstr.length
-  const u8arr = new Uint8Array(n)
-  while (n--) {
-    u8arr[n] = bstr.charCodeAt(n)
-  }
-  const blob = new Blob([u8arr], { type: mime })
-  return new File([blob], 'test.png', { type: mime })
-}
-
 const blobToDataUrl = (blob) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -66,10 +53,8 @@ const blobToDataUrl = (blob) =>
 
 const handleCameraChosen = async () => {
   fileSrc.value = snappedCameraPict.value
-  const file = dataUrlToFile(snappedCameraPict.value)
-  emit('fileDropped', file)
   const compressedImg = await compressImg(maxSizeInKb, snappedCameraPict.value)
-  emit('imgCompressed', compressedImg)
+  emit('fileDropped', compressedImg)
   cameraDialog.value = false
   snappedCameraPict.value = ''
 }
@@ -100,9 +85,8 @@ const handleFilePicked = async (event) => {
   reader.onload = async () => {
     fileSrc.value = reader.result
     const compressedImg = await compressImg(maxSizeInKb, reader.result)
-    emit('imgCompressed', compressedImg)
+    emit('fileDropped', compressedImg)
   }
-  emit('fileDropped', file)
 }
 
 const handleRetakePhotoClick = () => {

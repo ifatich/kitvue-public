@@ -571,7 +571,7 @@
                         </div>
                         <div class="card-body">
 
-                            <InputCamera v-model="myFileSrc" @fileDropped="handleFileDropped" @imgCompressed="handleImgCompressed" />
+                            <InputCamera v-model="myFileSrc" @fileDropped="handleFileDropped" />
 
                             <p>{{ generatedFileName }}</p>
                             <p>{{ receivedImgFile }}</p>
@@ -595,11 +595,6 @@
     const handleFileDropped = (file) => {
         // myFileSrc.value = file
         console.log('file droppped', file)
-    }
-
-    const handleImgCompressed = (file) => {
-        window.open(URL.createObjectURL(file));
-        console.log('imgCompressed', file)
     }
     
   </script>
