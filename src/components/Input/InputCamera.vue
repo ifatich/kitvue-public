@@ -20,6 +20,11 @@ const props = defineProps({
 const emit = defineEmits(['fileDropped', 'fileRemoved'])
 const fileSrc = defineModel()
 
+const generateRandomFileName = (length = 64, originalExtension = 'png') => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return `${Array.from({ length }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('')}.${originalExtension}`
+}
+
 const handleSourceCameraClick = () => {
   cameraDialog.value = true
   fileSourceChooserDialog.value = false
@@ -114,7 +119,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       canvas.toBlob(
         async function (blob) {
           if (blob.size / 1024 <= maxSize || quality <= 0.1) {
-            const compressedImgFile = new File([blob], 'test.png', {
+            const compressedImgFile = new File([blob], generateRandomFileName(), {
               type: 'image/png'
             })
             resolve(compressedImgFile)
