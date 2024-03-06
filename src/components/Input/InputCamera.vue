@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineEmits, defineOptions, defineModel, defineProps } from 'vue'
-import Button from '@/components/Button/Button.vue'
+import Button from '../Button/Button.vue'
 
 defineOptions({ name: 'InputCamera', inheritAttrs: false })
 
