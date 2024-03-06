@@ -32,6 +32,7 @@ import ListGroupUnit from './ListGroup/ListGroupUnit.vue';
 import ListOrdered from './ListGroup/ListOrdered.vue';
 import TableData from './Table/Table.vue';
 import DataTable from './Table/DataTable.vue';
+import TableSticky from './Table/TableSticky.vue';
 import DataApps from './Table/Data.vue';
 
 export default {
@@ -70,5 +71,6 @@ export default {
     ListOrdered,
     TableData,
     DataTable,
+    TableSticky,
     DataApps
 }

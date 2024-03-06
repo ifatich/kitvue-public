@@ -1,19 +1,18 @@
-<!-- DataTable.vue -->
 <template>
     <div>
         <slot name="table-header"></slot>
     </div>
-    <table class="table rounded-corners" style="width: 100%">
+    <table :class="['table rounded-corners', props.class]" :style="[props.style]">
         <thead>
             <tr>
-                <th v-for="column in columns" :key="column.key" @click="sortTable(column.key)">
+                <th v-for="column in props.columns" :key="column.key" @click="sortTable(column.key)">
                     {{ column.label }}
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in sortedData" :key="item.id" @click="handleRowClick(item)">
-                <td v-for="column in columns" :key="column.key">
+            <tr v-for="item in sortedData" :key="item.id">
+                <td v-for="column in props.columns" :key="column.key">
                     <slot
                         :name="column.key"
                         :value="item[column.key]"
@@ -24,69 +23,56 @@
                 </td>
             </tr>
             <tr v-if="sortedData.length === 0">
-                <td :colspan="columns.length" style="text-align: center; vertical-align: middle; height: 116px;">
-                  {{ nodataMessage }}
+                <td :colspan="props.columns.length" style="text-align: center; vertical-align: middle; height: 116px;">
+                  {{ props.nodataMessage }}
                 </td>
             </tr>
         </tbody>
     </table>
   </template>
   
-  <script>
-    export default {
-        name: "TableData",
-        props: {
-            data: {
-                type: Array,
-                required: true,
-            },
-            columns: {
-                type: Array,
-                required: true,
-            },
-            type: {
-                type: String,
-            },
-            size: {
-                type: String,
-            },
-            nodataMessage: {
-              type: String,
-              default: 'Tidak ada data yang ditampilkan'
-            }
+  <script setup>
+    import { defineProps, computed, ref } from 'vue'
+    const props = defineProps({
+        class: String,
+        style: String,
+        data: {
+            type: Array,
+            required: true,
+            default: []
         },
-        data() {
-            return {
-                sortKey: "id",
-                sortOrder: 1,
-            };
+        columns: {
+            type: Array,
+            required: true,
         },
-        computed: {
-            sortedData() {
-                return this.data.slice().sort((a, b) => {
-                    const modifier = this.sortOrder;
-                    const x = a[this.sortKey];
-                    const y = b[this.sortKey];
+        nodataMessage: {
+            type: String,
+            default: 'Tidak ada data yang ditampilkan'
+        },
+    })
   
-                    if (x === y) return 0;
+    let sortKey = ref("id")
+    let sortOrder = ref(1)
   
-                    return x > y ? modifier : -modifier;
-                });
-            },
-        },
-        methods: {
-            sortTable(key) {
-                if (this.sortKey === key) {
-                    this.sortOrder = -this.sortOrder;
-                } else {
-                    this.sortKey = key;
-                    this.sortOrder = 1;
-                }
-            },
-            handleRowClick(item) {
-                this.$emit("row-click", item);
-            },
-        },
-    };
+    const sortedData = computed(() => {
+        return props.data.slice().sort((a, b) => {
+            const modifier = sortOrder;
+            const x = a[sortKey];
+            const y = b[sortKey];
+  
+            if (x === y) return 0;
+  
+            return x > y ? modifier : -modifier;
+        });
+    })
+  
+    function sortTable(key) {
+        if (sortKey === key) {
+            sortOrder = -sortOrder
+        } else {
+            sortKey = key
+            sortOrder = 1
+        }
+    }
   </script>
   

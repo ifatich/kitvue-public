@@ -9,7 +9,7 @@
 
             <input type="text" :class="['form-control', classes]" v-bind="$attrs" :aria-label="title" :aria-describedby="title"
                 :disabled="disabled" :required="required"
-                :placeholder=" placeholder || ['Pilih ' + (title || '').toLowerCase()]  " v-model="displayedDate"
+                :placeholder=" placeholder || ['Pilih ' + (title || '').toLowerCase()]  " v-model="selectedDate"
                 @click="showDatePicker" readonly />
 
             <div class="input-group-icon">
@@ -98,16 +98,18 @@
             classes: {
                 type: String,
             },
+            modelValue: {
+                type: String,
+                default: null
+            }
         },
+        emits: ['update:modelValue'],
         data() {
             return {
-                selectedDate: null,
                 showCalendar: false,
                 showYearMenu: false,
                 currentMonth: new Date().getMonth() + 1,
                 currentYear: new Date().getFullYear(),
-                displayedDate: '',
-                internalDate: '',
                 days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                 months: [
                     'January', 'February', 'March', 'April', 'May', 'June',
@@ -116,6 +118,16 @@
             };
         },
         computed: {
+            selectedDate: {
+                get() {
+                    if (this.modelValue) this.currentMonth = new Date(this.modelValue).getMonth() + 1;
+                    if (this.modelValue) this.currentYear = new Date(this.modelValue).getFullYear();
+                    return this.formattedDate(this.modelValue)
+                },
+                set(value) {
+                    this.$emit('update:modelValue', value)
+                }
+            },
             formattedMonthYear() {
                 return `${this.months[this.currentMonth - 1]} ${this.currentYear}`;
             },
@@ -156,7 +168,7 @@
                     years.push(year);
                 }
                 return years;
-            },
+            }
         },
         methods: {
             toggleYearMenu() {
@@ -168,23 +180,26 @@
             },
             selectDate(day) {
                 if (day.date) {
-                    const selectedDate = new Date(day.date);
-                    selectedDate.setDate(selectedDate.getDate() + 0);
+                    const newSelectedDate = new Date(day.date);
+                    newSelectedDate.setDate(newSelectedDate.getDate() + 0);
 
-                    const dayOfMonth = selectedDate.getDate();
-                    const month = selectedDate.getMonth() + 1;
-                    const year = selectedDate.getFullYear();
+                    const dayOfMonth = newSelectedDate.getDate();
+                    const month = newSelectedDate.getMonth() + 1;
+                    const year = newSelectedDate.getFullYear();
 
-                    this.displayedDate = 
-                        `${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}-${month < 10 ? '0' : ''}${month}-${year}`;
-                    this.internalDate =
-                        `${year}-${month < 10 ? '0' : ''}${month}-${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}`;
-
+                    this.selectedDate = `${year}-${month < 10 ? '0' : ''}${month}-${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}`;
                     this.showCalendar = false;
-
-                    console.log(this.internalDate);
-                    this.$emit('update:modelValue', this.internalDate);
                 }
+            },
+            formattedDate(value) {
+                let formatted = ''
+                if (value && value !== 'null') {
+                    const [year, month, day] = value.split('-')
+                    const newDay = String(Number(day)).padStart(2, '0')
+                    const newMonth = String(Number(month)).padStart(2, '0')
+                    formatted = `${newDay}-${newMonth}-${year}`
+                }
+                return formatted
             },
             previousMonth() {
                 if (this.currentMonth > 1) {
@@ -223,182 +238,190 @@
         position: relative;
     }
 
+    .form-control {
+    cursor: pointer;
+    }
+
+    .content-date {
+    position: relative;
+    }
+
     .card {
-        position: absolute;
-        z-index: 999;
-        background-color: white;
-        width: 360px;
-        margin: 0 auto;
+    position: absolute;
+    z-index: 999;
+    background-color: white;
+    width: 360px;
+    margin: 0 auto;
     }
 
     .card-header {
-        padding: 1rem;
-        background-color: white;
-        border-bottom: 1px solid var(--g-kit-black-20);
+    padding: 1rem;
+    background-color: white;
+    border-bottom: 1px solid var(--g-kit-black-20);
     }
 
     .card-body .d-flex {
-        border-bottom: 1px solid var(--g-kit-black-20);
+    border-bottom: 1px solid var(--g-kit-black-20);
     }
 
     .card-body input {
-        padding-left: 0px;
+    padding-left: 0px;
     }
 
     .card b {
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-bold);
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-bold);
     }
 
     .flex {
-        display: flex;
-        justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
     }
 
     .datepicker table {
-        width: 100%;
-        border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
     }
 
     .datepicker th,
     .datepicker td {
-        text-align: center;
-        padding: .5rem;
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-normal);
-        color: var(--g-kit-black-80);
-        cursor: pointer;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-normal);
+    color: var(--g-kit-black-80);
+    cursor: pointer;
     }
 
     .datepicker th {
-        background-color: white;
-        border-bottom: 1px solid var(--g-kit-black-20);
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-normal);
-        color: var(--g-kit-black-60);
+    background-color: white;
+    border-bottom: 1px solid var(--g-kit-black-20);
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-normal);
+    color: var(--g-kit-black-60);
     }
 
     .datepicker td:hover {
-        background-color: #e6e6e6;
+    background-color: #e6e6e6;
     }
 
     .datepicker button {
-        background-color: transparent;
-        border: none;
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-bold);
+    background-color: transparent;
+    border: none;
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-bold);
     }
 
     .bold {
-        font-weight: 800;
+    font-weight: 800;
     }
 
     .appearance-none {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        text-indent: unset;
-        text-overflow: unset;
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-bold);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: unset;
+    text-overflow: unset;
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-bold);
     }
 
     .datepicker span {
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-bold);
-        color: var(--g-kit-black-80);
-        cursor: pointer;
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-bold);
+    color: var(--g-kit-black-80);
+    cursor: pointer;
     }
 
     .datepicker span:hover {
-        color: var(--g-kit-lime-50);
+    color: var(--g-kit-lime-50);
     }
 
     .datepicker select {
-        border: 0px;
-        background-color: white;
+    border: 0px;
+    background-color: white;
     }
 
     .datepicker select:focus-visible {
-        outline: none;
+    outline: none;
     }
 
     .year {
-        position: absolute;
-        z-index: 1080;
-        background-color: white;
-        top: 120px;
-        width: 360px;
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-        border: 1px solid var(--g-kit-black-20);
-        filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.02)) drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.02));
+    position: absolute;
+    z-index: 1080;
+    background-color: white;
+    top: 120px;
+    width: 360px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border: 1px solid var(--g-kit-black-20);
+    filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.02))
+        drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.02));
     }
 
     .year-menu {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     }
 
     .year-menu button {
-        margin-top: 18px;
-        margin-bottom: 18px;
-        margin-right: 14px;
-        margin-left: 14px;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        font-size: var(--g-kit-font-size-lambda);
-        line-height: var(--g-kit-line-height-lambda);
-        font-weight: var(--g-kit-font-weight-normal);
-        color: var(--g-kit-black-80);
+    margin-top: 18px;
+    margin-bottom: 18px;
+    margin-right: 14px;
+    margin-left: 14px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: var(--g-kit-font-size-lambda);
+    line-height: var(--g-kit-line-height-lambda);
+    font-weight: var(--g-kit-font-weight-normal);
+    color: var(--g-kit-black-80);
     }
 
     .year-menu button:hover {
-        color: var(--g-kit-lime-50);
+    color: var(--g-kit-lime-50);
     }
 
-    @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
+  .year-menu button {
+    margin-top: 17px;
+    margin-bottom: 17px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: var(--g-kit-font-size-omicron);
+    line-height: var(--g-kit-line-height-omicron);
+    font-weight: var(--g-kit-font-weight-normal);
+  }
 
-        .year-menu button {
-            margin-top: 17px;
-            margin-bottom: 17px;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            font-size: var(--g-kit-font-size-omicron);
-            line-height: var(--g-kit-line-height-omicron);
-            font-weight: var(--g-kit-font-weight-normal);
-        }
+  .year,
+  .card {
+    width: calc(100% - 2rem) !important;
+  }
 
-        .year,
-        .card {
-            width: calc(100% - 2rem) !important;
-        }
+  .year {
+    top: 300px;
+  }
 
-        .year {
-            top: 300px;
-        }
+  .year-menu {
+    margin-bottom: unset;
+  }
 
-        .year-menu {
-            margin-bottom: unset;
-        }
+  .datepicker {
+    max-width: 100%;
+  }
 
-        .datepicker {
-            max-width: 100%;
-        }
-
-        .datepicker th,
-        .datepicker td {
-            text-align: center;
-            padding: .5rem;
-        }
-    }
+  .datepicker th,
+  .datepicker td {
+    text-align: center;
+    padding: 0.5rem;
+  }
+}
 </style>

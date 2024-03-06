@@ -546,7 +546,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-12 mt-4">
+                <div class="col-lg-6 mt-4">
                     <div class="card">
                         <div class="card-header">
                             <h5>Table Basic</h5>
@@ -562,6 +562,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+
+                            <InputCamera v-model="myFileSrc" @fileDropped="handleFileDropped" />
+
+                            <p>{{ generatedFileName }}</p>
+                            <p>{{ receivedImgFile }}</p>
+
+                        </div>
+                    </div>
+                </div>
   
             </div>
         </div>
@@ -569,12 +586,16 @@
   </template>
   
   <script setup>
-    import {
-        ref
-    } from 'vue'
+    import { ref } from 'vue'
   
     const text = ref('ini value')
     const rupiah = ref(12000000)
+    const myFileSrc = ref()
+
+    const handleFileDropped = (file) => {
+        // myFileSrc.value = file
+        console.log('file droppped', file)
+    }
     
   </script>
   
@@ -595,7 +616,7 @@
     import Accordion from './Accordion/Accordion.vue'
     import AccordionItem from './Accordion/AccordionItem.vue'
     import FilePickerLG from './Filepicker/FilePickerLG.vue'
-    import ModalComponent from './Modal/Modal.vue'
+    import ModalComponent from './Modal/ModalComponent.vue'
     import InputDatePicker from './Input/InputDatePicker.vue'
     import InputSmallDate from './Input/InputSmallDate.vue'
     import ListGroupOrdered from './ListGroup/ListGroupOrdered.vue'
@@ -614,6 +635,8 @@
 
     import LoadAnimate from './Modal/Load.vue'
     import DateRangePicker from './Input/DateRangePicker.vue'
+
+    import InputCamera from './Input/InputCamera.vue'
   
     export default {
         name: 'App',
@@ -648,13 +671,17 @@
             LoadAnimate,
             SideStepperTest,
             InputDropdownHeader,
-            DateRangePicker
+            DateRangePicker,
+            InputCamera
         },
         data() {
             return {
                 startDate: ref(null),
                 endDate: ref(null),
-                
+
+                generatedFileName: '',
+                receivedImgFile: "",
+
                 nilaiTerpilih: null,
                 daftarPilihan: [
                     { id: 1, img: 'beli_emas', nama: 'Pilihan Pilihanb', link: 'asa' },
@@ -975,7 +1002,15 @@
             },
             handleEditAction(item) {
                 console.log('Edit action clicked for item:', item)
-            }
+            },
+
+            handleGeneratedFileName(fileName) {
+                this.generatedFileName = fileName;
+            },
+            handleImgFile(imgFile) {
+                this.generatedFileName = imgFile;
+            },
+            
         }
     }
   </script>
