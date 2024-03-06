@@ -1,6 +1,7 @@
 <script setup>
 import { ref, defineEmits, defineOptions, defineModel, defineProps } from 'vue'
 import Button from '../Button/Button.vue'
+import { BModal, BButton } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputCamera', inheritAttrs: false })
 
@@ -15,6 +16,10 @@ const props = defineProps({
     compressionMaxKb: {
         required: false,
         default: 1024
+    },
+    title: {
+      type: String,
+      default: 'Upload Foto'
     }
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved'])
@@ -139,7 +144,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 
 <template>
   <div class="custom-file-upload">
-    <b-button-close
+    <b-button
       @click="handleRemoveFileClick"
       v-if="fileSrc"
       type="button"
@@ -178,7 +183,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   <BModal
     v-model="fileSourceChooserDialog"
     size="sm"
-    title="Upload Foto KTP"
+    :title="title"
     ok-only
     no-stacking
     hide-footer
