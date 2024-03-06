@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="item in sortedData" :key="item.id" @click="handleRowClick(item)">
+            <tr v-for="item in sortedData" :key="item.id">
                 <td v-for="column in props.columns" :key="column.key">
                     <slot
                         :name="column.key"
@@ -30,7 +30,7 @@
         </tbody>
     </table>
   </template>
-
+  
   <script setup>
     import { defineProps, computed, ref } from 'vue'
     const props = defineProps({
@@ -50,22 +50,22 @@
             default: 'Tidak ada data yang ditampilkan'
         },
     })
-
-    const sortKey = ref("id")
-    const sortOrder = ref(1)
-
+  
+    let sortKey = ref("id")
+    let sortOrder = ref(1)
+  
     const sortedData = computed(() => {
         return props.data.slice().sort((a, b) => {
             const modifier = sortOrder;
             const x = a[sortKey];
             const y = b[sortKey];
-
+  
             if (x === y) return 0;
-
+  
             return x > y ? modifier : -modifier;
         });
     })
-
+  
     function sortTable(key) {
         if (sortKey === key) {
             sortOrder = -sortOrder
@@ -74,8 +74,5 @@
             sortOrder = 1
         }
     }
-
-    function handleRowClick(item) {
-        $emit("row-click", item)
-    }
   </script>
+  
