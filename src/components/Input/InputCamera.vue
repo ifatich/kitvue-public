@@ -318,7 +318,7 @@ body.modal-open {
   cursor: pointer;
   font-weight: bold;
   opacity: 1 !important;
-  z-index: auto;
+  z-index: 10;
 }
 
 @media (max-width: 576px) {
