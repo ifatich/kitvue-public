@@ -11,6 +11,7 @@ const video = ref()
 const fileInput = ref()
 const snappedCameraPict = ref()
 const imgElement = ref()
+const cameraIsReady = ref(false)
 
 const props = defineProps({
     compressionMaxKb: {
@@ -74,8 +75,10 @@ const handleCameraChosen = async () => {
 }
 
 const startCamera = async () => {
+  cameraIsReady.value = false
   const stream = await navigator.mediaDevices.getUserMedia({ video: true })
   video.value.srcObject = stream
+  cameraIsReady.value = true
 }
 
 const stopCamera = async () => {
@@ -214,6 +217,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         type="primary"
         label="Ambil Gambar"
         v-if="!snappedCameraPict"
+        :disabled="!cameraIsReady"
       />
       <template v-else>
         <Button
