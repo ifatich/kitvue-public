@@ -74,6 +74,10 @@
             </div>
 
         </div>
+
+    <div class="error-text" v-if="error">
+      {{ error }}
+    </div>
     </div>
 </template>
 
@@ -101,7 +105,8 @@
             modelValue: {
                 type: String,
                 default: null
-            }
+            },
+            error: {}
         },
         emits: ['update:modelValue'],
         data() {
