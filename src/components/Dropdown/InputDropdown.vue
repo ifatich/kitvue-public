@@ -80,7 +80,7 @@ const handleOptionClick = (option) => {
       <label v-if="props.label" :for="$attrs.id" class="form-label">
         {{ props.label }}
       </label>
-      <img v-if="props.errorFetch" :executeFetch="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
+      <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
     </div>
     <BDropdown
       :value="selectedValue"
