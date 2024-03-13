@@ -415,8 +415,17 @@
                         </div>
                         <div class="card-body">
   
-                            <Dropdown errorFetch="test" :executeFetch="executeFetch" v-model="selectedOption" :id="'custom-id'" :label="'label'"
-                                :title="selectedOption" :items="dropdownItems" :options="dropdownOptions" />
+                        <Dropdown 
+                            errorFetch="test" 
+                            :executeFetch="executeFetch" 
+                            v-model="selectedOption" 
+                            :id="'custom-id'" 
+                            :label="'label'"
+                            :title="selectedOption" 
+                            :items="dropdownItems" 
+                            item-text="label"
+                            item-value="id"
+                        />
                             <AutoCompleteComponent v-model="selectedValue" :items="dropdownItems" label="Item"
                                 item-text="label" item-value="id" :disabled="false" size="md"
                                 palceholder="Pilih salah satu" />
@@ -713,7 +722,7 @@
                 ],
                 dropdownItems: [{
                         id: 1,
-                        label: 'Item 1'
+                        label: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia consequuntur ipsa minus beatae, totam non! Autem esse fugiat ut ex porro neque, voluptates vel odio minima iste. Dolorem, id quo?'
                     },
                     {
                         id: 2,

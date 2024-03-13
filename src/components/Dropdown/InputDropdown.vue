@@ -77,7 +77,7 @@ const handleOptionClick = (option) => {
 <template>
   <div :class="['group-input', props.class]">
     <div class="label-container">
-      <label v-if="props.label" :for="$attrs.id" class="form-label">
+      <label v-if="props.label" :for="$attrs.id" class="form-label overflow-hidden">
         {{ props.label }}
       </label>
       <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
@@ -90,7 +90,9 @@ const handleOptionClick = (option) => {
       :disabled="disabled || loading"
     >
       <template #button-content>
-        {{ selectedText || props.placeholder }}
+        <p class="overflow-hidden my-auto text-ellipsis">
+          {{ selectedText || props.placeholder }}
+          </p>
         <span>
           <BSpinner v-if="loading" small />
           <img v-else src="../../assets/icon/chevron_down.svg" />
@@ -110,6 +112,7 @@ const handleOptionClick = (option) => {
         :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
         <BDropdownItemButton
+        class="overflow-hidden"
           buttonClass="d-flex justify-content-between mt-1"
         >
           {{ option[props.itemText] }}
@@ -128,6 +131,10 @@ const handleOptionClick = (option) => {
 <style lang="scss">
 .btn-group {
   width: 100%;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
 }
 
 .label-container {
