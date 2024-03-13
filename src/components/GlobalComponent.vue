@@ -415,7 +415,7 @@
                         </div>
                         <div class="card-body">
   
-                            <Dropdown v-model="selectedOption" :id="'custom-id'" :label="'label'"
+                            <Dropdown errorFetch="test" :executeFetch="executeFetch" v-model="selectedOption" :id="'custom-id'" :label="'label'"
                                 :title="selectedOption" :items="dropdownItems" :options="dropdownOptions" />
                             <AutoCompleteComponent v-model="selectedValue" :items="dropdownItems" label="Item"
                                 item-text="label" item-value="id" :disabled="false" size="md"
@@ -596,6 +596,10 @@
         // myFileSrc.value = file
         console.log('file droppped', file)
     }
+
+    const executeFetch = () => {
+        console.log('execute fetch')
+    }
     
   </script>
   
@@ -622,7 +626,7 @@
     import ListGroupOrdered from './ListGroup/ListGroupOrdered.vue'
     import ListGroupUnit from './ListGroup/ListGroupUnit.vue'
     import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue'
-    import TableData from './Table/Table.vue'
+    import TableData from './Table/TableData.vue'
     import DataTable from './Table/DataTable.vue'
     import BerandaHeader from './Navbar/BerandaHeader.vue'
     import AutoCompleteComponent from './SelectOption/AutoComplete.vue'
@@ -1013,4 +1017,4 @@
             
         }
     }
-  </script>
+  </script>./Table/TableData.vue

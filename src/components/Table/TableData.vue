@@ -39,7 +39,7 @@
         data: {
             type: Array,
             required: true,
-            default: []
+            default: () => []
         },
         columns: {
             type: Array,
@@ -56,9 +56,9 @@
   
     const sortedData = computed(() => {
         return props.data.slice().sort((a, b) => {
-            const modifier = sortOrder;
-            const x = a[sortKey];
-            const y = b[sortKey];
+            const modifier = sortOrder.value;
+            const x = a[sortKey.value];
+            const y = b[sortKey.value];
   
             if (x === y) return 0;
   
@@ -67,11 +67,11 @@
     })
   
     function sortTable(key) {
-        if (sortKey === key) {
-            sortOrder = -sortOrder
+        if (sortKey.value === key) {
+            sortOrder.value = -sortOrder.value
         } else {
-            sortKey = key
-            sortOrder = 1
+            sortKey.value = key
+            sortOrder.value = 1
         }
     }
   </script>

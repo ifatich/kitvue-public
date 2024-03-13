@@ -30,7 +30,9 @@ const props = defineProps({
   itemText: String,
   modelValue: String,
   placeholder: String,
-  class: String
+  class: String,
+  errorFetch: String,
+  executeFetch: Function
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -74,9 +76,12 @@ const handleOptionClick = (option) => {
 
 <template>
   <div :class="['group-input', props.class]">
-    <label v-if="props.label" :for="$attrs.id" class="form-label">
-      {{ props.label }}
-    </label>
+    <div class="label-container">
+      <label v-if="props.label" :for="$attrs.id" class="form-label">
+        {{ props.label }}
+      </label>
+      <img v-if="props.errorFetch" :executeFetch="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
+    </div>
     <BDropdown
       :value="selectedValue"
       toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
@@ -123,6 +128,17 @@ const handleOptionClick = (option) => {
 <style lang="scss">
 .btn-group {
   width: 100%;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-refresh {
+  width: 1.2rem;
+  margin-left: .2rem;
+  cursor: pointer;
 }
 
 .gkit-dd {
