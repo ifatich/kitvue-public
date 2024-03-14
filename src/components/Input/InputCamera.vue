@@ -168,11 +168,13 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         v-if="fileSrc"
         type="button"
         class="d-block remove-button btn-close"
+        :id="`${$attrs.id}_removeFile`"
       />
       <div
         v-if="!fileSrc"
         @click="fileSourceChooserDialog = true"
         class="custom-file-upload__box-input"
+        :id="`${$attrs.id}_openDialogChooser`"
       >
         <span class="custom-file-upload__box-input-icon">
           <img
@@ -186,6 +188,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           style="display: none"
           accept="image/*"
           @change="handleFilePicked"
+          :id="$attrs.id"
         />
       </div>
       <div
@@ -198,6 +201,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           :src="fileSrc"
           alt="Captured Image"
           class="imgCaptured"
+          :id="`${$attrs.id}_img`"
         />
       </div>
     </div>
@@ -220,8 +224,11 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         class="mb-2"
         type="primary"
         label="Pilih File"
+        :id="`${$attrs.id}_file`"
       />
-      <Button @click="handleSourceCameraClick" type="primary" label="Kamera" />
+      <Button 
+      :id="`${$attrs.id}_camera`"
+      @click="handleSourceCameraClick" type="primary" label="Kamera" />
     </div>
   </BModal>
 
@@ -241,6 +248,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         label="Ambil Gambar"
         v-if="!snappedCameraPict"
         :disabled="!cameraIsReady"
+        :id="`${$attrs.id}_cameraSnap`"
       />
       <template v-else>
         <Button
@@ -248,12 +256,14 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           class="me-2 mb-2"
           type="neutral"
           label="Ambil Ulang Foto"
+        :id="`${$attrs.id}_cameraRetake`"
         />
         <Button
           @click="handleCameraChosen"
           class="me-2 mb-2"
           type="primary"
           label="Gunakan Foto"
+          :id="`${$attrs.id}_cameraChoose`"
         />
       </template>
     </div>
