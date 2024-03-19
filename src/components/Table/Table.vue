@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div>
         <slot name="table-header"></slot>
@@ -32,6 +33,7 @@
   </template>
   
   <script setup>
+    /* eslint-disable */
     import { defineProps, computed, ref } from 'vue'
     const props = defineProps({
         class: String,
