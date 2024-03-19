@@ -166,7 +166,7 @@
             },
             years() {
                 const startYear = this.selectedYear || this.currentYear;
-                const endYear = this.selectedYear - 221;
+                const endYear = this.selectedYear - 125;
                 const years = [];
                 for (let year = startYear; year >= endYear; year--) {
                     years.push(year);
