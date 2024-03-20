@@ -1,5 +1,12 @@
 <script setup>
-import { defineOptions, ref } from 'vue'
+import {
+  defineOptions,
+  ref,
+  defineModel,
+  watch,
+  computed,
+  defineProps
+} from 'vue'
 import DateRangePicker from './DateRangePicker.vue'
 import {
   BDropdown,
@@ -9,13 +16,55 @@ import {
 
 defineOptions({ name: 'DateRangePickerOption', inheritAttrs: false })
 
-const SELECTED_PRESET = ref('30')
+const SELECTED_PRESET = ref('ANY')
+const dateRangeDisabled = computed(() =>
+  SELECTED_PRESET.value === 'ANY' ? false : true
+)
+const props = defineProps(['label', 'error'])
+
+const startDate = defineModel('startDate')
+const endDate = defineModel('endDate')
+
+const getDateString = (date) => {
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+
+  return `${year}-${month}-${day}`
+}
+
+const getFormattedDateString = (dateString) => {
+  const [year, month, day] = dateString.split('-')
+
+  return `${day}/${month}/${year}`
+}
+
+const valueString = computed(() =>
+  startDate.value && endDate.value
+    ? `${getFormattedDateString(startDate.value)} - ${getFormattedDateString(
+        endDate.value
+      )}`
+    : ''
+)
+
+watch(SELECTED_PRESET, () => {
+  if (SELECTED_PRESET.value === 'ANY') {
+    startDate.value = ''
+    endDate.value = ''
+    return
+  }
+  const todaysDate = new Date()
+  const previousDate = new Date()
+  previousDate.setDate(todaysDate.getDate() - parseInt(SELECTED_PRESET.value))
+  startDate.value = getDateString(previousDate)
+  endDate.value = getDateString(todaysDate)
+})
 </script>
 
 <template>
   <div class="group-input">
     <div class="label-container">
-      <label class="form-label overflow-hidden"> Ini Label Pokoknya </label>
+      <label class="form-label overflow-hidden"> {{ props.label }} </label>
     </div>
     <BDropdown
       v-bind="$attrs"
@@ -24,73 +73,85 @@ const SELECTED_PRESET = ref('30')
     >
       <template #button-content>
         <p class="overflow-hidden my-auto text-ellipsis">
-          Ini Value Tanggalnya Pokoknya
+          {{ valueString }}
         </p>
         <span>
           <img src="../../assets/icon/chevron_down.svg" />
         </span>
       </template>
-      <BDropdownItem
+      <div
         class="preset-btn mt-2"
         :class="{
           'preset-btn--selected': SELECTED_PRESET === '7'
         }"
       >
-        <BDropdownItemButton
-          class="overflow-hidden"
-          buttonClass="d-flex align-items-center"
-          @click.stop="SELECTED_PRESET = '7'"
-        >
-          <div
-            class="btn-identifier"
-            :class="{ 'btn-identifier--selected': SELECTED_PRESET === '7' }"
+        <BDropdownItem>
+          <BDropdownItemButton
+            class="overflow-hidden"
+            buttonClass="d-flex align-items-center"
+            @click.stop="SELECTED_PRESET = '7'"
           >
-            &nbsp;
-          </div>
-          7 Hari Terakhir
-        </BDropdownItemButton>
-      </BDropdownItem>
-      <BDropdownItem
+            <div
+              class="btn-identifier"
+              :class="{ 'btn-identifier--selected': SELECTED_PRESET === '7' }"
+            >
+              &nbsp;
+            </div>
+            7 Hari Terakhir
+          </BDropdownItemButton>
+        </BDropdownItem>
+      </div>
+      <div
         class="preset-btn mt-2"
         :class="{ 'preset-btn--selected': SELECTED_PRESET === '30' }"
       >
-        <BDropdownItemButton
-          class="overflow-hidden"
-          buttonClass="d-flex align-items-center test"
-          @click.stop="SELECTED_PRESET = '30'"
-        >
-          <div
-            class="btn-identifier"
-            :class="{ 'btn-identifier--selected': SELECTED_PRESET === '30' }"
+        <BDropdownItem>
+          <BDropdownItemButton
+            class="overflow-hidden"
+            buttonClass="d-flex align-items-center test"
+            @click.stop="SELECTED_PRESET = '30'"
           >
-            &nbsp;
-          </div>
-          30 Hari Terakhir
-        </BDropdownItemButton>
-      </BDropdownItem>
-      <BDropdownItem
+            <div
+              class="btn-identifier"
+              :class="{ 'btn-identifier--selected': SELECTED_PRESET === '30' }"
+            >
+              &nbsp;
+            </div>
+            30 Hari Terakhir
+          </BDropdownItemButton>
+        </BDropdownItem>
+      </div>
+      <div
         class="preset-btn mt-2"
         :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
       >
-        <BDropdownItemButton
-          class="overflow-hidden"
-          buttonClass="d-flex align-items-center test"
-          @click.stop="SELECTED_PRESET = 'ANY'"
-        >
-          <div
-            class="btn-identifier"
-            :class="{ 'btn-identifier--selected': SELECTED_PRESET === 'ANY' }"
+        <BDropdownItem>
+          <BDropdownItemButton
+            class="overflow-hidden"
+            buttonClass="d-flex align-items-center test"
+            @click.stop="SELECTED_PRESET = 'ANY'"
           >
-            &nbsp;
-          </div>
-          Rentang Waktu
-        </BDropdownItemButton>
-      </BDropdownItem>
+            <div
+              class="btn-identifier"
+              :class="{ 'btn-identifier--selected': SELECTED_PRESET === 'ANY' }"
+            >
+              &nbsp;
+            </div>
+            Rentang Waktu
+          </BDropdownItemButton>
+        </BDropdownItem>
+      </div>
       <div>
-        <DateRangePicker class="mt-4" @click.stop />
+        <DateRangePicker
+          v-model:start-date="startDate"
+          v-model:end-date="endDate"
+          class="mt-4"
+          @click.stop
+          :disabled="dateRangeDisabled"
+        />
       </div>
     </BDropdown>
-    <div class="error-text">Kalo ini error pokoknya</div>
+    <div class="error-text">{{ props.error }}</div>
   </div>
 </template>
 
@@ -110,7 +171,9 @@ const SELECTED_PRESET = ref('30')
   & .dropdown-item {
     margin-top: 0 !important;
 
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
       background-color: transparent !important;
     }
   }

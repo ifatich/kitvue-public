@@ -156,7 +156,10 @@
                 placeholder="Pilih Tanggal Lahir"
               />
               <p>Selected Date: {{ selectedDate }}</p>
-              <DateRangePickerOption />
+              <DateRangePickerOption
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+              />
               <InputSmallText
                 id="13"
                 title="Test Judul"
