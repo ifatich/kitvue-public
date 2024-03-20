@@ -28,9 +28,14 @@
         font-weight: var(--g-kit-font-weight-normal);
         color: $text-secondary;
     }
+
+    .modal-header {
+        border-bottom: none;
+        padding: 16px;
+    }
 }
 
-@media screen and (max-width: 576px){
+@media screen and (min-width: 576px){
     .modal-sm {
         --g-bs-modal-width: 360px;
     }
@@ -69,4 +74,5 @@
     line-height: var(--g-kit-line-height-omicron);
     font-weight: var(--g-kit-font-weight-normal);
     color: $text-secondary;
+    padding-top: 0px;
 }
