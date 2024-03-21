@@ -579,6 +579,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-6 mt-4" style="margin-bottom: 400px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Table Basic</h5>
+                            <p class="mb-0"><code>&lt;List type="primary" size="md" label="Button"&gt;</code></p>
+                        </div>
+                        <div class="card-body">
+                            <InputFilter @filterDate="filterDateValue" />
+
+                            <p>Selected Date: {{ selectedValue }}</p>
+
+                        </div>
+                    </div>
+                </div>
   
             </div>
         </div>
@@ -637,6 +652,7 @@
     import DateRangePicker from './Input/DateRangePicker.vue'
 
     import InputCamera from './Input/InputCamera.vue'
+    import InputFilter from './Filter/InputFilter.vue'
   
     export default {
         name: 'App',
@@ -672,12 +688,14 @@
             SideStepperTest,
             InputDropdownHeader,
             DateRangePicker,
-            InputCamera
+            InputCamera,
+            InputFilter
         },
         data() {
             return {
                 startDate: ref(null),
                 endDate: ref(null),
+                selectedValue: '',
 
                 generatedFileName: '',
                 receivedImgFile: "",
@@ -1010,7 +1028,12 @@
             handleImgFile(imgFile) {
                 this.generatedFileName = imgFile;
             },
-            
+            handleselectedValueUpdate(newPlaceholderValue) {
+                console.log('Nilai selectedValue yang baru:', newPlaceholderValue);
+             },
+             filterDateValue(newValue) {
+                this.selectedValue = newValue;
+            }
         }
     }
   </script>

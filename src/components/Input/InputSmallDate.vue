@@ -202,7 +202,7 @@
                     const [year, month, day] = value.split('-')
                     const newDay = String(Number(day)).padStart(2, '0')
                     const newMonth = String(Number(month)).padStart(2, '0')
-                    formatted = `${newDay}-${newMonth}-${year}`
+                    formatted = `${newDay}/${newMonth}/${year}`
                 }
                 return formatted
             },
@@ -259,6 +259,10 @@
 <style scoped>
     .form-control {
         cursor: pointer;
+    }
+
+    .custom-input-group-icon:has(.form-control:disabled){
+        background-color: var(--g-kit-black-20);
     }
 
     .content-date {

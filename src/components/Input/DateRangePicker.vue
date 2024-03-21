@@ -2,8 +2,8 @@
 <template>
     <div>
         <div class="date-range-picker">
-            <InputSmallDate v-model="startDate" title="Dari" placeholder="DD / MM / YYYY" />
-            <InputSmallDate v-model="endDate" title="Hingga" placeholder="DD / MM / YYYY" />
+            <InputSmallDate v-model="startDate" :disabled="disablePicker" title="Dari" placeholder="DD / MM / YYYY" />
+            <InputSmallDate v-model="endDate" :disabled="disablePicker" title="Hingga" placeholder="DD / MM / YYYY" />
         </div>
         <div v-if="errorValidation" class="error-text mt-1">{{ errorValidation }}</div>
     </div>
@@ -11,12 +11,11 @@
 
 <script setup>
     import InputSmallDate from './InputSmallDate.vue';
-    import {
-        computed
-    } from 'vue';
+    import { computed } from 'vue';
 
-    const startDate = defineModel('startDate') // eslint-disable-line
-    const endDate = defineModel('endDate') // eslint-disable-line
+    const startDate = defineModel('startDate'); // eslint-disable-line
+    const endDate = defineModel('endDate'); // eslint-disable-line
+    const disablePicker = defineModel('disablePicker'); // eslint-disable-line
 
     const errorValidation = computed(() => {
         if (startDate.value && endDate.value && startDate.value > endDate.value) {
@@ -24,14 +23,22 @@
         } else {
             return null;
         }
-    })
+    });
 </script>
 
 <script>
     export default {
-        name: "DateRangePicker"
+        name: "DateRangePicker",
+        props: {
+            disablePicker: {
+                type: Boolean,
+                default: false
+            }
+        }
     }
 </script>
+
+
 <style scoped>
     .form-label {
         display: none;
