@@ -30,9 +30,13 @@
 	color: var(--bs-accordion-color);
     font-weight: 800;
 	&:not(.collapsed) {
-		color: $text-green;
+		color: $text-primary;
 		box-shadow: none;
         background-color: transparent;
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 800;
+		line-height: 30px;
         &::after {
             background-image: var(--bs-accordion-btn-active-icon);
         }

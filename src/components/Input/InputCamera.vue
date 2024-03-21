@@ -25,7 +25,7 @@ const props = defineProps({
     error: {},
     uniqueKey: {}
 })
-const emit = defineEmits(['fileDropped', 'fileRemoved'])
+const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
@@ -83,10 +83,16 @@ const handleCameraChosen = async () => {
 }
 
 const startCamera = async () => {
-  cameraIsReady.value = false
-  const stream = await navigator.mediaDevices.getUserMedia({ video: true })
-  video.value.srcObject = stream
-  cameraIsReady.value = true
+  try {
+    cameraIsReady.value = false
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+    video.value.srcObject = stream
+    cameraIsReady.value = true
+  } catch (error) {
+    emit('errorPermission', error)
+    cameraIsReady.value = false
+    cameraDialog.value = false
+  }
 }
 
 const stopCamera = async () => {
@@ -226,7 +232,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         label="Pilih File"
         :id="`${$attrs.id}_file`"
       />
-      <Button 
+      <Button
       :id="`${$attrs.id}_camera`"
       @click="handleSourceCameraClick" type="primary" label="Kamera" />
     </div>
@@ -325,7 +331,7 @@ body.modal-open {
   position: absolute;
   top: 4px;
   right: 4px;
-  background-color: #ae1e22 !important;
+  background-color: #58585b !important;
   color: white !important;
   border: none;
   border-radius: 50% !important;
@@ -333,6 +339,7 @@ body.modal-open {
   font-weight: bold;
   opacity: 1 !important;
   z-index: 10;
+  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M9.31876 8.18384C9.00205 7.92238 8.53245 7.93981 8.23613 8.23613C7.92129 8.55097 7.92129 9.06143 8.23613 9.37627L11.1932 12.3333L8.23613 15.2904C7.92129 15.6052 7.92129 16.1157 8.23613 16.4305C8.53245 16.7269 9.00205 16.7443 9.31876 16.4828L9.37627 16.4305L12.3333 13.4735L15.2904 16.4305L15.3479 16.4828C15.6646 16.7443 16.1342 16.7269 16.4305 16.4305C16.7454 16.1157 16.7454 15.6052 16.4305 15.2904L13.4735 12.3333L16.4305 9.37627C16.7454 9.06143 16.7454 8.55097 16.4305 8.23613C16.1342 7.93981 15.6646 7.92238 15.3479 8.18384L15.2904 8.23613L12.3333 11.1932L9.37627 8.23613L9.31876 8.18384Z'/%3e%3c/svg%3e");
 }
 
 @media (max-width: 576px) {
