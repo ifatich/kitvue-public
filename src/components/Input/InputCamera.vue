@@ -25,7 +25,7 @@ const props = defineProps({
     error: {},
     uniqueKey: {}
 })
-const emit = defineEmits(['fileDropped', 'fileRemoved'])
+const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
@@ -83,10 +83,16 @@ const handleCameraChosen = async () => {
 }
 
 const startCamera = async () => {
-  cameraIsReady.value = false
-  const stream = await navigator.mediaDevices.getUserMedia({ video: true })
-  video.value.srcObject = stream
-  cameraIsReady.value = true
+  try {
+    cameraIsReady.value = false
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+    video.value.srcObject = stream
+    cameraIsReady.value = true
+  } catch (error) {
+    emit('errorPermission', error)
+    cameraIsReady.value = false
+    cameraDialog.value = false
+  }
 }
 
 const stopCamera = async () => {
