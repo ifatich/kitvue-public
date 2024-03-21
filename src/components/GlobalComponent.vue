@@ -157,6 +157,7 @@
               />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
+                label="Date Range Picker"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
               />

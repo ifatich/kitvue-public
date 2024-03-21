@@ -20,7 +20,25 @@ const SELECTED_PRESET = ref('ANY')
 const dateRangeDisabled = computed(() =>
   SELECTED_PRESET.value === 'ANY' ? false : true
 )
-const props = defineProps(['label', 'error'])
+const props = defineProps({
+  label: {},
+  error: {},
+  preset: {
+    default: [
+      {
+        label: '7 Hari Terakhir',
+        value: '7'
+      },
+      {
+        label: '30 Hari Terakhir',
+        value: '30'
+      }
+    ]
+  },
+  showAny: {
+    default: true
+  }
+})
 
 const startDate = defineModel('startDate')
 const endDate = defineModel('endDate')
@@ -80,48 +98,33 @@ watch(SELECTED_PRESET, () => {
         </span>
       </template>
       <div
+        v-for="preset in props.preset"
+        :key="preset.value"
         class="preset-btn mt-2"
         :class="{
-          'preset-btn--selected': SELECTED_PRESET === '7'
+          'preset-btn--selected': SELECTED_PRESET === preset.value
         }"
       >
         <BDropdownItem>
           <BDropdownItemButton
             class="overflow-hidden"
             buttonClass="d-flex align-items-center"
-            @click.stop="SELECTED_PRESET = '7'"
+            @click.stop="SELECTED_PRESET = preset.value"
           >
             <div
               class="btn-identifier"
-              :class="{ 'btn-identifier--selected': SELECTED_PRESET === '7' }"
+              :class="{
+                'btn-identifier--selected': SELECTED_PRESET === preset.value
+              }"
             >
               &nbsp;
             </div>
-            7 Hari Terakhir
+            {{ preset.label }}
           </BDropdownItemButton>
         </BDropdownItem>
       </div>
       <div
-        class="preset-btn mt-2"
-        :class="{ 'preset-btn--selected': SELECTED_PRESET === '30' }"
-      >
-        <BDropdownItem>
-          <BDropdownItemButton
-            class="overflow-hidden"
-            buttonClass="d-flex align-items-center test"
-            @click.stop="SELECTED_PRESET = '30'"
-          >
-            <div
-              class="btn-identifier"
-              :class="{ 'btn-identifier--selected': SELECTED_PRESET === '30' }"
-            >
-              &nbsp;
-            </div>
-            30 Hari Terakhir
-          </BDropdownItemButton>
-        </BDropdownItem>
-      </div>
-      <div
+        v-if="props.showAny"
         class="preset-btn mt-2"
         :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
       >
