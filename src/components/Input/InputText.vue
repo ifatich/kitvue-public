@@ -3,7 +3,14 @@ import { defineOptions, defineProps, defineEmits, computed } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'suffixIcon', 'class', 'modelValue', 'type'])
+const props = defineProps([
+  'error',
+  'label',
+  'suffixIcon',
+  'class',
+  'modelValue',
+  'type'
+])
 const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
@@ -15,10 +22,26 @@ const inputValue = computed({
   }
 })
 
+const handleInput = (e) => {
+  if (props.type === 'number') {
+    const key = e.key || String.fromCharCode(e.keyCode || e.which)
+    const isNumericInput =
+      (key >= '0' && key <= '9') ||
+      (key >= 'NumPad0' && key <= 'NumPad9') ||
+      key === 'Delete' ||
+      key === 'Backspace' ||
+      key === 'Tab' ||
+      key === '.'
+
+    if (!isNumericInput) {
+      e.preventDefault()
+    }
+  }
+}
+
 function toUppercaseString(val) {
   if (val) return val.toUpperCase()
 }
-
 </script>
 
 <template>
@@ -28,7 +51,12 @@ function toUppercaseString(val) {
     </label>
     <div class="input-group custom-input-group-icon p-0">
       <slot name="prefix" />
-      <input type="text" v-model="inputValue" class="form-control" v-bind="$attrs" />
+      <input
+        @keydown="handleInput"
+        v-model="inputValue"
+        class="form-control"
+        v-bind="$attrs"
+      />
       <div v-if="suffixIcon" class="input-group-icon mx-2">
         <img :src="suffixIcon" />
       </div>
