@@ -54,9 +54,10 @@
     })
   
     let sortKey = ref("id")
-    let sortOrder = ref(1)
+    let sortOrder = ref()
   
     const sortedData = computed(() => {
+        if (!sortOrder) return props.data
         return props.data.slice().sort((a, b) => {
             const modifier = sortOrder.value;
             const x = a[sortKey.value];
