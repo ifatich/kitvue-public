@@ -1,77 +1,146 @@
 <template>
-    <div class="group-input">
+    <div class="group-input calendar-input">
+        <div class="desktop">
+            <label :for="$attrs.id" class="form-label">
+                {{ title || "Tanggal Lahir" }}
+            </label>
 
-        <label :for="$attrs.id" class="form-label">
-            {{ title || "Tanggal Lahir" }}
-        </label>
+            <div class="input-group custom-input-group-icon">
 
-        <div class="input-group custom-input-group-icon">
+                <input type="text" :class="['form-control', classes]" v-bind="$attrs" :aria-label="title"
+                    :aria-describedby="title" :disabled="disabled" :required="required"
+                    :placeholder=" placeholder || ['Pilih ' + (title || '').toLowerCase()]  " v-model="selectedDate"
+                    @click="showDatePicker" readonly />
 
-            <input type="text" :class="['form-control', classes]" v-bind="$attrs" :aria-label="title"
-                :aria-describedby="title" :disabled="disabled" :required="required"
-                :placeholder=" placeholder || ['Pilih ' + (title || '').toLowerCase()]  " v-model="selectedDate"
-                @click="showDatePicker" readonly />
-
-            <div class="input-group-icon">
-                <img src="../../assets/icon/icon-system/icon-calendar.svg" />
-            </div>
-
-        </div>
-
-        <div class="content-date">
-
-            <div v-if="showCalendar" class="card">
-
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <b>Pilih Tanggal</b>
-                    <button class="btn p-0" @click="showDatePicker">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M7.97814 6.27576C7.50308 5.88357 6.79868 5.90971 6.3542 6.3542C5.88193 6.82646 5.88193 7.59215 6.3542 8.06441L10.7898 12.5L6.3542 16.9356C5.88193 17.4079 5.88193 18.1735 6.3542 18.6458C6.79868 19.0903 7.50308 19.1164 7.97814 18.7242L8.06441 18.6458L12.5 14.2102L16.9356 18.6458L17.0219 18.7242C17.4969 19.1164 18.2013 19.0903 18.6458 18.6458C19.1181 18.1735 19.1181 17.4079 18.6458 16.9356L14.2102 12.5L18.6458 8.06441C19.1181 7.59215 19.1181 6.82646 18.6458 6.3542C18.2013 5.90971 17.4969 5.88357 17.0219 6.27576L16.9356 6.3542L12.5 10.7898L8.06441 6.3542L7.97814 6.27576Z"
-                                fill="#58585B" />
-                        </svg>
-                    </button>
+                <div class="input-group-icon">
+                    <img src="../../assets/icon/icon-system/icon-calendar.svg" />
                 </div>
 
-                <div v-if="showCalendar" ref="calendar" class="datepicker">
-                    <div class="d-flex justify-content-between p-3">
-                        <button @click="previousMonth">
-                            <img src="../../assets/icon/icon-system/icon-chevron-left.svg" alt="">
-                        </button>
-                        <div class="d-flex justify-content-center border-0">
-                            <span class="month-year-text" @click="toggleYearMenu">{{ formattedMonthYear }}</span>
-                        </div>
-                        <button @click="nextMonth">
-                            <img src="../../assets/icon/icon-system/icon-chevron-right.svg" alt="">
+            </div>
+
+            <div class="content-date">
+
+                <div v-if="showCalendar" class="card">
+
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <b>Pilih Tanggal</b>
+                        <button class="btn p-0" @click="showDatePicker">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M7.97814 6.27576C7.50308 5.88357 6.79868 5.90971 6.3542 6.3542C5.88193 6.82646 5.88193 7.59215 6.3542 8.06441L10.7898 12.5L6.3542 16.9356C5.88193 17.4079 5.88193 18.1735 6.3542 18.6458C6.79868 19.0903 7.50308 19.1164 7.97814 18.7242L8.06441 18.6458L12.5 14.2102L16.9356 18.6458L17.0219 18.7242C17.4969 19.1164 18.2013 19.0903 18.6458 18.6458C19.1181 18.1735 19.1181 17.4079 18.6458 16.9356L14.2102 12.5L18.6458 8.06441C19.1181 7.59215 19.1181 6.82646 18.6458 6.3542C18.2013 5.90971 17.4969 5.88357 17.0219 6.27576L16.9356 6.3542L12.5 10.7898L8.06441 6.3542L7.97814 6.27576Z"
+                                    fill="#58585B" />
+                            </svg>
                         </button>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th v-for="day in days" :key="day">{{ day }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(week, index) in calendar" :key="index">
-                                <td v-for="day in week" :key="day.date" @click="selectDate(day)">
-                                    {{ day.date ? day.date.getDate() : '' }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <div v-if="showCalendar" ref="calendar" class="datepicker">
+                        <div class="d-flex justify-content-between p-3">
+                            <button @click="previousMonth">
+                                <img src="../../assets/icon/icon-system/icon-chevron-left.svg" alt="">
+                            </button>
+                            <div class="d-flex justify-content-center border-0">
+                                <span class="month-year-text" @click="toggleYearMenu">{{ formattedMonthYear }}</span>
+                            </div>
+                            <button @click="nextMonth">
+                                <img src="../../assets/icon/icon-system/icon-chevron-right.svg" alt="">
+                            </button>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th v-for="day in days" :key="day">{{ day }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(week, index) in calendar" :key="index">
+                                    <td v-for="day in week" :key="day.date" @click="selectDate(day)">
+                                        {{ day.date ? day.date.getDate() : '' }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div v-if="showYearMenu" class="year">
+                    <div class="year-menu" ref="yearMenu">
+                        <button v-for="year in years" :key="year" :class="{ 'active': isSelectedYear(year) }"
+                            @click="selectYear(year)" :data-year="year" ref="yearMenus">
+                            {{ year }}
+                        </button>
+                    </div>
                 </div>
 
             </div>
+        </div>
 
-            <div v-if="showYearMenu" class="year">
-                <div class="year-menu" ref="yearMenu">
-                    <button v-for="year in years" :key="year" :class="{ 'active': isSelectedYear(year) }"
-                        @click="selectYear(year)" :data-year="year" ref="yearMenus">
-                        {{ year }}
-                    </button>
+        <div class="mobile">
+
+            <label :for="$attrs.id" class="form-label">
+                {{ title || "Tanggal Lahir" }}
+            </label>
+
+            <div class="input-group custom-input-group-icon">
+                <input type="text" :class="['form-control', classes]" v-bind="$attrs" :aria-label="title"
+                    :aria-describedby="title" :disabled="disabled" :required="required"
+                    :placeholder=" placeholder || ['Pilih ' + (title || '').toLowerCase()]  " v-model="selectedDate"
+                    @click="toggleOffCanvas" readonly />
+
+                <div class="input-group-icon">
+                    <img src="../../assets/icon/icon-system/icon-calendar.svg" />
                 </div>
             </div>
 
+            <BOffcanvas v-model="showDatePickerOffcanvas" class="w-100 offcanvas-kit" placement="bottom"
+                :title="'Pilih Tanggal' || title">
+                <div class="content-date">
+
+                    <div v-if="showCalendar" class="card">
+
+                        <div v-if="showCalendar" ref="calendar" class="datepicker">
+                            <div class="d-flex justify-content-between p-3">
+                                <button @click="previousMonth">
+                                    <img src="../../assets/icon/icon-system/icon-chevron-left.svg" alt="">
+                                </button>
+                                <div class="d-flex justify-content-center border-0">
+                                    <span class="month-year-text"
+                                        @click="toggleYearMenu">{{ formattedMonthYear }}</span>
+                                </div>
+                                <button @click="nextMonth">
+                                    <img src="../../assets/icon/icon-system/icon-chevron-right.svg" alt="">
+                                </button>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th v-for="day in days" :key="day">{{ day }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(week, index) in calendar" :key="index">
+                                        <td v-for="day in week" :key="day.date" @click="selectDate(day)">
+                                            {{ day.date ? day.date.getDate() : '' }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div v-if="showYearMenu" class="year">
+                        <div class="year-menu" ref="yearMenu">
+                            <button v-for="year in years" :key="year" :class="{ 'active': isSelectedYear(year) }"
+                                @click="selectYear(year)" :data-year="year" ref="yearMenus">
+                                {{ year }}
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </BOffcanvas>
         </div>
     </div>
 </template>
@@ -110,6 +179,7 @@
         emits: ['update:modelValue', 'update:selectedYear'],
         data() {
             return {
+                showDatePickerOffcanvas: false,
                 showCalendar: false,
                 showYearMenu: false,
                 currentMonth: new Date().getMonth() + 1,
@@ -178,6 +248,15 @@
             toggleYearMenu() {
                 this.showYearMenu = !this.showYearMenu;
             },
+            toggleOffCanvas() {
+                this.showDatePickerOffcanvas = !this.showDatePickerOffcanvas;
+                this.showCalendar = !this.showCalendar;
+                if (this.showDatePickerOffcanvas) {
+                    this.showCalendar = true;
+                } else {
+                    this.showCalendar = false;
+                }
+            },
             showDatePicker() {
                 this.showYearMenu = false;
                 this.showCalendar = !this.showCalendar;
@@ -193,9 +272,14 @@
 
                     this.selectedDate =
                         `${year}-${month < 10 ? '0' : ''}${month}-${dayOfMonth < 10 ? '0' : ''}${dayOfMonth}`;
-                    this.showCalendar = false;
+
+                    if (this.showCalendar) {
+                        this.showDatePickerOffcanvas = false;
+                        this.showCalendar = false;
+                    }
                 }
             },
+
             formattedDate(value) {
                 let formatted = ''
                 if (value && value !== 'null') {
@@ -256,12 +340,14 @@
     };
 </script>
 
+
+
 <style scoped>
     .form-control {
         cursor: pointer;
     }
 
-    .custom-input-group-icon:has(.form-control:disabled){
+    .custom-input-group-icon:has(.form-control:disabled) {
         background-color: var(--g-kit-black-20);
     }
 
@@ -429,7 +515,12 @@
         border-radius: 12px;
     }
 
+    .offcanvas img {
+        margin-bottom: unset;
+    }
+
     @media only screen and (max-width: 600px) {
+
         .year-menu button {
             margin-top: 17px;
             margin-bottom: 17px;
@@ -442,11 +533,12 @@
 
         .year,
         .card {
-            width: calc(100% - 2rem) !important;
+            width: 100% !important;
+            filter: none;
         }
 
         .year {
-            top: 300px;
+            top: 64px;
         }
 
         .year-menu {
