@@ -44,6 +44,8 @@ export default {
   name: 'DateRangePicker'
 }
 </script>
+
+
 <style scoped>
 .form-label {
   display: none;
