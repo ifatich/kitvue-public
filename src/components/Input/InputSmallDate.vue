@@ -142,6 +142,10 @@
                 </div>
             </BOffcanvas>
         </div>
+
+    <div class="error-text" v-if="error">
+      {{ error }}
+    </div>
     </div>
 </template>
 
@@ -171,6 +175,7 @@
                 type: String,
                 default: null
             },
+            error: {},
             selectedYear: {
                 type: Number,
                 default: new Date().getFullYear()
@@ -194,8 +199,6 @@
         computed: {
             selectedDate: {
                 get() {
-                    if (this.modelValue) this.currentMonth = new Date(this.modelValue).getMonth() + 1;
-                    if (this.modelValue) this.currentYear = new Date(this.modelValue).getFullYear();
                     return this.formattedDate(this.modelValue)
                 },
                 set(value) {
@@ -242,6 +245,12 @@
                     years.push(year);
                 }
                 return years;
+            }
+        },
+        watch: {
+            selectedDate() {
+                if (this.modelValue) this.currentMonth = new Date(this.modelValue).getMonth() + 1;
+                if (this.modelValue) this.currentYear = new Date(this.modelValue).getFullYear();
             }
         },
         methods: {

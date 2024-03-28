@@ -1,7 +1,14 @@
 <template>
     <div>
         <div :class="`alert alert-${color} ${variantClass}`">
-            {{ label }}
+            <div class="row">
+                <div class="col-10">
+                  {{ label }}
+                </div>
+                <div class="col-2 text-end">
+                  <slot name="action" />
+                </div>
+            </div>
         </div>
     </div>
 </template>

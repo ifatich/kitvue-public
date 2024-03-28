@@ -30,7 +30,9 @@ const props = defineProps({
   itemText: String,
   modelValue: String,
   placeholder: String,
-  class: String
+  class: String,
+  errorFetch: String,
+  executeFetch: Function
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -74,9 +76,12 @@ const handleOptionClick = (option) => {
 
 <template>
   <div :class="['group-input', props.class]">
-    <label v-if="props.label" :for="$attrs.id" class="form-label">
-      {{ props.label }}
-    </label>
+    <div class="label-container">
+      <label v-if="props.label" :for="$attrs.id" class="form-label overflow-hidden">
+        {{ props.label }}
+      </label>
+      <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
+    </div>
     <BDropdown
       :value="selectedValue"
       toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
@@ -85,7 +90,9 @@ const handleOptionClick = (option) => {
       :disabled="disabled || loading"
     >
       <template #button-content>
-        {{ selectedText || props.placeholder }}
+        <p class="overflow-hidden my-auto text-ellipsis">
+          {{ selectedText || props.placeholder }}
+          </p>
         <span>
           <BSpinner v-if="loading" small />
           <img v-else src="../../assets/icon/chevron_down.svg" />
@@ -107,6 +114,7 @@ const handleOptionClick = (option) => {
         :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
         <BDropdownItemButton
+        class="overflow-hidden"
           buttonClass="d-flex justify-content-between mt-1"
         >
           {{ option[props.itemText] }}
@@ -125,6 +133,21 @@ const handleOptionClick = (option) => {
 <style lang="scss">
 .btn-group {
   width: 100%;
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-refresh {
+  width: 1.2rem;
+  margin-left: .2rem;
+  cursor: pointer;
 }
 
 .gkit-dd {
