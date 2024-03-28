@@ -99,7 +99,9 @@ const handleOptionClick = (option) => {
         </span>
       </template>
 
-      <b-form-input
+      <slot></slot>
+
+      <b-form-input v-if="filteredItems"
         @click.stop
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
