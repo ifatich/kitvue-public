@@ -8,11 +8,8 @@ import {
   defineProps
 } from 'vue'
 import DateRangePicker from './DateRangePicker.vue'
-import {
-  BDropdown,
-  BDropdownItem,
-  BDropdownItemButton
-} from 'bootstrap-vue-next'
+import { BDropdownItem, BDropdownItemButton } from 'bootstrap-vue-next'
+import Dropdown from '../Dropdown/InputDropdown.vue'
 
 defineOptions({ name: 'DateRangePickerOption', inheritAttrs: false })
 
@@ -84,19 +81,7 @@ watch(SELECTED_PRESET, () => {
     <div class="label-container">
       <label class="form-label overflow-hidden"> {{ props.label }} </label>
     </div>
-    <BDropdown
-      v-bind="$attrs"
-      class="prevent-zero gkit-dd"
-      toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
-    >
-      <template #button-content>
-        <p class="overflow-hidden my-auto text-ellipsis">
-          {{ valueString }}
-        </p>
-        <span>
-          <img src="../../assets/icon/chevron_down.svg" />
-        </span>
-      </template>
+    <Dropdown v-bind="$attrs" class="input-filter" :placeholder="valueString">
       <div
         v-for="preset in props.preset"
         :key="preset.value"
@@ -144,21 +129,26 @@ watch(SELECTED_PRESET, () => {
           </BDropdownItemButton>
         </BDropdownItem>
       </div>
-      <div>
-        <DateRangePicker
-          v-model:start-date="startDate"
-          v-model:end-date="endDate"
-          class="mt-4"
-          @click.stop
-          :disabled="dateRangeDisabled"
-        />
-      </div>
-    </BDropdown>
+      <DateRangePicker
+        v-model:start-date="startDate"
+        v-model:end-date="endDate"
+        class="mt-4"
+        @click.stop
+        :disabled="dateRangeDisabled"
+      />
+    </Dropdown>
     <div class="error-text">{{ props.error }}</div>
   </div>
 </template>
 
 <style lang="scss">
+.input-filter {
+  .dropdown-menu {
+    &.show {
+      display: table;
+    }
+  }
+}
 .preset-btn {
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
