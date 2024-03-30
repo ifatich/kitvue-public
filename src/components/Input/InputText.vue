@@ -9,7 +9,8 @@ const props = defineProps([
   'suffixIcon',
   'class',
   'modelValue',
-  'type'
+  'type',
+  'helperText'
 ])
 const emit = defineEmits(['update:modelValue'])
 
@@ -63,5 +64,13 @@ function toUppercaseString(val) {
       <slot name="suffix" />
     </div>
     <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
+    <div v-if="props.helperText && !props.error" class="helper-text mt-1">{{ helperText }}</div>
   </div>
 </template>
+
+<style scoped>
+  .form-control:hover:not(:disabled):not([readonly]):not(.is-invalid):not(.is-valid) {
+    box-shadow: 0 0 0 1px #00883e;
+    outline: none;
+  }
+</style>
