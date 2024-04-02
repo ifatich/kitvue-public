@@ -223,6 +223,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     ok-only
     no-stacking
     hide-footer
+    centered
   >
     <div class="d-flex justify-content-center flex-column">
       <Button
@@ -243,6 +244,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     v-model="cameraDialog"
     class="inputCamera"
     title="Ambil Foto"
+    centered
   >
     <video v-if="!snappedCameraPict" ref="video" autoplay></video>
     <img v-else :src="snappedCameraPict" alt="Captured Image" />

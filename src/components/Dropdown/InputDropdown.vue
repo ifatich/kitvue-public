@@ -119,7 +119,7 @@ const handleOptionClick = (option) => {
         >
           {{ option[props.itemText] }}
           <span v-if="selectedValue === option[props.itemValue]">
-            <img src="../../assets/icon/check_round.svg" />
+            <img src="../../assets/icon/icon-system/icon-check.svg" />
           </span>
         </BDropdownItemButton>
       </BDropdownItem>
