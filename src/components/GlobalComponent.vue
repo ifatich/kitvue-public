@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <div class="container">
+      <button @click="scrollTo('btm-scroll')">Scroll Test</button>
       <BerandaHeader>
         <template #search>
           <InputDropdownHeader
@@ -924,7 +925,7 @@
                 >
               </p>
             </div>
-            <div class="card-body">
+            <div id="btm-scroll" class="card-body">
               <InputCamera
                 v-model="myFileSrc"
                 @fileDropped="handleFileDropped"
@@ -941,12 +942,14 @@
 </template>
 
 <script setup>
+import useScrollTo from '../hooks/useScrollTo'
 import DateRangePickerOption from './Input/DateRangePickerOption.vue'
 import { ref } from 'vue'
 
 const text = ref('ini value')
 const rupiah = ref(12000000)
 const myFileSrc = ref()
+const { scrollTo } = useScrollTo()
 
 const handleFileDropped = (file) => {
   // myFileSrc.value = file
