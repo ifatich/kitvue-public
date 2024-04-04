@@ -943,13 +943,13 @@
 
 <script setup>
 import useScrollTo from '../hooks/useScrollTo'
+const { scrollTo } = useScrollTo()
 import DateRangePickerOption from './Input/DateRangePickerOption.vue'
 import { ref } from 'vue'
 
 const text = ref('ini value')
 const rupiah = ref(12000000)
 const myFileSrc = ref()
-const { scrollTo } = useScrollTo()
 
 const handleFileDropped = (file) => {
   // myFileSrc.value = file
