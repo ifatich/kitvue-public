@@ -4,14 +4,27 @@ import { BModal, BButton } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'ModalComponent' })
 
-const props = defineProps(['title', 'persistent'])
+const props = defineProps({
+  title: {
+    type: String,
+    default: 'Konfirmasi'
+  },
+  persistent: {
+    type: Boolean,
+    default: true
+  },
+  centered: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const model = defineModel()
 </script>
 
 <template>
   <div>
-    <BModal v-model="model" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
+    <BModal v-model="model" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
       <template #modal-header="{ close }">
         <BButton class="btn btn-outline-danger" @click="close()"
           >Close Modal</BButton>

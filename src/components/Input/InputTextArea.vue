@@ -37,7 +37,7 @@ function toUppercaseString(val) {
         {{ inputValue }}
       </textarea>
     </div>
-    <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
+    <div v-if="props.error" class="error-text mt-2">{{ error }}</div>
   </div>
 </template>
 

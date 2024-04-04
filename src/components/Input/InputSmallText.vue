@@ -13,7 +13,7 @@
                 :disabled="disabled" :required="required"
                 :placeholder="['Pilih ' + (title || placeholder || '').toLowerCase()]" @input="handleInput" />
         </div>
-        <div :class="{ 'error-text': localError, 'mt-1': localError }" v-if="localError">
+        <div :class="{ 'error-text': localError, 'mt-2': localError }" v-if="localError">
             Masukkan {{ (title || '').toLowerCase() }}
         </div>
     </div>

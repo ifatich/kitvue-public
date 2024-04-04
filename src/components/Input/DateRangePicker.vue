@@ -15,7 +15,7 @@
         placeholder="DD / MM / YYYY"
       />
     </div>
-    <div v-if="errorValidation" class="error-text mt-1">
+    <div v-if="errorValidation" class="error-text mt-2">
       {{ errorValidation }}
     </div>
   </div>
