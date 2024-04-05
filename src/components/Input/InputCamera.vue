@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits, defineOptions, defineModel, defineProps } from 'vue'
+import { ref, defineEmits, defineOptions, defineModel, defineProps, computed } from 'vue'
 import Button from '../Button/Button.vue'
 import { BModal } from 'bootstrap-vue-next'
 
@@ -23,10 +23,23 @@ const props = defineProps({
     default: 'Upload Foto'
   },
   error: {},
-  uniqueKey: {}
+  uniqueKey: {},
+  imagePlaceholder: {
+    type: String,
+    default: 'idcard'
+  }
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
+
+const filePlaceholder = computed(() => {
+  switch (props.imagePlaceholder) {
+    case 'image':
+      return '../../assets/images/image-add.svg'
+    default:
+      return '../../assets/images/ico-image-upload.svg'
+  }
+})
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
   const characters =
@@ -184,7 +197,13 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       >
         <span class="custom-file-upload__box-input-icon">
           <img
+            v-if="props.imagePlaceholder === 'idcard'"
             src="../../assets/images/ico-image-upload.svg"
+            alt="Upload Icon"
+          />
+          <img
+            v-else
+            src="../../assets/images/image-add.svg"
             alt="Upload Icon"
           />
         </span>

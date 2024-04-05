@@ -38,6 +38,11 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
+const shown = ref(false)
+
+const handleShown = () => {
+  shown.value = !shown.value
+}
 
 const filteredItems = computed(() =>
   search.value
@@ -88,14 +93,15 @@ const handleOptionClick = (option) => {
       class="prevent-zero gkit-dd"
       v-bind="$attrs"
       :disabled="disabled || loading"
+      @toggle="handleShown"
     >
       <template #button-content>
-        <p class="overflow-hidden my-auto text-ellipsis">
+        <p class="overflow-hidden my-auto text-ellipsis" :style="selectedText ? 'color: #252528 !important' : ''">
           {{ selectedText || props.placeholder }}
           </p>
         <span>
           <BSpinner v-if="loading" small />
-          <img v-else src="../../assets/icon/chevron_down.svg" />
+          <img v-else :class="[shown ? 'dropdown-open' : 'dropdown-close', 'icon-dropdown']" src="../../assets/icon/chevron_down.svg" />
         </span>
       </template>
 
@@ -124,7 +130,7 @@ const handleOptionClick = (option) => {
         </BDropdownItemButton>
       </BDropdownItem>
     </BDropdown>
-    <div class="error-text" v-if="props.error">
+    <div class="error-text mt-2" v-if="props.error">
       {{ props.error }}
     </div>
   </div>
@@ -158,10 +164,26 @@ const handleOptionClick = (option) => {
   }
 }
 
+.gkit-dd:hover {
+  border-color: #00883e;
+}
+
 .error-text {
   color: #ae1e22;
   font-size: var(--g-kit-font-size-omega);
   line-height: var(--g-kit-line-height-omega);
   font-weight: var(--g-kit-font-weight-normal);
+}
+
+.dropdown-open {
+  transform: rotate(180deg)
+}
+
+.dropdown-close {
+  transform: rotate(0deg);
+}
+
+.icon-dropdown {
+  transition: all .2s;
 }
 </style>

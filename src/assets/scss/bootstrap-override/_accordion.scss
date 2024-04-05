@@ -29,11 +29,11 @@
     padding: .75rem;
 	color: var(--bs-accordion-color);
     font-weight: 800;
+	font-size: 20px;
 	&:not(.collapsed) {
 		color: $text-primary;
 		box-shadow: none;
         background-color: transparent;
-		font-size: 20px;
 		font-style: normal;
 		font-weight: 800;
 		line-height: 30px;
