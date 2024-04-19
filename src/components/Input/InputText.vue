@@ -16,10 +16,19 @@ const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
   get() {
-    return toUppercaseString(props.modelValue)
+    if (props.type === 'number' && props.modelValue) {
+      const orgText = props.modelValue.match(/.{1,4}/g)
+      return orgText.join(' ')
+    } else {
+      return toUppercaseString(props.modelValue)
+    }
   },
   set(newValue) {
-    emit('update:modelValue', toUppercaseString(newValue))
+    if (props.type === 'number' && props.modelValue) {
+      emit('update:modelValue', toUppercaseString(newValue.replaceAll(' ', '')))
+    } else {
+      emit('update:modelValue', toUppercaseString(newValue))
+    }
   }
 })
 
@@ -32,10 +41,17 @@ const handleInput = (e) => {
       key === 'Delete' ||
       key === 'Backspace' ||
       key === 'Tab' ||
-      key === '.'
+      key === '.' ||
+      e.which === 32
 
     if (!isNumericInput) {
       e.preventDefault()
+    }
+
+    if (inputValue.value) {
+      if (inputValue.value.replaceAll(' ', '').length % 4 === 0 && e.which !== 8) {
+        inputValue.value = inputValue.value + ' '
+      }
     }
   }
 }
