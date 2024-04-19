@@ -230,7 +230,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         />
       </div>
     </div>
-    <div class="error-text" v-if="props.error">
+    <div class="error-text mt-2" v-if="props.error">
       {{ props.error }}
     </div>
   </div>
