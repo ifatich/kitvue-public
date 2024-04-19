@@ -238,26 +238,41 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   <BModal
     v-model="fileSourceChooserDialog"
     size="sm"
-    :title="title"
+    hide-header
     ok-only
     no-stacking
     hide-footer
     centered
   >
     <div class="d-flex justify-content-center flex-column">
-      <Button
-        @click="handleSourceGalleryClick"
-        class="mb-2"
-        type="primary"
-        label="Pilih File"
-        :id="`${$attrs.id}_file`"
-      />
-      <Button
-        :id="`${$attrs.id}_camera`"
-        @click="handleSourceCameraClick"
-        type="primary"
-        label="Kamera"
-      />
+      <ul class="list-group list-group-flush" style="margin-top: 16px;">
+        <li
+          style="height: 56px;"
+          @click="handleSourceGalleryClick"
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          Galeri
+          <img
+            src="../../assets/images/icon-galeri.svg"
+            alt="Upload Icon"
+            height="24px"
+            width="24px"
+          />
+        </li>
+        <li
+          style="height: 56px;"
+          @click="handleSourceCameraClick"
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          Kamera
+          <img
+            src="../../assets/images/camera-outline.svg"
+            alt="Kamera Icon"
+            height="24px"
+            width="24px"
+          />
+        </li>
+      </ul>
     </div>
   </BModal>
 
@@ -407,5 +422,8 @@ body.modal-open {
       display: none;
     }
   }
+}
+li:hover{
+  cursor: pointer;
 }
 </style>
