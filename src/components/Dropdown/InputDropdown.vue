@@ -107,7 +107,7 @@ const handleOptionClick = (option) => {
 
       <slot></slot>
 
-      <b-form-input v-if="filteredItems"
+      <b-form-input v-if="filteredItems && filteredItems.length > 10"
         @click.stop
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
