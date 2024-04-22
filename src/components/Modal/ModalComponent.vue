@@ -7,7 +7,7 @@ defineOptions({ name: 'ModalComponent' })
 const props = defineProps({
   title: {
     type: String,
-    default: 'Konfirmasi'
+    default: ''
   },
   persistent: {
     type: Boolean,
