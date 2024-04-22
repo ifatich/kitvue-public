@@ -250,6 +250,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           style="height: 56px;"
           @click="handleSourceGalleryClick"
           class="list-group-item d-flex justify-content-between align-items-center"
+          :id="`${$attrs.id}_file`"
         >
           Galeri
           <img
@@ -263,6 +264,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           style="height: 56px;"
           @click="handleSourceCameraClick"
           class="list-group-item d-flex justify-content-between align-items-center"
+          :id="`${$attrs.id}_camera`"
         >
           Kamera
           <img
