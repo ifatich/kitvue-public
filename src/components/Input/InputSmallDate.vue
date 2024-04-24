@@ -1,5 +1,5 @@
 <template>
-  <div class="group-input calendar-input">
+  <div :class="['group-input calendar-input', addClass]">
     <div class="desktop">
       <label :for="$attrs.id" class="form-label">
         {{ title || 'Tanggal Lahir' }}
@@ -239,6 +239,9 @@ export default {
     selectedYear: {
       type: Number,
       default: new Date().getFullYear()
+    },
+    addClass: {
+      type: String
     }
   },
   emits: ['update:modelValue', 'update:selectedYear'],
