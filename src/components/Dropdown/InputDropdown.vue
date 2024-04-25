@@ -119,15 +119,12 @@ const handleOptionClick = (option) => {
         @click="handleOptionClick(option)"
         :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
-        <BDropdownItemButton
-        class="overflow-hidden"
-          buttonClass="d-flex justify-content-between mt-1"
-        >
+        <div class="d-flex justify-content-between align-items-center">
           {{ option[props.itemText] }}
           <span v-if="selectedValue === option[props.itemValue]">
             <img src="../../assets/icon/icon-system/icon-check.svg" />
           </span>
-        </BDropdownItemButton>
+        </div>
       </BDropdownItem>
     </BDropdown>
     <div class="error-text mt-2" v-if="props.error">
