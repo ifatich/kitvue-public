@@ -1,9 +1,9 @@
 .modal {
     --bs-modal-border-radius: 0.8rem;
     --bs-modal-box-shadow: none;
-
+ 
     .modal-footer {
-        padding: var(--g-bs-modal-padding);
+        padding: 0px;
         border-top: none;
         .row {
             padding: var(--g-bs-modal-padding);
@@ -27,6 +27,19 @@
             margin-left: 0;
             margin-right: 0;
             margin-bottom: 0;
+            .btn {
+                justify-content: space-between;
+                width: 100%;
+            }
+        }
+        .action-button {
+            display: flex;
+            padding: 16px;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            width: 100%;
+            margin: 0px;
             .btn {
                 justify-content: space-between;
                 width: 100%;
