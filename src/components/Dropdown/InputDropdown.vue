@@ -140,6 +140,7 @@ const handleOptionClick = (option) => {
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
         :id="$attrs.id + '_search'"
+        class="mb-1"
       ></b-form-input>
       <BDropdownItem
         v-for="(option, index) in filteredItems"
