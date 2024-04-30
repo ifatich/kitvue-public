@@ -8,7 +8,13 @@ import {
   defineEmits,
   useAttrs
 } from 'vue'
-import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton, BSpinner } from 'bootstrap-vue-next'
+import {
+  BDropdown,
+  BDropdownItem,
+  BFormInput,
+  BDropdownItemButton,
+  BSpinner
+} from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
@@ -54,7 +60,9 @@ const filteredItems = computed(() =>
 
 const selectedText = computed(() => {
   if (selectedValue.value && props.items.length > 0) {
-    const findItem = props.items.find(v => v[props.itemValue] === selectedValue.value)
+    const findItem = props.items.find(
+      (v) => v[props.itemValue] === selectedValue.value
+    )
     if (findItem) return findItem[props.itemText]
     return ''
   } else {
@@ -82,10 +90,19 @@ const handleOptionClick = (option) => {
 <template>
   <div :class="['group-input', props.class]">
     <div class="label-container">
-      <label v-if="props.label" :for="$attrs.id" class="form-label overflow-hidden">
+      <label
+        v-if="props.label"
+        :for="$attrs.id"
+        class="form-label overflow-hidden"
+      >
         {{ props.label }}
       </label>
-      <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
+      <img
+        v-if="props.errorFetch"
+        @click="props.executeFetch"
+        class="icon-refresh"
+        src="../../assets/icon/refresh.svg"
+      />
     </div>
     <BDropdown
       :value="selectedValue"
@@ -96,18 +113,29 @@ const handleOptionClick = (option) => {
       @toggle="handleShown"
     >
       <template #button-content>
-        <p class="overflow-hidden my-auto text-ellipsis" :style="selectedText ? 'color: #252528 !important' : ''">
+        <p
+          class="overflow-hidden my-auto text-ellipsis"
+          :style="selectedText ? 'color: #252528 !important' : ''"
+        >
           {{ selectedText || props.placeholder }}
-          </p>
+        </p>
         <span>
           <BSpinner v-if="loading" small />
-          <img v-else :class="[shown ? 'dropdown-open' : 'dropdown-close', 'icon-dropdown']" src="../../assets/icon/chevron_down.svg" />
+          <img
+            v-else
+            :class="[
+              shown ? 'dropdown-open' : 'dropdown-close',
+              'icon-dropdown'
+            ]"
+            src="../../assets/icon/chevron_down.svg"
+          />
         </span>
       </template>
 
       <slot></slot>
 
-      <b-form-input v-if="filteredItems && filteredItems.length > 10"
+      <b-form-input
+        v-if="props.items && props.items.length > 10"
         @click.stop
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
@@ -149,7 +177,7 @@ const handleOptionClick = (option) => {
 
 .icon-refresh {
   width: 1.2rem;
-  margin-left: .2rem;
+  margin-left: 0.2rem;
   cursor: pointer;
 }
 
@@ -173,7 +201,7 @@ const handleOptionClick = (option) => {
 }
 
 .dropdown-open {
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
 
 .dropdown-close {
@@ -181,6 +209,6 @@ const handleOptionClick = (option) => {
 }
 
 .icon-dropdown {
-  transition: all .2s;
+  transition: all 0.2s;
 }
 </style>
