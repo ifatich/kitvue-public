@@ -3,7 +3,7 @@
     --bs-modal-box-shadow: none;
 
     .modal-footer {
-        padding: 0px;
+        padding: var(--g-bs-modal-padding);
         border-top: none;
         .row {
             padding: var(--g-bs-modal-padding);
