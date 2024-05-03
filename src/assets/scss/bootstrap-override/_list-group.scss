@@ -1,6 +1,7 @@
 .list-group-item {
     padding: 8px 0px;
     color: $text-primary;
+    --g-bs-list-group-action-hover-bg: var(--lime-lime-10, #E6F6EA);
 }
 
 .flush {

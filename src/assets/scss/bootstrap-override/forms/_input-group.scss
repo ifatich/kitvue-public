@@ -15,6 +15,13 @@ $validation-messages: "";
         line-height: var(--g-kit-line-height-omega);
         font-weight: var(--g-kit-font-weight-normal);
     }
+
+    .helper-text {
+        color: $text-secondary;
+        font-size: var(--g-kit-font-size-omega);
+        line-height: var(--g-kit-line-height-omega);
+        font-weight: var(--g-kit-font-weight-normal);
+    }
 }
 
 

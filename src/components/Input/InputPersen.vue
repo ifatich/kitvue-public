@@ -20,7 +20,7 @@
             />
             <span class="input-group-text border-0">%</span>
         </div>
-        <div :class="{ 'error-text': localError, 'mt-1': localError }" v-if="localError">
+        <div :class="{ 'error-text': localError, 'mt-2': localError }" v-if="localError">
             Masukkan {{ title.toLowerCase() }}
         </div>
     </div>

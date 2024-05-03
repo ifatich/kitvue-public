@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <div>
         <slot name="table-header"></slot>
@@ -32,6 +33,7 @@
   </template>
   
   <script setup>
+    /* eslint-disable */
     import { defineProps, computed, ref } from 'vue'
     const props = defineProps({
         class: String,
@@ -39,7 +41,7 @@
         data: {
             type: Array,
             required: true,
-            default: []
+            default: () => []
         },
         columns: {
             type: Array,
@@ -52,13 +54,14 @@
     })
   
     let sortKey = ref("id")
-    let sortOrder = ref(1)
+    let sortOrder = ref()
   
     const sortedData = computed(() => {
+        if (!sortOrder) return props.data
         return props.data.slice().sort((a, b) => {
-            const modifier = sortOrder;
-            const x = a[sortKey];
-            const y = b[sortKey];
+            const modifier = sortOrder.value;
+            const x = a[sortKey.value];
+            const y = b[sortKey.value];
   
             if (x === y) return 0;
   
@@ -67,11 +70,11 @@
     })
   
     function sortTable(key) {
-        if (sortKey === key) {
-            sortOrder = -sortOrder
+        if (sortKey.value === key) {
+            sortOrder.value = -sortOrder.value
         } else {
-            sortKey = key
-            sortOrder = 1
+            sortKey.value = key
+            sortOrder.value = 1
         }
     }
   </script>

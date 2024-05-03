@@ -27,7 +27,7 @@ function toUppercaseString(val) {
     <label v-if="label" :for="$attrs.id" class="form-label">
       {{ props.label }}
     </label>
-    <div class="input-group custom-input-group-icon lg">
+    <div class="input-group lg">
       <textarea
         v-bind="$attrs"
         class="form-control text-area"
@@ -37,6 +37,13 @@ function toUppercaseString(val) {
         {{ inputValue }}
       </textarea>
     </div>
-    <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
+    <div v-if="props.error" class="error-text mt-2">{{ error }}</div>
   </div>
 </template>
+
+<style scoped>
+  .form-control:hover:not(:disabled):not([readonly]):not(.is-invalid):not(.is-valid) {
+    box-shadow: 0 0 0 1px #00883e;
+    outline: none;
+  }
+</style>

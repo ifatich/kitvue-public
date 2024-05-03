@@ -8,7 +8,13 @@ import {
   defineEmits,
   useAttrs
 } from 'vue'
-import { BDropdown, BDropdownItem, BFormInput, BDropdownItemButton, BSpinner } from 'bootstrap-vue-next'
+import {
+  BDropdown,
+  BDropdownItem,
+  BFormInput,
+  BDropdownItemButton,
+  BSpinner
+} from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
 
@@ -30,12 +36,19 @@ const props = defineProps({
   itemText: String,
   modelValue: String,
   placeholder: String,
-  class: String
+  class: String,
+  errorFetch: String,
+  executeFetch: Function
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const search = ref()
+const shown = ref(false)
+
+const handleShown = () => {
+  shown.value = !shown.value
+}
 
 const filteredItems = computed(() =>
   search.value
@@ -47,7 +60,9 @@ const filteredItems = computed(() =>
 
 const selectedText = computed(() => {
   if (selectedValue.value && props.items.length > 0) {
-    const findItem = props.items.find(v => v[props.itemValue] === selectedValue.value)
+    const findItem = props.items.find(
+      (v) => v[props.itemValue] === selectedValue.value
+    )
     if (findItem) return findItem[props.itemText]
     return ''
   } else {
@@ -74,29 +89,58 @@ const handleOptionClick = (option) => {
 
 <template>
   <div :class="['group-input', props.class]">
-    <label v-if="props.label" :for="$attrs.id" class="form-label">
-      {{ props.label }}
-    </label>
+    <div class="label-container">
+      <label
+        v-if="props.label"
+        :for="$attrs.id"
+        class="form-label overflow-hidden"
+      >
+        {{ props.label }}
+      </label>
+      <img
+        v-if="props.errorFetch"
+        @click="props.executeFetch"
+        class="icon-refresh"
+        src="../../assets/icon/refresh.svg"
+      />
+    </div>
     <BDropdown
       :value="selectedValue"
       toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
       class="prevent-zero gkit-dd"
       v-bind="$attrs"
       :disabled="disabled || loading"
+      @toggle="handleShown"
     >
       <template #button-content>
-        {{ selectedText || props.placeholder }}
+        <p
+          class="overflow-hidden my-auto text-ellipsis"
+          :style="selectedText ? 'color: #252528 !important' : ''"
+        >
+          {{ selectedText || props.placeholder }}
+        </p>
         <span>
           <BSpinner v-if="loading" small />
-          <img v-else src="../../assets/icon/chevron_down.svg" />
+          <img
+            v-else
+            :class="[
+              shown ? 'dropdown-open' : 'dropdown-close',
+              'icon-dropdown'
+            ]"
+            src="../../assets/icon/chevron_down.svg"
+          />
         </span>
       </template>
 
+      <slot></slot>
+
       <b-form-input
+        v-if="props.items && props.items.length > 10"
         @click.stop
         v-model="search"
         :placeholder="'Cari ' + props.label.toLowerCase()"
         :id="$attrs.id + '_search'"
+        class="mb-2"
       ></b-form-input>
       <BDropdownItem
         v-for="(option, index) in filteredItems"
@@ -104,17 +148,15 @@ const handleOptionClick = (option) => {
         @click="handleOptionClick(option)"
         :id="$attrs.id + '_value_' + option[props.itemValue]"
       >
-        <BDropdownItemButton
-          buttonClass="d-flex justify-content-between mt-1"
-        >
+        <div class="d-flex justify-content-between align-items-center">
           {{ option[props.itemText] }}
           <span v-if="selectedValue === option[props.itemValue]">
-            <img src="../../assets/icon/check_round.svg" />
+            <img src="../../assets/icon/icon-system/icon-check.svg" />
           </span>
-        </BDropdownItemButton>
+        </div>
       </BDropdownItem>
     </BDropdown>
-    <div class="error-text" v-if="props.error">
+    <div class="error-text mt-2" v-if="props.error">
       {{ props.error }}
     </div>
   </div>
@@ -125,6 +167,21 @@ const handleOptionClick = (option) => {
   width: 100%;
 }
 
+.text-ellipsis {
+  text-overflow: ellipsis;
+}
+
+.label-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-refresh {
+  width: 1.2rem;
+  margin-left: 0.2rem;
+  cursor: pointer;
+}
+
 .gkit-dd {
   .dropdown-menu {
     &.show {
@@ -133,10 +190,26 @@ const handleOptionClick = (option) => {
   }
 }
 
+.gkit-dd:hover {
+  border-color: #00883e;
+}
+
 .error-text {
   color: #ae1e22;
   font-size: var(--g-kit-font-size-omega);
   line-height: var(--g-kit-line-height-omega);
   font-weight: var(--g-kit-font-weight-normal);
+}
+
+.dropdown-open {
+  transform: rotate(180deg);
+}
+
+.dropdown-close {
+  transform: rotate(0deg);
+}
+
+.icon-dropdown {
+  transition: all 0.2s;
 }
 </style>

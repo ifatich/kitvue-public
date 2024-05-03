@@ -26,6 +26,7 @@
 .dropdown-menu {
     --g-bs-dropdown-link-active-bg: $black-80;    
     padding: 1rem;
+    padding-bottom: .5px;
     form {
         padding: 0px !important;
         input {
@@ -45,11 +46,12 @@
 
         button.dropdown-item {
             padding: 0px;
-            margin-top: 1rem;
             font-size: var(--g-kit-font-size-omicron);
             line-height: var(--g-kit-line-height-omicron);
             font-weight: var(--g-kit-font-weight-normal);
             color: $black-80 !important;
+            height: 45px;
+            border-bottom: 1px solid #EEEEEF;
 
             &:active{
                 background-color: white;
@@ -67,6 +69,13 @@
             &:focus-visible{
                 outline: none;
             }
+            
+        }
+    }
+
+    li:last-child{
+        button.dropdown-item {
+            border-bottom: none;
         }
     }
 }

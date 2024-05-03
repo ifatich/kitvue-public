@@ -3,22 +3,62 @@ import { defineOptions, defineProps, defineEmits, computed } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
-const props = defineProps(['error', 'label', 'suffixIcon', 'class', 'modelValue', 'type'])
+const props = defineProps([
+  'error',
+  'label',
+  'suffixIcon',
+  'class',
+  'modelValue',
+  'type',
+  'helperText'
+])
 const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
   get() {
-    return toUppercaseString(props.modelValue)
+    if (props.type === 'number' && props.modelValue) {
+      const orgText = props.modelValue.match(/.{1,4}/g)
+      return orgText.join(' ')
+    } else {
+      return toUppercaseString(props.modelValue)
+    }
   },
   set(newValue) {
-    emit('update:modelValue', toUppercaseString(newValue))
+    if (props.type === 'number' && props.modelValue) {
+      emit('update:modelValue', toUppercaseString(newValue.replaceAll(' ', '')))
+    } else {
+      emit('update:modelValue', toUppercaseString(newValue))
+    }
   }
 })
+
+const handleInput = (e) => {
+  if (props.type === 'number') {
+    const key = e.key || String.fromCharCode(e.keyCode || e.which)
+    const isNumericInput =
+      (key >= '0' && key <= '9') ||
+      (key >= 'NumPad0' && key <= 'NumPad9') ||
+      key === 'Delete' ||
+      key === 'Backspace' ||
+      key === 'Tab' ||
+      key === '.' ||
+      e.which === 32
+
+    if (!isNumericInput) {
+      e.preventDefault()
+    }
+
+    if (inputValue.value) {
+      if (inputValue.value.replaceAll(' ', '').length % 4 === 0 && e.which !== 8) {
+        inputValue.value = inputValue.value + ' '
+      }
+    }
+  }
+}
 
 function toUppercaseString(val) {
   if (val) return val.toUpperCase()
 }
-
 </script>
 
 <template>
@@ -28,12 +68,25 @@ function toUppercaseString(val) {
     </label>
     <div class="input-group custom-input-group-icon p-0">
       <slot name="prefix" />
-      <input type="text" v-model="inputValue" class="form-control" v-bind="$attrs" />
+      <input
+        @keydown="handleInput"
+        v-model="inputValue"
+        class="form-control"
+        v-bind="$attrs"
+      />
       <div v-if="suffixIcon" class="input-group-icon mx-2">
         <img :src="suffixIcon" />
       </div>
       <slot name="suffix" />
     </div>
-    <div v-if="props.error" class="error-text mt-1">{{ error }}</div>
+    <div v-if="props.error" class="error-text mt-2">{{ error }}</div>
+    <div v-if="props.helperText && !props.error" class="helper-text mt-2">{{ helperText }}</div>
   </div>
 </template>
+
+<style scoped>
+  .form-control:hover:not(:disabled):not([readonly]):not(.is-invalid):not(.is-valid) {
+    box-shadow: 0 0 0 1px #00883e;
+    outline: none;
+  }
+</style>

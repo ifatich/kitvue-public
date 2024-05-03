@@ -30,7 +30,7 @@ import InputSmallDate from './Input/InputSmallDate.vue';
 import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue';
 import ListGroupUnit from './ListGroup/ListGroupUnit.vue';
 import ListOrdered from './ListGroup/ListOrdered.vue';
-import TableData from './Table/Table.vue';
+import TableData from './Table/TableData.vue';
 import DataTable from './Table/DataTable.vue';
 import TableSticky from './Table/TableSticky.vue';
 import DataApps from './Table/Data.vue';

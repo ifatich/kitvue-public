@@ -1,5 +1,6 @@
 .form-label {
-    line-height: $form-label-line-height-;
+    line-height: 20px;
+    font-size: 14px;
     &__mandatory {
         margin-left: .25rem;
         display: none;
