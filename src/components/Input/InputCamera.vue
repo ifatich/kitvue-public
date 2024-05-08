@@ -19,6 +19,7 @@ const fileInput = ref()
 const snappedCameraPict = ref()
 const imgElement = ref()
 const cameraIsReady = ref(false)
+const shownOffcanvas = ref(false)
 
 const props = defineProps({
   compressionMaxKb: {
@@ -37,23 +38,11 @@ const props = defineProps({
   },
   useBottomSheet: {
     type: Boolean,
-    default: () => false
-  },
-  bottomSheetTitle: {
-    type: String
+    default: false
   }
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
-
-// const filePlaceholder = computed(() => {
-//   switch (props.imagePlaceholder) {
-//     case 'image':
-//       return '../../assets/images/image-add.svg'
-//     default:
-//       return '../../assets/images/ico-image-upload.svg'
-//   }
-// })
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
   const characters =
@@ -65,13 +54,15 @@ const generateRandomFileName = (length = 64, originalExtension = 'png') => {
 
 const handleSourceCameraClick = () => {
   cameraDialog.value = true
-  fileSourceChooserDialog.value = false
+  if (!props.useBottomSheet) fileSourceChooserDialog.value = false
+  if (props.useBottomSheet) shownOffcanvas.value = false
   startCamera()
 }
 
 const handleSourceGalleryClick = () => {
   fileInput.value.click()
-  fileSourceChooserDialog.value = false
+  if (!props.useBottomSheet) fileSourceChooserDialog.value = false
+  if (props.useBottomSheet) shownOffcanvas.value = false
 }
 
 const handleRemoveFileClick = () => {
@@ -155,6 +146,11 @@ const handleRetakePhotoClick = () => {
   startCamera()
 }
 
+const fileSourceChooserDialogClick = () => {
+  if (!props.useBottomSheet) fileSourceChooserDialog.value = true
+  if (props.useBottomSheet) shownOffcanvas.value = true
+}
+
 const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   new Promise((resolve, reject) => {
     const image = new Image()
@@ -205,7 +201,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       />
       <div
         v-if="!fileSrc"
-        @click="fileSourceChooserDialog = true"
+        @click="fileSourceChooserDialogClick"
         class="custom-file-upload__box-input"
         :id="`${$attrs.id}_openDialogChooser`"
       >
@@ -249,6 +245,47 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     </div>
   </div>
 
+  <BOffcanvas
+    v-model="shownOffcanvas"
+    placement="bottom"
+    bodyScrolling="true"
+  >
+    <template #title>{{ props.title }}</template>
+    <ul class="list-group list-group-flush">
+      <li
+        style="height: 56px;"
+        @click="handleSourceGalleryClick"
+        class="list-group-item d-flex justify-content-between align-items-center"
+        :id="`${$attrs.id}_file`"
+      >
+        Galeri
+        <span>
+          <img
+            src="../../assets/images/icon-galeri.svg"
+            alt="Upload Icon"
+            height="24px"
+            width="24px"
+          />
+        </span>
+      </li>
+      <li
+        style="height: 56px;"
+        @click="handleSourceCameraClick"
+        class="list-group-item d-flex justify-content-between align-items-center"
+        :id="`${$attrs.id}_camera`"
+      >
+        Kamera
+        <span>
+          <img
+            src="../../assets/images/camera-outline.svg"
+            alt="Kamera Icon"
+            height="24px"
+            width="24px"
+          />
+        </span>
+      </li>
+    </ul>
+  </BOffcanvas>
   <BModal
     v-if="!props.useBottomSheet"
     v-model="fileSourceChooserDialog"
@@ -348,9 +385,15 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     title="Ambil Foto"
     centered
   >
-    <video v-if="!snappedCameraPict" ref="video" autoplay></video>
+  <video v-if="!snappedCameraPict" ref="video" autoplay></video>
     <img v-else :src="snappedCameraPict" alt="Captured Image" />
     <div class="flex">
+      <img
+        src="../../assets/icon/shutter-button.svg"
+        alt="Take Image"
+        width="64px"
+        height="64px"
+      />
       <Button
         @click="handleCameraSnap"
         class="me-2 mb-2"
