@@ -1,7 +1,14 @@
 <script setup>
-import { ref, defineEmits, defineOptions, defineModel, defineProps, computed } from 'vue'
+import {
+  ref,
+  defineEmits,
+  defineOptions,
+  defineModel,
+  defineProps,
+  computed
+} from 'vue'
 import Button from '../Button/Button.vue'
-import { BModal } from 'bootstrap-vue-next'
+import { BModal, BOffcanvas } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputCamera', inheritAttrs: false })
 
@@ -27,19 +34,26 @@ const props = defineProps({
   imagePlaceholder: {
     type: String,
     default: 'idcard'
+  },
+  useBottomSheet: {
+    type: Boolean,
+    default: () => false
+  },
+  bottomSheetTitle: {
+    type: String
   }
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
 
-const filePlaceholder = computed(() => {
-  switch (props.imagePlaceholder) {
-    case 'image':
-      return '../../assets/images/image-add.svg'
-    default:
-      return '../../assets/images/ico-image-upload.svg'
-  }
-})
+// const filePlaceholder = computed(() => {
+//   switch (props.imagePlaceholder) {
+//     case 'image':
+//       return '../../assets/images/image-add.svg'
+//     default:
+//       return '../../assets/images/ico-image-upload.svg'
+//   }
+// })
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
   const characters =
@@ -236,6 +250,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   </div>
 
   <BModal
+    v-if="!props.useBottomSheet"
     v-model="fileSourceChooserDialog"
     size="sm"
     hide-header
@@ -245,9 +260,9 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     centered
   >
     <div class="d-flex justify-content-center flex-column">
-      <ul class="list-group list-group-flush" style="margin-top: 16px;">
+      <ul class="list-group list-group-flush" style="margin-top: 16px">
         <li
-          style="height: 56px;"
+          style="height: 56px"
           @click="handleSourceGalleryClick"
           class="list-group-item d-flex justify-content-between align-items-center"
           :id="`${$attrs.id}_file`"
@@ -261,7 +276,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           />
         </li>
         <li
-          style="height: 56px;"
+          style="height: 56px"
           @click="handleSourceCameraClick"
           class="list-group-item d-flex justify-content-between align-items-center"
           :id="`${$attrs.id}_camera`"
@@ -277,6 +292,54 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       </ul>
     </div>
   </BModal>
+
+  <BOffcanvas
+    class="filechooser-mobile"
+    v-if="props.useBottomSheet"
+    v-model="fileSourceChooserDialog"
+    placement="bottom"
+    noCloseOnBackdrop
+  >
+    <template #title>
+      <h3 class="filechooser-mobile__title">
+        {{ props.bottomSheetTitle }}
+      </h3>
+    </template>
+    <div class="d-flex justify-content-center flex-column">
+      <ul class="list-group list-group-flush" style="margin-top: 16px">
+        <li
+          style="height: 56px"
+          @click="handleSourceGalleryClick"
+          class="w-100 list-group-item d-flex justify-content-between px-3 align-items-center"
+          :id="`${$attrs.id}_file`"
+        >
+          <p>Galeri</p>
+          <img
+            src="../../assets/images/icon-galeri.svg"
+            alt="Upload Icon"
+            height="24px"
+            width="24px"
+            class="w-auto"
+          />
+        </li>
+        <li
+          style="height: 56px"
+          @click="handleSourceCameraClick"
+          class="w-100 list-group-item d-flex justify-content-between px-3 align-items-center"
+          :id="`${$attrs.id}_camera`"
+        >
+          <p>Kamera</p>
+          <img
+            src="../../assets/images/camera-outline.svg"
+            alt="Kamera Icon"
+            height="24px"
+            width="24px"
+            class="w-auto"
+          />
+        </li>
+      </ul>
+    </div>
+  </BOffcanvas>
 
   <BModal
     @update:model-value="handleCameraDialogValueChange"
@@ -316,6 +379,21 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     </div>
   </BModal>
 </template>
+
+<style lang="scss">
+.filechooser-mobile {
+  .offcanvas-body {
+    min-height: unset !important;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+
+  &__title {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+}
+</style>
 
 <style lang="scss">
 .inputCamera {
@@ -425,7 +503,7 @@ body.modal-open {
     }
   }
 }
-li:hover{
+li:hover {
   cursor: pointer;
 }
 </style>
