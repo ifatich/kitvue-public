@@ -29,9 +29,7 @@
 
 .dropdown-menu {
     --g-bs-dropdown-link-active-bg: $black-80;    
-    padding: 1rem;
-    padding-bottom: .5px;
-    padding-top: .5px;
+    padding: .5px 1rem;
     form {
         padding: 0px !important;
         input {
