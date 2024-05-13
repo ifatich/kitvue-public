@@ -21,7 +21,7 @@
 	--bs-accordion-body-padding-y: 0.75rem;
 	--bs-accordion-active-color: var(--bs-lime-50);
 	--bs-accordion-active-bg: var(--bs-white);
-	--bs-accordion-button-font-size: 20px;
+	--bs-accordion-btn-font-size: 20px;
 	width: 100%;
 
 	&.mobile-variant {
@@ -35,7 +35,7 @@
     padding: .5rem 1rem .5rem 1rem;
 	color: var(--bs-accordion-color);
     font-weight: 800;
-	font-size: var(--bs-accordion-button-font-size);
+	font-size: var(--bs-accordion-btn-font-size);
 	&:not(.collapsed) {
 		color: $text-primary;
 		box-shadow: none;
