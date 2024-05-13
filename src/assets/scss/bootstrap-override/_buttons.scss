@@ -25,8 +25,8 @@
         --#{$prefix}btn-active-bg: #{$btn-bg-secondary-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-secondary-active-color};
         --#{$prefix}btn-disabled-color: #58585B;
-        --#{$prefix}btn-disabled-bg: ##EEEEEF;
-        --#{$prefix}btn-disabled-border-color: ##EEEEEF;
+        --#{$prefix}btn-disabled-bg: #EEEEEF;
+        --#{$prefix}btn-disabled-border-color: #EEEEEF;
     }
 
     &-tertiary {
@@ -40,8 +40,8 @@
         --#{$prefix}btn-active-bg: #{$btn-bg-tertiary-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-tertiary-active-color};
         --#{$prefix}btn-disabled-color: #58585B;
-        --#{$prefix}btn-disabled-bg: ##EEEEEF;
-        --#{$prefix}btn-disabled-border-color: ##EEEEEF;
+        --#{$prefix}btn-disabled-bg: #EEEEEF;
+        --#{$prefix}btn-disabled-border-color: #EEEEEF;
     }
 
     &-neutral {
@@ -55,8 +55,8 @@
         --#{$prefix}btn-active-bg: #{$btn-bg-neutral-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-neutral-active-color};
         --#{$prefix}btn-disabled-color: #58585B;
-        --#{$prefix}btn-disabled-bg: ##EEEEEF;
-        --#{$prefix}btn-disabled-border-color: ##EEEEEF;
+        --#{$prefix}btn-disabled-bg: #EEEEEF;
+        --#{$prefix}btn-disabled-border-color: #EEEEEF;
     }
 
     &-link {
