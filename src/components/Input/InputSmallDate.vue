@@ -137,6 +137,7 @@
         class="w-100 offcanvas-kit"
         placement="bottom"
         :title="'Pilih Tanggal' || title"
+        style="height: 450px;"
       >
         <div class="content-date">
           <div v-if="showCalendar" class="card">
