@@ -320,7 +320,7 @@ export default {
     },
     years() {
       let startYear = this.selectedYear || this.currentYear
-      startYear += 50
+      startYear += 3
       const endYear = this.selectedYear - 125
       const years = []
       for (let year = startYear; year >= endYear; year--) {
