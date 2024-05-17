@@ -245,7 +245,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     bodyScrolling="true"
   >
     <template #title>{{ props.title }}</template>
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush px-3">
       <li
         style="height: 56px;"
         @click="handleSourceGalleryClick"
@@ -379,26 +379,22 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     title="Ambil Foto"
     centered
   >
-  <video v-if="!snappedCameraPict" ref="video" autoplay></video>
+  <video class="video" v-if="!snappedCameraPict" ref="video" autoplay></video>
     <img v-else :src="snappedCameraPict" alt="Captured Image" />
-    <div class="card card-ktp"></div>
-    <div class="flex">
-      <img
-        src="../../assets/icon/shutter-button.svg"
-        alt="Take Image"
-        width="64px"
-        height="64px"
-      />
-      <Button
-        @click="handleCameraSnap"
-        class="me-2 mb-2"
-        type="primary"
-        label="Ambil Gambar"
-        v-if="!snappedCameraPict"
-        :disabled="!cameraIsReady"
-        :id="`${$attrs.id}_cameraSnap`"
-      />
-      <template v-else>
+    <div v-if="props.useBottomSheet" class="card card-ktp"></div>
+    <img
+      @click="handleCameraSnap"
+      src="../../assets/icon/shutter-button.svg"
+      alt="Take Image"
+      width="64px"
+      height="64px"
+      v-if="!snappedCameraPict"
+      :disabled="!cameraIsReady"
+      :id="`${$attrs.id}_cameraSnap`"
+      :class="[props.useBottomSheet ? 'shutter-btn--mobile' : 'shutter-btn']"
+    />
+    <template v-else>
+      <div class="flex">
         <Button
           @click="handleRetakePhotoClick"
           class="me-2 mb-2"
@@ -413,8 +409,8 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           label="Gunakan Foto"
           :id="`${$attrs.id}_cameraChoose`"
         />
+        </div>
       </template>
-    </div>
   </BModal>
 </template>
 
@@ -440,6 +436,29 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     height: unset;
   }
 
+  .video {
+    position: relative;
+  }
+
+  .shutter-btn {
+    position: absolute !important;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .shutter-btn--mobile {
+    position: absolute !important;
+    bottom: 5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 64px !important;
+    height: 64px !important;
+    top: unset !important;
+  }
+
   .modal-body {
     img,
     video {
@@ -447,10 +466,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       height: 100%;
       object-fit: cover;
       position: relative;
-    }
-
-    .card-ktp {
-      display: none;
+      border-radius: 12px;
     }
 
     .flex {
@@ -502,15 +518,15 @@ body.modal-open {
   z-index: 1;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M9.31876 8.18384C9.00205 7.92238 8.53245 7.93981 8.23613 8.23613C7.92129 8.55097 7.92129 9.06143 8.23613 9.37627L11.1932 12.3333L8.23613 15.2904C7.92129 15.6052 7.92129 16.1157 8.23613 16.4305C8.53245 16.7269 9.00205 16.7443 9.31876 16.4828L9.37627 16.4305L12.3333 13.4735L15.2904 16.4305L15.3479 16.4828C15.6646 16.7443 16.1342 16.7269 16.4305 16.4305C16.7454 16.1157 16.7454 15.6052 16.4305 15.2904L13.4735 12.3333L16.4305 9.37627C16.7454 9.06143 16.7454 8.55097 16.4305 8.23613C16.1342 7.93981 15.6646 7.92238 15.3479 8.18384L15.2904 8.23613L12.3333 11.1932L9.37627 8.23613L9.31876 8.18384Z'/%3e%3c/svg%3e");
 }
-@media (max-width: 767px) {
-  .cameraInput {
-    .list-group {
-      display: block;
-    }
-  }
+li:hover {
+  cursor: pointer;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 890px) {
+  .modal-body {
+    height: 100vh !important;
+  }
+
   .cameraInput,
   .inputCamera {
     .list-group {
@@ -582,7 +598,5 @@ body.modal-open {
     }
   }
 }
-li:hover {
-  cursor: pointer;
-}
+
 </style>

@@ -930,6 +930,11 @@
                 v-model="myFileSrc"
                 @fileDropped="handleFileDropped"
               />
+              <InputCamera
+                v-model="myFileSrc"
+                @fileDropped="handleFileDropped"
+                :use-bottom-sheet="true"
+              />
 
               <p>{{ generatedFileName }}</p>
               <p>{{ receivedImgFile }}</p>
