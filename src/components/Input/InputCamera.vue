@@ -1,12 +1,6 @@
 <script setup>
-import {
-  ref,
-  defineEmits,
-  defineOptions,
-  defineModel,
-  defineProps,
-  computed
-} from 'vue'
+/* eslint-disable */
+import { ref, defineEmits, defineOptions, defineModel, defineProps, computed } from 'vue'
 import Button from '../Button/Button.vue'
 import { BModal, BOffcanvas } from 'bootstrap-vue-next'
 
@@ -296,8 +290,8 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     hide-footer
     centered
   >
-    <div class="d-flex justify-content-center flex-column">
-      <ul class="list-group list-group-flush" style="margin-top: 16px">
+    <div class="d-flex justify-content-center flex-column cameraInput">
+      <ul class="list-group list-group-flush" style="margin-top: 16px;">
         <li
           style="height: 56px"
           @click="handleSourceGalleryClick"
@@ -387,6 +381,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   >
   <video v-if="!snappedCameraPict" ref="video" autoplay></video>
     <img v-else :src="snappedCameraPict" alt="Captured Image" />
+    <div class="card card-ktp"></div>
     <div class="flex">
       <img
         src="../../assets/icon/shutter-button.svg"
@@ -454,6 +449,10 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       position: relative;
     }
 
+    .card-ktp {
+      display: none;
+    }
+
     .flex {
       margin-top: 1rem;
       display: flex;
@@ -503,9 +502,21 @@ body.modal-open {
   z-index: 1;
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M9.31876 8.18384C9.00205 7.92238 8.53245 7.93981 8.23613 8.23613C7.92129 8.55097 7.92129 9.06143 8.23613 9.37627L11.1932 12.3333L8.23613 15.2904C7.92129 15.6052 7.92129 16.1157 8.23613 16.4305C8.53245 16.7269 9.00205 16.7443 9.31876 16.4828L9.37627 16.4305L12.3333 13.4735L15.2904 16.4305L15.3479 16.4828C15.6646 16.7443 16.1342 16.7269 16.4305 16.4305C16.7454 16.1157 16.7454 15.6052 16.4305 15.2904L13.4735 12.3333L16.4305 9.37627C16.7454 9.06143 16.7454 8.55097 16.4305 8.23613C16.1342 7.93981 15.6646 7.92238 15.3479 8.18384L15.2904 8.23613L12.3333 11.1932L9.37627 8.23613L9.31876 8.18384Z'/%3e%3c/svg%3e");
 }
+@media (max-width: 767px) {
+  .cameraInput {
+    .list-group {
+      display: block;
+    }
+  }
+}
 
 @media (max-width: 576px) {
+  .cameraInput,
   .inputCamera {
+    .list-group {
+      display: block;
+    }
+
     .modal-fullscreen {
       width: 100vw;
     }
@@ -525,6 +536,30 @@ body.modal-open {
         height: 100vh;
         object-fit: cover;
         position: fixed;
+        top: 0;
+        left: 0;
+      }
+
+      .card-ktp {
+        display: block;
+        padding: 1rem;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        position: fixed;
+        bottom: 40px;
+
+        background-color: transparent;
+
+        height: 230px;
+        width: 80%;
+        bottom: 40%;
+        left: 10%;
+        opacity: 0.5;
+        border: 2px dashed var(--g-kit-lime-50);
+        border-radius: 6px;
+        right: 0;
+        box-shadow: 100px 100px 100px 100px rgba(1, 1, 1, 1), 100px 100px 100px 0px rgba(1, 1, 1, 1);
       }
 
       .flex {
@@ -536,6 +571,7 @@ body.modal-open {
         bottom: 40px;
         .btn {
           width: 100%;
+          width: -webkit-fill-available;
         }
       }
     }
