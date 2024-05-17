@@ -46,6 +46,7 @@
         margin: 0px;
         border-radius: 0px 0px 6px 6px;
         width: -webkit-fill-available;
+        padding: 16px;
 
         button.dropdown-item {
             padding: 0px;
@@ -53,7 +54,6 @@
             line-height: var(--g-kit-line-height-omicron);
             font-weight: var(--g-kit-font-weight-normal);
             color: $black-80 !important;
-            height: 45px;
             border-bottom: 1px solid #EEEEEF;
 
             &:active{

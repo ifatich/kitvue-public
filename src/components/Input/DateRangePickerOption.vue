@@ -83,11 +83,12 @@ watch(SELECTED_PRESET, () => {
     </div>
     <Dropdown v-bind="$attrs" class="input-filter" :placeholder="valueString">
       <div
-        v-for="preset in props.preset"
+        v-for="(preset, idx) in props.preset"
         :key="preset.value"
-        class="preset-btn mt-2"
+        class="preset-btn"
         :class="{
-          'preset-btn--selected': SELECTED_PRESET === preset.value
+          'preset-btn--selected': SELECTED_PRESET === preset.value,
+          'mt-2': idx > 0
         }"
       >
         <BDropdownItem>
@@ -132,7 +133,7 @@ watch(SELECTED_PRESET, () => {
       <DateRangePicker
         v-model:start-date="startDate"
         v-model:end-date="endDate"
-        class="mt-4"
+        class="mt-2"
         @click.stop
         :disabled="dateRangeDisabled"
       />
@@ -150,7 +151,7 @@ watch(SELECTED_PRESET, () => {
   }
 }
 .preset-btn {
-  padding: 0.8rem 1rem;
+  padding: 12px;
   border-radius: 0.5rem;
   border: 1px solid lightgrey;
   background-color: transparent;
