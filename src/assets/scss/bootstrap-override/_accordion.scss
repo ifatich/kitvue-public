@@ -51,6 +51,10 @@
     &::after {
         background-image: var(--bs-accordion-btn-icon);
     }
+
+	&:focus {
+		box-shadow: none;
+	}
     
 }
 
