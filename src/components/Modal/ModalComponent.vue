@@ -23,7 +23,6 @@ const model = defineModel()
 </script>
 
 <template>
-  <div>
     <BModal v-model="model" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
       <template #modal-header="{ close }">
         <BButton class="btn btn-outline-danger" @click="close()"
@@ -39,5 +38,4 @@ const model = defineModel()
         <slot name="footer" :hide="hide"></slot>
       </template>
     </BModal>
-  </div>
 </template>
