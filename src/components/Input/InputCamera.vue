@@ -186,13 +186,6 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 <template>
   <div>
     <div class="custom-file-upload">
-      <Button
-        @click="handleRemoveFileClick"
-        v-if="fileSrc"
-        type="button"
-        class="d-block remove-button btn-close"
-        :id="`${$attrs.id}_removeFile`"
-      />
       <div
         v-if="!fileSrc"
         @click="fileSourceChooserDialogClick"
@@ -222,7 +215,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       </div>
       <div
         v-else
-        class="custom-file-upload__box-preview d-block"
+        class="custom-file-upload__box-preview d-block bg-red"
         id="box-preview-image"
       >
         <img
@@ -232,6 +225,11 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           class="imgCaptured"
           :id="`${$attrs.id}_img`"
         />
+        <img 
+        @click="handleRemoveFileClick"
+        v-if="fileSrc"
+        :id="`${$attrs.id}_removeFile`"
+        class="close-img" src="../../assets/icon/cross.svg" />
       </div>
     </div>
     <div class="error-text mt-2" v-if="props.error">
@@ -380,7 +378,9 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     centered
   >
   <video class="video" v-if="!snappedCameraPict" ref="video" autoplay></video>
-    <img v-else :src="snappedCameraPict" alt="Captured Image" />
+  <div v-else>
+    <img :src="snappedCameraPict" alt="Captured Image" />
+    </div>
     <div v-if="props.useBottomSheet" class="card card-ktp"></div>
     <img
       @click="handleCameraSnap"
@@ -496,6 +496,17 @@ body.modal-open {
 
 .custom-file-upload__box-preview {
   z-index: 0;
+  position: relative !important;
+  width: auto !important;
+
+  .close-img {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .imgCaptured {
@@ -516,7 +527,10 @@ body.modal-open {
   font-weight: bold;
   opacity: 1 !important;
   z-index: 1;
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M9.31876 8.18384C9.00205 7.92238 8.53245 7.93981 8.23613 8.23613C7.92129 8.55097 7.92129 9.06143 8.23613 9.37627L11.1932 12.3333L8.23613 15.2904C7.92129 15.6052 7.92129 16.1157 8.23613 16.4305C8.53245 16.7269 9.00205 16.7443 9.31876 16.4828L9.37627 16.4305L12.3333 13.4735L15.2904 16.4305L15.3479 16.4828C15.6646 16.7443 16.1342 16.7269 16.4305 16.4305C16.7454 16.1157 16.7454 15.6052 16.4305 15.2904L13.4735 12.3333L16.4305 9.37627C16.7454 9.06143 16.7454 8.55097 16.4305 8.23613C16.1342 7.93981 15.6646 7.92238 15.3479 8.18384L15.2904 8.23613L12.3333 11.1932L9.37627 8.23613L9.31876 8.18384Z'/%3e%3c/svg%3e");
+  background: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.3327 9.99935C18.3327 14.6017 14.6017 18.3327 9.99935 18.3327C5.39698 18.3327 1.66602 14.6017 1.66602 9.99935C1.66602 5.39698 5.39698 1.66602 9.99935 1.66602C14.6017 1.66602 18.3327 5.39698 18.3327 9.99935ZM6.86279 6.86279C7.10973 6.61586 7.50106 6.60133 7.76498 6.81921L7.81291 6.86279L10.2771 9.32701L12.7413 6.86279L12.7893 6.81921C13.0532 6.60133 13.4445 6.61586 13.6915 6.86279C13.9538 7.12516 13.9538 7.55054 13.6915 7.81291L11.2272 10.2771L13.6915 12.7413C13.9538 13.0037 13.9538 13.4291 13.6915 13.6915C13.4445 13.9384 13.0532 13.9529 12.7893 13.735L12.7413 13.6915L10.2771 11.2272L7.8129 13.6915L7.76498 13.735C7.50105 13.9529 7.10972 13.9384 6.86278 13.6915C6.60042 13.4291 6.60042 13.0037 6.86278 12.7413L9.32701 10.2771L6.86279 7.81291C6.60042 7.55054 6.60042 7.12516 6.86279 6.86279Z' fill='%2358585B'/%3e%3c/svg%3e");
+  background-color: transparent !important;
+  background-repeat: no-repeat;
+  background-position:  center;
 }
 li:hover {
   cursor: pointer;
