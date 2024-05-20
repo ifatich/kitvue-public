@@ -154,9 +154,8 @@ const handleOptionClick = (option) => {
           :key="option[props.itemValue]"
           @click="handleOptionClick(option)"
           :id="$attrs.id + '_value_' + option[props.itemValue]"
-          class="mt-1"
         >
-          <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center my-2" style="text-wrap: wrap;">
             {{ option[props.itemText] }}
             <span v-if="selectedValue === option[props.itemValue]">
               <img src="../../assets/icon/icon-system/icon-check.svg" />
@@ -185,8 +184,8 @@ const handleOptionClick = (option) => {
             :key="option[props.itemValue]"
             @click="handleOptionClick(option)"
             :id="$attrs.id + '_value_' + option[props.itemValue]"
-            style="height: 46px;"
             class="list-group-item d-flex justify-content-between align-items-center"
+            style="text-wrap: wrap;"
           >
             {{ option[props.itemText] }}
             <span v-if="selectedValue === option[props.itemValue]">
