@@ -376,6 +376,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     class="inputCamera"
     title="Ambil Foto"
     centered
+    dialog-class="camera-fullscreen"
   >
   <video class="video" v-if="!snappedCameraPict" ref="video" autoplay></video>
   <div v-else>
@@ -415,6 +416,11 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 </template>
 
 <style lang="scss">
+.camera-fullscreen {
+  .modal-body {
+    height: 100vh !important;
+  }
+}
 .filechooser-mobile {
   .offcanvas-body {
     min-height: unset !important;
@@ -515,6 +521,10 @@ body.modal-open {
   object-fit: scale-down;
 }
 
+.camera-dialog {
+  
+}
+
 .remove-button {
   position: absolute;
   top: 4px;
@@ -536,10 +546,9 @@ li:hover {
   cursor: pointer;
 }
 
+
+
 @media (max-width: 890px) {
-  .modal-body {
-    height: 100vh !important;
-  }
 
   .cameraInput,
   .inputCamera {
@@ -548,7 +557,9 @@ li:hover {
     }
 
     .modal-fullscreen {
-      width: 100vw;
+      @media (max-width: 890px) {
+        height: 100vh;
+      }
     }
 
     .modal {
