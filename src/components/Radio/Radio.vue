@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <b-form-group class="radio-container">
-            <label class="radio-content" v-for="(item, index) in items" :key="index">
-                <b-form-radio :value="item.value" v-model="selected" @change="emitSelected">{{ item.text }}</b-form-radio>
-            </label>
-        </b-form-group>
-
+    <div class="radio-container">
+      <b-form-group v-for="(item, index) in items" :key="index" class="radio-column">
+        <label class="radio-content">
+          <b-form-radio :value="item.value" v-model="radioValue" >{{ item.text }}</b-form-radio>
+        </label>
+      </b-form-group>
     </div>
-</template>
+  </template>
+  
 
 <script>
     export default {
@@ -17,15 +17,26 @@
                 type: Array,
                 default: () => [],
             },
-            defaultSelected: {
-                type: [String, Number],
+            modelValue: {
+                type: [String, Number, Boolean],
                 default: null,
             },
         },
         data() {
             return {
-                selected: this.defaultSelected,
+                selected: this.modelValue,
             };
+        },
+        emits: ['update:modelValue'],
+        computed: {
+            radioValue: {
+                get() {
+                    return this.modelValue
+                },
+                set(value) {
+                    this.$emit('update:modelValue', value);
+                }
+            }
         },
         methods: {
             emitSelected() {
@@ -38,9 +49,15 @@
 
 <style scoped lang="scss">
     .radio-container {
-        float: left;
+        // float: left;
+        display: flex;
+        flex-wrap: nowrap;
         gap: 1rem;
         width: 100%;
+
+        .radio-column { /* New class for styling each column */
+    width: 50%; /* Set width to 50% for two columns */
+  }
 
         label {
             cursor: pointer;
