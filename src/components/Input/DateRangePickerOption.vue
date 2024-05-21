@@ -79,7 +79,7 @@ watch(SELECTED_PRESET, () => {
 <template>
   <div class="group-input">
     <div class="label-container">
-      <label class="form-label overflow-hidden"> {{ props.label }} </label>
+      <label class="form-label"> {{ props.label }} </label>
     </div>
     <Dropdown v-bind="$attrs" class="input-filter" :placeholder="valueString">
       <div
