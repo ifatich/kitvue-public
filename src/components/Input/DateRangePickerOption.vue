@@ -8,10 +8,11 @@ import {
   defineProps
 } from 'vue'
 import DateRangePicker from './DateRangePicker.vue'
-import { BDropdownItem, BDropdownItemButton } from 'bootstrap-vue-next'
+import { BDropdownItem, BDropdownItemButton, BOffcanvas, BFormRadioGroup, BFormRadio } from 'bootstrap-vue-next'
 import Dropdown from '../Dropdown/InputDropdown.vue'
 
 defineOptions({ name: 'DateRangePickerOption', inheritAttrs: false })
+const emit = defineEmits(['buttomSheetShown'])
 
 const SELECTED_PRESET = ref('ANY')
 const dateRangeDisabled = computed(() =>
@@ -34,11 +35,16 @@ const props = defineProps({
   },
   showAny: {
     default: true
-  }
+  },
+  useBottomSheet: {
+    type: Boolean,
+    default: false
+  },
 })
 
 const startDate = defineModel('startDate')
 const endDate = defineModel('endDate')
+const showOffcanvas = ref(false)
 
 const getDateString = (date) => {
   const year = date.getFullYear()
@@ -73,7 +79,19 @@ watch(SELECTED_PRESET, () => {
   previousDate.setDate(todaysDate.getDate() - parseInt(SELECTED_PRESET.value))
   startDate.value = getDateString(previousDate)
   endDate.value = getDateString(todaysDate)
+  if (SELECTED_PRESET.value !== 'ANY') handleShown(false)
 })
+
+watch([startDate, endDate], () => {
+  if (SELECTED_PRESET.value === 'ANY' && startDate.value && endDate.value) handleShown(false)
+})
+
+const handleShown = (value) => {
+  if (props.useBottomSheet) {
+    showOffcanvas.value = value
+    emit('buttomSheetShown', value)
+  }
+}
 </script>
 
 <template>
@@ -81,62 +99,118 @@ watch(SELECTED_PRESET, () => {
     <div class="label-container">
       <label class="form-label"> {{ props.label }} </label>
     </div>
-    <Dropdown v-bind="$attrs" class="input-filter" :placeholder="valueString">
-      <div
-        v-for="(preset, idx) in props.preset"
-        :key="preset.value"
-        class="preset-btn"
-        :class="{
-          'preset-btn--selected': SELECTED_PRESET === preset.value,
-          'mt-2': idx > 0
-        }"
-      >
-        <BDropdownItem>
-          <BDropdownItemButton
-            class="overflow-hidden"
-            buttonClass="d-flex align-items-center"
-            @click.stop="SELECTED_PRESET = preset.value"
-          >
-            <div
-              class="btn-identifier"
-              :class="{
-                'btn-identifier--selected': SELECTED_PRESET === preset.value
-              }"
+    <Dropdown :id="$attrs.id" class="input-filter" :show-menu="!props.useBottomSheet" @shown="handleShown(true)" :placeholder="valueString">
+      <div v-if="!props.useBottomSheet">
+        <div
+          v-for="(preset, idx) in props.preset"
+          :key="preset.value"
+          class="preset-btn"
+          :class="{
+            'preset-btn--selected': SELECTED_PRESET === preset.value,
+            'mt-2': idx > 0
+          }"
+        >
+          <BDropdownItem>
+            <BDropdownItemButton
+              class="overflow-hidden"
+              buttonClass="d-flex align-items-center"
+              @click.stop="SELECTED_PRESET = preset.value"
             >
-              &nbsp;
-            </div>
-            {{ preset.label }}
-          </BDropdownItemButton>
-        </BDropdownItem>
-      </div>
-      <div
-        v-if="props.showAny"
-        class="preset-btn mt-2"
-        :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
-      >
-        <BDropdownItem>
-          <BDropdownItemButton
-            class="overflow-hidden"
-            buttonClass="d-flex align-items-center test"
-            @click.stop="SELECTED_PRESET = 'ANY'"
-          >
-            <div
-              class="btn-identifier"
-              :class="{ 'btn-identifier--selected': SELECTED_PRESET === 'ANY' }"
+              <div
+                class="btn-identifier"
+                :class="{
+                  'btn-identifier--selected': SELECTED_PRESET === preset.value
+                }"
+              >
+                &nbsp;
+              </div>
+              {{ preset.label }}
+            </BDropdownItemButton>
+          </BDropdownItem>
+        </div>
+        <div
+          v-if="props.showAny"
+          class="preset-btn mt-2"
+          :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
+        >
+          <BDropdownItem>
+            <BDropdownItemButton
+              class="overflow-hidden"
+              buttonClass="d-flex align-items-center test"
+              @click.stop="SELECTED_PRESET = 'ANY'"
             >
-              &nbsp;
-            </div>
-            Rentang Waktu
-          </BDropdownItemButton>
-        </BDropdownItem>
+              <div
+                class="btn-identifier"
+                :class="{ 'btn-identifier--selected': SELECTED_PRESET === 'ANY' }"
+              >
+                &nbsp;
+              </div>
+              Rentang Waktu
+            </BDropdownItemButton>
+          </BDropdownItem>
+        </div>
+        <DateRangePicker
+          v-model:start-date="startDate"
+          v-model:end-date="endDate"
+          class="mt-2"
+          @click.stop
+          :disabled="dateRangeDisabled"
+        />
       </div>
-      <DateRangePicker
-        v-model:start-date="startDate"
-        v-model:end-date="endDate"
-        class="mt-2"
+      <BOffcanvas
+        v-if="props.useBottomSheet"
+        v-model="showOffcanvas"
+        placement="bottom"
+        bodyScrolling="true"
         @click.stop
-        :disabled="dateRangeDisabled"
-      />
+        @hidden="handleShown(false)"
+      >
+        <template #title>Pilih Waktu</template>
+        <div
+          v-for="(preset, idx) in props.preset"
+          :key="preset.value"
+          class="preset-btn"
+          :class="{
+            'preset-btn--selected': SELECTED_PRESET === preset.value,
+            'mt-2': idx > 0
+          }"
+        >
+          <BFormRadio
+            style="margin-top: auto;"
+            class="btn-identifier d-flex align-items-center"
+            :class="{
+              'btn-identifier--selected': SELECTED_PRESET === preset.value
+            }"
+            v-model="SELECTED_PRESET"
+            :value="preset.value"
+            :id="$attrs.id + '-preset-' + preset.value"
+          >{{ preset.label }}</BFormRadio>
+        </div>
+        <div
+          v-if="props.showAny"
+          class="preset-btn mt-2"
+          :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
+        >
+          <BFormRadio
+            class="btn-identifier d-flex align-items-center"
+            :class="{
+              'btn-identifier--selected': SELECTED_PRESET === 'ANY'
+            }"
+            style="margin-top: auto;"
+            v-model="SELECTED_PRESET"
+            :value="'ANY'"
+            :id="$attrs.id + '-preset-any'"
+            @click.stop
+          >Rentang Waktu</BFormRadio>
+        </div>
+        <DateRangePicker
+          v-model:start-date="startDate"
+          v-model:end-date="endDate"
+          class="mt-2"
+          @click.stop
+          :disabled="dateRangeDisabled"
+        />
+      </BOffcanvas>
     </Dropdown>
     <div class="error-text">{{ props.error }}</div>
   </div>
