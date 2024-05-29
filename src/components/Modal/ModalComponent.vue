@@ -16,6 +16,10 @@ const props = defineProps({
   centered: {
     type: Boolean,
     default: false
+  },
+  size: {
+    type: String,
+    default: 'sm'
   }
 })
 
@@ -23,7 +27,7 @@ const model = defineModel()
 </script>
 
 <template>
-    <BModal v-model="model" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
+    <BModal v-model="model" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent" :size="props.size">
       <template #modal-header="{ close }">
         <BButton class="btn btn-outline-danger" @click="close()"
           >Close Modal</BButton>
