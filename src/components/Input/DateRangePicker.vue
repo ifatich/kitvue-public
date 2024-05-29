@@ -7,12 +7,14 @@
         v-model="startDate"
         title="Dari"
         placeholder="DD / MM / YYYY"
+        @buttom-sheet-shown="handleOffcanvasToggle"
       />
       <InputSmallDate
         :disabled="props.disabled"
         v-model="endDate"
         title="Hingga"
         placeholder="DD / MM / YYYY"
+        @buttom-sheet-shown="handleOffcanvasToggle"
       />
     </div>
     <div v-if="errorValidation" class="error-text mt-2">
@@ -27,6 +29,7 @@ import { computed, defineProps } from 'vue'
 
 const startDate = defineModel('startDate') // eslint-disable-line
 const endDate = defineModel('endDate') // eslint-disable-line
+const emits = defineEmits(['buttomSheetShown'])
 
 const errorValidation = computed(() => {
   if (startDate.value && endDate.value && startDate.value > endDate.value) {
@@ -37,6 +40,10 @@ const errorValidation = computed(() => {
 })
 
 const props = defineProps(['disabled'])
+
+const handleOffcanvasToggle = (value) => {
+  emits('buttomSheetShown', value)
+}
 </script>
 
 <script>

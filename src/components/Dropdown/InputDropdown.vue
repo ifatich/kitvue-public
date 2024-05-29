@@ -33,6 +33,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  showMenu: {
+    type: Boolean,
+    default: true
+  },
   error: String,
   label: String,
   items: Array,
@@ -45,7 +49,7 @@ const props = defineProps({
   executeFetch: Function
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'buttomSheetShown'])
 
 const search = ref()
 const shown = ref(false)
@@ -92,6 +96,10 @@ const handleOptionClick = (option) => {
     attrs.onBlur()
   }
 }
+
+const handleOffcanvasToggle = (value) => {
+  emit('buttomSheetShown', value)
+}
 </script>
 
 <template>
@@ -118,7 +126,7 @@ const handleOptionClick = (option) => {
       v-bind="$attrs"
       :disabled="disabled || loading"
       @toggle="handleShown"
-      :menuClass="{'hide-dropdown-menu': props.useBottomSheet}"
+      :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}"
     >
       <template #button-content>
         <p
@@ -164,10 +172,12 @@ const handleOptionClick = (option) => {
         </BDropdownItem>
       </div>
       <BOffcanvas
-        v-if="props.useBottomSheet"
+        v-if="props.useBottomSheet && showMenu === true"
         v-model="shownOffcanvas"
         placement="bottom"
         bodyScrolling="true"
+        @shown="handleOffcanvasToggle(true)"
+        @hidden="handleOffcanvasToggle(false)"
       >
         <template #title>{{ props.placeholder }}</template>
         <b-form-input

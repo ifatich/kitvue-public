@@ -138,6 +138,8 @@
         placement="bottom"
         :title="'Pilih Tanggal' || title"
         style="height: 450px;"
+        @shown="handleOffcanvasToggle(true)"
+        @hidden="handleOffcanvasToggle(false)"
       >
         <div class="content-date">
           <div v-if="showCalendar" class="card">
@@ -245,7 +247,7 @@ export default {
       type: String
     }
   },
-  emits: ['update:modelValue', 'update:selectedYear'],
+  emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
   data() {
     return {
       showDatePickerOffcanvas: false,
@@ -426,6 +428,9 @@ export default {
             selectedYearOffsetTop - menuHeight / 2 + selectedYearHeight / 2
         }
       }
+    },
+    handleOffcanvasToggle(value) {
+      this.$emit('buttomSheetShown', value)
     }
   },
   mounted() {
