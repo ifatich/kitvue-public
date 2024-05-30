@@ -16,10 +16,6 @@ const props = defineProps({
   centered: {
     type: Boolean,
     default: false
-  },
-  size: {
-    type: String,
-    default: 'sm'
   }
 })
 
@@ -27,11 +23,17 @@ const model = defineModel()
 </script>
 
 <template>
-    <BModal v-model="model" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent" :size="props.size">
+    <BModal v-model="model" :id="$attrs.id" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
       <template #modal-header="{ close }">
-        <BButton class="btn btn-outline-danger" @click="close()"
+        <BButton id="closeBoy" class="btn btn-outline-danger" @click="close()"
           >Close Modal</BButton>
         >
+      </template>
+      <template v-slot:header="{ close }" v-if="!$slots.header">
+        <slot name="header">
+            <h5>{{ props.title }}</h5>
+            <button class="btn btn-close" aria-label="Close" :id="$attrs.id ? $attrs.id +'-btnCloseModal' : 'btnCloseModal'" @click="close()"></button>
+        </slot>
       </template>
 
       <template #default="{}">

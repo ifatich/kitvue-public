@@ -17,8 +17,10 @@ const emit = defineEmits(['update:modelValue'])
 const inputValue = computed({
   get() {
     if (props.type === 'number' && props.modelValue) {
-      const orgText = props.modelValue.match(/.{1,4}/g)
-      return orgText.join(' ')
+      const orgText = props.modelValue.replaceAll(' ', '')
+      const newText = orgText.match(/.{1,4}/g)
+      emit('update:modelValue', orgText)
+      return newText.join(' ')
     } else {
       return toUppercaseString(props.modelValue)
     }
