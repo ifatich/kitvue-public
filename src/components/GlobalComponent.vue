@@ -325,7 +325,7 @@
               <h5>Modal</h5>
               <p class="mb-0">
                 <code
-                  >&lt;Button type="primary" size="md" label="Button"&gt;</code
+                  >&lt;Ini section modal"&gt;</code
                 >
               </p>
             </div>
@@ -926,6 +926,22 @@
               </p>
             </div>
             <div id="btm-scroll" class="card-body">
+
+              <BButton @click="showModal = true">Show Modal</BButton>
+    
+              <ModalSlider
+                v-model="showModal"
+                title="Foto Jaminan"
+                :persistent="true"
+                :centered="true"
+                :images="[
+                  'https://picsum.photos/1024/480/?image=58',
+                  'https://picsum.photos/1024/480/?image=59',
+                  'https://picsum.photos/1024/480/?image=60',
+                  'https://picsum.photos/1024/480/?image=61'
+                ]"
+              />
+
               <InputCamera
                 v-model="myFileSrc"
                 @fileDropped="handleFileDropped"
@@ -942,14 +958,18 @@
 </template>
 
 <script setup>
+/* eslint-disable */
 import useScrollTo from '../hooks/useScrollTo'
-const { scrollTo } = useScrollTo()
 import DateRangePickerOption from './Input/DateRangePickerOption.vue'
+import ModalSlider from './Modal/ModalSlider.vue'
 import { ref } from 'vue'
 
+const { scrollTo } = useScrollTo()
 const text = ref('ini value')
 const rupiah = ref(12000000)
 const myFileSrc = ref()
+
+const showModal = ref(false)
 
 const handleFileDropped = (file) => {
   // myFileSrc.value = file
@@ -1016,6 +1036,7 @@ export default {
     Accordion,
     AccordionItem,
     FilePickerLG,
+    ModalSlider,
     ModalComponent,
     InputDatePicker,
     InputSmallDate,
