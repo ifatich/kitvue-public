@@ -71,8 +71,9 @@ function toUppercaseString(val) {
     <div class="input-group custom-input-group-icon p-0">
       <slot name="prefix" />
       <input
+        :value="inputValue"
+        @input="evt => inputValue = evt.target.value"
         @keydown="handleInput"
-        v-model="inputValue"
         class="form-control"
         v-bind="$attrs"
       />
