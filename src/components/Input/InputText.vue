@@ -3,15 +3,17 @@ import { defineOptions, defineProps, defineEmits, computed } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
-const props = defineProps([
-  'error',
-  'label',
-  'suffixIcon',
-  'class',
-  'modelValue',
-  'type',
-  'helperText'
-])
+const props = defineProps({
+    error: {},
+    label: {},
+    suffixIcon: {},
+    class: {},
+    modelValue: {},
+    helperText: {},
+    type: {
+      default: 'text'
+    }
+  })
 const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
@@ -76,6 +78,7 @@ function toUppercaseString(val) {
         @keydown="handleInput"
         class="form-control"
         v-bind="$attrs"
+        :type="props.type"
       />
       <div v-if="suffixIcon" class="input-group-icon mx-2">
         <img :src="suffixIcon" />
