@@ -325,7 +325,7 @@
               <h5>Modal</h5>
               <p class="mb-0">
                 <code
-                  >&lt;Button type="primary" size="md" label="Button"&gt;</code
+                  >&lt;Ini section modal"&gt;</code
                 >
               </p>
             </div>
@@ -926,6 +926,22 @@
               </p>
             </div>
             <div id="btm-scroll" class="card-body">
+
+              <BButton @click="showModal = true">Show Modal</BButton>
+    
+              <ModalSlider
+                v-model="showModal"
+                title="Foto Jaminan"
+                :persistent="true"
+                :centered="true"
+                :images="[
+                  'https://picsum.photos/1024/480/?image=58',
+                  'https://picsum.photos/1024/480/?image=59',
+                  'https://picsum.photos/1024/480/?image=60',
+                  'https://picsum.photos/1024/480/?image=61'
+                ]"
+              />
+
               <InputCamera
                 v-model="myFileSrc"
                 @fileDropped="handleFileDropped"
@@ -936,20 +952,50 @@
             </div>
           </div>
         </div>
+
+        <div class="col-lg-6 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>Table Basic</h5>
+              <p class="mb-0">
+                <code
+                  >&lt;List type="primary" size="md" label="Button"&gt;</code
+                >
+              </p>
+            </div>
+            <div id="btm-scroll" class="card-body">
+              <TabPembinaan :labels="dropdownItems">
+                <template v-slot:1>
+                    <StepperComponents :activeStep="1" />
+                </template>
+                <template v-slot:2>
+                    <StepperComponents :activeStep="2"/>
+                </template>
+                <template v-slot:3>
+                    <StepperComponents :activeStep="3"/>
+                </template>
+              </TabPembinaan>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+/* eslint-disable */
 import useScrollTo from '../hooks/useScrollTo'
-const { scrollTo } = useScrollTo()
 import DateRangePickerOption from './Input/DateRangePickerOption.vue'
+import ModalSlider from './Modal/ModalSlider.vue'
 import { ref } from 'vue'
 
+const { scrollTo } = useScrollTo()
 const text = ref('ini value')
 const rupiah = ref(12000000)
 const myFileSrc = ref()
+
+const showModal = ref(false)
 
 const handleFileDropped = (file) => {
   // myFileSrc.value = file
@@ -999,6 +1045,7 @@ import LoadAnimate from './Modal/Load.vue'
 import DateRangePicker from './Input/DateRangePicker.vue'
 
 import InputCamera from './Input/InputCamera.vue'
+import TabPembinaan from './Navbar/TabPembinaan.vue'
 
 export default {
   name: 'App',
@@ -1016,6 +1063,7 @@ export default {
     Accordion,
     AccordionItem,
     FilePickerLG,
+    ModalSlider,
     ModalComponent,
     InputDatePicker,
     InputSmallDate,
@@ -1034,7 +1082,8 @@ export default {
     SideStepperTest,
     InputDropdownHeader,
     DateRangePicker,
-    InputCamera
+    InputCamera,
+    TabPembinaan,
   },
   data() {
     return {
@@ -1071,19 +1120,14 @@ export default {
         }
       ],
       dropdownItems: [
-        {
-          id: 1,
-          label:
-            'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia consequuntur ipsa minus beatae, totam non! Autem esse fugiat ut ex porro neque, voluptates vel odio minima iste. Dolorem, id quo?'
-        },
-        {
-          id: 2,
-          label: 'Item 2'
-        },
-        {
-          id: 3,
-          label: 'Item 3'
-        }
+        { id: '1', label: 'Step 1'},
+        { id: '2', label: 'Step 2'},
+        { id: '3', label: 'Step 3'},
+      ],
+      tabItems: [
+        { id: '1', label: 'Step 1', completed: true },
+        { id: '2', label: 'Step 2', completed: false },
+        { id: '3', label: 'Step 3', completed: false },
       ],
       dropdownOptions: [
         {
@@ -1380,8 +1424,16 @@ export default {
     },
     handleImgFile(imgFile) {
       this.generatedFileName = imgFile
-    }
+    },
+    markAsCompleted(stepId) {
+        const step = this.dropdownItems.find(item => item.id === stepId);
+        if (step) {
+            step.completed = true;
+        }
+    },
+    markAsCompleted(tabId) {
+      this.$refs.tabPembinaan.markAsCompleted(tabId);
+    },
   }
 }
 </script>
-./Table/TableData.vue

@@ -252,7 +252,7 @@ export default {
       showYearMenu: false,
       currentMonth: new Date().getMonth() + 1,
       currentYear: new Date().getFullYear(),
-      days: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+      days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
       months: [
         'Januari',
         'Februari',
@@ -319,7 +319,8 @@ export default {
       return calendar
     },
     years() {
-      const startYear = this.selectedYear || this.currentYear
+      let startYear = this.selectedYear || this.currentYear
+      startYear += 3
       const endYear = this.selectedYear - 125
       const years = []
       for (let year = startYear; year >= endYear; year--) {
