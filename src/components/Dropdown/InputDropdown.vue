@@ -12,8 +12,8 @@ import {
   BDropdown,
   BDropdownItem,
   BFormInput,
-  BDropdownItemButton,
-  BSpinner
+  BSpinner,
+  BOffcanvas
 } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputDropdown', inheritAttrs: false })
@@ -29,6 +29,14 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  useBottomSheet: {
+    type: Boolean,
+    default: false
+  },
+  showMenu: {
+    type: Boolean,
+    default: true
+  },
   error: String,
   label: String,
   items: Array,
@@ -41,13 +49,15 @@ const props = defineProps({
   executeFetch: Function
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'buttomSheetShown'])
 
 const search = ref()
 const shown = ref(false)
+const shownOffcanvas = ref(false)
 
 const handleShown = () => {
-  shown.value = !shown.value
+  if (!props.useBottomSheet) shown.value = !shown.value
+  if (props.useBottomSheet) shownOffcanvas.value = true
 }
 
 const filteredItems = computed(() =>
@@ -79,11 +89,16 @@ const selectedValue = computed({
 
 const handleOptionClick = (option) => {
   selectedValue.value = option[props.itemValue]
+  if (props.useBottomSheet) shownOffcanvas.value = false
   if (attrs.onChange && attrs.onInput && attrs.onBlur) {
     attrs.onChange()
     attrs.onInput()
     attrs.onBlur()
   }
+}
+
+const handleOffcanvasToggle = (value) => {
+  emit('buttomSheetShown', value)
 }
 </script>
 
@@ -111,6 +126,7 @@ const handleOptionClick = (option) => {
       v-bind="$attrs"
       :disabled="disabled || loading"
       @toggle="handleShown"
+      :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}"
     >
       <template #button-content>
         <p
@@ -131,30 +147,63 @@ const handleOptionClick = (option) => {
           />
         </span>
       </template>
-
-      <slot></slot>
-
-      <b-form-input
-        v-if="props.items && props.items.length > 10"
-        @click.stop
-        v-model="search"
-        :placeholder="'Cari ' + props.label.toLowerCase()"
-        :id="$attrs.id + '_search'"
-        class="mb-2"
-      ></b-form-input>
-      <BDropdownItem
-        v-for="(option, index) in filteredItems"
-        :key="option[props.itemValue]"
-        @click="handleOptionClick(option)"
-        :id="$attrs.id + '_value_' + option[props.itemValue]"
+      <div v-if="!props.useBottomSheet">
+        <slot></slot>
+        <b-form-input
+          v-if="props.items && props.items.length > 10"
+          @click.stop
+          v-model="search"
+          :placeholder="'Cari ' + props.label.toLowerCase()"
+          :id="$attrs.id + '_search'"
+          class="mb-0 mt-2"
+        ></b-form-input>
+        <BDropdownItem
+          v-for="(option, index) in filteredItems"
+          :key="option[props.itemValue]"
+          @click="handleOptionClick(option)"
+          :id="$attrs.id + '_value_' + option[props.itemValue]"
+        >
+          <div class="d-flex justify-content-between align-items-center my-2" style="text-wrap: wrap;">
+            {{ option[props.itemText] }}
+            <span v-if="selectedValue === option[props.itemValue]">
+              <img src="../../assets/icon/icon-system/icon-check.svg" />
+            </span>
+          </div>
+        </BDropdownItem>
+      </div>
+      <BOffcanvas
+        v-if="props.useBottomSheet && showMenu === true"
+        v-model="shownOffcanvas"
+        placement="bottom"
+        bodyScrolling="true"
+        @shown="handleOffcanvasToggle(true)"
+        @hidden="handleOffcanvasToggle(false)"
       >
-        <div class="d-flex justify-content-between align-items-center">
-          {{ option[props.itemText] }}
-          <span v-if="selectedValue === option[props.itemValue]">
-            <img src="../../assets/icon/icon-system/icon-check.svg" />
-          </span>
-        </div>
-      </BDropdownItem>
+        <template #title>{{ props.placeholder }}</template>
+        <b-form-input
+          v-if="props.items && props.items.length > 10"
+          @click.stop
+          v-model="search"
+          :placeholder="'Cari ' + props.label.toLowerCase()"
+          :id="$attrs.id + '_search'"
+          class="mb-0 mt-2"
+        ></b-form-input>
+        <ul class="list-group list-group-flush">
+          <li
+            v-for="(option, index) in filteredItems"
+            :key="option[props.itemValue]"
+            @click="handleOptionClick(option)"
+            :id="$attrs.id + '_value_' + option[props.itemValue]"
+            class="list-group-item d-flex justify-content-between align-items-center"
+            style="text-wrap: wrap;"
+          >
+            {{ option[props.itemText] }}
+            <span v-if="selectedValue === option[props.itemValue]">
+              <img src="../../assets/icon/icon-system/icon-check.svg" />
+            </span>
+          </li>
+        </ul>
+      </BOffcanvas>
     </BDropdown>
     <div class="error-text mt-2" v-if="props.error">
       {{ props.error }}
@@ -162,7 +211,7 @@ const handleOptionClick = (option) => {
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .btn-group {
   width: 100%;
 }

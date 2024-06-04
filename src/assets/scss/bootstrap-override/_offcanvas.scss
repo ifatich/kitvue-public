@@ -2,10 +2,7 @@
     border-radius: 12px 12px 0 0;
     --g-bs-offcanvas-height: max-content;
     img {
-        width: 100%;
-
-        margin-bottom: 1.5rem;
-    }
+        width: 100%;    }
     .title-offcanvas {
         font-size: var(--g-kit-font-size-kappa);
         line-height: var(--g-kit-line-height-kappa);
@@ -21,7 +18,7 @@
     }
 
    .offcanvas-body{
-        min-height: 372px !important;
+        min-height: 72px !important;
     }
 
 }

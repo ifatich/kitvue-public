@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { ref, defineEmits, defineOptions, defineModel, defineProps, computed } from 'vue'
 import Button from '../Button/Button.vue'
-import { BModal } from 'bootstrap-vue-next'
+import { BModal, BOffcanvas } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'InputCamera', inheritAttrs: false })
 
@@ -13,6 +13,7 @@ const fileInput = ref()
 const snappedCameraPict = ref()
 const imgElement = ref()
 const cameraIsReady = ref(false)
+const shownOffcanvas = ref(false)
 
 const props = defineProps({
   compressionMaxKb: {
@@ -28,19 +29,14 @@ const props = defineProps({
   imagePlaceholder: {
     type: String,
     default: 'idcard'
+  },
+  useBottomSheet: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
-
-const filePlaceholder = computed(() => {
-  switch (props.imagePlaceholder) {
-    case 'image':
-      return '../../assets/images/image-add.svg'
-    default:
-      return '../../assets/images/ico-image-upload.svg'
-  }
-})
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
   const characters =
@@ -52,13 +48,15 @@ const generateRandomFileName = (length = 64, originalExtension = 'png') => {
 
 const handleSourceCameraClick = () => {
   cameraDialog.value = true
-  fileSourceChooserDialog.value = false
+  if (!props.useBottomSheet) fileSourceChooserDialog.value = false
+  if (props.useBottomSheet) shownOffcanvas.value = false
   startCamera()
 }
 
 const handleSourceGalleryClick = () => {
   fileInput.value.click()
-  fileSourceChooserDialog.value = false
+  if (!props.useBottomSheet) fileSourceChooserDialog.value = false
+  if (props.useBottomSheet) shownOffcanvas.value = false
 }
 
 const handleRemoveFileClick = () => {
@@ -142,6 +140,11 @@ const handleRetakePhotoClick = () => {
   startCamera()
 }
 
+const fileSourceChooserDialogClick = () => {
+  if (!props.useBottomSheet) fileSourceChooserDialog.value = true
+  if (props.useBottomSheet) shownOffcanvas.value = true
+}
+
 const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   new Promise((resolve, reject) => {
     const image = new Image()
@@ -183,16 +186,9 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 <template>
   <div>
     <div class="custom-file-upload">
-      <Button
-        @click="handleRemoveFileClick"
-        v-if="fileSrc"
-        type="button"
-        class="d-block remove-button btn-close"
-        :id="`${$attrs.id}_removeFile`"
-      />
       <div
         v-if="!fileSrc"
-        @click="fileSourceChooserDialog = true"
+        @click="fileSourceChooserDialogClick"
         class="custom-file-upload__box-input"
         :id="`${$attrs.id}_openDialogChooser`"
       >
@@ -219,7 +215,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       </div>
       <div
         v-else
-        class="custom-file-upload__box-preview d-block"
+        class="custom-file-upload__box-preview d-block bg-red"
         id="box-preview-image"
       >
         <img
@@ -229,6 +225,11 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           class="imgCaptured"
           :id="`${$attrs.id}_img`"
         />
+        <img 
+        @click="handleRemoveFileClick"
+        v-if="fileSrc"
+        :id="`${$attrs.id}_removeFile`"
+        class="close-img" src="../../assets/icon/cross.svg" />
       </div>
     </div>
     <div class="error-text mt-2" v-if="props.error">
@@ -236,7 +237,49 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     </div>
   </div>
 
+  <BOffcanvas
+    v-model="shownOffcanvas"
+    placement="bottom"
+    bodyScrolling="true"
+  >
+    <template #title>{{ props.title }}</template>
+    <ul class="list-group list-group-flush px-3">
+      <li
+        style="height: 56px;"
+        @click="handleSourceGalleryClick"
+        class="list-group-item d-flex justify-content-between align-items-center"
+        :id="`${$attrs.id}_file`"
+      >
+        Galeri
+        <span>
+          <img
+            src="../../assets/images/icon-galeri.svg"
+            alt="Upload Icon"
+            height="24px"
+            width="24px"
+          />
+        </span>
+      </li>
+      <li
+        style="height: 56px;"
+        @click="handleSourceCameraClick"
+        class="list-group-item d-flex justify-content-between align-items-center"
+        :id="`${$attrs.id}_camera`"
+      >
+        Kamera
+        <span>
+          <img
+            src="../../assets/images/camera-outline.svg"
+            alt="Kamera Icon"
+            height="24px"
+            width="24px"
+          />
+        </span>
+      </li>
+    </ul>
+  </BOffcanvas>
   <BModal
+    v-if="!props.useBottomSheet"
     v-model="fileSourceChooserDialog"
     size="sm"
     hide-header
@@ -248,7 +291,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     <div class="d-flex justify-content-center flex-column cameraInput">
       <ul class="list-group list-group-flush" style="margin-top: 16px;">
         <li
-          style="height: 56px;"
+          style="height: 56px"
           @click="handleSourceGalleryClick"
           class="list-group-item d-flex justify-content-between align-items-center"
           :id="`${$attrs.id}_file`"
@@ -262,7 +305,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           />
         </li>
         <li
-          style="height: 56px;"
+          style="height: 56px"
           @click="handleSourceCameraClick"
           class="list-group-item d-flex justify-content-between align-items-center"
           :id="`${$attrs.id}_camera`"
@@ -279,27 +322,80 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     </div>
   </BModal>
 
+  <BOffcanvas
+    class="filechooser-mobile"
+    v-if="props.useBottomSheet"
+    v-model="fileSourceChooserDialog"
+    placement="bottom"
+    noCloseOnBackdrop
+  >
+    <template #title>
+      <h3 class="filechooser-mobile__title">
+        {{ props.bottomSheetTitle }}
+      </h3>
+    </template>
+    <div class="d-flex justify-content-center flex-column">
+      <ul class="list-group list-group-flush" style="margin-top: 16px">
+        <li
+          style="height: 56px"
+          @click="handleSourceGalleryClick"
+          class="w-100 list-group-item d-flex justify-content-between px-3 align-items-center"
+          :id="`${$attrs.id}_file`"
+        >
+          <p>Galeri</p>
+          <img
+            src="../../assets/images/icon-galeri.svg"
+            alt="Upload Icon"
+            height="24px"
+            width="24px"
+            class="w-auto"
+          />
+        </li>
+        <li
+          style="height: 56px"
+          @click="handleSourceCameraClick"
+          class="w-100 list-group-item d-flex justify-content-between px-3 align-items-center"
+          :id="`${$attrs.id}_camera`"
+        >
+          <p>Kamera</p>
+          <img
+            src="../../assets/images/camera-outline.svg"
+            alt="Kamera Icon"
+            height="24px"
+            width="24px"
+            class="w-auto"
+          />
+        </li>
+      </ul>
+    </div>
+  </BOffcanvas>
+
   <BModal
     @update:model-value="handleCameraDialogValueChange"
     v-model="cameraDialog"
     class="inputCamera"
     title="Ambil Foto"
     centered
+    dialog-class="camera-fullscreen"
   >
-    <video v-if="!snappedCameraPict" ref="video" autoplay></video>
-    <img v-else :src="snappedCameraPict" alt="Captured Image" />
-    <div class="card card-ktp"></div>
-    <div class="flex">
-      <Button
-        @click="handleCameraSnap"
-        class="me-2 mb-2"
-        type="primary"
-        label="Ambil Gambar"
-        v-if="!snappedCameraPict"
-        :disabled="!cameraIsReady"
-        :id="`${$attrs.id}_cameraSnap`"
-      />
-      <template v-else>
+  <video class="video" v-if="!snappedCameraPict" ref="video" autoplay></video>
+  <div v-else>
+    <img :src="snappedCameraPict" alt="Captured Image" />
+    </div>
+    <div v-if="props.useBottomSheet" class="card card-ktp"></div>
+    <img
+      @click="handleCameraSnap"
+      src="../../assets/icon/shutter-button.svg"
+      alt="Take Image"
+      width="64px"
+      height="64px"
+      v-if="!snappedCameraPict"
+      :disabled="!cameraIsReady"
+      :id="`${$attrs.id}_cameraSnap`"
+      :class="[props.useBottomSheet ? 'shutter-btn--mobile' : 'shutter-btn']"
+    />
+    <template v-else>
+      <div class="flex">
         <Button
           @click="handleRetakePhotoClick"
           class="me-2 mb-2"
@@ -314,16 +410,59 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           label="Gunakan Foto"
           :id="`${$attrs.id}_cameraChoose`"
         />
+        </div>
       </template>
-    </div>
   </BModal>
 </template>
+
+<style lang="scss">
+.camera-fullscreen {
+  .modal-body {
+    height: 100vh !important;
+  }
+}
+.filechooser-mobile {
+  .offcanvas-body {
+    min-height: unset !important;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+
+  &__title {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+}
+</style>
 
 <style lang="scss">
 .inputCamera {
   .modal {
     width: unset;
     height: unset;
+  }
+
+  .video {
+    position: relative;
+  }
+
+  .shutter-btn {
+    position: absolute !important;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .shutter-btn--mobile {
+    position: absolute !important;
+    bottom: 5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%);
+    width: 64px !important;
+    height: 64px !important;
+    top: unset !important;
   }
 
   .modal-body {
@@ -333,10 +472,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       height: 100%;
       object-fit: cover;
       position: relative;
-    }
-
-    .card-ktp {
-      display: none;
+      border-radius: 12px;
     }
 
     .flex {
@@ -366,12 +502,27 @@ body.modal-open {
 
 .custom-file-upload__box-preview {
   z-index: 0;
+  position: relative !important;
+  width: auto !important;
+
+  .close-img {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .imgCaptured {
   width: 100%;
   height: 100%;
   object-fit: scale-down;
+}
+
+.camera-dialog {
+  
 }
 
 .remove-button {
@@ -386,17 +537,19 @@ body.modal-open {
   font-weight: bold;
   opacity: 1 !important;
   z-index: 1;
-  background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M9.31876 8.18384C9.00205 7.92238 8.53245 7.93981 8.23613 8.23613C7.92129 8.55097 7.92129 9.06143 8.23613 9.37627L11.1932 12.3333L8.23613 15.2904C7.92129 15.6052 7.92129 16.1157 8.23613 16.4305C8.53245 16.7269 9.00205 16.7443 9.31876 16.4828L9.37627 16.4305L12.3333 13.4735L15.2904 16.4305L15.3479 16.4828C15.6646 16.7443 16.1342 16.7269 16.4305 16.4305C16.7454 16.1157 16.7454 15.6052 16.4305 15.2904L13.4735 12.3333L16.4305 9.37627C16.7454 9.06143 16.7454 8.55097 16.4305 8.23613C16.1342 7.93981 15.6646 7.92238 15.3479 8.18384L15.2904 8.23613L12.3333 11.1932L9.37627 8.23613L9.31876 8.18384Z'/%3e%3c/svg%3e");
+  background: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.3327 9.99935C18.3327 14.6017 14.6017 18.3327 9.99935 18.3327C5.39698 18.3327 1.66602 14.6017 1.66602 9.99935C1.66602 5.39698 5.39698 1.66602 9.99935 1.66602C14.6017 1.66602 18.3327 5.39698 18.3327 9.99935ZM6.86279 6.86279C7.10973 6.61586 7.50106 6.60133 7.76498 6.81921L7.81291 6.86279L10.2771 9.32701L12.7413 6.86279L12.7893 6.81921C13.0532 6.60133 13.4445 6.61586 13.6915 6.86279C13.9538 7.12516 13.9538 7.55054 13.6915 7.81291L11.2272 10.2771L13.6915 12.7413C13.9538 13.0037 13.9538 13.4291 13.6915 13.6915C13.4445 13.9384 13.0532 13.9529 12.7893 13.735L12.7413 13.6915L10.2771 11.2272L7.8129 13.6915L7.76498 13.735C7.50105 13.9529 7.10972 13.9384 6.86278 13.6915C6.60042 13.4291 6.60042 13.0037 6.86278 12.7413L9.32701 10.2771L6.86279 7.81291C6.60042 7.55054 6.60042 7.12516 6.86279 6.86279Z' fill='%2358585B'/%3e%3c/svg%3e");
+  background-color: transparent !important;
+  background-repeat: no-repeat;
+  background-position:  center;
 }
-@media (max-width: 767px) {
-  .cameraInput {
-    .list-group {
-      display: block;
-    }
-  }
+li:hover {
+  cursor: pointer;
 }
 
-@media (max-width: 576px) {
+
+
+@media (max-width: 890px) {
+
   .cameraInput,
   .inputCamera {
     .list-group {
@@ -404,7 +557,9 @@ body.modal-open {
     }
 
     .modal-fullscreen {
-      width: 100vw;
+      @media (max-width: 890px) {
+        height: 100vh;
+      }
     }
 
     .modal {
@@ -468,7 +623,5 @@ body.modal-open {
     }
   }
 }
-li:hover{
-  cursor: pointer;
-}
+
 </style>

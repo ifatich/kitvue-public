@@ -3,22 +3,26 @@ import { defineOptions, defineProps, defineEmits, computed } from 'vue'
 
 defineOptions({ name: 'InputText', inheritAttrs: false })
 
-const props = defineProps([
-  'error',
-  'label',
-  'suffixIcon',
-  'class',
-  'modelValue',
-  'type',
-  'helperText'
-])
+const props = defineProps({
+    error: {},
+    label: {},
+    suffixIcon: {},
+    class: {},
+    modelValue: {},
+    helperText: {},
+    type: {
+      default: 'text'
+    }
+  })
 const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
   get() {
     if (props.type === 'number' && props.modelValue) {
-      const orgText = props.modelValue.match(/.{1,4}/g)
-      return orgText.join(' ')
+      const orgText = props.modelValue.replaceAll(' ', '')
+      const newText = orgText.match(/.{1,4}/g)
+      emit('update:modelValue', orgText)
+      return newText.join(' ')
     } else {
       return toUppercaseString(props.modelValue)
     }
@@ -69,10 +73,12 @@ function toUppercaseString(val) {
     <div class="input-group custom-input-group-icon p-0">
       <slot name="prefix" />
       <input
+        :value="inputValue"
+        @input="evt => inputValue = evt.target.value"
         @keydown="handleInput"
-        v-model="inputValue"
         class="form-control"
         v-bind="$attrs"
+        :type="props.type"
       />
       <div v-if="suffixIcon" class="input-group-icon mx-2">
         <img :src="suffixIcon" />

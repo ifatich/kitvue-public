@@ -21,15 +21,21 @@
 	--bs-accordion-body-padding-y: 0.75rem;
 	--bs-accordion-active-color: var(--bs-lime-50);
 	--bs-accordion-active-bg: var(--bs-white);
+	--bs-accordion-button-font-size: 20px;
+	width: 100%;
+
+	&.mobile-variant {
+		border: none !important;
+		--g-bs-accordion-border-width: none;
+	}
 }
 .accordion-button {
-	font-size: 1rem;
 	line-height: 1.5rem;
 	border-radius: var(--bs-accordion-border-radius);
-    padding: .75rem;
+    padding: .5rem 1rem .5rem 1rem;
 	color: var(--bs-accordion-color);
     font-weight: 800;
-	font-size: 20px;
+	font-size: var(--bs-accordion-button-font-size);
 	&:not(.collapsed) {
 		color: $text-primary;
 		box-shadow: none;
@@ -45,6 +51,10 @@
     &::after {
         background-image: var(--bs-accordion-btn-icon);
     }
+
+	&:focus {
+		box-shadow: none;
+	}
     
 }
 
@@ -93,7 +103,7 @@
 }
 
 .accordion-body{
-    padding: .75rem;
+    padding: .5rem 1rem 1rem 1rem;
     color: var(--g-kit-black-60);
 	overflow: visible !important;
 }

@@ -65,6 +65,8 @@
     .fit-content {
         .modal-sm {
             width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 

@@ -9,9 +9,9 @@
         --#{$prefix}btn-active-color: #{$btn-primary-active-color};
         --#{$prefix}btn-active-bg: #{$btn-bg-primary-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-primary-active-color};
-        --#{$prefix}btn-disabled-color: #{$btn-primary-disabled-color};
-        --#{$prefix}btn-disabled-bg: #{$btn-bg-primary-disabled-color};
-        --#{$prefix}btn-disabled-border-color: #{$btn-border-primary-disabled-color};
+        --#{$prefix}btn-disabled-color: #58585B;
+        --#{$prefix}btn-disabled-bg: ##EEEEEF;
+        --#{$prefix}btn-disabled-border-color: ##EEEEEF;
     }
 
     &-secondary {
@@ -24,9 +24,9 @@
         --#{$prefix}btn-active-color: #{$btn-secondary-active-color};
         --#{$prefix}btn-active-bg: #{$btn-bg-secondary-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-secondary-active-color};
-        --#{$prefix}btn-disabled-color: #{$btn-secondary-disabled-color};
-        --#{$prefix}btn-disabled-bg: #{$btn-bg-secondary-disabled-color};
-        --#{$prefix}btn-disabled-border-color: #{$btn-border-secondary-disabled-color};
+        --#{$prefix}btn-disabled-color: #58585B;
+        --#{$prefix}btn-disabled-bg: #EEEEEF;
+        --#{$prefix}btn-disabled-border-color: #EEEEEF;
     }
 
     &-tertiary {
@@ -39,9 +39,9 @@
         --#{$prefix}btn-active-color: #{$btn-tertiary-active-color};
         --#{$prefix}btn-active-bg: #{$btn-bg-tertiary-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-tertiary-active-color};
-        --#{$prefix}btn-disabled-color: #{$btn-tertiary-disabled-color};
-        --#{$prefix}btn-disabled-bg: #{$btn-bg-tertiary-disabled-color};
-        --#{$prefix}btn-disabled-border-color: #{$btn-border-tertiary-disabled-color};
+        --#{$prefix}btn-disabled-color: #58585B;
+        --#{$prefix}btn-disabled-bg: #EEEEEF;
+        --#{$prefix}btn-disabled-border-color: #EEEEEF;
     }
 
     &-neutral {
@@ -54,9 +54,9 @@
         --#{$prefix}btn-active-color: #{$btn-neutral-active-color};
         --#{$prefix}btn-active-bg: #{$btn-bg-neutral-active-color};
         --#{$prefix}btn-active-border-color: #{$btn-border-neutral-active-color};
-        --#{$prefix}btn-disabled-color: #{$btn-neutral-disabled-color};
-        --#{$prefix}btn-disabled-bg: #{$btn-bg-neutral-disabled-color};
-        --#{$prefix}btn-disabled-border-color: #{$btn-border-neutral-disabled-color};
+        --#{$prefix}btn-disabled-color: #58585B;
+        --#{$prefix}btn-disabled-bg: #EEEEEF;
+        --#{$prefix}btn-disabled-border-color: #EEEEEF;
     }
 
     &-link {
