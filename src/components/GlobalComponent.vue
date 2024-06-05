@@ -762,7 +762,7 @@
                 <template v-slot:tableActionButtons="{ item }">
                   <div class="d-flex">
                     <Button
-                      class="w-100"
+                      class="w-100 me-2"
                       type="neutral"
                       size="sm"
                       label="Edit"
@@ -969,7 +969,7 @@
               </p>
             </div>
             <div id="btm-scroll" class="card-body">
-              <TabPembinaan :labels="dropdownItems">
+              <TabPembinaan :labels="tabItems">
                 <template v-slot:1>
                     <StepperComponents :activeStep="1" />
                 </template>
@@ -978,6 +978,15 @@
                 </template>
                 <template v-slot:3>
                     <StepperComponents :activeStep="3"/>
+                </template>
+                <template v-slot:4>
+                  <StepperComponents :activeStep="4"/>
+                </template>
+                <template v-slot:5>
+                  <StepperComponents :activeStep="5"/>
+                </template>
+                <template v-slot:6>
+                  <StepperComponents :activeStep="6"/>
                 </template>
               </TabPembinaan>
             </div>
@@ -1130,9 +1139,12 @@ export default {
         { id: '3', label: 'Step 3'},
       ],
       tabItems: [
-        { id: '1', label: 'Step 1', completed: true },
-        { id: '2', label: 'Step 2', completed: false },
-        { id: '3', label: 'Step 3', completed: false },
+        { id: '1', label: 'Profil Nasabah', completed: true },
+        { id: '2', label: 'Aktivitas Pembinaan', completed: false },
+        { id: '3', label: 'Keadaan Debitur', completed: false },
+        { id: '4', label: 'Kondisi Usaha / Ekonomi', completed: false },
+        { id: '5', label: 'Kondisi Agunan', completed: false },
+        { id: '6', label: 'Catatan', completed: false },
       ],
       dropdownOptions: [
         {

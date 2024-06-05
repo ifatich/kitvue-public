@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
     <div class="date-range-picker">
@@ -29,7 +28,7 @@ import { computed, defineProps } from 'vue'
 
 const startDate = defineModel('startDate') // eslint-disable-line
 const endDate = defineModel('endDate') // eslint-disable-line
-const emits = defineEmits(['buttomSheetShown'])
+const emits = defineEmits(['buttomSheetShown']) // eslint-disable-line
 
 const errorValidation = computed(() => {
   if (startDate.value && endDate.value && startDate.value > endDate.value) {

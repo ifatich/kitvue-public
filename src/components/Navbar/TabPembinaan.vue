@@ -93,12 +93,15 @@
     .tab-pembinaan-header {
         display: flex;
         .menu-active {
-            min-width: 45%;
+            min-width: 55%;
             box-shadow: 0px 0px 10px -16px #bbb;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;        
         }
 
         nav {
-            width: 55%;
+            width: -webkit-fill-available;
             box-shadow: inset -5px 0px 40px -26px #bbb;
         }
     }
@@ -130,7 +133,7 @@
 
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
-            background-color: white;
+            background-color: var(--g-kit-lime-50);
             background-image: url(../../assets/icon/check_round.svg);
             background-size: cover;
             vertical-align: text-bottom;
@@ -170,7 +173,7 @@
 
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
-            background-color: white;
+            background-color: var(--g-kit-lime-50);
             background-image: url(../../assets/icon/check_round.svg);
             background-size: cover;
             vertical-align: text-bottom;
