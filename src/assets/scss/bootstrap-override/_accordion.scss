@@ -32,7 +32,7 @@
 .accordion-button {
 	line-height: 1.5rem;
 	border-radius: var(--bs-accordion-border-radius);
-    padding: .5rem 1rem .5rem 1rem;
+    padding: 16px;
 	color: var(--bs-accordion-color);
     font-weight: 800;
 	font-size: var(--bs-accordion-button-font-size);
@@ -43,8 +43,9 @@
 		font-style: normal;
 		font-weight: 800;
 		line-height: 30px;
+		padding-right: 12px;
         &::after {
-            background-image: var(--bs-accordion-btn-active-icon);
+            background-image: var(--bs-accordion-btn-icon);
         }
 	}
 

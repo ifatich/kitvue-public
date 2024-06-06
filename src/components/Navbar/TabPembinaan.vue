@@ -1,7 +1,7 @@
 <template>
-    <div class='container tab-pembinaan'>
+    <div class='tab-pembinaan'>
         <header class='tab-pembinaan-header'>
-            <span v-for="label in activeTabArray" :key="label.id" @click="onTabClick(label.id)"
+            <span v-for="label in activeTabArray" :key="label.id"
                 :class="['menu-active', { 'active': label.id === activeTab, 'completed': label.completed }]">
                 <span class="content" />
                 {{ label.label }}
@@ -43,9 +43,25 @@
                     window.history.go(-1);
                 },
             },
+            currentlySelected: {
+                type: Number,
+                default: 0
+            }
         },
-        setup(props) {
-            const activeTab = ref(props.labels[0].id);
+        emits: ['update:currentlySelected'],
+        setup(props, emits) {
+            const activeTab = computed(() => {
+                if (props.currentlySelected >= 0) {
+                    if (props.currentlySelected +1 < props.labels.length) {
+                        return props.labels[props.currentlySelected].id
+                    } else {
+                        return props.labels[props.labels.length -1].id
+                    }
+                } else {
+                    emits.emit('update:currentlySelected', 0)
+                    return props.labels[0].id
+                }
+            })
 
             const activeTabArray = computed(() => {
                 return props.labels.filter(label => label.id === activeTab.value);
@@ -56,7 +72,8 @@
             });
 
             const onTabClick = (id) => {
-                activeTab.value = id;
+                const newIndex = props.labels.findIndex(label => label.id === id)
+                emits.emit('update:currentlySelected', newIndex)
             };
 
             const markAsCompleted = (id) => {
@@ -71,7 +88,7 @@
                 activeTabArray,
                 filteredLabels,
                 onTabClick,
-                markAsCompleted,
+                markAsCompleted
             };
         }
     };
@@ -93,12 +110,15 @@
     .tab-pembinaan-header {
         display: flex;
         .menu-active {
-            min-width: 45%;
+            min-width: 55%;
             box-shadow: 0px 0px 10px -16px #bbb;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;        
         }
 
         nav {
-            width: 55%;
+            width: -webkit-fill-available;
             box-shadow: inset -5px 0px 40px -26px #bbb;
         }
     }
@@ -130,8 +150,8 @@
 
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
-            background-color: white;
-            background-image: url(../../assets/icon/check_round.svg);
+            background-image: url(../../assets/icon/subtract.svg);
+            background-color: var(--g-kit-lime-50);
             background-size: cover;
             vertical-align: text-bottom;
             width: 19px;
@@ -170,8 +190,8 @@
 
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
-            background-color: white;
-            background-image: url(../../assets/icon/check_round.svg);
+            background-image: url(../../assets/icon/subtract.svg);
+            background-color: var(--g-kit-lime-50);
             background-size: cover;
             vertical-align: text-bottom;
             width: 19px;

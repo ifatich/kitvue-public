@@ -78,7 +78,8 @@ function toUppercaseString(val) {
         @keydown="handleInput"
         class="form-control"
         v-bind="$attrs"
-        :type="props.type"
+        type="text"
+        :inputmode="props.type === 'number' ? 'numeric' : 'text'"
       />
       <div v-if="suffixIcon" class="input-group-icon mx-2">
         <img :src="suffixIcon" />
