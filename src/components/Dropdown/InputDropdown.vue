@@ -178,6 +178,7 @@ const handleOffcanvasToggle = (value) => {
         bodyScrolling="true"
         @shown="handleOffcanvasToggle(true)"
         @hidden="handleOffcanvasToggle(false)"
+        class="input-dropdown"
       >
         <template #title>{{ props.placeholder }}</template>
         <b-form-input
@@ -186,7 +187,7 @@ const handleOffcanvasToggle = (value) => {
           v-model="search"
           :placeholder="'Cari ' + props.label.toLowerCase()"
           :id="$attrs.id + '_search'"
-          class="mb-0 mt-2"
+          style="margin-top: 15px;"
         ></b-form-input>
         <ul class="list-group list-group-flush">
           <li
@@ -195,7 +196,7 @@ const handleOffcanvasToggle = (value) => {
             @click="handleOptionClick(option)"
             :id="$attrs.id + '_value_' + option[props.itemValue]"
             class="list-group-item d-flex justify-content-between align-items-center"
-            style="text-wrap: wrap;"
+            style="text-wrap: wrap; padding-top: 15px !important; padding-bottom: 15px !important;"
           >
             {{ option[props.itemText] }}
             <span v-if="selectedValue === option[props.itemValue]">
@@ -211,7 +212,13 @@ const handleOffcanvasToggle = (value) => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+.input-dropdown {
+  .offcanvas-body {
+    padding: 0px 16px 0px 16px !important;
+  }
+}
+
 .btn-group {
   width: 100%;
 }
