@@ -33,3 +33,9 @@
         }
     };
 </script>
+
+<style scoped lang="scss">
+  .btn-md {
+    height: 40px;
+  }
+</style>
