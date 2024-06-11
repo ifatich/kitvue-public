@@ -151,7 +151,6 @@
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
             background-image: url(../../assets/icon/subtract.svg);
-            background-color: var(--g-kit-lime-50);
             background-size: cover;
             vertical-align: text-bottom;
             width: 19px;
