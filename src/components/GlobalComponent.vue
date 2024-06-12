@@ -162,6 +162,12 @@
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
               />
+              <TimePicker
+                label="Time Picker"
+                label-time="Waktu Akhir"
+                v-model:timepicker="timePicker"
+              />
+              Timepicker : {{ timePicker }}
               <InputSmallText
                 id="13"
                 title="Test Judul"
@@ -246,7 +252,7 @@
                       'Beranda 1',
                       'Produk 2',
                       'Layanan Jasa 3',
-                      'Safe Deposit Box 4'
+                      'Safe Deposit Box 4',
                     ]"
                   />
                 </div>
@@ -324,9 +330,7 @@
             <div class="card-header">
               <h5>Modal</h5>
               <p class="mb-0">
-                <code
-                  >&lt;Ini section modal"&gt;</code
-                >
+                <code>&lt;Ini section modal"&gt;</code>
               </p>
             </div>
             <div class="card-body">
@@ -926,9 +930,8 @@
               </p>
             </div>
             <div id="btm-scroll" class="card-body">
-
               <BButton @click="showModal = true">Show Modal</BButton>
-    
+
               <ModalSlider
                 v-model="showModal"
                 title="Foto Jaminan"
@@ -938,7 +941,7 @@
                   'https://picsum.photos/1024/480/?image=58',
                   'https://picsum.photos/1024/480/?image=59',
                   'https://picsum.photos/1024/480/?image=60',
-                  'https://picsum.photos/1024/480/?image=61'
+                  'https://picsum.photos/1024/480/?image=61',
                 ]"
               />
 
@@ -971,22 +974,22 @@
             <div id="btm-scroll" class="card-body">
               <TabPembinaan :labels="tabItems">
                 <template v-slot:1>
-                    <StepperComponents :activeStep="1" />
+                  <StepperComponents :activeStep="1" />
                 </template>
                 <template v-slot:2>
-                    <StepperComponents :activeStep="2"/>
+                  <StepperComponents :activeStep="2" />
                 </template>
                 <template v-slot:3>
-                    <StepperComponents :activeStep="3"/>
+                  <StepperComponents :activeStep="3" />
                 </template>
                 <template v-slot:4>
-                  <StepperComponents :activeStep="4"/>
+                  <StepperComponents :activeStep="4" />
                 </template>
                 <template v-slot:5>
-                  <StepperComponents :activeStep="5"/>
+                  <StepperComponents :activeStep="5" />
                 </template>
                 <template v-slot:6>
-                  <StepperComponents :activeStep="6"/>
+                  <StepperComponents :activeStep="6" />
                 </template>
               </TabPembinaan>
             </div>
@@ -999,70 +1002,71 @@
 
 <script setup>
 /* eslint-disable */
-import useScrollTo from '../hooks/useScrollTo'
-import DateRangePickerOption from './Input/DateRangePickerOption.vue'
-import ModalSlider from './Modal/ModalSlider.vue'
-import { ref } from 'vue'
+import useScrollTo from "../hooks/useScrollTo";
+import DateRangePickerOption from "./Input/DateRangePickerOption.vue";
+import TimePicker from "./Input/TimePicker.vue";
+import ModalSlider from "./Modal/ModalSlider.vue";
+import { ref } from "vue";
 
-const { scrollTo } = useScrollTo()
-const text = ref('ini value')
-const rupiah = ref(12000000)
-const myFileSrc = ref()
+const { scrollTo } = useScrollTo();
+const text = ref("ini value");
+const rupiah = ref(12000000);
+const myFileSrc = ref();
 
-const showModal = ref(false)
+const showModal = ref(false);
 
 const handleFileDropped = (file) => {
   // myFileSrc.value = file
-  console.log('file droppped', file)
-}
+  console.log("file droppped", file);
+};
 
 const executeFetch = () => {
-  console.log('execute fetch')
-}
+  console.log("execute fetch");
+};
 </script>
 
 <script>
-import Button from './Button/Button.vue'
-import Alert from './Alert/AlertVarian.vue'
-import AlertVarian from './Alert/Alert.vue'
-import Breadcrumb from './Breadcrumb/Breadcrumb.vue'
+import Button from "./Button/Button.vue";
+import Alert from "./Alert/AlertVarian.vue";
+import AlertVarian from "./Alert/Alert.vue";
+import Breadcrumb from "./Breadcrumb/Breadcrumb.vue";
 
-import AddAmount from './AddAmount/AddAmountCounter.vue'
-import InputSmallText from './Input/InputSmallText.vue'
-import InputText from './Input/InputText.vue'
-import InputNominal from './Input/InputRupiah.vue'
-import InputPersen from './Input/InputPersen.vue'
-import InputTextArea from './Input/InputTextArea.vue'
-import Dropdown from './Dropdown/InputDropdown.vue'
+import AddAmount from "./AddAmount/AddAmountCounter.vue";
+import InputSmallText from "./Input/InputSmallText.vue";
+import InputText from "./Input/InputText.vue";
+import InputNominal from "./Input/InputRupiah.vue";
+import InputPersen from "./Input/InputPersen.vue";
+import InputTextArea from "./Input/InputTextArea.vue";
+import Dropdown from "./Dropdown/InputDropdown.vue";
 
-import Accordion from './Accordion/Accordion.vue'
-import AccordionItem from './Accordion/AccordionItem.vue'
-import FilePickerLG from './Filepicker/FilePickerLG.vue'
-import ModalComponent from './Modal/ModalComponent.vue'
-import InputDatePicker from './Input/InputDatePicker.vue'
-import InputSmallDate from './Input/InputSmallDate.vue'
-import ListGroupOrdered from './ListGroup/ListGroupOrdered.vue'
-import ListGroupUnit from './ListGroup/ListGroupUnit.vue'
-import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue'
-import TableData from './Table/TableData.vue'
-import DataTable from './Table/DataTable.vue'
-import BerandaHeader from './Navbar/BerandaHeader.vue'
-import AutoCompleteComponent from './SelectOption/AutoComplete.vue'
-import StepperComponents from './Stepper/Stepper.vue'
-import StepperRadio from './Stepper/StepperVarian.vue'
-import SideStepper from './SideStepper/SideStepper.vue'
-import SideStepperTest from './SideStepper/SideStepperTest.vue'
+import Accordion from "./Accordion/Accordion.vue";
+import AccordionItem from "./Accordion/AccordionItem.vue";
+import FilePickerLG from "./Filepicker/FilePickerLG.vue";
+import ModalComponent from "./Modal/ModalComponent.vue";
+import InputDatePicker from "./Input/InputDatePicker.vue";
+import InputSmallDate from "./Input/InputSmallDate.vue";
+import ListGroupOrdered from "./ListGroup/ListGroupOrdered.vue";
+import ListGroupUnit from "./ListGroup/ListGroupUnit.vue";
+import ListGroupUnordered from "./ListGroup/ListGroupUnordered.vue";
+import TableData from "./Table/TableData.vue";
+import DataTable from "./Table/DataTable.vue";
+import BerandaHeader from "./Navbar/BerandaHeader.vue";
+import AutoCompleteComponent from "./SelectOption/AutoComplete.vue";
+import StepperComponents from "./Stepper/Stepper.vue";
+import StepperRadio from "./Stepper/StepperVarian.vue";
+import SideStepper from "./SideStepper/SideStepper.vue";
+import SideStepperTest from "./SideStepper/SideStepperTest.vue";
 
-import InputDropdownHeader from './Dropdown/InputDropdownHeader.vue'
+import InputDropdownHeader from "./Dropdown/InputDropdownHeader.vue";
 
-import LoadAnimate from './Modal/Load.vue'
-import DateRangePicker from './Input/DateRangePicker.vue'
+import LoadAnimate from "./Modal/Load.vue";
+import DateRangePicker from "./Input/DateRangePicker.vue";
 
-import InputCamera from './Input/InputCamera.vue'
-import TabPembinaan from './Navbar/TabPembinaan.vue'
+import InputCamera from "./Input/InputCamera.vue";
+import TabPembinaan from "./Navbar/TabPembinaan.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Button,
     Alert,
@@ -1103,354 +1107,355 @@ export default {
     return {
       startDate: ref(null),
       endDate: ref(null),
+      timePicker: ref(""),
 
-      generatedFileName: '',
-      receivedImgFile: '',
+      generatedFileName: "",
+      receivedImgFile: "",
 
       nilaiTerpilih: null,
       daftarPilihan: [
-        { id: 1, img: 'beli_emas', nama: 'Pilihan Pilihanb', link: 'asa' },
-        { id: 2, img: 'beli_emas', nama: 'Pilihan 2', link: 'b.html' },
-        { id: 3, img: 'beli_emas', nama: 'Pilihan 3', link: 'c.html' },
-        { id: 4, img: 'beli_emas', nama: 'Pilihan 4', link: 'd.html' }
+        { id: 1, img: "beli_emas", nama: "Pilihan Pilihanb", link: "asa" },
+        { id: 2, img: "beli_emas", nama: "Pilihan 2", link: "b.html" },
+        { id: 3, img: "beli_emas", nama: "Pilihan 3", link: "c.html" },
+        { id: 4, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
       ],
-      propertiNilaiPilihan: 'id',
-      propertiTeksPilihan: 'nama',
-      teksPlaceholder: 'Pilih salah satu',
-      kelasKustom: 'input-dropdown-kustom',
+      propertiNilaiPilihan: "id",
+      propertiTeksPilihan: "nama",
+      teksPlaceholder: "Pilih salah satu",
+      kelasKustom: "input-dropdown-kustom",
       teksError: null,
 
-      selectedRadio: '',
+      selectedRadio: "",
       selectedOption: null,
       TabsItems: [
         {
-          label: 'Item 112ioue'
+          label: "Item 112ioue",
         },
         {
-          label: 'Item 2askdn'
+          label: "Item 2askdn",
         },
         {
-          label: 'Item 3alksmndl'
-        }
+          label: "Item 3alksmndl",
+        },
       ],
       dropdownItems: [
-        { id: '1', label: 'Step 1'},
-        { id: '2', label: 'Step 2'},
-        { id: '3', label: 'Step 3'},
+        { id: "1", label: "Step 1" },
+        { id: "2", label: "Step 2" },
+        { id: "3", label: "Step 3" },
       ],
       tabItems: [
-        { id: '1', label: 'Profil Nasabah', completed: true },
-        { id: '2', label: 'Aktivitas Pembinaan', completed: false },
-        { id: '3', label: 'Keadaan Debitur', completed: false },
-        { id: '4', label: 'Kondisi Usaha / Ekonomi', completed: false },
-        { id: '5', label: 'Kondisi Agunan', completed: false },
-        { id: '6', label: 'Catatan', completed: false },
+        { id: "1", label: "Profil Nasabah", completed: true },
+        { id: "2", label: "Aktivitas Pembinaan", completed: false },
+        { id: "3", label: "Keadaan Debitur", completed: false },
+        { id: "4", label: "Kondisi Usaha / Ekonomi", completed: false },
+        { id: "5", label: "Kondisi Agunan", completed: false },
+        { id: "6", label: "Catatan", completed: false },
       ],
       dropdownOptions: [
         {
-          value: 'option1',
-          label: 'Option 1'
+          value: "option1",
+          label: "Option 1",
         },
         {
-          value: 'option2',
-          label: 'Option 2'
+          value: "option2",
+          label: "Option 2",
         },
         {
-          value: 'option3',
-          label: 'Option 3'
-        }
+          value: "option3",
+          label: "Option 3",
+        },
       ],
       selectedDate: null,
       tableData: [
         {
           id: 1,
-          name: 'John Doe',
+          name: "John Doe",
           age: 30,
           ages: 123,
-          agess: 123
+          agess: 123,
         },
         {
           id: 2,
-          name: 'Jane Doe',
+          name: "Jane Doe",
           age: 25,
           ages: 123,
-          agess: 123
+          agess: 123,
         },
         {
           id: 3,
-          name: 'Jane Doe',
+          name: "Jane Doe",
           age: 25,
           ages: 123,
-          agess: 123
+          agess: 123,
         },
         {
           id: 4,
-          name: 'Jane Doe',
+          name: "Jane Doe",
           age: 25,
           ages: 123,
-          agess: 123
+          agess: 123,
         },
         {
           id: 5,
-          name: 'Jane Doe',
+          name: "Jane Doe",
           age: 25,
           ages: 123,
-          agess: 123
+          agess: 123,
         },
         {
           id: 6,
-          name: 'Jane Doe',
+          name: "Jane Doe",
           age: 25,
           ages: 123,
-          agess: 123
+          agess: 123,
         },
         {
           id: 7,
-          name: 'Jane Doe',
+          name: "Jane Doe",
           age: 25,
           ages: 123,
-          agess: 123
-        }
+          agess: 123,
+        },
       ],
       tableColumns: [
         {
-          key: 'id',
-          label: 'ID',
-          isAction: false
+          key: "id",
+          label: "ID",
+          isAction: false,
         },
         {
-          key: 'name',
-          label: 'Name',
-          isAction: false
+          key: "name",
+          label: "Name",
+          isAction: false,
         },
         {
-          key: 'age',
-          label: 'Age',
-          isAction: false
+          key: "age",
+          label: "Age",
+          isAction: false,
         },
         {
-          key: 'ages',
-          label: 'Ages',
-          isAction: false
+          key: "ages",
+          label: "Ages",
+          isAction: false,
         },
         {
-          key: 'agess',
-          label: 'Agess',
-          isAction: false
+          key: "agess",
+          label: "Agess",
+          isAction: false,
         },
         {
-          key: 'actions',
-          label: 'Actions',
+          key: "actions",
+          label: "Actions",
           isAction: true,
           showAction: true,
           actions: [
             {
-              name: 'view',
-              label: 'View',
-              type: 'neutral',
-              size: 'sm'
+              name: "view",
+              label: "View",
+              type: "neutral",
+              size: "sm",
             },
             {
-              name: 'edit',
-              label: 'Edit',
-              type: 'outline-primary',
-              size: 'sm'
-            }
-          ]
-        }
+              name: "edit",
+              label: "Edit",
+              type: "outline-primary",
+              size: "sm",
+            },
+          ],
+        },
       ],
       tableDatas: [
         {
           id: 1,
-          name: 'John Doe',
-          city: 'New York',
-          occupation: 'Software Engineer',
-          salary: 80000
+          name: "John Doe",
+          city: "New York",
+          occupation: "Software Engineer",
+          salary: 80000,
         },
         {
           id: 2,
-          name: 'Jane Smith',
-          city: 'Angeles',
-          occupation: 'Data Scientist',
-          salary: 95000
+          name: "Jane Smith",
+          city: "Angeles",
+          occupation: "Data Scientist",
+          salary: 95000,
         },
         {
           id: 3,
-          name: 'Bob Johnson',
-          city: 'Chicago',
-          occupation: 'Graphic Designer',
-          salary: 60000
+          name: "Bob Johnson",
+          city: "Chicago",
+          occupation: "Graphic Designer",
+          salary: 60000,
         },
         {
           id: 4,
-          name: 'Alice Williams',
-          city: 'Francisco',
-          occupation: 'UX Designer',
-          salary: 85000
+          name: "Alice Williams",
+          city: "Francisco",
+          occupation: "UX Designer",
+          salary: 85000,
         },
         {
           id: 5,
-          name: 'Charlie Brown',
-          city: 'Seattle',
-          occupation: 'Marketing Manager',
-          salary: 90000
+          name: "Charlie Brown",
+          city: "Seattle",
+          occupation: "Marketing Manager",
+          salary: 90000,
         },
         {
           id: 6,
-          name: 'Eva Davis',
-          city: 'Miami',
-          occupation: 'Financial Analyst',
-          salary: 75000
+          name: "Eva Davis",
+          city: "Miami",
+          occupation: "Financial Analyst",
+          salary: 75000,
         },
         {
           id: 7,
-          name: 'Daniel Miller',
-          city: 'Denver',
-          occupation: 'Product Manager',
-          salary: 100000
+          name: "Daniel Miller",
+          city: "Denver",
+          occupation: "Product Manager",
+          salary: 100000,
         },
         {
           id: 8,
-          name: 'Grace Wilson',
-          city: 'Austin',
-          occupation: 'HR Specialist',
-          salary: 70000
+          name: "Grace Wilson",
+          city: "Austin",
+          occupation: "HR Specialist",
+          salary: 70000,
         },
         {
           id: 9,
-          name: 'Henry Jackson',
-          city: 'Boston',
-          occupation: 'Business Analyst',
-          salary: 82000
+          name: "Henry Jackson",
+          city: "Boston",
+          occupation: "Business Analyst",
+          salary: 82000,
         },
         {
           id: 10,
-          name: 'Isabel White',
-          city: 'Portland',
-          occupation: 'Project Coordinator',
-          salary: 65000
+          name: "Isabel White",
+          city: "Portland",
+          occupation: "Project Coordinator",
+          salary: 65000,
         },
         {
           id: 41,
-          name: 'Oliver Lee',
-          city: 'San Diego',
-          occupation: 'Software Developer',
-          salary: 85000
+          name: "Oliver Lee",
+          city: "San Diego",
+          occupation: "Software Developer",
+          salary: 85000,
         },
         {
           id: 42,
-          name: 'Sophia Hall',
-          city: 'Phoenix',
-          occupation: 'Data Engineer',
-          salary: 92000
+          name: "Sophia Hall",
+          city: "Phoenix",
+          occupation: "Data Engineer",
+          salary: 92000,
         },
         {
           id: 43,
-          name: 'Liam Turner',
-          city: 'Dallas',
-          occupation: 'UX/UI Designer',
-          salary: 78000
+          name: "Liam Turner",
+          city: "Dallas",
+          occupation: "UX/UI Designer",
+          salary: 78000,
         },
         {
           id: 44,
-          name: 'Mia Foster',
-          city: 'Houston',
-          occupation: 'Sales Manager',
-          salary: 88000
+          name: "Mia Foster",
+          city: "Houston",
+          occupation: "Sales Manager",
+          salary: 88000,
         },
         {
           id: 45,
-          name: 'Lucas Murphy',
-          city: 'Philadelphia',
-          occupation: 'QA Engineer',
-          salary: 80000
+          name: "Lucas Murphy",
+          city: "Philadelphia",
+          occupation: "QA Engineer",
+          salary: 80000,
         },
         {
           id: 46,
-          name: 'Ava Wright',
-          city: 'Detroit',
-          occupation: 'Marketing Specialist',
-          salary: 76000
+          name: "Ava Wright",
+          city: "Detroit",
+          occupation: "Marketing Specialist",
+          salary: 76000,
         },
         {
           id: 47,
-          name: 'Jackson Evans',
-          city: 'Nashville',
-          occupation: 'Financial Analyst',
-          salary: 84000
+          name: "Jackson Evans",
+          city: "Nashville",
+          occupation: "Financial Analyst",
+          salary: 84000,
         },
         {
           id: 48,
-          name: 'Ella Simmons',
-          city: 'Memphis',
-          occupation: 'Project Manager',
-          salary: 93000
+          name: "Ella Simmons",
+          city: "Memphis",
+          occupation: "Project Manager",
+          salary: 93000,
         },
         {
           id: 49,
-          name: 'Logan Clark',
-          city: 'Baltimore',
-          occupation: 'IT Consultant',
-          salary: 98000
+          name: "Logan Clark",
+          city: "Baltimore",
+          occupation: "IT Consultant",
+          salary: 98000,
         },
         {
           id: 50,
-          name: 'Aria Allen',
-          city: 'Charlotte',
-          occupation: 'Product Designer',
-          salary: 90000
-        }
+          name: "Aria Allen",
+          city: "Charlotte",
+          occupation: "Product Designer",
+          salary: 90000,
+        },
       ],
       tableColumnss: [
         {
-          data: 'id',
-          title: 'ID'
+          data: "id",
+          title: "ID",
         },
         {
-          data: 'name',
-          title: 'Name'
+          data: "name",
+          title: "Name",
         },
         {
-          data: 'city',
-          title: 'City'
+          data: "city",
+          title: "City",
         },
         {
-          data: 'occupation',
-          title: 'Occupation'
+          data: "occupation",
+          title: "Occupation",
         },
         {
-          data: 'salary',
-          title: 'Salary'
-        }
-      ]
-    }
+          data: "salary",
+          title: "Salary",
+        },
+      ],
+    };
   },
   methods: {
     handleRowClick(item) {
-      console.log('Row clicked:', item)
+      console.log("Row clicked:", item);
     },
     handleViewAction(item) {
-      console.log('View action clicked for item:', item)
+      console.log("View action clicked for item:", item);
     },
     handleEditAction(item) {
-      console.log('Edit action clicked for item:', item)
+      console.log("Edit action clicked for item:", item);
     },
 
     handleGeneratedFileName(fileName) {
-      this.generatedFileName = fileName
+      this.generatedFileName = fileName;
     },
     handleImgFile(imgFile) {
-      this.generatedFileName = imgFile
+      this.generatedFileName = imgFile;
     },
     markAsCompleted(stepId) {
-        const step = this.dropdownItems.find(item => item.id === stepId);
-        if (step) {
-            step.completed = true;
-        }
+      const step = this.dropdownItems.find((item) => item.id === stepId);
+      if (step) {
+        step.completed = true;
+      }
     },
     markAsCompleted(tabId) {
       this.$refs.tabPembinaan.markAsCompleted(tabId);
     },
-  }
-}
+  },
+};
 </script>
