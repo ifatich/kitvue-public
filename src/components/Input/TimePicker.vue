@@ -5,8 +5,6 @@ import { ref, defineProps, defineModel } from "vue";
 import Dropdown from "../Dropdown/InputDropdown.vue";
 import Button from "../Button/Button.vue";
 
-import { BDropdownItem, BDropdownItemButton } from "bootstrap-vue-next";
-
 const props = defineProps({
   label: {},
   labelTime: {},
