@@ -73,9 +73,7 @@ const saveValue = () => {
       class="input-filter"
       :placeholder="timepicker"
     >
-      <div
-        class="card-header d-flex justify-content-between align-items-center"
-      >
+      <div class="d-flex justify-content-between align-items-center">
         <b>{{ props.labelTime }}</b>
         <button class="btn p-0" @click="showTimePicker">
           <svg

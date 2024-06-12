@@ -162,12 +162,16 @@
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
               />
-              <TimePicker
-                label="Time Picker"
-                label-time="Waktu Akhir"
-                v-model:timepicker="timePicker"
-              />
-              Timepicker : {{ timePicker }}
+              <div class="row">
+                <div class="col-md-4">
+                  <TimePicker
+                    label="Time Picker"
+                    label-time="Waktu Akhir"
+                    v-model:timepicker="timePicker"
+                  />
+                  Timepicker : {{ timePicker }}
+                </div>
+              </div>
               <InputSmallText
                 id="13"
                 title="Test Judul"
