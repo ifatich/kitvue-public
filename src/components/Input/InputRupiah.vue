@@ -6,7 +6,8 @@ defineOptions({
   name: 'InputRupiah'
 })
 
-const props = defineProps(['modelValue'])
+// Menambahkan 'placeholder' pada props
+const props = defineProps(['modelValue', 'placeholder'])
 const emit = defineEmits(['update:modelValue'])
 
 const rupiahValue = computed({
@@ -19,6 +20,7 @@ const rupiahValue = computed({
 })
 
 const formatDecimal = (value) => {
+  if (value === null || value === undefined || value === '') return ''
   const formatter = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 0
   })
@@ -47,8 +49,8 @@ const onlyNumber = (event) => {
       keyCode === 9 || // Tab
       keyCode === 190 || // Period
       keyCode === 110 || // Numpad Period
-      keyCode === 189 ||
-      keyCode === 109
+      keyCode === 189 || // Dash/Minus
+      keyCode === 109 // Numpad Dash/Minus
     )
   ) {
     event.preventDefault()
@@ -57,7 +59,11 @@ const onlyNumber = (event) => {
 </script>
 
 <template>
-  <InputText v-model="rupiahValue" @keydown="onlyNumber">
+  <InputText 
+    v-model="rupiahValue" 
+    @keydown="onlyNumber"
+    :placeholder="props.placeholder || 'Masukkan rupiah'"
+  >
     <template #prefix>
       <span class="input-group-text border-0">Rupiah</span>
     </template>
