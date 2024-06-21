@@ -1,74 +1,67 @@
 <script setup>
-import { defineOptions, defineProps, defineEmits, computed } from "vue";
+import { defineOptions, defineProps, defineEmits, computed } from 'vue'
 
-defineOptions({ name: "InputText", inheritAttrs: false });
+defineOptions({ name: 'InputText', inheritAttrs: false })
 
 const props = defineProps({
-  error: {},
-  label: {},
-  prefixIcon: {},
-  suffixIcon: {},
-  class: {},
-  modelValue: {},
-  helperText: {},
-  type: {
-    default: "text",
-  },
-});
-const emit = defineEmits(["update:modelValue"]);
+    error: {},
+    label: {},
+    suffixIcon: {},
+    class: {},
+    modelValue: {},
+    helperText: {},
+    type: {
+      default: 'text'
+    }
+  })
+const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
   get() {
-    if (props.type === "number" && props.modelValue) {
-      const orgText = props.modelValue.replaceAll(" ", "");
-      const newText = orgText.match(/.{1,4}/g);
-      emit("update:modelValue", orgText);
-      return newText.join(" ");
+    if (props.type === 'number' && props.modelValue) {
+      const orgText = props.modelValue.replaceAll(' ', '')
+      const newText = orgText.match(/.{1,4}/g)
+      emit('update:modelValue', orgText)
+      return newText.join(' ')
     } else {
-      return toUppercaseString(props.modelValue);
+      return toUppercaseString(props.modelValue)
     }
   },
   set(newValue) {
-    if (props.type === "number" && props.modelValue) {
-      emit(
-        "update:modelValue",
-        toUppercaseString(newValue.replaceAll(" ", ""))
-      );
+    if (props.type === 'number' && props.modelValue) {
+      emit('update:modelValue', toUppercaseString(newValue.replaceAll(' ', '')))
     } else {
-      emit("update:modelValue", toUppercaseString(newValue));
+      emit('update:modelValue', toUppercaseString(newValue))
     }
-  },
-});
+  }
+})
 
 const handleInput = (e) => {
-  if (props.type === "number") {
-    const key = e.key || String.fromCharCode(e.keyCode || e.which);
+  if (props.type === 'number') {
+    const key = e.key || String.fromCharCode(e.keyCode || e.which)
     const isNumericInput =
-      (key >= "0" && key <= "9") ||
-      (key >= "NumPad0" && key <= "NumPad9") ||
-      key === "Delete" ||
-      key === "Backspace" ||
-      key === "Tab" ||
-      key === "." ||
-      e.which === 32;
+      (key >= '0' && key <= '9') ||
+      (key >= 'NumPad0' && key <= 'NumPad9') ||
+      key === 'Delete' ||
+      key === 'Backspace' ||
+      key === 'Tab' ||
+      key === '.' ||
+      e.which === 32
 
     if (!isNumericInput) {
-      e.preventDefault();
+      e.preventDefault()
     }
 
     if (inputValue.value) {
-      if (
-        inputValue.value.replaceAll(" ", "").length % 4 === 0 &&
-        e.which !== 8
-      ) {
-        inputValue.value = inputValue.value + " ";
+      if (inputValue.value.replaceAll(' ', '').length % 4 === 0 && e.which !== 8) {
+        inputValue.value = inputValue.value + ' '
       }
     }
   }
-};
+}
 
 function toUppercaseString(val) {
-  if (val) return val.toUpperCase();
+  if (val) return val.toUpperCase()
 }
 </script>
 
@@ -79,12 +72,9 @@ function toUppercaseString(val) {
     </label>
     <div class="input-group custom-input-group-icon p-0">
       <slot name="prefix" />
-      <div v-if="prefixIcon" class="input-group-icon mx-2">
-        <img :src="prefixIcon" />
-      </div>
       <input
         :value="inputValue"
-        @input="(evt) => (inputValue = evt.target.value)"
+        @input="evt => inputValue = evt.target.value"
         @keydown="handleInput"
         class="form-control"
         v-bind="$attrs"
@@ -97,17 +87,13 @@ function toUppercaseString(val) {
       <slot name="suffix" />
     </div>
     <div v-if="props.error" class="error-text mt-2">{{ error }}</div>
-    <div v-if="props.helperText && !props.error" class="helper-text mt-2">
-      {{ helperText }}
-    </div>
+    <div v-if="props.helperText && !props.error" class="helper-text mt-2">{{ helperText }}</div>
   </div>
 </template>
 
 <style scoped>
-.form-control:hover:not(:disabled):not([readonly]):not(.is-invalid):not(
-    .is-valid
-  ) {
-  box-shadow: 0 0 0 1px #00883e;
-  outline: none;
-}
+  .form-control:hover:not(:disabled):not([readonly]):not(.is-invalid):not(.is-valid) {
+    box-shadow: 0 0 0 1px #00883e;
+    outline: none;
+  }
 </style>
