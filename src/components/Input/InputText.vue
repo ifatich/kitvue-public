@@ -12,13 +12,16 @@ const props = defineProps({
     helperText: {},
     type: {
       default: 'text'
+    },
+    useDelimiter: {
+      default: true
     }
   })
 const emit = defineEmits(['update:modelValue'])
 
 const inputValue = computed({
   get() {
-    if (props.type === 'number' && props.modelValue) {
+    if (props.type === 'number' && props.useDelimiter && props.modelValue) {
       const orgText = props.modelValue.replaceAll(' ', '')
       const newText = orgText.match(/.{1,4}/g)
       emit('update:modelValue', orgText)
@@ -28,7 +31,7 @@ const inputValue = computed({
     }
   },
   set(newValue) {
-    if (props.type === 'number' && props.modelValue) {
+    if (props.type === 'number' && props.useDelimiter && props.modelValue) {
       emit('update:modelValue', toUppercaseString(newValue.replaceAll(' ', '')))
     } else {
       emit('update:modelValue', toUppercaseString(newValue))
@@ -37,7 +40,7 @@ const inputValue = computed({
 })
 
 const handleInput = (e) => {
-  if (props.type === 'number') {
+  if (props.type === 'number' && props.useDelimiter) {
     const key = e.key || String.fromCharCode(e.keyCode || e.which)
     const isNumericInput =
       (key >= '0' && key <= '9') ||
