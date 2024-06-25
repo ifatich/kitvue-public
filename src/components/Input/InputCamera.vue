@@ -670,7 +670,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     background-color: transparent;
     border-radius: 6px;
     position: absolute;
-    left: 7%;
+    left: 10%;
     top: 30%;
     opacity: 0.7;
     box-shadow: 0px 30px 0px 740px rgb(1, 1, 1);
