@@ -40,7 +40,7 @@ const inputValue = computed({
 })
 
 const handleInput = (e) => {
-  if (props.type === 'number' && props.useDelimiter) {
+  if (props.type === 'number') {
     const key = e.key || String.fromCharCode(e.keyCode || e.which)
     const isNumericInput =
       (key >= '0' && key <= '9') ||
@@ -55,7 +55,7 @@ const handleInput = (e) => {
       e.preventDefault()
     }
 
-    if (inputValue.value) {
+    if (inputValue.value && props.useDelimiter) {
       if (inputValue.value.replaceAll(' ', '').length % 4 === 0 && e.which !== 8) {
         inputValue.value = inputValue.value + ' '
       }
