@@ -3,6 +3,9 @@
     <button class="btn" :class="[`btn-${type}`, `btn-${size}`]" :disabled="loading || disabled">
       <div class="d-flex justify-content-center align-items-center">
         <BSpinner v-if="loading" :small="size === 'sm' || size==='md'" />
+        <div v-if="!loading" :small="size === 'sm' || size==='md'">
+          <slot name="icon" ></slot>
+        </div>
         &nbsp;
         <span>{{ label }}</span>
       </div>
