@@ -1,6 +1,6 @@
 <script setup>
 /* eslint-disable */
-import { ref, defineEmits, defineOptions, defineModel, defineProps, computed } from 'vue'
+import { ref, defineEmits, defineOptions, defineModel, defineProps, computed, watch, reactive, onMounted } from 'vue'
 import Button from '../Button/Button.vue'
 import { BModal, BOffcanvas } from 'bootstrap-vue-next'
 
@@ -13,7 +13,8 @@ const fileInput = ref()
 const snappedCameraPict = ref()
 const imgElement = ref()
 const cameraIsReady = ref(false)
-const shownOffcanvas = ref(false)
+const deviceList = ref([])
+const facingMode = ref()
 
 const props = defineProps({
   compressionMaxKb: {
@@ -37,6 +38,66 @@ const props = defineProps({
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
+const isMobileView = computed(() => props.useBottomSheet)
+
+const screenSize = reactive({
+    height: window.screen.height,
+    width: window.screen.width,
+    potrait: window.matchMedia("(orientation:portrait)").matches
+  }
+)
+
+const onResizeScreen = () => {
+  screenSize.height = window.screen.height
+  screenSize.width = window.screen.width
+  screenSize.potrait = window.matchMedia("(orientation:portrait)").matches
+}
+
+window.onresize = onResizeScreen
+onResizeScreen()
+
+const constraints = computed(() => {
+  if (isMobileView) {
+    return {
+      video: {
+          facingMode: facingMode.value,
+          deviceId: {},
+      },
+      audio: false,
+    }
+  } else {
+    return {
+      video: {
+          width: 532,
+          height: 416,
+          facingMode: facingMode.value,
+          deviceId: {},
+      },
+      audio: false,
+    }
+  }
+})
+
+const helperText = computed(() => {
+  if (props.imagePlaceholder === 'idcard') {
+    return {
+      title: 'Foto KTP',
+      message: 'Pastikan KTP berada di area foto yang ditentukan dan data terlihat jelas.'
+    }
+  }
+
+  return {
+      title: 'Instruksi',
+      message: 'Pastikan foto berada dalam area yang telah ditentukan.'
+    }
+})
+
+watch(() => screenSize.potrait, async () => {
+  if (cameraIsReady.value) {
+    await stopCamera()
+    startCamera()
+  }
+})
 
 const generateRandomFileName = (length = 64, originalExtension = 'png') => {
   const characters =
@@ -47,29 +108,52 @@ const generateRandomFileName = (length = 64, originalExtension = 'png') => {
 }
 
 const handleSourceCameraClick = () => {
+  if (deviceList.length === 0) {
+    emit('errorPermission', 'No device ready for take image')
+    return
+  }
   cameraDialog.value = true
-  if (!props.useBottomSheet) fileSourceChooserDialog.value = false
-  if (props.useBottomSheet) shownOffcanvas.value = false
+  fileSourceChooserDialog.value = false
   startCamera()
 }
 
 const handleSourceGalleryClick = () => {
   fileInput.value.click()
-  if (!props.useBottomSheet) fileSourceChooserDialog.value = false
-  if (props.useBottomSheet) shownOffcanvas.value = false
+  fileSourceChooserDialog.value = false
 }
 
 const handleRemoveFileClick = () => {
   fileSrc.value = ''
+  snappedCameraPict.value = ''
   emit('fileRemoved', props.uniqueKey)
+}
+
+onMounted(async () => {
+  const devices = await navigator.mediaDevices.enumerateDevices()
+  if (devices.length > 0) {
+    deviceList.value = devices.filter((device) => device.kind === 'videoinput')
+    facingMode.value = 'environment'
+  }
+})
+
+const handleSwitchCamera = async() => {
+  await stopCamera()
+  facingMode.value = facingMode.value === 'environment' ? 'user' : 'environment'
+  startCamera()
 }
 
 const handleCameraSnap = () => {
   const canvas = document.createElement('canvas')
-  canvas.width = video.value.videoWidth
-  canvas.height = video.value.videoHeight
   const ctx = canvas.getContext('2d')
-  ctx.drawImage(video.value, 0, 0, canvas.width, canvas.height)
+  if (isMobileView) {
+    canvas.width = video.value.videoWidth
+    canvas.height = video.value.videoHeight
+    ctx.drawImage(video.value, 0, 0, canvas.width, canvas.height)
+  } else {
+    const element = document.getElementById('cameraGuidance')
+    const rect = element.getBoundingClientRect()
+    ctx.drawImage(video.value, 0, 0, video.value.videoWidth, video.value.videoHeight, 0, 0, rect.width, rect.height)
+  }
   stopCamera()
   snappedCameraPict.value = canvas.toDataURL('image/jpeg')
 }
@@ -92,12 +176,13 @@ const handleCameraChosen = async () => {
   emit('fileDropped', compressedImg, props.uniqueKey)
   cameraDialog.value = false
   snappedCameraPict.value = ''
+  facingMode.value = 'environment'
 }
 
 const startCamera = async () => {
   try {
     cameraIsReady.value = false
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+    const stream = await navigator.mediaDevices.getUserMedia(constraints.value)
     video.value.srcObject = stream
     cameraIsReady.value = true
   } catch (error) {
@@ -108,16 +193,24 @@ const startCamera = async () => {
 }
 
 const stopCamera = async () => {
-  const stream = video.value.srcObject
-  if (stream) {
-    const tracks = stream.getTracks()
-    tracks.forEach((track) => track.stop())
-    video.value.srcObject = null
-  }
+  return new Promise((resolve) => {
+    cameraIsReady.value = false
+    const stream = video.value?.srcObject
+    if (stream) {
+      const tracks = stream.getTracks()
+      tracks.forEach(async (track) => await track.stop())
+      video.value.srcObject = null
+    }
+    resolve()
+  })
 }
 
 const handleCameraDialogValueChange = (isShowing) => {
-  if (!isShowing) stopCamera()
+  if (!isShowing) {
+    stopCamera()
+    facingMode.value = 'environment'
+    snappedCameraPict.value = ''
+  }
 }
 
 const handleFilePicked = async (event) => {
@@ -141,8 +234,7 @@ const handleRetakePhotoClick = () => {
 }
 
 const fileSourceChooserDialogClick = () => {
-  if (!props.useBottomSheet) fileSourceChooserDialog.value = true
-  if (props.useBottomSheet) shownOffcanvas.value = true
+  fileSourceChooserDialog.value = true
 }
 
 const compressImg = (maxSize, dataUrl, quality = 0.7) =>
@@ -184,7 +276,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 </script>
 
 <template>
-  <div>
+  <section>
     <div class="custom-file-upload">
       <div
         v-if="!fileSrc"
@@ -235,220 +327,234 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     <div class="error-text mt-2" v-if="props.error">
       {{ props.error }}
     </div>
-  </div>
+  </section>
 
-  <BOffcanvas
-    v-model="shownOffcanvas"
-    placement="bottom"
-    bodyScrolling="true"
-  >
-    <template #title>{{ props.title }}</template>
-    <ul class="list-group list-group-flush px-3">
-      <li
-        style="height: 56px;"
-        @click="handleSourceGalleryClick"
-        class="list-group-item d-flex justify-content-between align-items-center"
-        :id="`${$attrs.id}_file`"
-      >
-        Galeri
-        <span>
-          <img
-            src="../../assets/images/icon-galeri.svg"
-            alt="Upload Icon"
-            height="24px"
-            width="24px"
-          />
-        </span>
-      </li>
-      <li
-        style="height: 56px;"
-        @click="handleSourceCameraClick"
-        class="list-group-item d-flex justify-content-between align-items-center"
-        :id="`${$attrs.id}_camera`"
-      >
-        Kamera
-        <span>
-          <img
-            src="../../assets/images/camera-outline.svg"
-            alt="Kamera Icon"
-            height="24px"
-            width="24px"
-          />
-        </span>
-      </li>
-    </ul>
-  </BOffcanvas>
-  <BModal
-    v-if="!props.useBottomSheet"
-    v-model="fileSourceChooserDialog"
-    size="sm"
-    hide-header
-    ok-only
-    no-stacking
-    hide-footer
-    centered
-  >
-    <div class="d-flex justify-content-center flex-column cameraInput">
-      <ul class="list-group list-group-flush" style="margin-top: 16px;">
+  <section v-if="isMobileView">
+    <BOffcanvas
+      v-model="fileSourceChooserDialog"
+      placement="bottom"
+      bodyScrolling="true"
+      noCloseOnBackdrop
+    >
+      <template #title>{{ props.title }}</template>
+      <ul class="list-group list-group-flush px-3">
         <li
-          style="height: 56px"
+          style="height: 56px;"
           @click="handleSourceGalleryClick"
           class="list-group-item d-flex justify-content-between align-items-center"
           :id="`${$attrs.id}_file`"
         >
           Galeri
-          <img
-            src="../../assets/images/icon-galeri.svg"
-            alt="Upload Icon"
-            height="24px"
-            width="24px"
-          />
+          <span>
+            <img
+              src="../../assets/images/icon-galeri.svg"
+              alt="Upload Icon"
+              height="24px"
+              width="24px"
+            />
+          </span>
         </li>
         <li
-          style="height: 56px"
+          style="height: 56px;"
           @click="handleSourceCameraClick"
           class="list-group-item d-flex justify-content-between align-items-center"
           :id="`${$attrs.id}_camera`"
         >
           Kamera
-          <img
-            src="../../assets/images/camera-outline.svg"
-            alt="Kamera Icon"
-            height="24px"
-            width="24px"
-          />
+          <span>
+            <img
+              src="../../assets/images/camera-outline.svg"
+              alt="Kamera Icon"
+              height="24px"
+              width="24px"
+            />
+          </span>
         </li>
       </ul>
-    </div>
-  </BModal>
+    </BOffcanvas>
 
-  <BOffcanvas
-    class="filechooser-mobile"
-    v-if="props.useBottomSheet"
-    v-model="fileSourceChooserDialog"
-    placement="bottom"
-    noCloseOnBackdrop
-  >
-    <template #title>
-      <h3 class="filechooser-mobile__title">
-        {{ props.bottomSheetTitle }}
-      </h3>
-    </template>
-    <div class="d-flex justify-content-center flex-column">
-      <ul class="list-group list-group-flush" style="margin-top: 16px">
-        <li
-          style="height: 56px"
-          @click="handleSourceGalleryClick"
-          class="w-100 list-group-item d-flex justify-content-between px-3 align-items-center"
-          :id="`${$attrs.id}_file`"
-        >
-          <p>Galeri</p>
-          <img
-            src="../../assets/images/icon-galeri.svg"
-            alt="Upload Icon"
-            height="24px"
-            width="24px"
-            class="w-auto"
-          />
-        </li>
-        <li
-          style="height: 56px"
-          @click="handleSourceCameraClick"
-          class="w-100 list-group-item d-flex justify-content-between px-3 align-items-center"
-          :id="`${$attrs.id}_camera`"
-        >
-          <p>Kamera</p>
-          <img
-            src="../../assets/images/camera-outline.svg"
-            alt="Kamera Icon"
-            height="24px"
-            width="24px"
-            class="w-auto"
-          />
-        </li>
-      </ul>
-    </div>
-  </BOffcanvas>
-
-  <BModal
-    @update:model-value="handleCameraDialogValueChange"
-    v-model="cameraDialog"
-    class="inputCamera"
-    title="Ambil Foto"
-    centered
-    dialog-class="camera-fullscreen"
-  >
-  <video class="video" v-if="!snappedCameraPict" ref="video" autoplay></video>
-  <div v-else>
-    <img :src="snappedCameraPict" alt="Captured Image" />
-    </div>
-    <div v-if="props.useBottomSheet" class="card card-ktp"></div>
-    <img
-      @click="handleCameraSnap"
-      src="../../assets/icon/shutter-button.svg"
-      alt="Take Image"
-      width="64px"
-      height="64px"
-      v-if="!snappedCameraPict"
-      :disabled="!cameraIsReady"
-      :id="`${$attrs.id}_cameraSnap`"
-      :class="[props.useBottomSheet ? 'shutter-btn--mobile' : 'shutter-btn']"
-    />
-    <template v-else>
-      <div class="flex">
-        <Button
-          @click="handleRetakePhotoClick"
-          class="me-2 mb-2"
-          type="neutral"
-          label="Ambil Ulang Foto"
-          :id="`${$attrs.id}_cameraRetake`"
+    <BModal
+      @update:model-value="handleCameraDialogValueChange"
+      v-model="cameraDialog"
+      class="inputCameraMobile"
+      centered
+      hide-footer
+      fullscreen
+      id="modal-camera"
+    >
+      <template #header="{ close }">
+        <img
+          @click="close"
+          src="../../assets/icon/arrow_left.svg"
+          alt="Close Camera"
+          :id="`${$attrs.id}_closeCamera`"
+          v-if="cameraIsReady"
         />
-        <Button
-          @click="handleCameraChosen"
-          class="me-2 mb-2"
-          type="primary"
-          label="Gunakan Foto"
-          :id="`${$attrs.id}_cameraChoose`"
-        />
+        <div class="mx-2">Ambil Foto</div>
+      </template>
+      <template v-if="!snappedCameraPict">
+        <div class="camera-container" id="camera-container">
+          <video class="video" ref="video" autoplay></video>
+        </div>
+        <div class="slot-container">
+          <div id="cameraGuidance" :class="[props.imagePlaceholder === 'idcard' ? 'card-ktp' : 'card-general', !screenSize.potrait ? 'landscape' : '']"></div>
+          <div class="helper-text" :class="!screenSize.potrait ? 'landscape' : ''">
+            <div class="title">{{ helperText.title }}</div>
+            <div class="subtitle">{{ helperText.message }}</div>
+          </div>
+          <img
+            @click="handleCameraSnap"
+            src="../../assets/icon/shutter-button.svg"
+            alt="Take Image"
+            :id="`${$attrs.id}_cameraSnap`"
+            class="shutter-btn"
+            :class="!screenSize.potrait ? 'landscape' : ''"
+            v-if="cameraIsReady"
+          />
+          <img
+            @click="handleSwitchCamera"
+            src="../../assets/icon/switch.svg"
+            alt="Switch Camera"
+            :id="`${$attrs.id}_cameraSwitch`"
+            class="switch-camera-btn"
+            :class="!screenSize.potrait ? 'landscape' : ''"
+            v-if="cameraIsReady && deviceList.length > 1"
+          />
         </div>
       </template>
-  </BModal>
+      <div v-else>
+        <div class="preview-container">
+          <img :src="snappedCameraPict" alt="Captured Image" />
+        </div>
+        <div class="footer-button">
+          <Button
+            @click="handleRetakePhotoClick"
+            type="neutral"
+            label="Ambil Ulang Foto"
+            :id="`${$attrs.id}_cameraRetake`"
+          />
+          <Button
+            @click="handleCameraChosen"
+            type="primary"
+            label="Gunakan Foto"
+            :id="`${$attrs.id}_cameraChoose`"
+          />
+        </div>
+      </div>
+    </BModal>
+  </section>
+
+  <section v-else>
+    <BModal
+      v-model="fileSourceChooserDialog"
+      size="sm"
+      hide-header
+      ok-only
+      no-stacking
+      hide-footer
+      centered
+    >
+      <div class="d-flex justify-content-center flex-column cameraInput">
+        <ul class="list-group list-group-flush" style="margin-top: 16px;">
+          <li
+            style="height: 56px"
+            @click="handleSourceGalleryClick"
+            class="list-group-item d-flex justify-content-between align-items-center"
+            :id="`${$attrs.id}_file`"
+          >
+            Galeri
+            <img
+              src="../../assets/images/icon-galeri.svg"
+              alt="Upload Icon"
+              height="24px"
+              width="24px"
+            />
+          </li>
+          <li
+            style="height: 56px"
+            @click="handleSourceCameraClick"
+            class="list-group-item d-flex justify-content-between align-items-center"
+            :id="`${$attrs.id}_camera`"
+          >
+            Kamera
+            <img
+              src="../../assets/images/camera-outline.svg"
+              alt="Kamera Icon"
+              height="24px"
+              width="24px"
+            />
+          </li>
+        </ul>
+      </div>
+    </BModal>
+    <BModal
+      @update:model-value="handleCameraDialogValueChange"
+      v-model="cameraDialog"
+      class="inputCamera"
+      title="Ambil Foto"
+      centered
+      hide-footer
+    >
+      <template v-if="!snappedCameraPict">
+        <div class="camera-container">
+          <video class="video" ref="video" autoplay></video>
+        </div>
+        <div class="slot-container">
+          <div id="cameraGuidance" :class="props.imagePlaceholder === 'idcard' ? 'card-ktp' : 'card-general'"></div>
+          <img
+            @click="handleCameraSnap"
+            src="../../assets/icon/shutter-button.svg"
+            alt="Take Image"
+            :id="`${$attrs.id}_cameraSnap`"
+            class="shutter-btn"
+            v-if="cameraIsReady"
+          />
+        </div>
+      </template>
+      <div v-else>
+        <div class="preview-container">
+          <img :src="snappedCameraPict" alt="Captured Image" />
+        </div>
+        <div class="footer-button">
+          <Button
+            @click="handleRetakePhotoClick"
+            type="neutral"
+            label="Ambil Ulang Foto"
+            :id="`${$attrs.id}_cameraRetake`"
+          />
+          <Button
+            @click="handleCameraChosen"
+            type="primary"
+            label="Gunakan Foto"
+            :id="`${$attrs.id}_cameraChoose`"
+          />
+        </div>
+      </div>
+    </BModal>
+  </section>
+
 </template>
 
 <style lang="scss">
-.camera-fullscreen {
-  .modal-body {
-    height: 100vh !important;
-  }
-}
-.filechooser-mobile {
-  .offcanvas-body {
-    min-height: unset !important;
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-  }
-
-  &__title {
-    margin-top: 1rem;
-    font-size: 1.2rem;
-  }
-}
-</style>
-
-<style lang="scss">
 .inputCamera {
-  .modal {
-    width: unset;
-    height: unset;
+  .video {
+    width: 100%;
+    height: 100%;
+    border-radius: .5rem;
   }
 
-  .video {
-    position: relative;
+  .preview-container {
+    padding: 16px;
+    img{
+      width: 100%;
+      height: 100%;
+      border-radius: .5rem;
+    }
   }
 
   .shutter-btn {
     position: absolute !important;
-    bottom: 3rem;
+    bottom: 2.5rem;
     left: 50%;
     transform: translateX(-50%);
     width: 64px !important;
@@ -466,38 +572,201 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   }
 
   .modal-body {
-    img,
-    video {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+    border-top: 1px solid #EEEEEF;
+    padding: 0px;
+  }
+
+  .camera-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 16px;
+  }
+
+  .slot-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 16px;
+  }
+
+  .footer-button {
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    background: #fff;
+    border-radius: .5rem;
+    box-shadow:
+      0px 2px 6px 0px rgba(0, 0, 0, 0.14),
+      0px 0px 2px 0px rgba(0, 0, 0, 0.08);
+
+    .btn {
       width: 100%;
-      height: 100%;
+    }
+  }
+
+  .card-ktp {
+    width: 320px;
+    height: 215px;
+    background-color: transparent;
+    border-radius: 2px;
+    position: absolute;
+    left: 18%;
+    top: 15%;
+    opacity: 0.7;
+    box-shadow: 0px 25px 0px 74px rgb(1, 1, 1);
+  }
+}
+
+.inputCameraMobile {
+  .preview-container {
+    position: absolute;
+    img {
+      width: 100vw;
+      height: 100vh;
       object-fit: cover;
-      position: relative;
-      border-radius: 12px;
-    }
-
-    .flex {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-
-      .btn {
-        width: -webkit-fill-available;
-      }
     }
   }
 
-  .modal-footer {
-    display: none;
+  .video {
+    height: 100%;
+		width: 100%;
+    object-fit: cover;
   }
-}
 
-body.modal-open {
-  overflow: overlay !important;
-  height: 100vh;
-}
+  .modal-body {
+    margin: 0px !important;
+    padding: 0px;
+    height: 100% !important;
+    overflow: hidden !important;
+    max-height: unset !important;
+  }
 
-.hide {
-  opacity: 0;
+  .camera-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slot-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 16px;
+  }
+
+  .card-ktp {
+    width: 312px;
+    height: 200px;
+    background-color: transparent;
+    border-radius: 6px;
+    position: absolute;
+    left: 7%;
+    top: 30%;
+    opacity: 0.7;
+    box-shadow: 0px 30px 0px 740px rgb(1, 1, 1);
+    &.landscape {
+      left: 30%;
+      top: 10%;
+    }
+  }
+
+  .card-general {
+    width: 100%;
+    height: 360px;
+    background-color: transparent;
+    border-radius: 6px;
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    opacity: 0.7;
+    box-shadow: 0px 30px 0px 740px rgb(1, 1, 1);
+    &.landscape {
+      left: 30%;
+      top: 0;
+      width: 360px;
+      height: 100%;
+    }
+  }
+
+  .shutter-btn {
+    position: absolute !important;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px !important;
+    height: 64px !important;
+    &.landscape {
+      left: unset;
+      bottom: unset;
+      top: 30%;
+      right: 40px;
+    }
+  }
+
+  .switch-camera-btn {
+    position: absolute !important;
+    bottom: 55px;
+    right: 9%;
+    transform: translateX(-50%);
+    width: 48px !important;
+    height: 48px !important;
+    &.landscape {
+      left: unset;
+      bottom: unset;
+      top: 70%;
+      right: 55px;
+    }
+  }
+
+  .helper-text {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+    text-align: center;
+    color: var(--text-white, #FFF);
+    &.landscape {
+      margin-top: unset;
+      top: 30%;
+      width: 190px;
+      text-align: left;
+    }
+    .title {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 30px;
+    }
+    .subtitle {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+    }
+  }
+  .footer-button {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    flex-direction: column;
+    gap: 8px;
+    bottom: 16px;
+    .btn {
+      width: 100%;
+    }
+  }
 }
 
 .custom-file-upload__box-preview {
@@ -516,13 +785,10 @@ body.modal-open {
 }
 
 .imgCaptured {
-  width: 100%;
-  height: 100%;
-  object-fit: scale-down;
-}
-
-.camera-dialog {
-  
+  width: 180px;
+  height: 135px;
+  object-fit: cover;
+  border-radius: .5rem;
 }
 
 .remove-button {
@@ -545,83 +811,4 @@ body.modal-open {
 li:hover {
   cursor: pointer;
 }
-
-
-
-@media (max-width: 890px) {
-
-  .cameraInput,
-  .inputCamera {
-    .list-group {
-      display: block;
-    }
-
-    .modal-fullscreen {
-      @media (max-width: 890px) {
-        height: 100vh;
-      }
-    }
-
-    .modal {
-      width: fit-content;
-      height: fit-content;
-      margin: 0px;
-    }
-
-    .modal-body {
-      padding: 0px;
-
-      img,
-      video {
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        position: fixed;
-        top: 0;
-        left: 0;
-      }
-
-      .card-ktp {
-        display: block;
-        padding: 1rem;
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-        position: fixed;
-        bottom: 40px;
-
-        background-color: transparent;
-
-        height: 230px;
-        width: 80%;
-        bottom: 40%;
-        left: 10%;
-        opacity: 0.5;
-        border: 2px dashed var(--g-kit-lime-50);
-        border-radius: 6px;
-        right: 0;
-        box-shadow: 100px 100px 100px 100px rgba(1, 1, 1, 1), 100px 100px 100px 0px rgba(1, 1, 1, 1);
-      }
-
-      .flex {
-        padding: 1rem;
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-        position: fixed;
-        bottom: 40px;
-        .btn {
-          width: 100%;
-          width: -webkit-fill-available;
-        }
-      }
-    }
-
-    .modal-header,
-    .modal-footer {
-      display: none;
-    }
-  }
-}
-
 </style>
