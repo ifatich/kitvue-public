@@ -21,7 +21,8 @@ snapshot:
   stage: snapshot
   script:
     - npm config set registry https://artifactory.pegadaian.co.id/repository/npm-hosted-01/
-    - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > ~/.npmrc
+    - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > .npmrc
+    - cat .npmrc
     - npm publish
   only:
     - /^snapshot-.*$/
