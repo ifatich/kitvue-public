@@ -20,8 +20,8 @@ snapshot:
   image: $REGISTRY/node:20.10.0-alpine
   stage: snapshot
   script:
-    - npm config set registry $REGISTRY
-    - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=$DOCKER_AU_CONFIG" > .npmrc
+    - npm config set registry https://artifactory.pegadaian.co.id/repository/npm-hosted-01/
+    - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > .npmrc
     - npm publish
   only:
     - /^snapshot-.*$/
