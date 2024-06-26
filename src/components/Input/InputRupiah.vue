@@ -59,10 +59,12 @@ const onlyNumber = (event) => {
 </script>
 
 <template>
-  <InputText 
-    v-model="rupiahValue" 
+  <InputText
+    v-model="rupiahValue"
     @keydown="onlyNumber"
     :placeholder="props.placeholder || 'Masukkan rupiah'"
+    type="number"
+    :use-delimiter="false"
   >
     <template #prefix>
       <span class="input-group-text border-0">Rupiah</span>
