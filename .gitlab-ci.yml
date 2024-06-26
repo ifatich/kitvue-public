@@ -1,7 +1,7 @@
 image: artifactory.pegadaian.co.id:8084/docker:latest
 
 variables:
-  DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
+  # DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
   REGISTRY: artifactory.pegadaian.co.id:8084
 
 stages:
