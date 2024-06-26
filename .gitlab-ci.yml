@@ -3,6 +3,9 @@ image: artifactory.pegadaian.co.id:8084/docker:latest
 variables:
   DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
   REGISTRY: artifactory.pegadaian.co.id:8084
+  NPM_REGISTRY_URL: "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/"
+  NPM_USERNAME: "fajar.hang"
+  NPM_PASSWORD: "Gadai123!"
 
 stages:
   # - deploy
@@ -21,7 +24,10 @@ snapshot:
   stage: snapshot
   script:
     - npm config set registry https://artifactory.pegadaian.co.id/repository/npm-hosted-01/
-    - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > .npmrc
+    - echo "//$NPM_REGISTRY_URL/:username=$NPM_USERNAME" >> .npmrc
+    - echo "//$NPM_REGISTRY_URL/:_password=$(echo -n $NPM_PASSWORD | base64)" >> .npmrc
+    - echo "//$NPM_REGISTRY_URL/:email=$NPM_EMAIL" >> .npmrc
+    # - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > .npmrc
     - cat .npmrc
     - npm publish
   only:
