@@ -1,37 +1,31 @@
-stages:          # List of stages for jobs, and their order of execution
-  - build
-  - test
-  - deploy
+image: artifactory.pegadaian.co.id:8084/docker:latest
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
+variables:
+  DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
+  REGISTRY: artifactory.pegadaian.co.id:8084
 
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+setup:
+  stage: setup
   script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
+    - npm config set registry $REGISTRY
 
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
+stages:
+  # - deploy
+  - snapshot
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+# deploy:
+#   image: $REGISTRY/node:3-openjdk-17-slim
+#   stage: deploy
+#   script:
+#     - mvn -B source:jar deploy
+#   only:
+#     - master
 
-bootstrap-vue-job: # This job runs in the test stage as well.
-  stage: test    # It can run at the same time as unit-test-job and lint-test-job (in parallel).
+snapshot:
+  image: $REGISTRY/node:20.10.0-alpine
+  stage: snapshot
   script:
-    - echo "Testing Bootstrap Vue Next integration..."
-    - sleep 30
-    - echo "Bootstrap Vue Next integration tests passed."
+    - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=$DOCKER_AU_CONFIG" > .npmrc
+    - npm publish
+  only:
+    - /^snapshot-.*$/
