@@ -665,18 +665,20 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   }
 
   .card-ktp {
-    width: 312px;
-    height: 200px;
     background-color: transparent;
     border-radius: 6px;
     position: absolute;
     left: 10%;
+    right: 10%;
     top: 30%;
+    bottom: 40%;
     opacity: 0.7;
     box-shadow: 0px 30px 0px 740px rgb(1, 1, 1);
     &.landscape {
       left: 30%;
       top: 10%;
+      right: 25%;
+      bottom: 20%;
     }
   }
 

@@ -179,6 +179,7 @@ const handleOffcanvasToggle = (value) => {
         @shown="handleOffcanvasToggle(true)"
         @hidden="handleOffcanvasToggle(false)"
         class="input-dropdown"
+        :class="props.items && props.items.length > 10 ? 'full-height' : 'content-height'"
       >
         <template #title>{{ props.placeholder }}</template>
         <b-form-input
@@ -214,8 +215,17 @@ const handleOffcanvasToggle = (value) => {
 
 <style lang="scss">
 .input-dropdown {
+  max-height: 95% !important;
   .offcanvas-body {
     padding: 0px 16px 0px 16px !important;
+  }
+
+  &.full-height {
+    height: 95% !important;
+  }
+
+  &.content-height {
+    height: max-content !important;
   }
 }
 
