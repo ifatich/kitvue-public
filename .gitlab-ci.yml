@@ -1,7 +1,7 @@
 image: artifactory.pegadaian.co.id:8084/docker:latest
 
 variables:
-  # DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
+  DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
   REGISTRY: artifactory.pegadaian.co.id:8084
 
 stages:
@@ -20,7 +20,7 @@ snapshot:
   image: $REGISTRY/node:20.10.0-alpine
   stage: snapshot
   script:
-    - npm config set registry https://artifactory.pegadaian.co.id/repository/npm-hosted-01/
+    # - npm config set registry https://artifactory.pegadaian.co.id/repository/npm-hosted-01/
     - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > .npmrc
     - cat .npmrc
     - npm publish
