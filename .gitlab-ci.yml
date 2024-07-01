@@ -5,25 +5,23 @@ variables:
   REGISTRY: artifactory.pegadaian.co.id:8084
 
 stages:
-  # - deploy
+  - deploy
   - snapshot
 
-# deploy:
-#   image: $REGISTRY/node:3-openjdk-17-slim
-#   stage: deploy
-#   script:
-#     - mvn -B source:jar deploy
-#   only:
-#     - master
+deploy:
+  image: $REGISTRY/node:20.10.0-alpine
+  stage: deploy
+  script:
+    - cat .npmrc
+    - npm publish --userconfig .npmrc
+  only:
+    - /^master-.*$/
 
 snapshot:
   image: $REGISTRY/node:20.10.0-alpine
   stage: snapshot
   script:
-    # - echo "$NPM_REGISTRY_URL/:username=$NPM_USERNAME" > .npmrc
-    # - echo "$NPM_REGISTRY_URL/:_password=$(echo -n $NPM_PASSWORD | base64)" > .npmrc
-    # - echo "https://artifactory.pegadaian.co.id/repository/npm-hosted-01/:_authToken=YWd1cy5kaWFuYTphZ3VzMTIzIQ==" > .npmrc
     - cat .npmrc
     - npm publish --userconfig .npmrc
   only:
-    - /^snapshot-.*$/
+    - /^dev-.*$/
