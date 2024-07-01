@@ -12,16 +12,18 @@ deploy:
   image: $REGISTRY/node:20.10.0-alpine
   stage: deploy
   script:
-    - cat .npmrc
+    - echo "registry=$NPM_REGISTRY_URL" > .npmrc
+    - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
     - npm publish --userconfig .npmrc
   only:
-    - /^master-.*$/
+    - master
 
 snapshot:
   image: $REGISTRY/node:20.10.0-alpine
   stage: snapshot
   script:
-    - cat .npmrc
+    - echo "registry=$NPM_REGISTRY_URL" > .npmrc
+    - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
     - npm publish --userconfig .npmrc
   only:
     - /^dev-.*$/
