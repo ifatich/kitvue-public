@@ -1,37 +1,29 @@
-stages:          # List of stages for jobs, and their order of execution
-  - build
-  - test
+image: artifactory.pegadaian.co.id:8084/docker:latest
+
+variables:
+  DOCKER_AUTH_CONFIG: '{"auths": {"artifactory.pegadaian.co.id:5443": {"auth": "$DOCKER_AU_CONFIG"},"artifactory.pegadaian.co.id:8084": {"auth": "$DOCKER_AU_CONFIG"}}}'
+  REGISTRY: artifactory.pegadaian.co.id:8084
+
+stages:
   - deploy
+  - snapshot
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
+deploy:
+  image: $REGISTRY/node:20.10.0-alpine
+  stage: deploy
   script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
+    - echo "registry=$NPM_REGISTRY_URL" > .npmrc
+    - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
+    - npm publish --userconfig .npmrc
+  only:
+    - master
 
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+snapshot:
+  image: $REGISTRY/node:20.10.0-alpine
+  stage: snapshot
   script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
-
-bootstrap-vue-job: # This job runs in the test stage as well.
-  stage: test    # It can run at the same time as unit-test-job and lint-test-job (in parallel).
-  script:
-    - echo "Testing Bootstrap Vue Next integration..."
-    - sleep 30
-    - echo "Bootstrap Vue Next integration tests passed."
+    - echo "registry=$NPM_REGISTRY_URL" > .npmrc
+    - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
+    - npm publish --userconfig .npmrc
+  only:
+    - /^dev-.*$/
