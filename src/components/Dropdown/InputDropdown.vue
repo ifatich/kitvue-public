@@ -181,7 +181,7 @@ const handleOffcanvasToggle = (value) => {
         class="input-dropdown"
         :class="props.items && props.items.length > 10 ? 'full-height' : 'content-height'"
       >
-        <template #title>{{ props.placeholder }}</template>
+        <template #title>{{ props.label }}</template>
         <b-form-input
           v-if="props.items && props.items.length > 10"
           @click.stop
