@@ -243,7 +243,7 @@ const handleOffcanvasToggle = (value) => {
 }
 
 .icon-refresh {
-  width: 1.2rem;
+  width: 1.2rem !important;
   margin-left: 0.2rem;
   cursor: pointer;
 }
