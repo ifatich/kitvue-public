@@ -131,7 +131,7 @@ const handleOffcanvasToggle = (value) => {
       <template #button-content>
         <p
           class="overflow-hidden my-auto text-ellipsis"
-          :style="selectedText ? 'color: #252528 !important' : ''"
+          :style="selectedText ? 'color: #58585B !important' : ''"
         >
           {{ selectedText || props.placeholder }}
         </p>
