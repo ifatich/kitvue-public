@@ -26,4 +26,4 @@ snapshot:
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
     - npm publish --userconfig .npmrc
   only:
-    - /^dev-.*$/
+    - /^dev-update-component$/
