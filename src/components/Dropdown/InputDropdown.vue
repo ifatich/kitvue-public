@@ -131,7 +131,7 @@ const handleOffcanvasToggle = (value) => {
       <template #button-content>
         <p
           class="overflow-hidden my-auto text-ellipsis"
-          :style="selectedText ? 'color: #252528 !important' : ''"
+          :style="selectedText ? 'color: #58585B !important' : ''"
         >
           {{ selectedText || props.placeholder }}
         </p>
@@ -181,7 +181,7 @@ const handleOffcanvasToggle = (value) => {
         class="input-dropdown"
         :class="props.items && props.items.length > 10 ? 'full-height' : 'content-height'"
       >
-        <template #title>{{ props.placeholder }}</template>
+        <template #title>{{ props.label }}</template>
         <b-form-input
           v-if="props.items && props.items.length > 10"
           @click.stop
@@ -243,7 +243,7 @@ const handleOffcanvasToggle = (value) => {
 }
 
 .icon-refresh {
-  width: 1.2rem;
+  width: 1.2rem !important;
   margin-left: 0.2rem;
   cursor: pointer;
 }
