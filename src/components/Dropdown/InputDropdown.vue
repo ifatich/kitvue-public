@@ -128,25 +128,31 @@ const handleOffcanvasToggle = (value) => {
       @toggle="handleShown"
       :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}"
     >
-      <template #button-content>
-        <p
-          class="overflow-hidden my-auto text-ellipsis"
-          :style="selectedText ? 'color: #58585B !important' : ''"
-        >
-          {{ selectedText || props.placeholder }}
-        </p>
-        <span>
-          <BSpinner v-if="loading" small />
-          <img
-            v-else
-            :class="[
-              shown ? 'dropdown-open' : 'dropdown-close',
-              'icon-dropdown'
+    <template #button-content>
+        <slot name="button-content">
+          <p
+            class="overflow-hidden my-auto text-ellipsis"
+            :style="[
+              selectedText ? 'color: #252528 !important' : '',
+              !selectedText ? 'color: #939597 !important' : '',
             ]"
-            src="../../assets/icon/chevron_down.svg"
-          />
-        </span>
+          >
+            {{ selectedText || props.placeholder }}
+          </p>
+        </slot>
+          <span>
+            <BSpinner v-if="loading" small />
+            <img
+              v-else
+              :class="[
+                shown ? 'dropdown-open' : 'dropdown-close',
+                'icon-dropdown'
+              ]"
+              src="../../assets/icon/chevron_down.svg"
+            />
+          </span>
       </template>
+    
       <div v-if="!props.useBottomSheet">
         <slot></slot>
         <b-form-input

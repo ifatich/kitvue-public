@@ -109,7 +109,7 @@
     .tab-pembinaan-header {
         display: flex;
         .menu-active {
-            min-width: 55%;
+            min-width: 65%;
             box-shadow: 0px 0px 10px -16px #bbb;
             white-space: nowrap;
             overflow: hidden;
