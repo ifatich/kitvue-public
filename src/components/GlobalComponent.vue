@@ -149,7 +149,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-header">
-              <h5>Input Field </h5>
+              <h5>Input Field</h5>
               <p class="mb-0">
                 <code
                   >&lt;Button type="primary" size="md" label="Button"&gt;</code
@@ -175,6 +175,7 @@
                   <TimePicker
                     label="Time Picker"
                     label-time="Waktu Akhir"
+                    placeholder="Waktu Akhir"
                     v-model:timepicker="timePicker"
                   />
                   Timepicker : {{ timePicker }}
@@ -216,7 +217,7 @@
                 @activeTime="handleActiveTime"
               />
               <p>Selected Time: {{ selectedTime }}</p>
-              
+
               <InputText
                 id="inisearch"
                 placeholder="Cari data"
@@ -1047,7 +1048,7 @@ import useScrollTo from "../hooks/useScrollTo";
 import DateRangePickerOption from "./Input/DateRangePickerOption.vue";
 import TimePicker from "./Input/TimePicker.vue";
 import ModalSlider from "./Modal/ModalSlider.vue";
-import InputTimePicker from './Input/InputTimePicker.vue'
+import InputTimePicker from "./Input/InputTimePicker.vue";
 import { ref } from "vue";
 
 const { scrollTo } = useScrollTo();
@@ -1147,12 +1148,12 @@ export default {
     DateRangePicker,
     InputCamera,
     TabPembinaan,
-    InputTimePicker
+    InputTimePicker,
   },
   data() {
     return {
       //untuk InputTimePicker
-      selectedTime: '',
+      selectedTime: "",
       showPicker: false,
 
       startDate: ref(null),
@@ -1508,7 +1509,7 @@ export default {
     },
     handleActiveTime(event) {
       this.selectedTime = event.activeTime;
-    }
+    },
   },
 };
 </script>
