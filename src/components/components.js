@@ -34,6 +34,9 @@ import TableData from './Table/TableData.vue';
 import DataTable from './Table/DataTable.vue';
 import TableSticky from './Table/TableSticky.vue';
 import DataApps from './Table/Data.vue';
+import Badge from './Badge/Badge.vue';
+import DropdownGroupItem from './Dropdown/DropdownGroupItem.vue';
+import DropdownItem from './Dropdown/DropdownItem.vue';
 
 export default {
     Accordion,
@@ -72,5 +75,8 @@ export default {
     TableData,
     DataTable,
     TableSticky,
-    DataApps
+    DataApps,
+    Badge,
+    DropdownGroupItem,
+    DropdownItem
 }

@@ -8,7 +8,7 @@
             </span>
             <nav class='vertical-align-middle scroll'>
                 <span v-for="label in filteredLabels" :key="label.id" @click="onTabClick(label.id)"
-                    :class="['nav-item', { 'completed': label.completed }]">
+                    :class="['nav-item-tab', { 'completed': label.completed }]">
                     <span class="content" />
                     {{ label.label }}
                 </span>
@@ -22,7 +22,6 @@
 
 <script>
     import {
-        ref,
         computed
     } from 'vue';
 
@@ -110,7 +109,7 @@
     .tab-pembinaan-header {
         display: flex;
         .menu-active {
-            min-width: 55%;
+            min-width: 65%;
             box-shadow: 0px 0px 10px -16px #bbb;
             white-space: nowrap;
             overflow: hidden;
@@ -124,7 +123,7 @@
     }
 
     .menu-active,
-    .nav-item {
+    .nav-item-tab {
         text-align: center;
         font-weight: 800;
         padding: 16px 18px;
@@ -151,7 +150,6 @@
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
             background-image: url(../../assets/icon/subtract.svg);
-            background-color: var(--g-kit-lime-50);
             background-size: cover;
             vertical-align: text-bottom;
             width: 19px;
@@ -159,7 +157,7 @@
         }
     }
 
-    .nav-item {
+    .nav-item-tab {
         color: var(--g-kit-black-60);
         cursor: pointer;
 
@@ -191,7 +189,7 @@
         &.completed span.content {
             border: 1px solid var(--g-kit-lime-50);
             background-image: url(../../assets/icon/subtract.svg);
-            background-color: var(--g-kit-lime-50);
+            background-color: #ffff;
             background-size: cover;
             vertical-align: text-bottom;
             width: 19px;
