@@ -1,6 +1,5 @@
 <template>
-  <BOffcanvas v-model="model" placement="bottom" class="w-100 offcanvas-kit" :title="'Pilih Tanggal' || title"
-    style="height: fit-content;">
+
     <div id="scroll-container" class="scroll-container d-flex">
       <div class="wrap-container" ref="wrapScrollHours">
         <ul id="hours" ref="hoursScroll">
@@ -24,33 +23,15 @@
         </ul>
       </div>
     </div>
-    <div class="px-3 pb-0 pt-3">
-      <Button class="w-100" type="primary" size="lg" label="Selesai" @click="model = false" />
-    </div>
-  </BOffcanvas>
 </template>
 
-<script setup>
-  import {
-    defineModel
-  } from 'vue'
-  const model = defineModel()
-</script>
-
-
 <script>
-  import {
-    BOffcanvas
-  } from 'bootstrap-vue-next';
-  import Button from '../Button/Button.vue';
   import InputText from './InputText.vue'
-
 
   export default {
     name: 'InputTimePicker',
     components: {
-      BOffcanvas,
-      Button
+      InputText
     },
     props: {
       defaultHour: {
@@ -59,7 +40,7 @@
       },
       defaultMinute: {
         type: String,
-        default: '50'
+        default: '58'
       }
     },
     data() {
@@ -109,6 +90,9 @@
           this.editingList = listName;
           this.editingIndex = index;
           this.editableValue = this[listName][index];
+        } else {
+          this[`active${listName.charAt(0).toUpperCase() + listName.slice(1)}Index`] = index; // Ensure the active index is set when an item is clicked
+          this.editableValue = this[listName][index]; // Set the editable value to the clicked item's value
         }
       },
       handleInput(listName) {
@@ -220,6 +204,9 @@
 
         if (this.activeHourIndex === -1) this.activeHourIndex = 0;
         if (this.activeMinuteIndex === -1) this.activeMinuteIndex = 0;
+
+        this.editableValue = this.hours[this.activeHourIndex]; // Set the default editable value for hours
+        this.editableValue = this.minutes[this.activeMinuteIndex]; // Set the default editable value for minutes
 
         this.$nextTick(() => {
           this.$refs.wrapScrollHours.scrollTop = this.activeHourIndex * this.hoursOpts.itemHeight;

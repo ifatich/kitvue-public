@@ -216,6 +216,16 @@
                 @activeTime="handleActiveTime"
               />
               <p>Selected Time: {{ selectedTime }}</p>
+
+              <TimePickerResponsive 
+                v-model="selectedTimes" 
+                title="Appointment Time" 
+                placeholder="Choose a time"
+                required
+                error="Please select a valid time" 
+                @selectedTimeUpdated="handleSelectedTime"
+              />
+              <p>Selected Time: {{ selectedTimes }}</p>
               
               <InputText
                 id="inisearch"
@@ -1048,6 +1058,7 @@ import DateRangePickerOption from "./Input/DateRangePickerOption.vue";
 import TimePicker from "./Input/TimePicker.vue";
 import ModalSlider from "./Modal/ModalSlider.vue";
 import InputTimePicker from './Input/InputTimePicker.vue'
+import TimePickerResponsive from './Input/TimePickerResponsive.vue'
 import { ref } from "vue";
 
 const { scrollTo } = useScrollTo();
@@ -1147,12 +1158,15 @@ export default {
     DateRangePicker,
     InputCamera,
     TabPembinaan,
-    InputTimePicker
+    InputTimePicker,
+    TimePickerResponsive
+
   },
   data() {
     return {
       //untuk InputTimePicker
       selectedTime: '',
+      selectedTimes: '',
       showPicker: false,
 
       startDate: ref(null),
@@ -1508,7 +1522,10 @@ export default {
     },
     handleActiveTime(event) {
       this.selectedTime = event.activeTime;
-    }
+    },
+    handleSelectedTime(time) {
+      this.selectedTimes = time;
+    },
   },
 };
 </script>
