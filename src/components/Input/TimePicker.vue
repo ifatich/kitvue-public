@@ -97,7 +97,7 @@ const saveValue = () => {
         <img src="../../assets/icon/icon-system/icon-chevron-down.svg" />
       </div>
     </div>
-    <div v-if="showTimePicker">
+    <div v-if="showTimePicker" class="content-time">
       <div class="d-flex justify-content-between align-items-center">
         <b>{{ props.labelTime }}</b>
         <button class="btn p-0" @click="handleShown(false)">
@@ -192,6 +192,13 @@ const saveValue = () => {
 
 .custom-input-group-icon:has(.form-control:disabled) {
   background-color: var(--g-kit-black-20);
+}
+
+.content-time {
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  margin: 0 auto;
 }
 
 .box-time {

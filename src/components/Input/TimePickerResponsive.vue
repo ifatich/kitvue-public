@@ -2,29 +2,33 @@
   <div class="desktop">
     <div :class="['group-input calendar-input', addClass]">
       <label :for="$attrs.id" class="form-label">
-        {{ title || 'Pilih Waktu' }}
+        {{ title }}
       </label>
-  
+
       <div class="input-group custom-input-group-icon">
-        <input 
-          v-model="selectedTime" 
-          type="text" :class="['form-control', classes]" 
-          v-bind="$attrs" 
-          :aria-label="title" 
-          :aria-describedby="title" 
-          :disabled="disabled" 
+        <input
+          v-model="selectedTime"
+          type="text"
+          :class="['form-control', classes]"
+          v-bind="$attrs"
+          :aria-label="title"
+          :aria-describedby="title"
+          :disabled="disabled"
           :required="required"
-          :placeholder="placeholder || ['Pilih ' + (title || '').toLowerCase()]" 
-          @click="showContent = !showContent" readonly />
-  
+          :placeholder="placeholder || ['Pilih ' + (title || '').toLowerCase()]"
+          @click="showContent = !showContent"
+          readonly
+        />
+
         <div class="input-group-icon">
           <img src="../../assets/icon/icon-system/icon-time-regular.svg" />
         </div>
       </div>
-  
-      <div v-if="showContent" class="content-time card" style="width: 320px;">
-        <div class="card-header d-flex justify-content-between align-items-center" >
-          <b>Pilih Tanggal</b>
+
+      <div v-if="showContent" class="content-time card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
           <button class="btn p-0" @click="showContent = !showContent">
             <svg
               width="24"
@@ -42,19 +46,27 @@
             </svg>
           </button>
         </div>
-        <ContentTimePicker :initialTime="selectedTime" @activeTime="handleActiveTime" />
-    
+        <ContentTimePicker
+          :initialTime="selectedTime"
+          @activeTime="handleActiveTime"
+        />
+
         <div class="p-3">
-          <Button class="w-100" type="primary" size="lg" label="Selesai"  @click="updateSelectedTime" />
+          <Button
+            class="w-100"
+            type="primary"
+            size="lg"
+            label="Selesai"
+            @click="updateSelectedTime"
+          />
         </div>
       </div>
-
     </div>
   </div>
 
   <div class="mobile">
     <label :for="$attrs.id" class="form-label">
-      {{ title || 'Tanggal Lahir' }}
+      {{ title }}
     </label>
 
     <div class="input-group custom-input-group-icon">
@@ -82,25 +94,34 @@
       class="w-100 offcanvas-kit"
       placement="bottom"
       :title="'Pilih Tanggal' || title"
-      style="height: fit-content;"
+      style="height: fit-content"
       @shown="handleOffcanvasToggle(true)"
       @hidden="handleOffcanvasToggle(false)"
     >
-      <ContentTimePicker :initialTime="selectedTime" @activeTime="handleActiveTime" />
-    
+      <ContentTimePicker
+        :initialTime="selectedTime"
+        @activeTime="handleActiveTime"
+      />
+
       <div class="px-3 pb-0 pt-3">
-        <Button class="w-100" type="primary" size="lg" label="Selesai" @click="updateSelectedTime" />
+        <Button
+          class="w-100"
+          type="primary"
+          size="lg"
+          label="Selesai"
+          @click="updateSelectedTime"
+        />
       </div>
     </BOffcanvas>
   </div>
 </template>
 
 <script>
-import ContentTimePicker from './ContentTimePicker.vue';
-import Button from '../Button/Button.vue';
+import ContentTimePicker from "./ContentTimePicker.vue";
+import Button from "../Button/Button.vue";
 
 export default {
-  name: 'TimePickerResponsive',
+  name: "TimePickerResponsive",
   components: { ContentTimePicker, Button },
   props: {
     title: String,
@@ -114,7 +135,7 @@ export default {
   data() {
     return {
       selectedTime: null,
-      tempSelectedTime: '',
+      tempSelectedTime: "",
       showDatePickerOffcanvas: false,
       showContent: false,
     };
@@ -127,24 +148,23 @@ export default {
       this.selectedTime = this.tempSelectedTime;
       this.showContent = false;
       this.showDatePickerOffcanvas = false;
-      this.$emit('selectedTimeUpdated', this.selectedTime); // Emit the event with the selected time
+      this.$emit("selectedTimeUpdated", this.selectedTime); // Emit the event with the selected time
     },
     toggleOffCanvas() {
       this.showDatePickerOffcanvas = !this.showDatePickerOffcanvas;
     },
     handleOffcanvasToggle(value) {
-      this.$emit('bottomSheetShown', value);
+      this.$emit("bottomSheetShown", value);
     },
-  }
+  },
 };
 </script>
 
 <style scoped lang="scss">
-  .card {
-    position: absolute;
-    z-index: 999;
-    background-color: white;
-    width: 360px;
-    margin: 0 auto;
-  }
+.card {
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  margin: 0 auto;
+}
 </style>
