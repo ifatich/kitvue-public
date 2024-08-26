@@ -119,10 +119,11 @@
 <script>
 import ContentTimePicker from "./ContentTimePicker.vue";
 import Button from "../Button/Button.vue";
+import { BOffcanvas } from "bootstrap-vue-next";
 
 export default {
   name: "TimePickerResponsive",
-  components: { ContentTimePicker, Button },
+  components: { ContentTimePicker, Button, BOffcanvas },
   props: {
     title: String,
     addClass: String,
