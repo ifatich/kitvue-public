@@ -12,4 +12,9 @@
         top: 45%;
         right: -3%;
     }
+    @media only screen and (max-width: 1400px) {
+        .right-button {
+            right: -3.5%  !important;
+        }
+    }
 </style>
