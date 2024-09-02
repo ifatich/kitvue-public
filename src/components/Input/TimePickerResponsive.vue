@@ -55,7 +55,7 @@
           <Button
             class="w-100"
             type="primary"
-            size="lg"
+            size="md"
             label="Selesai"
             @click="updateSelectedTime"
           />
@@ -107,7 +107,7 @@
         <Button
           class="w-100"
           type="primary"
-          size="lg"
+          size="md"
           label="Selesai"
           @click="updateSelectedTime"
         />

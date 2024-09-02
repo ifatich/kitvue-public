@@ -150,7 +150,7 @@
         </b-form-input>
         <BDropdownItem v-for="(option, index) in filteredItems" :key="option[props.itemValue]"
           @click="handleOptionClick(option)" :id="$attrs.id + '_value_' + option[props.itemValue]">
-          <div class="d-flex justify-content-between align-items-center my-2" style="text-wrap: wrap;">
+          <div class="d-flex justify-content-between align-items-center my-3" style="text-wrap: wrap;">
             {{ option[props.itemText] }}
             <span v-if="selectedValue === option[props.itemValue]">
               <img src="../../assets/icon/icon-system/icon-check.svg" />
@@ -224,6 +224,7 @@
     .dropdown-menu {
       &.show {
         margin-top: -4px;
+        max-height: 358px !important;
       }
     }
   }
