@@ -779,7 +779,7 @@
         <div class="col-lg-6 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Table Data Basic</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -804,7 +804,7 @@
         <div class="col-lg-6 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic Coyyy</h5>
+              <h5>Data Table Basic</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -880,6 +880,25 @@
             </div>
           </div>
         </div>
+
+          <div class="col-lg-12 mt-4">
+              <div class="card">
+                  <div class="card-header">
+                      <h5>Custom Table</h5>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+
+                      <CustomTable
+                          :data="tableDataOsl2"
+                          :parent-head="tableParentHead2"
+                          :child-head="tableChildHead2"
+                          :dataFormatter="dataFormatter2"
+                      />
+                      </div>
+                  </div>
+              </div>
+          </div>
 
         <div class="col-lg-12 mt-4">
           <div class="card">
@@ -1064,6 +1083,7 @@ import ModalSlider from "./Modal/ModalSlider.vue";
 import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
 import { ref } from "vue";
+import CustomTable from "@/components/Table/CustomTable.vue";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
@@ -1082,6 +1102,318 @@ const handleFileDropped = (file) => {
 const executeFetch = () => {
   console.log("execute fetch");
 };
+
+const tableParentHead2 = [
+    {
+        key: "id",
+        label: "No",
+        row: 2,
+        tooltip: {}
+    },
+    {
+        key: "produk",
+        label: "Produk",
+        row: 2,
+        tooltip: {}
+    },
+    {
+        key: "kolektibilitas",
+        label: "KOLEKTABILITAS",
+        col: 5,
+        tooltip: {}
+    },
+    {
+        key: "totalOsl",
+        label: "Total OSL Gross",
+        row: 2,
+        tooltip: {
+            title: 'Hasil Total OSL Gross = 1 + 2 + 3 + 4 + 5',
+            show: true,
+        }
+    },
+    {
+        key: "nominal",
+        label: "Nominal NPL (7)",
+        row: 2,
+        tooltip: {}
+    },
+    {
+        key: "nplBulanIni",
+        label: "% NPL Bulan Ini",
+        row: 2,
+        tooltip: {
+            title: 'Hasil NPL Bulan Ini = (7 : 6) x 100',
+            show: true,
+        }
+    },
+    {
+        key: "nplBulanLalu",
+        label: "% NPL Bulan Lalu (9)",
+        row: 2,
+        tooltip: {}
+    },
+    {
+        key: "npmAkhirTahun",
+        label: "% NPL Akhir Tahun Lalu (10)",
+        row: 2,
+        tooltip: {}
+    },
+]
+const tableChildHead2= [
+    {
+        key: "1",
+        label: "LANCAR (1)",
+        tooltip: {}
+    },
+    {
+        key: "2",
+        label: "DPK (2)",
+        tooltip: {}
+    },
+    {
+        key: "3",
+        label: "KURANG LANCAR (3)",
+        tooltip: {}
+    },
+    {
+        key: "4",
+        label: "DIRAGUKAN (4)",
+        tooltip: {}
+    },
+    {
+        key: "5",
+        label: "MACET (5)",
+        tooltip: {}
+    }
+]
+
+const tableDataOsl2= [
+    {
+        1 : "1",
+        2 : "KCA",
+        3: "112717270000",
+        4: "99305230000",
+        5: "131295500000",
+        6: "130978720000",
+        7: "115.88",
+        8: "112.87",
+        9: "131.12",
+        10: "126.17",
+        11: "0.24",
+        12: "32.21",
+    },
+    {
+        1 : "2",
+        2 : "Emasku Ultimate Konven Arisan",
+        3: "112717270000",
+        4: "99305230000",
+        5: "131295500000",
+        6: "130978720000",
+        7: "115.88",
+        8: "112.87",
+        9: "131.12",
+        10: "96.17",
+        11: "0.24",
+        12: "29.21",
+    },
+    {
+        1 : "3",
+        2 : "Emasku sadf Konven Arisan",
+        3: "112717270000",
+        4: "99305230000",
+        5: "131295500000",
+        6: "130978720000",
+        7: "115.88",
+        8: "112.87",
+        9: "11.12",
+        10: "26.17",
+        11: "0.24",
+        12: "92.21",
+    }
+]
+
+const tableParentHead = [
+        {
+            key: "id",
+            label: "No",
+            row: 2,
+            tooltip: {}
+        },
+        {
+            key: "produk",
+            label: "Produk",
+            row: 2,
+            tooltip: {}
+        },
+        {
+            key: "realisasi-tahun-lalu",
+            label: "REALISASI TAHUN LALU",
+            col: 2,
+            tooltip: {}
+        },
+        {
+            key: "realisasi",
+            label: "REALISASI",
+            col: 2,
+            tooltip: {}
+        },
+        {
+            key: "target",
+            label: "TARGET RKAP",
+            col: 2,
+            tooltip: {}
+        },
+        {
+            key: "pencapaian",
+            label: "Pencapaian(%)",
+            col: 2,
+            tooltip: {}
+        },
+        {
+            key: "growth",
+            label: "Growth(%)",
+            col: 3,
+            tooltip: {}
+        },
+        {
+            key: "INDIKATOR",
+            label: "Indikator",
+            row: 2,
+            tooltip: {}
+        },
+    ]
+const tableChildHead= [
+        {
+            key: "1",
+            label: "Bulan Ini (1)",
+            tooltip: {}
+        },
+        {
+            key: "2",
+            label: "Akhir Tahun (2)",
+            tooltip: {}
+        },
+        {
+            key: "3",
+            label: "Bulan Ini (3)",
+            tooltip: {}
+        },
+        {
+            key: "4",
+            label: "Akhir Tahun (4)",
+            tooltip: {}
+        },
+        {
+            key: "5",
+            label: "Bulan Ini (5)",
+            tooltip: {}
+        },
+        {
+            key: "6",
+            label: "Akhir Tahun (6)",
+            tooltip: {}
+        },
+        {
+            key: "7",
+            label: "Bulan Ini",
+            tooltip: {
+                show: true,
+                title: 'Pencapaian Bulan Ini = (4 : 5)',
+            }
+        },
+        {
+            key: "8",
+            label: "Akhir Tahun",
+            tooltip: {
+                show: true,
+                title: 'Pencapaian Tahun Ini = (4 : 6)',
+            }
+        },
+        {
+            key: "9",
+            label: "MtM",
+            tooltip: {
+                show: true,
+                title: 'Month to Month = (4 : 3)-1',
+            }
+        },
+        {
+            key: "10",
+            label: "YtD",
+            tooltip: {
+                show: true,
+                title: 'Year to Date = (4 : 2)-1',
+            }
+        },
+        {
+            key: "11",
+            label: "YoY",
+            tooltip: {
+                show: true,
+                title: 'Year to Year = (4 : 1)-1',
+            }
+        },
+    ]
+
+    const tableDataOsl= [
+        {
+            1 : "1",
+            2 : "KCA",
+            3: "112717270000",
+            4: "99305230000",
+            5: "131295500000",
+            6: "130978720000",
+            7: "115.88",
+            8: "112.87",
+            9: "131.12",
+            10: "126.17",
+            11: "0.24",
+            12: "32.21",
+            13: "160.48",
+            14: "yellow",
+        },
+        {
+            1 : "2",
+            2 : "Emasku Ultimate Konven Arisan",
+            3: "112717270000",
+            4: "99305230000",
+            5: "131295500000",
+            6: "130978720000",
+            7: "115.88",
+            8: "112.87",
+            9: "131.12",
+            10: "96.17",
+            11: "0.24",
+            12: "29.21",
+            13: "96.48",
+            14: "green",
+        },
+        {
+            1 : "3",
+            2 : "Emasku sadf Konven Arisan",
+            3: "112717270000",
+            4: "99305230000",
+            5: "131295500000",
+            6: "130978720000",
+            7: "115.88",
+            8: "112.87",
+            9: "11.12",
+            10: "26.17",
+            11: "0.24",
+            12: "92.21",
+            13: "86.48",
+            14: "red",
+        }
+    ]
+const dataFormatter = {
+    hasBg : ['9','10','11','12','13'],
+    needFormat : ['3','4','5','6','7','8'],
+}
+
+const dataFormatter2= {
+    hasBg : [],
+    needFormat : [],
+}
 </script>
 
 <script>
