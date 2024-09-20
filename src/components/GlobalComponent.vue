@@ -181,23 +181,44 @@
                   Timepicker : {{ timePicker }}
                 </div>
               </div>
+              <div>
+                <BFormCheckbox
+                  id="checkbox-1"
+                  v-model="status"
+                  name="checkbox-1"
+                  value="accepted"
+                  unchecked-value="not_accepted"
+                >
+                  I accept the terms and use
+                </BFormCheckbox>
+
+                <div>
+                  State: <strong>{{ status }}</strong>
+                </div>
+              </div>
               <InputSmallText
                 id="13"
-                title="Test Judul"
+                title="Test Juduls"
                 icon="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                 iconLabel="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                 iconRight="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                 required=""
                 type="number"
               />
+
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
-                v-model="search"
-                error="ini error"
                 label="Ini Bisa Text"
               />
 
+              <InputText
+                id="ini-id"
+                placeholder="hello world!"
+                label="Ini Bisa Text"
+                disabled
+              />
+              
               <InputText
                 id="iniidnumber"
                 placeholder="Test placeholder!"
@@ -1064,6 +1085,7 @@ import ModalSlider from "./Modal/ModalSlider.vue";
 import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
 import { ref } from "vue";
+import { BFormCheckbox } from "bootstrap-vue-next";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
@@ -1082,6 +1104,7 @@ const handleFileDropped = (file) => {
 const executeFetch = () => {
   console.log("execute fetch");
 };
+const status = ref(false)
 </script>
 
 <script>

@@ -98,6 +98,7 @@
         this.$refs.wrapScrollMinutes.onscroll = this.debounce(() => this.scrollWrap('minutes'), 50);
         this.scrollToActiveItem('hours');
         this.scrollToActiveItem('minutes');
+        this.setDefaultValues();
       });
     },
     methods: {

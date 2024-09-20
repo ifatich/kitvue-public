@@ -146,11 +146,11 @@
       <div v-if="!props.useBottomSheet">
         <slot></slot>
         <b-form-input v-if="props.items && props.items.length > 10" @click.stop v-model="search"
-          :placeholder="'Cari ' + props.label.toLowerCase()" :id="$attrs.id + '_search'" class="mb-0 mt-2">
+          :placeholder="'Cari ' + props.label.toLowerCase()" :id="$attrs.id + '_search'" class="mb-0">
         </b-form-input>
         <BDropdownItem v-for="(option, index) in filteredItems" :key="option[props.itemValue]"
           @click="handleOptionClick(option)" :id="$attrs.id + '_value_' + option[props.itemValue]">
-          <div class="d-flex justify-content-between align-items-center my-3" style="text-wrap: wrap;">
+          <div class="d-flex justify-content-between align-items-center" style="text-wrap: wrap;">
             {{ option[props.itemText] }}
             <span v-if="selectedValue === option[props.itemValue]">
               <img src="../../assets/icon/icon-system/icon-check.svg" />
@@ -223,8 +223,31 @@
   .gkit-dd {
     .dropdown-menu {
       &.show {
-        margin-top: -4px;
         max-height: 358px !important;
+        li {
+          button {
+            .d-flex.justify-content-between.align-items-center{
+              margin-top: 1rem;
+              margin-bottom: 1rem;
+            }
+          }
+          &:first-child{
+            button {
+              .d-flex.justify-content-between.align-items-center{
+                margin-top: 0px !important;
+                margin-bottom: 1rem;
+              }
+            }
+          }
+          &:last-child{
+            button {
+              .d-flex.justify-content-between.align-items-center{
+                margin-top: 1rem;
+                margin-bottom: 0px !important;
+              }
+            }
+          }
+        }
       }
     }
   }
