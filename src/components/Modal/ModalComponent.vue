@@ -16,6 +16,10 @@ const props = defineProps({
   centered: {
     type: Boolean,
     default: false
+  },
+  showCloseButton: {
+    type: Boolean,
+    default: true
   }
 })
 
