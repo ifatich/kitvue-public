@@ -162,11 +162,11 @@
                 id="birthdate"
                 placeholder="sadf Tanggal Lahir"
               />
-                <TestPicker
-                    v-model="selectedDate"
-                    id="birthdate"
-                    placeholder="sadf Tanggal Lahir"
-                />
+              <TestPicker
+                  v-model="selectedDate"
+                  id="birthdate"
+                  placeholder="baru Tanggal Lahir"
+              />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
                 placeholder="Pilih Tanggal Lahir"
