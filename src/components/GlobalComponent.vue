@@ -160,8 +160,13 @@
               <InputSmallDate
                 v-model="selectedDate"
                 id="birthdate"
-                placeholder="Pilih Tanggal Lahir"
+                placeholder="sadf Tanggal Lahir"
               />
+                <TestPicker
+                    v-model="selectedDate"
+                    id="birthdate"
+                    placeholder="sadf Tanggal Lahir"
+                />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
                 placeholder="Pilih Tanggal Lahir"
@@ -1099,12 +1104,14 @@
 /* eslint-disable */
 import useScrollTo from "../hooks/useScrollTo";
 import DateRangePickerOption from "./Input/DateRangePickerOption.vue";
+import TestPicker from './Dropdown/DatePicker.vue';
 import TimePicker from "./Input/TimePicker.vue";
 import ModalSlider from "./Modal/ModalSlider.vue";
 import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
 import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
+import DatePicker from "@/components/Input/InputSmallDate.vue";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
