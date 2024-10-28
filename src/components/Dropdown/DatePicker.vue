@@ -243,6 +243,10 @@ const props = defineProps({
     addClass: {
         type: String,
     },
+    maxDate: {
+        type: String,
+        default: null,
+    },
 });
 
 const emit = defineEmits(['update:modelValue', 'update:selectedYear', 'buttomSheetShown']);
@@ -309,9 +313,15 @@ const calendar = computed(() => {
                 });
             } else {
                 const date = new Date(currentYear.value, currentMonth.value - 1, dayCount);
-                week.push({
-                    date,
-                });
+                if (props.maxDate && date > new Date(props.maxDate)) {
+                    week.push({
+                        date: null,
+                    });
+                } else {
+                    week.push({
+                        date,
+                    });
+                }
                 dayCount++;
                 hasDate = true;
             }
@@ -365,7 +375,7 @@ const showDatePicker = () => {
 };
 
 const selectDate = (day) => {
-    if (day.date) {
+    if (day.date && (!props.maxDate || day.date <= new Date(props.maxDate))) {
         const newSelectedDate = new Date(day.date);
         const dayOfMonth = newSelectedDate.getDate();
         const month = newSelectedDate.getMonth() + 1;
@@ -444,18 +454,6 @@ scrollToSelectedYear();
 
 
 <style scoped>
-.form-control {
-    cursor: pointer;
-}
-
-.custom-input-group-icon:has(.form-control:disabled) {
-    background-color: var(--g-kit-black-20);
-}
-
-.content-date {
-    position: relative;
-}
-
 .form-control {
     cursor: pointer;
 }
@@ -543,20 +541,6 @@ scrollToSelectedYear();
     font-weight: var(--g-kit-font-weight-bold);
 }
 
-.bold {
-    font-weight: 800;
-}
-
-.appearance-none {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-indent: unset;
-    text-overflow: unset;
-    font-size: var(--g-kit-font-size-lambda);
-    line-height: var(--g-kit-line-height-lambda);
-    font-weight: var(--g-kit-font-weight-bold);
-}
-
 .datepicker span {
     font-size: var(--g-kit-font-size-lambda);
     line-height: var(--g-kit-line-height-lambda);
@@ -610,10 +594,7 @@ scrollToSelectedYear();
 }
 
 .year-menu button {
-    margin-top: 18px;
-    margin-bottom: 18px;
-    margin-right: 14px;
-    margin-left: 14px;
+    margin: 18px 14px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     background-color: transparent;

@@ -165,7 +165,8 @@
                 <TestPicker
                     v-model="selectedDate"
                     id="birthdate"
-                    placeholder="sadf Tanggal Lahir"
+                    placeholder="davin Tanggal Lahir"
+                    :max-date="maxDate"
                 />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
@@ -1109,6 +1110,8 @@ const handleFileDropped = (file) => {
 const executeFetch = () => {
   console.log("execute fetch");
 };
+
+const maxDate = new Date().toISOString().split('T')[0]// Mengisi maxDate dengan tanggal hari ini
 
 const tableParentHead2 = [
     {
