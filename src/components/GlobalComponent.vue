@@ -162,11 +162,12 @@
                 id="birthdate"
                 placeholder="sadf Tanggal Lahir"
               />
-              <TestPicker
-                  v-model="selectedDate"
-                  id="birthdate"
-                  placeholder="baru Tanggal Lahir"
-              />
+                <TestPicker
+                    v-model="selectedDate"
+                    id="birthdate"
+                    placeholder="davin Tanggal Lahir"
+                    :max-date="maxDate"
+                />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
                 placeholder="Pilih Tanggal Lahir"
@@ -1130,6 +1131,10 @@ const handleFileDropped = (file) => {
 const executeFetch = () => {
   console.log("execute fetch");
 };
+const today = new Date();
+const twoWeeksAgo = new Date(today);
+twoWeeksAgo.setDate(today.getDate() - 14);
+const maxDate = twoWeeksAgo.toISOString().split('T')[0]// Mengisi maxDate dengan tanggal hari ini
 
 const tableParentHead2 = [
     {

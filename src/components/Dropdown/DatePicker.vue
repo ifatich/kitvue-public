@@ -62,10 +62,11 @@
                         formattedMonthYear
                     }}</span>
                             </div>
-                            <button @click="nextMonth">
+                            <button @click="nextMonth" :disabled="isNextMonthDisabled">
                                 <img
                                     src="../../assets/icon/icon-system/icon-chevron-right.svg"
                                     alt=""
+                                    :style="nextMonthStyle"
                                 />
                             </button>
                         </div>
@@ -243,6 +244,10 @@ const props = defineProps({
     addClass: {
         type: String,
     },
+    maxDate: {
+        type: String,
+        default: null,
+    },
 });
 
 const emit = defineEmits(['update:modelValue', 'update:selectedYear', 'buttomSheetShown']);
@@ -309,9 +314,15 @@ const calendar = computed(() => {
                 });
             } else {
                 const date = new Date(currentYear.value, currentMonth.value - 1, dayCount);
-                week.push({
-                    date,
-                });
+                if (props.maxDate && date > new Date(props.maxDate)) {
+                    week.push({
+                        date: null,
+                    });
+                } else {
+                    week.push({
+                        date,
+                    });
+                }
                 dayCount++;
                 hasDate = true;
             }
@@ -324,9 +335,32 @@ const calendar = computed(() => {
     return weeks;
 });
 
+const isNextMonthDisabled = computed(() => {
+    const selectedMonth = currentMonth.value < 12 ? currentMonth.value : 1;
+    const currentRealMonth = new Date().getMonth() + 1;
+    const currentRealYear = new Date().getFullYear();
+
+    return selectedMonth >= currentRealMonth && currentYear.value === currentRealYear;
+});
+
+const nextMonthStyle = computed(() => {
+    const selectedMonth = currentMonth.value < 12 ? currentMonth.value : 1;
+    const currentRealMonth = new Date().getMonth() + 1;
+    const currentRealYear = new Date().getFullYear();
+
+    if (selectedMonth >= currentRealMonth && currentYear.value === currentRealYear) {
+        return {
+            opacity: '50%',
+        };
+    }
+    return {
+        opacity: '100%',
+    };
+});
+
 const years = computed(() => {
     let startYear = props.selectedYear || currentYear.value;
-    startYear += 3;
+    startYear += 0;
     const endYear = props.selectedYear - 125;
     const years = [];
     for (let year = startYear; year >= endYear; year--) {
@@ -352,11 +386,7 @@ const toggleYearMenu = () => {
 const toggleOffCanvas = () => {
     showDatePickerOffcanvas.value = !showDatePickerOffcanvas.value;
     showCalendar.value = !showCalendar.value;
-    if (showDatePickerOffcanvas.value) {
-        showCalendar.value = true;
-    } else {
-        showCalendar.value = false;
-    }
+    showCalendar.value = showDatePickerOffcanvas.value;
 };
 
 const showDatePicker = () => {
@@ -365,7 +395,7 @@ const showDatePicker = () => {
 };
 
 const selectDate = (day) => {
-    if (day.date) {
+    if (day.date && (!props.maxDate || day.date <= new Date(props.maxDate))) {
         const newSelectedDate = new Date(day.date);
         const dayOfMonth = newSelectedDate.getDate();
         const month = newSelectedDate.getMonth() + 1;
@@ -442,20 +472,7 @@ const handleOffcanvasToggle = (value) => {
 scrollToSelectedYear();
 </script>
 
-
 <style scoped>
-.form-control {
-    cursor: pointer;
-}
-
-.custom-input-group-icon:has(.form-control:disabled) {
-    background-color: var(--g-kit-black-20);
-}
-
-.content-date {
-    position: relative;
-}
-
 .form-control {
     cursor: pointer;
 }
@@ -543,20 +560,6 @@ scrollToSelectedYear();
     font-weight: var(--g-kit-font-weight-bold);
 }
 
-.bold {
-    font-weight: 800;
-}
-
-.appearance-none {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-indent: unset;
-    text-overflow: unset;
-    font-size: var(--g-kit-font-size-lambda);
-    line-height: var(--g-kit-line-height-lambda);
-    font-weight: var(--g-kit-font-weight-bold);
-}
-
 .datepicker span {
     font-size: var(--g-kit-font-size-lambda);
     line-height: var(--g-kit-line-height-lambda);
@@ -610,10 +613,7 @@ scrollToSelectedYear();
 }
 
 .year-menu button {
-    margin-top: 18px;
-    margin-bottom: 18px;
-    margin-right: 14px;
-    margin-left: 14px;
+    margin: 18px 14px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     background-color: transparent;
