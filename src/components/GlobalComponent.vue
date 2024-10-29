@@ -1110,8 +1110,10 @@ const handleFileDropped = (file) => {
 const executeFetch = () => {
   console.log("execute fetch");
 };
-
-const maxDate = new Date().toISOString().split('T')[0]// Mengisi maxDate dengan tanggal hari ini
+const today = new Date();
+const twoWeeksAgo = new Date(today);
+twoWeeksAgo.setDate(today.getDate() - 14);
+const maxDate = twoWeeksAgo.toISOString().split('T')[0]// Mengisi maxDate dengan tanggal hari ini
 
 const tableParentHead2 = [
     {

@@ -62,10 +62,11 @@
                         formattedMonthYear
                     }}</span>
                             </div>
-                            <button @click="nextMonth">
+                            <button @click="nextMonth" :disabled="isNextMonthDisabled">
                                 <img
                                     src="../../assets/icon/icon-system/icon-chevron-right.svg"
                                     alt=""
+                                    :style="nextMonthStyle"
                                 />
                             </button>
                         </div>
@@ -334,9 +335,32 @@ const calendar = computed(() => {
     return weeks;
 });
 
+const isNextMonthDisabled = computed(() => {
+    const selectedMonth = currentMonth.value < 12 ? currentMonth.value : 1;
+    const currentRealMonth = new Date().getMonth() + 1;
+    const currentRealYear = new Date().getFullYear();
+
+    return selectedMonth >= currentRealMonth && currentYear.value === currentRealYear;
+});
+
+const nextMonthStyle = computed(() => {
+    const selectedMonth = currentMonth.value < 12 ? currentMonth.value : 1;
+    const currentRealMonth = new Date().getMonth() + 1;
+    const currentRealYear = new Date().getFullYear();
+
+    if (selectedMonth >= currentRealMonth && currentYear.value === currentRealYear) {
+        return {
+            opacity: '50%',
+        };
+    }
+    return {
+        opacity: '100%',
+    };
+});
+
 const years = computed(() => {
     let startYear = props.selectedYear || currentYear.value;
-    startYear += 3;
+    startYear += 0;
     const endYear = props.selectedYear - 125;
     const years = [];
     for (let year = startYear; year >= endYear; year--) {
@@ -362,11 +386,7 @@ const toggleYearMenu = () => {
 const toggleOffCanvas = () => {
     showDatePickerOffcanvas.value = !showDatePickerOffcanvas.value;
     showCalendar.value = !showCalendar.value;
-    if (showDatePickerOffcanvas.value) {
-        showCalendar.value = true;
-    } else {
-        showCalendar.value = false;
-    }
+    showCalendar.value = showDatePickerOffcanvas.value;
 };
 
 const showDatePicker = () => {
@@ -451,7 +471,6 @@ const handleOffcanvasToggle = (value) => {
 
 scrollToSelectedYear();
 </script>
-
 
 <style scoped>
 .form-control {
