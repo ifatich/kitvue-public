@@ -158,10 +158,11 @@
                           formattedMonthYear
                       }}</span>
                                 </div>
-                                <button @click="nextMonth">
+                                <button @click="nextMonth" :disabled="isNextMonthDisabled">
                                     <img
                                         src="../../assets/icon/icon-system/icon-chevron-right.svg"
                                         alt=""
+                                        :style="nextMonthStyle"
                                     />
                                 </button>
                             </div>
