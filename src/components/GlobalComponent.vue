@@ -402,7 +402,11 @@
               </p>
             </div>
             <div class="card-body">
-              <FilePickerLG />
+              <FilePickerLG @fileSelected="handleFileSelected" :showPreview="false" />
+              <FilePickerLG @fileSelected="handleFileSelected" />
+              <div v-if="selectedFile && selectedFile.fileName" class="file-name-text">
+                  <p>Selected File: {{ selectedFile.fileName }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1532,6 +1536,7 @@ export default {
   },
   data() {
     return {
+      selectedFile: null,
       //untuk InputTimePicker
       selectedTime: "",
       selectedTimes: "",
@@ -1901,6 +1906,9 @@ export default {
     handleSelectedTime(time) {
       this.selectedTimes = time;
     },
+    handleFileSelected(fileData) {
+      this.selectedFile = fileData;
+    }
   },
 };
 </script>
