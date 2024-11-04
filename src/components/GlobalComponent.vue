@@ -227,6 +227,38 @@
               
               <InputText
                 id="iniidnumber"
+                color="red"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
+                color="green"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
+                color="blue"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
+                color="orange"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
                 placeholder="Test placeholder!"
                 v-model="number"
                 label="Ini Number Only"
@@ -282,6 +314,50 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="red"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="green"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="blue"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="orange"
               />
               <p>Selected: {{ nilaiTerpilih }}</p>
 
@@ -402,8 +478,9 @@
               </p>
             </div>
             <div class="card-body">
-              <FilePickerLG @fileSelected="handleFileSelected" :showPreview="false" />
-              <FilePickerLG @fileSelected="handleFileSelected" />
+              <FilePickerLG v-model="selectedFile" :showPreview="false" errorText="ini text eror props"/>
+              <FilePickerLG v-model="selectedFile"/>
+
               <div v-if="selectedFile && selectedFile.fileName" class="file-name-text">
                   <p>Selected File: {{ selectedFile.fileName }}</p>
               </div>
@@ -1060,6 +1137,17 @@
                 :use-bottom-sheet="true"
               />
 
+              <InputCamera 
+                :compressionMaxKb="1024" 
+                title="Upload Foto Anda"
+                uniqueKey="userPhoto"
+                imagePlaceholder="idcard"
+                useBottomSheet
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+              />
+
               <p>{{ generatedFileName }}</p>
               <p>{{ receivedImgFile }}</p>
             </div>
@@ -1116,7 +1204,6 @@ import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
 import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
-import DatePicker from "@/components/Input/InputSmallDate.vue";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
@@ -1128,13 +1215,16 @@ const showModal = ref(false);
 const showPicker = ref(false);
 
 const handleFileDropped = (file) => {
-  // myFileSrc.value = file
   console.log("file droppped", file);
 };
 
 const executeFetch = () => {
   console.log("execute fetch");
 };
+
+// const selectedFile = ref(null);
+// const fileError = ref('');
+
 const today = new Date();
 const twoWeeksAgo = new Date(today);
 twoWeeksAgo.setDate(today.getDate() - 14);
@@ -1537,6 +1627,7 @@ export default {
   data() {
     return {
       selectedFile: null,
+      fileError: '',  // pastikan deklarasi di sini
       //untuk InputTimePicker
       selectedTime: "",
       selectedTimes: "",
@@ -1907,8 +1998,20 @@ export default {
       this.selectedTimes = time;
     },
     handleFileSelected(fileData) {
-      this.selectedFile = fileData;
-    }
+      // Handle file selection and error checking
+      if (fileData && fileData.fileName) {
+          const fileSize = this.$refs.filePicker.$refs.file.files[0].size;
+          if (fileSize > 1048576) { // Check if file size exceeds 1MB
+              this.selectedFile = null;
+          } else {
+              this.fileError = '';
+              this.selectedFile = fileData;
+          }
+      } else {
+          this.selectedFile = null;
+          this.fileError = '';
+      }
+    },
   },
 };
 </script>

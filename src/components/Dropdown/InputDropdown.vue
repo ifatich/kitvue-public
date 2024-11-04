@@ -40,6 +40,10 @@
       type: Boolean,
       default: true
     },
+    color: {
+			type: String,
+			default: 'default'
+		},
     error: String,
     label: String,
     items: Array,
@@ -116,7 +120,7 @@
         src="../../assets/icon/refresh.svg" />
     </div>
     <BDropdown :value="selectedValue"
-      toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
+      :toggle-class="['w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]"
       class="prevent-zero gkit-dd" v-bind="$attrs" :disabled="disabled || loading" @toggle="handleShown"
       :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}">
       <template #button-content>
@@ -273,5 +277,23 @@
 
   .icon-dropdown {
     transition: all 0.2s;
+  }
+  .type-{
+    &red {
+      border: 1px solid var(--g-kit-red-50) !important;
+      background-color: var(--g-kit-red-10) !important;
+    }
+    &green {
+      border: 1px solid var(--g-kit-lime-50) !important;
+      background-color: var(--g-kit-lime-10) !important;
+    }
+    &blue {
+      border: 1px solid var(--g-kit-blue-50) !important;
+      background-color: var(--g-kit-blue-10) !important;
+    }
+    &orange {
+      border: 1px solid var(--g-kit-orange-50) !important;
+      background-color: var(--g-kit-orange-10) !important;
+    }
   }
 </style>

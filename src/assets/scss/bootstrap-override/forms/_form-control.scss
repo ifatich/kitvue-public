@@ -17,4 +17,23 @@
         background-size: 18px 18px;
         padding-right: 34px;
     }
+
+    &.type-{
+        &red {
+            border: 1px solid var(--g-kit-red-50) !important;
+            background-color: var(--g-kit-red-10);
+        }
+        &green {
+            border: 1px solid var(--g-kit-lime-50) !important;
+            background-color: var(--g-kit-lime-10);
+        }
+        &blue {
+            border: 1px solid var(--g-kit-blue-50) !important;
+            background-color: var(--g-kit-blue-10);
+        }
+        &orange {
+            border: 1px solid var(--g-kit-orange-50) !important;
+            background-color: var(--g-kit-orange-10);
+        }
+    }
 }
