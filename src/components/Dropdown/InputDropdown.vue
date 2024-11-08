@@ -126,7 +126,7 @@
       <template #button-content>
         <slot name="button-content">
           <p
-            class="overflow-hidden my-auto text-ellipsis"
+            class="dropdown-placeholder overflow-hidden my-auto text-ellipsis"
             :style="[
               selectedText ? 'color: #252528 !important' : '',
               !selectedText ? 'color: #939597 !important' : '',
@@ -253,6 +253,11 @@
           }
         }
       }
+    }
+    .dropdown-placeholder {
+      font-size: var(--g-kit-font-size-omicron);
+      line-height: var(--g-kit-line-height-omicron);
+      font-weight: var(--g-kit-font-weight-normal);
     }
   }
 
