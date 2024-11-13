@@ -1,13 +1,13 @@
 <template>
     <div class="radio-container">
-      <b-form-group v-for="(item, index) in items" :key="index" class="radio-column">
-        <label class="radio-content">
-          <b-form-radio :value="item.value" v-model="radioValue" >{{ item.text }}</b-form-radio>
-        </label>
-      </b-form-group>
+        <b-form-group v-for="(item, index) in items" :key="index" class="radio-column">
+            <label class="radio-content">
+                <b-form-radio :value="item.value" v-model="radioValue">{{ item.text }}</b-form-radio>
+            </label>
+        </b-form-group>
     </div>
-  </template>
-  
+</template>
+
 
 <script>
     export default {
@@ -55,9 +55,17 @@
         gap: 1rem;
         width: 100%;
 
-        .radio-column { /* New class for styling each column */
-    width: 50%; /* Set width to 50% for two columns */
-  }
+        .radio-content:hover {
+            color: var(--g-kit-lime-50);
+            background-color: var(--g-kit-lime-10);
+            border-color: var(--g-kit-lime-50);
+        }
+
+        .radio-column {
+            /* New class for styling each column */
+            width: 50%;
+            /* Set width to 50% for two columns */
+        }
 
         label {
             cursor: pointer;

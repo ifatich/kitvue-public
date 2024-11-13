@@ -1011,7 +1011,7 @@
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Stepper</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -1027,7 +1027,7 @@
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Radio Button</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -1035,8 +1035,10 @@
               </p>
             </div>
             <div class="card-body">
-              <StepperRadio />
-              <h1>{{ activeStep }}</h1>
+              <RadioComponent
+                :items="radioItems"
+                v-model="selectedRadio"
+              />
             </div>
           </div>
         </div>
@@ -1044,7 +1046,7 @@
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Stepper Varian</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -1583,6 +1585,8 @@ import DateRangePicker from "./Input/DateRangePicker.vue";
 import InputCamera from "./Input/InputCamera.vue";
 import TabPembinaan from "./Navbar/TabPembinaan.vue";
 
+import RadioComponent from "./Radio/Radio.vue"
+
 export default {
   name: "App",
   components: {
@@ -1623,9 +1627,17 @@ export default {
     TabPembinaan,
     InputTimePicker,
     TimePickerResponsive,
+    RadioComponent,
   },
   data() {
     return {
+      selectedRadio: null, // Nilai yang dipilih dari radio
+      radioItems: [
+        { value: 'option1', text: 'Option 1' },
+        { value: 'option2', text: 'Option 2' },
+        { value: 'option3', text: 'Option 3' },
+        { value: 'option4', text: 'Option 4' },
+      ],
       selectedFile: null,
       fileError: '',  // pastikan deklarasi di sini
       //untuk InputTimePicker
