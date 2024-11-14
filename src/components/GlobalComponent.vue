@@ -324,6 +324,17 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+                disabled
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
                 color="red"
               />
               <Dropdown
@@ -478,10 +489,21 @@
               </p>
             </div>
             <div class="card-body">
-              <FilePickerLG v-model="selectedFile" :showPreview="false" errorText="ini text eror props"/>
-              <FilePickerLG v-model="selectedFile"/>
+              <FilePickerLG 
+                v-model="selectedFile" 
+                :showPreview="false" 
+                errorText="ini text eror props"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+              />
+              <FilePickerLG v-model="selectedFile"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+              />
 
-              <div v-if="selectedFile && selectedFile.fileName" class="file-name-text">
+              <div v-if="selectedFile && selectedFile.fileName">
                   <p>Selected File: {{ selectedFile.fileName }}</p>
               </div>
             </div>
@@ -1066,6 +1088,28 @@
                 </template>
               </SideStepper>
 
+              <SideStepper 
+                title="Langkah"
+                :labels="dropdownItemss"
+                variant="dua"
+                :accordions="accordionData"
+                :activeLabel="activeLabel"
+                @update:activeLabel="handleLabelClick"
+              >
+                <template #1>
+                    <StepperComponents :activeStep="1" />
+                </template>
+                <template #2>
+                    <StepperComponents :activeStep="2" />
+                </template>
+                <template #3>
+                    <StepperComponents :activeStep="3" />
+                </template>
+                <template #4>
+                    <StepperComponents :activeStep="4" />
+                </template>
+              </SideStepper>
+
               <SideStepperTest title="Langkah" :labels="dropdownItems">
                 <template v-slot:1>
                   <StepperComponents :activeStep="1" />
@@ -1631,6 +1675,30 @@ export default {
   },
   data() {
     return {
+      activeLabel: null,
+      dropdownItemss: [
+          { id: 1, label: 'Step 1', completed: false },
+          { id: 2, label: 'Step 2', completed: false },
+          { id: 3, label: 'Step 3', completed: false },
+          { id: 4, label: 'Step 4', completed: false }
+      ],
+      accordionData: [
+        {
+          header: 'Accordion 1',
+          labels: [
+            { id: 1, label: 'Trigger Step 1', completed: false },
+            { id: 2, label: 'Trigger Step 2', completed: false }
+          ]
+        },
+        {
+          header: 'Accordion 2',
+          labels: [
+            { id: 3, label: 'Trigger Step 3', completed: false },
+            { id: 4, label: 'Trigger Step 4', completed: false }
+          ]
+        }
+      ],
+      
       selectedRadio: null, // Nilai yang dipilih dari radio
       radioItems: [
         { value: 'option1', text: 'Option 1' },
@@ -2024,6 +2092,9 @@ export default {
           this.fileError = '';
       }
     },
+    handleLabelClick(id) {
+      this.activeLabel = id;
+    }
   },
 };
 </script>

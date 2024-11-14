@@ -55,6 +55,12 @@
         gap: 1rem;
         width: 100%;
 
+        .radio-content{
+            .form-check {
+                margin-bottom: 0px;
+            }
+        }
+
         .radio-content:hover {
             color: var(--g-kit-lime-50);
             background-color: var(--g-kit-lime-10);
@@ -73,22 +79,29 @@
             display: flex;
             align-items: center;
 
-            padding: 1rem;
+            padding: 11px;
             border: 1px solid var(--g-kit-black-20);
             background-color: white;
             border-radius: 6px;
 
             font-size: var(--g-kit-font-size-omicron);
             line-height: var(--g-kit-line-height-omicron);
-            font-weight: var(--g-kit-font-weight-bold);
-            color: var(--g-kit-black-50);
-
-            margin-bottom: 1rem;
+            font-weight: var(--g-kit-font-weight-regular);
+            color: var(--g-kit-black-80);
 
             &:has(input:checked) {
                 color: var(--g-kit-lime-50);
                 background-color: var(--g-kit-lime-10);
                 border-color: var(--g-kit-lime-50);
+            }
+        }
+    }
+    @media only screen and (max-width: 600px) {
+        .radio-container {
+            display: grid;
+
+            .radio-column {
+                width: 100%;
             }
         }
     }

@@ -120,7 +120,7 @@
         src="../../assets/icon/refresh.svg" />
     </div>
     <BDropdown :value="selectedValue"
-      :toggle-class="['w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]"
+      :toggle-class="['w-100 gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]"
       class="prevent-zero gkit-dd" v-bind="$attrs" :disabled="disabled || loading" @toggle="handleShown"
       :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}">
       <template #button-content>
@@ -129,7 +129,7 @@
             class="dropdown-placeholder overflow-hidden my-auto text-ellipsis"
             :style="[
               selectedText ? 'color: #252528 !important' : '',
-              !selectedText ? 'color: #939597 !important' : '',
+              !selectedText ? 'color: #939597' : '',
             ]"
           >
             {{ selectedText || props.placeholder }}
@@ -252,6 +252,11 @@
             }
           }
         }
+      }
+    }
+    .disabled {
+      .dropdown-placeholder {
+        color: var(--g-kit-black-60) !important;
       }
     }
     .dropdown-placeholder {
