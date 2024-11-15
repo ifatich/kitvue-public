@@ -497,6 +497,16 @@
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
               />
+              <FilePickerLG
+                v-model="selectedFile"
+                :showPreview="false"
+                file="https://study.com/cimages/multimages/16/fbaddressbar8652080276605805209.png"
+                errorText="ini text eror props"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @showUrlData="handleShowFile"
+                @errorPermission="handleErrorPermission"
+              />
               <FilePickerLG v-model="selectedFile"
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
@@ -2054,6 +2064,9 @@ export default {
     };
   },
   methods: {
+    handleShowFile(item) {
+      console.log("data", item);
+    },
     handleRowClick(item) {
       console.log("Row clicked:", item);
     },
