@@ -256,13 +256,18 @@
     }
     .disabled {
       .dropdown-placeholder {
-        color: var(--g-kit-black-60) !important;
+        color: var(--g-kit-black-50) !important;
       }
     }
     .dropdown-placeholder {
       font-size: var(--g-kit-font-size-omicron);
       line-height: var(--g-kit-line-height-omicron);
       font-weight: var(--g-kit-font-weight-normal);
+    }
+    .btn.disabled {
+      background-color: var(--g-kit-black-20);
+      opacity: 1;
+      border: 0px;
     }
   }
 
