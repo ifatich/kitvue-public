@@ -61,6 +61,7 @@
   const search = ref('')
   const shown = ref(false)
   const shownOffcanvas = ref(false)
+  const dropdownRef = ref(null)
 
   const handleShown = () => {
     if (!props.useBottomSheet) shown.value = !shown.value
@@ -108,6 +109,10 @@
   const handleOffcanvasToggle = (value) => {
     emit('buttomSheetShown', value)
   }
+
+  defineExpose({
+    dropdownRef
+  })
 </script>
 
 <template>
@@ -119,8 +124,8 @@
       <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh"
         src="../../assets/icon/refresh.svg" />
     </div>
-    <BDropdown :value="selectedValue"
-      :toggle-class="['w-100 gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]"
+    <BDropdown ref="dropdownRef" :value="selectedValue"
+      toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
       class="prevent-zero gkit-dd" v-bind="$attrs" :disabled="disabled || loading" @toggle="handleShown"
       :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}">
       <template #button-content>
