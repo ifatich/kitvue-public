@@ -165,7 +165,8 @@
                 <TestPicker
                     v-model="selectedDate"
                     id="birthdate"
-                    placeholder="sadf Tanggal Lahir"
+                    placeholder="davin Tanggal Lahir"
+                    :max-date="maxDate"
                 />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
@@ -186,23 +187,76 @@
                   Timepicker : {{ timePicker }}
                 </div>
               </div>
+              <div>
+                <BFormCheckbox
+                  id="checkbox-1"
+                  v-model="status"
+                  name="checkbox-1"
+                  value="accepted"
+                  unchecked-value="not_accepted"
+                >
+                  I accept the terms and use
+                </BFormCheckbox>
+
+                <div>
+                  State: <strong>{{ status }}</strong>
+                </div>
+              </div>
               <InputSmallText
                 id="13"
-                title="Test Judul"
+                title="Test Juduls"
                 icon="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                 iconLabel="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                 iconRight="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/WhatsApp_icon.png/640px-WhatsApp_icon.png"
                 required=""
                 type="number"
               />
+
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
-                v-model="search"
-                error="ini error"
                 label="Ini Bisa Text"
               />
 
+              <InputText
+                id="ini-id"
+                placeholder="hello world!"
+                label="Ini Bisa Text"
+                disabled
+              />
+              
+              <InputText
+                id="iniidnumber"
+                color="red"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
+                color="green"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
+                color="blue"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+              <InputText
+                id="iniidnumber"
+                color="orange"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
               <InputText
                 id="iniidnumber"
                 placeholder="Test placeholder!"
@@ -260,6 +314,61 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                disabled
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="red"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="green"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="blue"
+              />
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
+                color="orange"
               />
               <p>Selected: {{ nilaiTerpilih }}</p>
 
@@ -380,7 +489,33 @@
               </p>
             </div>
             <div class="card-body">
-              <FilePickerLG />
+              <FilePickerLG 
+                v-model="selectedFile" 
+                :showPreview="false" 
+                errorText="ini text eror props"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+              />
+              <FilePickerLG
+                v-model="selectedFile"
+                :showPreview="false"
+                file="https://study.com/cimages/multimages/16/fbaddressbar8652080276605805209.png"
+                errorText="ini text eror props"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @showUrlData="handleShowFile"
+                @errorPermission="handleErrorPermission"
+              />
+              <FilePickerLG v-model="selectedFile"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+              />
+
+              <div v-if="selectedFile && selectedFile.fileName">
+                  <p>Selected File: {{ selectedFile.fileName }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -908,7 +1043,7 @@
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Stepper</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -924,7 +1059,7 @@
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Radio Button</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -932,8 +1067,10 @@
               </p>
             </div>
             <div class="card-body">
-              <StepperRadio />
-              <h1>{{ activeStep }}</h1>
+              <RadioComponent
+                :items="radioItems"
+                v-model="selectedRadio"
+              />
             </div>
           </div>
         </div>
@@ -941,7 +1078,7 @@
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Table Basic</h5>
+              <h5>Stepper Varian</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -958,6 +1095,29 @@
                 </template>
                 <template v-slot:3>
                   <StepperComponents :activeStep="3" />
+                </template>
+              </SideStepper>
+
+              <SideStepper 
+                title="Test Side Step Variant"
+                :labels="dropdownItemss"
+                variant="dua"
+                :accordions="accordionData"
+                :activeLabel="activeLabel"
+                @update:activeLabel="handleLabelClick"
+                class= "mb-4 mt-4"
+              >
+                <template #1>
+                    <StepperComponents :activeStep="1" />
+                </template>
+                <template #2>
+                    <StepperComponents :activeStep="2" />
+                </template>
+                <template #3>
+                    <StepperComponents :activeStep="3" />
+                </template>
+                <template #4>
+                    <StepperComponents :activeStep="4" />
                 </template>
               </SideStepper>
 
@@ -1034,6 +1194,17 @@
                 :use-bottom-sheet="true"
               />
 
+              <InputCamera 
+                :compressionMaxKb="1024" 
+                title="Upload Foto Anda"
+                uniqueKey="userPhoto"
+                imagePlaceholder="idcard"
+                useBottomSheet
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+              />
+
               <p>{{ generatedFileName }}</p>
               <p>{{ receivedImgFile }}</p>
             </div>
@@ -1090,7 +1261,6 @@ import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
 import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
-import DatePicker from "@/components/Input/InputSmallDate.vue";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
@@ -1102,13 +1272,20 @@ const showModal = ref(false);
 const showPicker = ref(false);
 
 const handleFileDropped = (file) => {
-  // myFileSrc.value = file
   console.log("file droppped", file);
 };
 
 const executeFetch = () => {
   console.log("execute fetch");
 };
+
+// const selectedFile = ref(null);
+// const fileError = ref('');
+
+const today = new Date();
+const twoWeeksAgo = new Date(today);
+twoWeeksAgo.setDate(today.getDate() - 14);
+const maxDate = twoWeeksAgo.toISOString().split('T')[0]// Mengisi maxDate dengan tanggal hari ini
 
 const tableParentHead2 = [
     {
@@ -1463,6 +1640,8 @@ import DateRangePicker from "./Input/DateRangePicker.vue";
 import InputCamera from "./Input/InputCamera.vue";
 import TabPembinaan from "./Navbar/TabPembinaan.vue";
 
+import RadioComponent from "./Radio/Radio.vue"
+
 export default {
   name: "App",
   components: {
@@ -1503,9 +1682,50 @@ export default {
     TabPembinaan,
     InputTimePicker,
     TimePickerResponsive,
+    RadioComponent,
   },
   data() {
     return {
+      activeLabel: null,
+      dropdownItemss: [
+          { id: 1, label: 'Step 1', completed: false },
+          { id: 2, label: 'Step 2', completed: false },
+          { id: 3, label: 'Step 3', completed: false },
+          { id: 4, label: 'Step 4', completed: false }
+      ],
+      accordionData: [
+        {
+          header: 'Accordion 1',
+          labels: [
+            { id: 1, label: 'Trigger 1', completed: false },
+            { id: 2, label: 'Trigger 2', completed: false }
+          ]
+        },
+        {
+          header: 'Accordion 2',
+          labels: [
+            { id: 3, label: 'Trigger 3', completed: false },
+            { id: 4, label: 'Trigger 4', completed: false }
+          ]
+        },
+        {
+          header: 'Accordion 3',
+          labels: [
+            { id: 3, label: 'Trigger 3', completed: false },
+            { id: 4, label: 'Trigger 4', completed: false }
+          ]
+        }
+      ],
+      
+      selectedRadio: null, // Nilai yang dipilih dari radio
+      radioItems: [
+        { value: 'option1', text: 'Option 1' },
+        { value: 'option2', text: 'Option 2' },
+        { value: 'option3', text: 'Option 3' },
+        { value: 'option4', text: 'Option 4' },
+      ],
+      selectedFile: null,
+      fileError: '',  // pastikan deklarasi di sini
       //untuk InputTimePicker
       selectedTime: "",
       selectedTimes: "",
@@ -1844,6 +2064,9 @@ export default {
     };
   },
   methods: {
+    handleShowFile(item) {
+      console.log("data", item);
+    },
     handleRowClick(item) {
       console.log("Row clicked:", item);
     },
@@ -1875,6 +2098,24 @@ export default {
     handleSelectedTime(time) {
       this.selectedTimes = time;
     },
+    handleFileSelected(fileData) {
+      // Handle file selection and error checking
+      if (fileData && fileData.fileName) {
+          const fileSize = this.$refs.filePicker.$refs.file.files[0].size;
+          if (fileSize > 1048576) { // Check if file size exceeds 1MB
+              this.selectedFile = null;
+          } else {
+              this.fileError = '';
+              this.selectedFile = fileData;
+          }
+      } else {
+          this.selectedFile = null;
+          this.fileError = '';
+      }
+    },
+    handleLabelClick(id) {
+      this.activeLabel = id;
+    }
   },
 };
 </script>

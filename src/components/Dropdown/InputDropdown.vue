@@ -40,6 +40,10 @@
       type: Boolean,
       default: true
     },
+    color: {
+			type: String,
+			default: 'default'
+		},
     error: String,
     label: String,
     items: Array,
@@ -127,10 +131,10 @@
       <template #button-content>
         <slot name="button-content">
           <p
-            class="overflow-hidden my-auto text-ellipsis"
+            class="dropdown-placeholder overflow-hidden my-auto text-ellipsis"
             :style="[
               selectedText ? 'color: #252528 !important' : '',
-              !selectedText ? 'color: #939597 !important' : '',
+              !selectedText ? 'color: #939597' : '',
             ]"
           >
             {{ selectedText || props.placeholder }}
@@ -151,11 +155,11 @@
       <div v-if="!props.useBottomSheet">
         <slot></slot>
         <b-form-input v-if="props.items && props.items.length > 10" @click.stop v-model="search"
-          :placeholder="'Cari ' + props.label.toLowerCase()" :id="$attrs.id + '_search'" class="mb-0 mt-2">
+          :placeholder="'Cari ' + props.label.toLowerCase()" :id="$attrs.id + '_search'" class="mb-0">
         </b-form-input>
         <BDropdownItem v-for="(option, index) in filteredItems" :key="option[props.itemValue]"
           @click="handleOptionClick(option)" :id="$attrs.id + '_value_' + option[props.itemValue]">
-          <div class="d-flex justify-content-between align-items-center my-3" style="text-wrap: wrap;">
+          <div class="d-flex justify-content-between align-items-center" style="text-wrap: wrap;">
             {{ option[props.itemText] }}
             <span v-if="selectedValue === option[props.itemValue]">
               <img src="../../assets/icon/icon-system/icon-check.svg" />
@@ -228,9 +232,47 @@
   .gkit-dd {
     .dropdown-menu {
       &.show {
-        margin-top: -4px;
         max-height: 358px !important;
+        li {
+          button {
+            .d-flex.justify-content-between.align-items-center{
+              margin-top: 1rem;
+              margin-bottom: 1rem;
+            }
+          }
+          &:first-child{
+            button {
+              .d-flex.justify-content-between.align-items-center{
+                margin-top: 0px !important;
+                margin-bottom: 1rem;
+              }
+            }
+          }
+          &:last-child{
+            button {
+              .d-flex.justify-content-between.align-items-center{
+                margin-top: 1rem;
+                margin-bottom: 0px !important;
+              }
+            }
+          }
+        }
       }
+    }
+    .disabled {
+      .dropdown-placeholder {
+        color: var(--g-kit-black-50) !important;
+      }
+    }
+    .dropdown-placeholder {
+      font-size: var(--g-kit-font-size-omicron);
+      line-height: var(--g-kit-line-height-omicron);
+      font-weight: var(--g-kit-font-weight-normal);
+    }
+    .btn.disabled {
+      background-color: var(--g-kit-black-20);
+      opacity: 1;
+      border: 0px;
     }
   }
 
@@ -255,5 +297,23 @@
 
   .icon-dropdown {
     transition: all 0.2s;
+  }
+  .type-{
+    &red {
+      border: 1px solid var(--g-kit-red-50) !important;
+      background-color: var(--g-kit-red-10) !important;
+    }
+    &green {
+      border: 1px solid var(--g-kit-lime-50) !important;
+      background-color: var(--g-kit-lime-10) !important;
+    }
+    &blue {
+      border: 1px solid var(--g-kit-blue-50) !important;
+      background-color: var(--g-kit-blue-10) !important;
+    }
+    &orange {
+      border: 1px solid var(--g-kit-orange-50) !important;
+      background-color: var(--g-kit-orange-10) !important;
+    }
   }
 </style>
