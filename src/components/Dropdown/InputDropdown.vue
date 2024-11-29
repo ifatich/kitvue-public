@@ -125,7 +125,7 @@
         src="../../assets/icon/refresh.svg" />
     </div>
     <BDropdown ref="dropdownRef" :value="selectedValue"
-      toggle-class="w-100 btn-neutral gkit-dd d-flex justify-content-between align-items-center"
+      :toggle-class="['w-100 gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]"
       class="prevent-zero gkit-dd" v-bind="$attrs" :disabled="disabled || loading" @toggle="handleShown"
       :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}">
       <template #button-content>
