@@ -170,7 +170,7 @@
       <BOffcanvas v-if="props.useBottomSheet && showMenu === true" v-model="shownOffcanvas" placement="bottom"
         bodyScrolling="true" @shown="handleOffcanvasToggle(true)" @hidden="handleOffcanvasToggle(false)"
         class="input-dropdown" :class="props.items && props.items.length > 10 ? 'full-height' : 'content-height'">
-        <template #title>{{ props.label }}</template>
+        <template #title>Pilih {{ props.label }}</template>
         <b-form-input v-if="props.items && props.items.length > 10" @click.stop v-model="search"
           :placeholder="'Cari ' + props.label.toLowerCase()" :id="$attrs.id + '_search'" style="margin-top: 15px;">
         </b-form-input>
