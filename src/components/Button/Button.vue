@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-center align-items-center">
         <BSpinner v-if="loading" class="me-1" :small="size === 'sm' || size==='md'" />
         <div v-if="icon" :small="size === 'sm' || size==='md'">
-          <slot name="icon" ></slot>
+          <slot v-if="icon" name="icon" ></slot>
           &nbsp;
         </div>
         <span>{{ label }}</span>
@@ -26,7 +26,7 @@
             },
             icon: {
               type: Boolean,
-              default: true
+              default: false
             },
             disabled: {
               type: Boolean,

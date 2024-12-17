@@ -65,42 +65,45 @@
               </p>
             </div>
             <div class="card-body">
-              <Button
-                class="me-2 mb-2"
-                type="primary"
-                size="md"
-                label="Button Primary"
-                loading
-              />
-              <Button
-                class="me-2 mb-2"
-                type="secondary"
-                size="md"
-                label="Button Seccondary"
-                icon
-              >
-                <template #icon>
-                  <img src="path/to/icon.svg" />
-                </template>
-              </Button>
-              <Button
-                class="me-2 mb-2"
-                type="neutral"
-                size="md"
-                label="Button Neutral"
-              />
-              <Button
-                class="me-2 mb-2"
-                type="tertiary"
-                size="md"
-                label="Button Tertiary"
-              />
-              <Button
-                class="me-2 mb-2"
-                type="link"
-                size="md"
-                label="Button Link"
-              />
+              <div class="d-flex flex-wrap gap-3">
+                <Button
+                  type="primary"
+                  size="sm"
+                  label="Button Primary"
+                  loading
+                />
+                <Button
+                  type="secondary"
+                  size="md"
+                  label="Button Seccondary"
+                  icon
+                >
+                  <template #icon>
+                    <img src="path/to/icon.svg" />
+                  </template>
+                </Button>
+                <Button
+                  type="neutral"
+                  size="lg"
+                  label="Button Neutral"
+                  icon
+                />
+                <Button
+                  type="neutral"
+                  size="xl"
+                  label="Button Neutral"
+                />
+                <Button
+                  type="tertiary"
+                  size="md"
+                  label="Button Tertiary"
+                />
+                <Button
+                  type="link"
+                  size="md"
+                  label="Button Link"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -301,6 +304,13 @@
                 id="input-rupiah"
                 label="Input Rupiah"
                 v-model="rupiah"
+              />
+
+              <InputNominal
+                id="input-rupiah"
+                label="Input Rupiah"
+                v-model="rupiah"
+                disabled
               />
               {{ rupiah }}
               <InputPersen id="15" title="Persentase DP" required="" />

@@ -51,6 +51,7 @@ const onlyNumber = (event) => {
 
 <template>
   <InputText
+    rupiah="rupiah"
     v-model="rupiahValue"
     @keydown="onlyNumber"
     :placeholder="props.placeholder || 'Masukkan rupiah'"
@@ -62,3 +63,36 @@ const onlyNumber = (event) => {
     </template>
   </InputText>
 </template>
+
+<style lang="scss">
+  .rupiah.custom-input-group-icon{
+    position: relative;
+    border: 1px solid var(--g-kit-black-20);
+
+    &:hover {
+      border: 1px solid var(--g-kit-lime-50);
+    }
+
+    .input-group-text{
+      height: 46px;
+    }
+
+    input {
+      box-shadow: none !important;
+      border: none !important;
+      border-radius: 6px;
+
+      &:disabled {
+        border-color: var(--g-kit-black-20);
+      }
+    }
+  }
+
+  .rupiah.custom-input-group-icon:has(input:disabled) {
+    border-color: var(--g-kit-black-20);
+
+    &:hover {
+      border-color: var(--g-kit-black-20);
+    }
+  }
+</style>
