@@ -4,7 +4,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -14,8 +16,7 @@
     "datatables.net": "^1.13.8",
     "datatables.net-dt": "^1.13.8",
     "datatables.net-responsive-dt": "^2.5.0",
-    "sass": "^1.69.7",
-    "sass-loader": "^13.3.3",
+    "kitvue": "git+https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue.git",
     "user": "^0.0.0",
     "vue": "^3.4.7",
     "vue-router": "^4.2.5",
@@ -24,11 +25,30 @@
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@chromatic-com/storybook": "^3.2.2",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-onboarding": "^8.4.7",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/test": "^8.4.7",
+    "@storybook/vue3": "^8.4.7",
+    "@storybook/vue3-webpack5": "^8.4.7",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "@vue/compiler-sfc": "^3.5.13",
+    "css-loader": "^7.1.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-storybook": "^0.11.1",
+    "eslint-plugin-vue": "^8.0.3",
+    "sass": "^1.83.0",
+    "sass-loader": "^16.0.4",
+    "storybook": "^8.4.7",
+    "style-loader": "^4.0.0",
+    "vite-svg-loader": "^5.1.0",
+    "vue-loader": "^17.3.1",
+    "vue-svg-loader": "^0.16.0"
   },
   "eslintConfig": {
     "root": true,
@@ -37,7 +57,8 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:storybook/recommended"
     ],
     "parserOptions": {
       "parser": "@babel/eslint-parser"

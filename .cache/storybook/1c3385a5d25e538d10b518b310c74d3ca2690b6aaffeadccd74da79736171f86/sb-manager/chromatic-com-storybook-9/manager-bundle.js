@@ -1,0 +1,1 @@
+import '/Users/poj/Documents/Pegadaian/pegadaian-ui-kit-vue/node_modules/@chromatic-com/storybook/dist/manager.mjs';

@@ -35,6 +35,7 @@
             label="Button Seccondary"
           />
         </template>
+       
         <template #profil>
           <Button class="me-2 mb-2" type="link" size="md" label="Button Link" />
           <Button
@@ -117,6 +118,7 @@
               </p>
             </div>
             <div class="card-body">
+             
               <Alert color="success" label="Lorem ipsum dolor sit amet" />
               <Alert color="info" label="Lorem ipsum dolor sit amet" />
               <Alert color="warning" label="Lorem ipsum dolor sit amet" />
@@ -279,6 +281,10 @@
                 @activeTime="handleActiveTime"
               />
               <p>Selected Time: {{ selectedTime }}</p>
+              <DeleteIcon size="24" maskFillColor="#00AB4E" weight="outline"/>
+              <BaseIcon iconName="icon-add-image" size="32" color="red" />
+              
+              aaa
 
               <div class="d-flex align-items-center gap-3">
                 <TimePickerResponsive
@@ -1611,6 +1617,7 @@ const dataFormatter2= {
 </script>
 
 <script>
+import BaseIcon from "./Icons/BaseIcon.vue";
 import Button from "./Button/Button.vue";
 import Alert from "./Alert/AlertVarian.vue";
 import AlertVarian from "./Alert/Alert.vue";
@@ -1651,10 +1658,13 @@ import InputCamera from "./Input/InputCamera.vue";
 import TabPembinaan from "./Navbar/TabPembinaan.vue";
 
 import RadioComponent from "./Radio/Radio.vue"
+import DeleteIcon from "./Icons/DeleteFill.vue";
+
 
 export default {
   name: "App",
   components: {
+    BaseIcon,
     Button,
     Alert,
     AlertVarian,
@@ -1678,6 +1688,7 @@ export default {
     ListGroupUnordered,
     TableData,
     DataTable,
+    DeleteIcon,
     Dropdown,
     BerandaHeader,
     AutoCompleteComponent,

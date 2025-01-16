@@ -3,8 +3,13 @@
     <button class="btn" :class="[`btn-${type}`, `btn-${size}`]" :disabled="loading || disabled">
       <div class="d-flex justify-content-center align-items-center">
         <BSpinner v-if="loading" class="me-1" :small="size === 'sm' || size==='md'" />
+<<<<<<< HEAD
         <div v-if="icon" :small="size === 'sm' || size==='md'">
           <slot v-if="icon" name="icon" ></slot>
+=======
+        <div class="icon" v-if="icon" :small="size === 'sm' || size==='md'">
+          <slot name="icon" ></slot>
+>>>>>>> 7ac9403 (initialize storybook)
           &nbsp;
         </div>
         <span>{{ label }}</span>
@@ -45,4 +50,14 @@
   .btn-md {
     height: 40px;
   }
+
+  .icon {
+    height: 24px;
+    display: flex;
+  }
+
+  .icon[small=true] {
+  height: 20px;
+  }
+
 </style>
