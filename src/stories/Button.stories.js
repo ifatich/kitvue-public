@@ -1,8 +1,6 @@
-  import { fn } from '@storybook/test';
-  import { h } from 'vue';
-
   import Button from "../components/Button/Button.vue";
-  import { setup } from '@storybook/vue3/*';
+
+
 
   // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
   export default {
@@ -67,6 +65,12 @@
     },
   };
 
+  export const Medium = {
+    args: {
+      size: 'md',
+    },
+  };
+
   export const Small = {
     args: {
       size: 'sm',
@@ -79,6 +83,7 @@ export const Icon = {
     icon: "https://obqojequpinlinynnisz.supabase.co/storage/v1/object/public/ScanJaminan/sub-menu.png",
     type: "secondary",
     size: "md",
+    label: "Buttoooon",
   },
   render: (args) => ({
     components: { Button },
