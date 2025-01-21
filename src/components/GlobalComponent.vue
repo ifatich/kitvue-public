@@ -66,45 +66,42 @@
               </p>
             </div>
             <div class="card-body">
-              <div class="d-flex flex-wrap gap-3">
-                <Button
-                  type="primary"
-                  size="sm"
-                  label="Button Primary"
-                  loading
-                />
-                <Button
-                  type="secondary"
-                  size="md"
-                  label="Button Seccondary"
-                  icon
-                >
-                  <template #icon>
-                    <img src="path/to/icon.svg" />
-                  </template>
-                </Button>
-                <Button
-                  type="neutral"
-                  size="lg"
-                  label="Button Neutral"
-                  icon
-                />
-                <Button
-                  type="neutral"
-                  size="xl"
-                  label="Button Neutral"
-                />
-                <Button
-                  type="tertiary"
-                  size="md"
-                  label="Button Tertiary"
-                />
-                <Button
-                  type="link"
-                  size="md"
-                  label="Button Link"
-                />
-              </div>
+              <Button
+                class="me-2 mb-2"
+                type="primary"
+                size="md"
+                label="Button Primary"
+                loading
+              />
+              <Button
+                class="me-2 mb-2"
+                type="secondary"
+                size="md"
+                label="Button Seccondary"
+                icon
+              >
+                <template #icon>
+                  <img src="path/to/icon.svg" />
+                </template>
+              </Button>
+              <Button
+                class="me-2 mb-2"
+                type="neutral"
+                size="md"
+                label="Button Neutral"
+              />
+              <Button
+                class="me-2 mb-2"
+                type="tertiary"
+                size="md"
+                label="Button Tertiary"
+              />
+              <Button
+                class="me-2 mb-2"
+                type="link"
+                size="md"
+                label="Button Link"
+              />
             </div>
           </div>
         </div>
@@ -118,6 +115,9 @@
               </p>
             </div>
             <div class="card-body">
+
+              <TestPicker />
+              <InputDatePicker/>
              
               <Alert color="success" label="Lorem ipsum dolor sit amet" />
               <Alert color="info" label="Lorem ipsum dolor sit amet" />
@@ -295,7 +295,6 @@
               />
               <p>Selected Time: {{ selectedTime }}</p>
               <DeleteIcon size="24" maskFillColor="#00AB4E" weight="outline"/>
-              <BaseIcon iconName="icon-add-image" size="32" color="red" />
               
               aaa
 
@@ -323,13 +322,6 @@
                 id="input-rupiah"
                 label="Input Rupiah"
                 v-model="rupiah"
-              />
-
-              <InputNominal
-                id="input-rupiah"
-                label="Input Rupiah"
-                v-model="rupiah"
-                disabled
               />
               {{ rupiah }}
               <InputPersen id="15" title="Persentase DP" required="" />
@@ -939,7 +931,7 @@
                 item-value="id"
                 :disabled="false"
                 size="md"
-                palceholder="Pilih salah satu"
+                placeholder="Pilih salah satu"
               />
             </div>
           </div>
@@ -1630,7 +1622,6 @@ const dataFormatter2= {
 </script>
 
 <script>
-import BaseIcon from "./Icons/BaseIcon.vue";
 import Button from "./Button/Button.vue";
 import Alert from "./Alert/AlertVarian.vue";
 import AlertVarian from "./Alert/Alert.vue";
@@ -1672,12 +1663,15 @@ import TabPembinaan from "./Navbar/TabPembinaan.vue";
 
 import RadioComponent from "./Radio/Radio.vue"
 import DeleteIcon from "./Icons/DeleteFill.vue";
+import CardArticle from "./Card/CardArticle.vue";
+import CardProduct from "./Card/CardProduct.vue";
 
 
 export default {
   name: "App",
   components: {
-    BaseIcon,
+    CardProduct,
+    CardArticle,
     Button,
     Alert,
     AlertVarian,
