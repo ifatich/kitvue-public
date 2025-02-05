@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import InputSmallDate from "../components/Input/InputSmallDate.vue";
+import DateRangePickerOption from "../components/Input/DateRangePickerOption.vue";
 
 export default {
   title: "Example/DatePicker",
@@ -24,7 +25,7 @@ export default {
   },
 };
 
-export const DatePick = {
+export const DatePicker = {
   render: (args) => ({
     components: { InputSmallDate },
     setup() {
@@ -39,3 +40,24 @@ export const DatePick = {
     `,
   }),
 };
+
+export const DatePickerOption = {
+  args: {
+    title : "Tanggal Pengajuan",
+    placeholder : "Pilih Tanggal Pengajuan",
+    disabled: false
+  },
+  render: (args) => ({
+    components: { DateRangePickerOption },
+    setup() {
+      return { args };
+    },
+    template: `
+      <DateRangePickerOption 
+        v-bind="args"
+        :title="args.title"
+      />
+    `,
+  }),
+};
+

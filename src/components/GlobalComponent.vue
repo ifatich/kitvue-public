@@ -188,6 +188,7 @@
                 />
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
+                :disabled="false"
                 placeholder="Pilih Tanggal Lahir"
                 label="Date Range Picker"
                 v-model:start-date="startDate"
@@ -294,9 +295,6 @@
                 @activeTime="handleActiveTime"
               />
               <p>Selected Time: {{ selectedTime }}</p>
-              <DeleteIcon size="24" maskFillColor="#00AB4E" weight="outline"/>
-              
-              aaa
 
               <div class="d-flex align-items-center gap-3">
                 <TimePickerResponsive
@@ -528,7 +526,8 @@
                 @showUrlData="handleShowFile"
                 @errorPermission="handleErrorPermission"
               />
-              <FilePickerLG v-model="selectedFile"
+              <FilePickerLG
+                v-model="selectedFile"
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
@@ -1662,7 +1661,6 @@ import InputCamera from "./Input/InputCamera.vue";
 import TabPembinaan from "./Navbar/TabPembinaan.vue";
 
 import RadioComponent from "./Radio/Radio.vue"
-import DeleteIcon from "./Icons/DeleteFill.vue";
 import CardArticle from "./Card/CardArticle.vue";
 import CardProduct from "./Card/CardProduct.vue";
 
@@ -1695,7 +1693,6 @@ export default {
     ListGroupUnordered,
     TableData,
     DataTable,
-    DeleteIcon,
     Dropdown,
     BerandaHeader,
     AutoCompleteComponent,

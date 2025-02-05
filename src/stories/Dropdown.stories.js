@@ -4,7 +4,7 @@ import { ref } from "vue";
 
 export default {
   title: "Example/Dropdown",
-  component: InputDropdown,
+  component: InputDropdown ,
   tags: ["autodocs"],
   render: () => ({
     setup(){
@@ -48,7 +48,39 @@ export default {
   },
 };
 
+export const Dropdown = { 
+  component: InputDropdown ,
+  render: (args) => ({
+    components: { InputDropdown },
+    setup() {
+      const daftarPilihan = [
+        { id: 1, img: "beli_emas", nama: "Pilihan Pilihan", link: "b.html" },
+        { id: 2, img: "beli_emas", nama: "Pilihan 2", link: "b.html" },
+        { id: 3, img: "beli_emas", nama: "Pilihan 3", link: "c.html" },
+        { id: 4, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 5, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 6, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 7, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 8, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 9, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 10, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 11, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+      ]
+      const choosenValue = ref(null)
+      return { args, daftarPilihan, choosenValue };
+    },
+    template: `
+        <InputDropdown 
+          v-bind="args" 
+          v-model="choosenValue"
+          :items="daftarPilihan"
+        />
+    `,
+  }),
+};
+
 export const DropdownHeader = { 
+  component: InputDropdownHeader,
   args : {
     itemImg: "img",
     itemText: "nama",
@@ -81,36 +113,7 @@ export const DropdownHeader = {
         v-model="choosenValue"
         :items="daftarPilihan"
       />
-    `,
-  }),
-};
 
-export const Dropdown = { 
-  render: (args) => ({
-    components: { InputDropdown },
-    setup() {
-      const daftarPilihan = [
-        { id: 1, img: "beli_emas", nama: "Pilihan Pilihan", link: "b.html" },
-        { id: 2, img: "beli_emas", nama: "Pilihan 2", link: "b.html" },
-        { id: 3, img: "beli_emas", nama: "Pilihan 3", link: "c.html" },
-        { id: 4, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 5, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 6, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 7, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 8, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 9, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 10, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 11, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-      ]
-      const choosenValue = ref(null)
-      return { args, daftarPilihan, choosenValue };
-    },
-    template: `
-      <InputDropdown 
-        v-bind="args" 
-        v-model="choosenValue"
-        :items="daftarPilihan"
-      />
     `,
   }),
 };
