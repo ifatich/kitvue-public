@@ -316,13 +316,13 @@
                 type="search"
               />
 
-              <InputNominal
+              <InputNominalStart
                 id="input-rupiah"
                 label="Input Rupiah"
                 v-model="rupiah"
               />
               {{ rupiah }}
-              <InputPersen id="15" title="Persentase DP" required="" />
+              <InputNominalEnd id="15" title="Persentase DP" required="" />
               <InputTextArea id="16" />
               <Dropdown
                 v-model="nilaiTerpilih"
@@ -481,14 +481,14 @@
                 <div class="card-body">
                   <Accordion class="mb-2" v-model="modelAccordion">
                     <AccordionItem header="Test header accordion" active>
-                      <InputNominal id="1" title="Nominal" required="" />
-                      <InputNominal id="2" title="Nominal" required="" />
-                      <InputNominal id="3" title="Nominal" required="" />
+                      <InputNominalStart id="1" title="Nominal" required="" />
+                      <InputNominalStart id="2" title="Nominal" required="" />
+                      <InputNominalStart id="3" title="Nominal" required="" />
                     </AccordionItem>
                     <AccordionItem header="Test header accordion 2" active>
-                      <InputPersen id="4" title="Persentase DP" required="" />
-                      <InputPersen id="5" title="Persentase DP" required="" />
-                      <InputPersen id="6" title="Persentase DP" required="" />
+                      <InputNominalEnd id="4" title="Persentase DP" required="" />
+                      <InputNominalEnd id="5" title="Persentase DP" required="" />
+                      <InputNominalEnd id="6" title="Persentase DP" required="" />
                     </AccordionItem>
                   </Accordion>
                 </div>
@@ -555,9 +555,9 @@
                 class="mb-2"
               >
                 <template v-slot:body>
-                  <InputPersen id="7" title="Persentase DP" required="" />
-                  <InputPersen id="8" title="Persentase DP" required="" />
-                  <InputPersen id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
                 </template>
                 <template v-slot:footer>
                   <div class="row w-100">
@@ -846,9 +846,9 @@
                 </template>
 
                 <template v-slot:body>
-                  <InputPersen id="10" title="Persentase DP" required="" />
-                  <InputPersen id="11" title="Persentase DP" required="" />
-                  <InputPersen id="12" title="Persentase DP" required="" />
+                  <InputNominalEnd id="10" title="Persentase DP" required="" />
+                  <InputNominalEnd id="11" title="Persentase DP" required="" />
+                  <InputNominalEnd id="12" title="Persentase DP" required="" />
                 </template>
               </ModalComponent>
             </div>
@@ -1629,8 +1629,8 @@ import Breadcrumb from "./Breadcrumb/Breadcrumb.vue";
 import AddAmount from "./AddAmount/AddAmountCounter.vue";
 import InputSmallText from "./Input/InputSmallText.vue";
 import InputText from "./Input/InputText.vue";
-import InputNominal from "./Input/InputRupiah.vue";
-import InputPersen from "./Input/InputPersen.vue";
+import InputNominalStart from "./Input/InputNominalStart.vue";
+import InputNominalEnd from "./Input/InputNominalEnd.vue";
 import InputTextArea from "./Input/InputTextArea.vue";
 import Dropdown from "./Dropdown/InputDropdown.vue";
 
@@ -1678,9 +1678,9 @@ export default {
     InputSmallText,
     InputText,
     InputTextArea,
-    InputNominal,
+    InputNominalStart,
     InputTextArea,
-    InputPersen,
+    InputNominalEnd,
     Accordion,
     AccordionItem,
     FilePickerLG,

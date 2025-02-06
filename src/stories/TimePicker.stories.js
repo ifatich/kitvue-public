@@ -1,7 +1,7 @@
 import TimePickerResponsive from "../components/Input/TimePickerResponsive.vue";
 
 export default {
-  title: "Example/TimePicker",
+  title: "Components/TimePicker",
   component: TimePickerResponsive,
   tags: ["autodocs"],
   argTypes: {

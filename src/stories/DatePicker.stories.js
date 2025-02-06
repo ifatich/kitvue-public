@@ -1,9 +1,8 @@
 import { ref } from "vue";
 import InputSmallDate from "../components/Input/InputSmallDate.vue";
-import DateRangePickerOption from "../components/Input/DateRangePickerOption.vue";
 
 export default {
-  title: "Example/DatePicker",
+  title: "Components/DatePicker/Default",
   component: InputSmallDate,
   tags: ["autodocs"],
   argTypes: {
@@ -41,23 +40,4 @@ export const DatePicker = {
   }),
 };
 
-export const DatePickerOption = {
-  args: {
-    title : "Tanggal Pengajuan",
-    placeholder : "Pilih Tanggal Pengajuan",
-    disabled: false
-  },
-  render: (args) => ({
-    components: { DateRangePickerOption },
-    setup() {
-      return { args };
-    },
-    template: `
-      <DateRangePickerOption 
-        v-bind="args"
-        :title="args.title"
-      />
-    `,
-  }),
-};
 

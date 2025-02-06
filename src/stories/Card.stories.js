@@ -28,7 +28,7 @@ import CardVoucher from "../components/Card/CardVoucher.vue";
 
  
  export default {
-    title: 'Example/Card',
+    title: 'Components/Card',
     component: CardProduct,
     tags: ['autodocs'],
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args

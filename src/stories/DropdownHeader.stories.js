@@ -1,16 +1,22 @@
-import InputDropdown from "../components/Dropdown/InputDropdown.vue";
-import { ref } from "vue";
+import InputDropdownHeader from "../components/Dropdown/InputDropdownHeader.vue";
 
 export default {
-  title: "Components/Dropdown/Default",
-  component: InputDropdown ,
+  title: "Components/Dropdown/DropdownHeader",
+  component: InputDropdownHeader ,
   tags: ["autodocs"],
   argTypes: {
+    label: { control: "text" },
     items: { control: "object" },
-    modelValue : { control: "object"},
-    color : {control: "select", options: ['none','red', 'blue', 'green', 'orange']}
+    itemValue: { control: "text" },
+    itemText: { control: "text" },
+    itemImg: { control: "text" },
+    itemLink: { control: "text" },
+    placeholder: { control: "text" },
+    class: { control: "text" },
+    modelValue : {control: "object"},
   },
   args: {
+    modelValue: null,
     label: "Pilihan Anda",
     items: [
       { id: 1, img: "beli_emas", nama: "Pilihan Pilihanb", link: "asa" },
@@ -27,27 +33,12 @@ export default {
     ],
     itemValue: "id",
     itemText: "nama",
+    itemImg: "img",
+    itemLink: "link",
     placeholder: "Pengajuan kredit",
-    error: null,
-    color: "none",
-    useBottomSheet: false,
-    disabled: false,
-    loading: false
+    class: 'input-dropdown-kustom',
   },
 };
 
-export const Dropdown = { 
-  render: (args) => ({
-    components: { InputDropdown },
-    setup() {
-      const choosenValue = ref(null)
-      return { args, choosenValue };
-    },
-    template: `
-        <InputDropdown 
-          v-bind="args" 
-          v-model="choosenValue"
-        />
-    `,
-  }),
+export const Default = { 
 };

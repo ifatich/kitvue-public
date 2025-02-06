@@ -3,7 +3,7 @@ import { ref } from 'vue'; // T
 
 
  export default {
-    title: 'Example/Alert',
+    title: 'Components/Alert',
     component: AlertVarian,
     tags: ['autodocs'],
     // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
