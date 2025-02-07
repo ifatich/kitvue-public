@@ -118,7 +118,6 @@
 
               <TestPicker />
               <InputDatePicker/>
-             
               <Alert color="success" label="Lorem ipsum dolor sit amet" />
               <Alert color="info" label="Lorem ipsum dolor sit amet" />
               <Alert color="warning" label="Lorem ipsum dolor sit amet" />

@@ -1,5 +1,5 @@
-  import InputNominalEnd from "../components/Input/InputNominalEnd.vue";
-
+  import { ref } from "vue";
+import InputNominalEnd from "../components/Input/InputNominalEnd.vue";
   export default {
     title: 'Components/InputField/NominalEnd',
     component: InputNominalEnd,
@@ -13,6 +13,17 @@
       unit: "%",
       placeholder: "Masukkan presentase DP"
     },
+    render: (args) => ({
+          components: { InputNominalEnd },
+          setup() {
+            const modelValue = ref(""); // Hubungkan dengan args
+            return { args, modelValue };
+          },
+          template: `
+            <InputNominalEnd v-bind="args" v-model="modelValue" />
+            <a>{{modelValue}}</a>
+          `,
+        }),
   };
 
   export const NominalEnd = {
