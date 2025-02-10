@@ -2,7 +2,7 @@
   <div class="home">
     <div class="container">
       <button @click="scrollTo('btm-scroll')">Scroll Test</button>
-      <BerandaHeader>
+      <BerandaHeader >
         <template #search>
           <InputDropdownHeader
             v-model="nilaiTerpilih"
