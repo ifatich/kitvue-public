@@ -36,6 +36,9 @@ import InputText from "../components/Input/InputText.vue";
   };
 
   export const Text = {
+    args: {
+      modelValue: "modelValue"
+    }
   };
 
   export const Number = {

@@ -32,11 +32,14 @@ export default {
     color: "none",
     useBottomSheet: false,
     disabled: false,
-    loading: false
+    loading: false,
   },
 };
 
 export const Dropdown = { 
+  args:{
+        modelValue: "modelValue"
+  },
   render: (args) => ({
     components: { InputDropdown },
     setup() {

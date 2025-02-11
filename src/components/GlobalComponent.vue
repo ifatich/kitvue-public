@@ -116,8 +116,6 @@
             </div>
             <div class="card-body">
 
-              <TestPicker />
-              <InputDatePicker/>
               <Alert color="success" label="Lorem ipsum dolor sit amet" />
               <Alert color="info" label="Lorem ipsum dolor sit amet" />
               <Alert color="warning" label="Lorem ipsum dolor sit amet" />
@@ -1241,7 +1239,7 @@
               </p>
             </div>
             <div id="btm-scroll" class="card-body">
-              <TabPembinaan :labels="tabItems">
+              <TabPembinaan :labels="tabItems" :currently-selected="4">
                 <template v-slot:1>
                   <StepperComponents :activeStep="1" />
                 </template>
@@ -1362,6 +1360,7 @@ const tableParentHead2 = [
         tooltip: {}
     },
 ]
+
 const tableChildHead2= [
     {
         key: "1",
@@ -1662,6 +1661,10 @@ import TabPembinaan from "./Navbar/TabPembinaan.vue";
 import RadioComponent from "./Radio/Radio.vue"
 import CardArticle from "./Card/CardArticle.vue";
 import CardProduct from "./Card/CardProduct.vue";
+import NavBackNavigator from "./Navbar/NavBackNavigator.vue";
+import NavbarCorporate from "./Navbar/NavbarCorporate.vue";
+
+
 
 
 export default {
@@ -1685,6 +1688,8 @@ export default {
     FilePickerLG,
     ModalSlider,
     ModalComponent,
+    NavBackNavigator,
+    NavbarCorporate,
     InputDatePicker,
     InputSmallDate,
     ListGroupOrdered,

@@ -15,6 +15,7 @@ import { ref } from "vue";
       disabled: false,
       unit: "Rupiah",
       placeholder: "Masukkan presentase DP",
+      modelValue: "modelValue"
     },
     render: (args) => ({
       components: { InputNominalStart },

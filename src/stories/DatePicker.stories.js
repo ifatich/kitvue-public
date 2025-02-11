@@ -21,6 +21,7 @@ export default {
     disabled: false,
     required: false,
     selectedYear: new Date().getFullYear(),
+    modelValue: "selectedDate"
   },
 };
 
@@ -34,7 +35,7 @@ export const DatePicker = {
     template: `
       <InputSmallDate 
         v-bind="args" 
-        v-model="selectedDate"
+        v-model="selectesdDate"
       />
     `,
   }),

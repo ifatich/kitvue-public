@@ -23,26 +23,23 @@ import AccordionItem from "../components/Accordion/AccordionItem.vue";
       active: true,
       id: "default",
     },
-  };
-
-  export const Single = {
-    args: {
-      header: "Hellow",
-      text: "Hellooooooo",
-      active: true,
-      id: "#default",
-    },
     render: (args) => ({
       components: { Accordion, AccordionItem},
       setup() {
         return { args };
       },
       template: `
-       <Accordion v-model="modelAccordion">
+       <Accordion>
           <AccordionItem header="args.header" id="args.id" v-bind="args">
-            {{args.text}}
+             ${args.default}
           </AccordionItem>
         </Accordion>
       `,
     }),
+  };
+
+  export const Single = {
+    args: {
+      default: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.`
+    },
 }

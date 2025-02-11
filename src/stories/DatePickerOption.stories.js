@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import DateRangePickerOption from "../components/Input/DateRangePickerOption.vue";
 
 export default {
@@ -27,9 +28,26 @@ export default {
         value: '30'
       }
     ],
-    showAny: true
+    showAny: true,
   },
 };
 
-export const DatePickerOption = {};
+export const DatePickerOption = {
+  render: (args) => ({
+      components: { DateRangePickerOption },
+      setup() {
+        const startDate = ref(null);
+        const endDate = ref(null);
+        return { args, startDate, endDate };
+      },
+      template: `
+        <DateRangePickerOption 
+          v-bind="args" 
+          v-model:start-date="${args.startDatee}"
+          v-model:end-date="${args.endDatee}"
+        />
+      `,
+    }),
+
+};
 

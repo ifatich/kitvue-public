@@ -1,9 +1,11 @@
 import BerandaHeader from "../components/Navbar/BerandaHeader.vue";
 import Button from "../components/Button/Button.vue";
 import InputDropdownHeader from "../components/Dropdown/InputDropdownHeader.vue";
+import { ref } from "vue";
+import InputDropdown from "../components/Dropdown/InputDropdown.vue";
 
   export default {
-    title: 'Components/Navbar/BerandaHeader',
+    title: 'Components/Navigation/BerandaHeader',
     component: BerandaHeader,
     tags: ['autodocs'],
     argTypes: {
@@ -38,10 +40,10 @@ import InputDropdownHeader from "../components/Dropdown/InputDropdownHeader.vue"
       label: "Beli Tabungan Emas",
     },
     render: (args) => ({
-        components: { BerandaHeader, Button, InputDropdownHeader },
+        components: { BerandaHeader, Button, InputDropdownHeader, InputDropdown },
         setup() {
           // const choosenValue = ref(true)
-          // const nilaiTerpilih = ref(null)
+          const nilaiTerpilih = ref(null)
           const daftarPilihan = [
             { id: 1, img: "beli_emas", nama: "Pilihan Pilihanb", link: "asa" },
             { id: 2, img: "beli_emas", nama: "Pilihan 2", link: "b.html" },
@@ -55,7 +57,7 @@ import InputDropdownHeader from "../components/Dropdown/InputDropdownHeader.vue"
             { id: 10, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
             { id: 11, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
           ]
-          return { args, daftarPilihan };
+          return { args, daftarPilihan, nilaiTerpilih };
         },
         template: `
             <BerandaHeader v-bind="args">
@@ -88,7 +90,7 @@ import InputDropdownHeader from "../components/Dropdown/InputDropdownHeader.vue"
   export const BerandaNavbar = {
     args: {
       search:  
-      `<InputDropdownHeader
+      `<InputDropdown
             v-model="nilaiTerpilih"
             :label="'Pilihan Anda'"
             :items="daftarPilihan"

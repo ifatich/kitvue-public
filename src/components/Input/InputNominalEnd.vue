@@ -16,7 +16,7 @@
                 :disabled="disabled" 
                 :required="required"
                 v-model="currentValue"
-                @input="handleInput" 
+                @input="handleInput"
             />
             <span class="input-group-text border-0">{{unit}}</span>
         </div>
