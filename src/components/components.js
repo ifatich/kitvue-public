@@ -23,7 +23,7 @@ import DatePicker from './Input/DatePicker.vue';
 import Dropdown from './Dropdown/Dropdown.vue';
 import FilePickerLG from './Filepicker/FilePickerLG.vue';
 import FilePickerSM from './Filepicker/FilePickerSM.vue';
-import InputPersen from './Input/InputPersen.vue';
+import InputPersen from './Input/InputNominalEnd.vue';
 import Input from './Input/InputSmallText.vue';
 import TextArea from './Input/InputTextArea.vue';
 import ModalComponent from './Modal/Modal.vue';

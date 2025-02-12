@@ -35,10 +35,3 @@ import Radio from "../components/Radio/Radio.vue";
       modelValue: 0
     }
   };
-
-
-
-
-
-
-  

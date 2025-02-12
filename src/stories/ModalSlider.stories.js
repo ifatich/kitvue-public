@@ -14,7 +14,6 @@ import Button from "../components/Button/Button.vue";
         'https://picsum.photos/1024/480/?image=60',
         'https://picsum.photos/1024/480/?image=61',
       ],
-      
     },
     render: (args) => ({
         components: { ModalSlider, Button },

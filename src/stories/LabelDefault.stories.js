@@ -16,10 +16,3 @@ import LabelIcon from "../components/Label/LabelIcon.vue";
 
   export const DefaultLabel = {
   };
-
-
-
-
-
-
-  

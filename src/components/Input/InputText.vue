@@ -135,7 +135,7 @@
 			<div v-if="suffixIcon" class="input-group-icon me-3">
 				<img :src="suffixIcon" />
 			</div>
-			<slot name="suffix" />
+			<slot name="suffix" ></slot>
 		</div>
 		<div v-if="localError" class="error-text mt-2">
 			{{ props.required ? 'Field ini diperlukan' : '' }}
