@@ -155,6 +155,20 @@
                 color="danger"
                 label="Lorem ipsum dolor sit amet"
               />
+              <div class="card">
+                <CardProduct/>
+              </div>
+              
+              <CardEvent/>
+              <CardArticleHighlight/>
+              <CardFile/>
+              <CardProduct/>
+              <CardProductKonvensional/>
+              <CardProductSyariah/>
+              <CardPromo/>
+              <CardPromoCode/>
+              <CardVoucher/>
+              <CardArticle/>
 
               <AlertVarian />
             </div>
@@ -1663,6 +1677,18 @@ import CardArticle from "./Card/CardArticle.vue";
 import CardProduct from "./Card/CardProduct.vue";
 import NavBackNavigator from "./Navbar/NavBackNavigator.vue";
 import NavbarCorporate from "./Navbar/NavbarCorporate.vue";
+import TabProduct from "./Tab/TabProduct.vue";
+import CardEvent from "./Card/CardEvent.vue";
+import CardAccount from "./Card/CardAccount.vue";
+import CardArticleHighlight from "./Card/CardArticleHighlight.vue";
+import CardFile from "./Card/CardFile.vue";
+import CardProductKonvensional from "./Card/CardProductKonvensional.vue";
+import CardProductSyariah from "./Card/CardProductSyariah.vue";
+import CardPromo from "./Card/CardPromo.vue";
+import CardPromoCode from "./Card/CardPromoCode.vue";
+import CardVoucher from "./Card/CardVoucher.vue";
+
+
 
 
 
@@ -1671,6 +1697,15 @@ export default {
   name: "App",
   components: {
     CardProduct,
+    CardEvent,
+    CardArticleHighlight,
+    CardFile,
+    CardProduct,
+    CardProductKonvensional,
+    CardProductSyariah,
+    CardPromo,
+    CardPromoCode,
+    CardVoucher,
     CardArticle,
     Button,
     Alert,
@@ -1710,6 +1745,7 @@ export default {
     InputCamera,
     TabPembinaan,
     InputTimePicker,
+    TabProduct,
     TimePickerResponsive,
     RadioComponent,
   },
