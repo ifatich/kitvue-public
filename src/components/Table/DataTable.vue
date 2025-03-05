@@ -174,8 +174,7 @@
     };
 </script>
 
-<style>
-
+<style scoped>
     svg {
         right: 10px;
         display: block;
