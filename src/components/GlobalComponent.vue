@@ -555,7 +555,7 @@
               <ModalComponent
                 v-model="modalOpen1"
                 title="Test Modal"
-                size="sm"
+                size="lg"
                 centered
               >
                 <template v-slot:body>
@@ -977,13 +977,7 @@
               />
 
               <InputCamera
-                :compressionMaxKb="1024" 
-                title="Upload Foto Anda"
-                uniqueKey="userPhoto"
-                imagePlaceholder="idcard"
-                @fileDropped="handleFileDropped"
-                @fileRemoved="handleFileRemoved"
-                @errorPermission="handleErrorPermission"
+                general
               />
 
               <InputCamera
