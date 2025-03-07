@@ -3,10 +3,10 @@ import { defineOptions, computed, defineProps, defineEmits } from 'vue'
 import InputText from './InputText.vue'
 
 defineOptions({
-  name: 'InputRupiah'
+  name: 'InputNominalStart'
 })
 
-const props = defineProps(['modelValue', 'placeholder'])
+const props = defineProps(['modelValue', 'placeholder', 'unit'])
 const emit = defineEmits(['update:modelValue'])
 
 const rupiahValue = computed({
@@ -59,7 +59,7 @@ const onlyNumber = (event) => {
     :use-delimiter="false"
   >
     <template #prefix>
-      <span class="input-group-text border-0">Rupiah</span>
+      <span class="input-group-text border-0">{{ props.unit || "Rupiah" }}</span>
     </template>
   </InputText>
 </template>

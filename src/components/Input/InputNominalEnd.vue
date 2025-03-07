@@ -9,26 +9,26 @@
         <div class="input-group rupiah custom-input-group-icon p-0">
             <input 
                 type="tel" :class="['form-control prevent-zero', { 'is-inval': localError }]" 
-                :placeholder="['Masukkan ' + title.toLowerCase()]"
+                :placeholder="placeholder || ['Masukkan ' + title.toLowerCase()]"
                 :aria-label="id" 
                 :aria-describedby="id"
                 :id="id" 
                 :disabled="disabled" 
                 :required="required"
                 v-model="currentValue"
-                @input="handleInput" 
+                @input="handleInput"
             />
-            <span class="input-group-text border-0">%</span>
+            <span class="input-group-text border-0">{{unit}}</span>
         </div>
         <div :class="{ 'error-text': localError, 'mt-2': localError }" v-if="localError">
-            Masukkan {{ title.toLowerCase() }}
+           {{  errorMessage ||("Masukkan " + title.toLowerCase()) }} 
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "InputPersen",
+        name: "InputNominalEnd",
         props: {
             id: {
                 type: String,
@@ -66,6 +66,10 @@
                 type: String,
                 default: "text",
             },
+            unit: {
+                type: String,
+                default: "%"
+            }
         },
         data: () => ({
             currentValue: "",

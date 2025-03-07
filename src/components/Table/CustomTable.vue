@@ -134,6 +134,7 @@ const getIndicatorValue = (value) => {
     margin-top: -5px;
     width: 20px;
     height: 20px;
+    opacity: 1 !important;
 }
 
 ::v-deep .bs-tooltip-bottom .tooltip-arrow::before {

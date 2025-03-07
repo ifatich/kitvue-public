@@ -104,6 +104,12 @@
 		isSearchActive.value = false
 	}
 
+	const clearSearch = () => {
+		inputValue.value = '';
+		displayValue.value = '';
+		emit('update:modelValue', '');
+	};
+
 	// const handleKeydown = (event) => {
 	//   // Handle keydown events if needed
 	// }
@@ -132,10 +138,15 @@
 				:disabled="props.disabled" :type="props.type === 'number' ? 'text' : props.type"
 				:inputmode="props.type === 'number' ? 'numeric' : 'text'" 
 			/>
+			<div v-if="props.type === 'search' && displayValue" class="input-group-icon me-3">
+				<button @click="clearSearch" class="btn btn-link p-0">
+					<img src="../../assets/icon/close_round.svg" />
+				</button>
+			</div>
 			<div v-if="suffixIcon" class="input-group-icon me-3">
 				<img :src="suffixIcon" />
 			</div>
-			<slot name="suffix" />
+			<slot name="suffix" ></slot>
 		</div>
 		<div v-if="localError" class="error-text mt-2">
 			{{ props.required ? 'Field ini diperlukan' : '' }}
@@ -146,6 +157,11 @@
 </template>
 
 <style lang="scss" scoped>
+	input[type="search"]::-webkit-search-cancel-button {
+		-webkit-appearance: none;
+		appearance: none;
+	}
+
 	input:disabled {
 		color: var(--g-kit-black-60);
 	}
@@ -170,6 +186,7 @@
 
 	.search-input {
 		background-color: #F8F8F8;
+		border: none;
 
 		input.form-control {
 			background-color: #F8F8F8;

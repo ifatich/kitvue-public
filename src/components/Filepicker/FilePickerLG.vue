@@ -1,8 +1,8 @@
 <template>
-    <div class="custom-file-upload" :class="{ 'fileName': fileName && !showPreview, 'hns': !showPreview }"
+    <div class="custom-file-upload" :class="{ 'fileName': fileName && !imageOnly, 'hns': !imageOnly }"
         @dragover.prevent="onDragOver" @dragleave="onDragLeave" @drop.prevent="onFileDrop">
         <div class="custom-file-upload__box-input" :class="{ 'd-none': previewImage }">
-            <span v-if="showPreview" class="custom-file-upload__box-input-icon">
+            <span v-if="imageOnly" class="custom-file-upload__box-input-icon">
                 <img src="../../assets/images/ico-image-upload.svg" alt="" />
             </span>
             <span v-else class="custom-file-upload__box-input-icon">
@@ -12,17 +12,17 @@
 
             <input type="file" id="gallery-photo-add" class="custom-file-upload__box-input-file"
                 @change="handleFileChange" ref="file"
-                :accept="showPreview ? 'image/*' : '.pdf,.doc,.docx,.xlsx,image/*'" multiple required />
+                :accept="imageOnly ? 'image/*' : '.pdf,.doc,.docx,.xlsx,image/*'" multiple required />
         </div>
 
-        <div v-if="showPreview && previewImage" class="custom-file-upload__box-preview" id="box-preview-image"
+        <div v-if="imageOnly && previewImage" class="custom-file-upload__box-preview" id="box-preview-image"
             :class="{ 'd-block': previewImage }">
             <img @click="remove" v-if="previewImage || fileName" class="close-img"
                 :class="{ 'd-block remove-button btn-close': previewImage || fileName }"
                 src="../../assets/icon/cross.svg" />
             <img class="drop-zoon__image" :src="previewImage" alt="Preview" />
         </div>
-        <div v-else-if="fileName && !showPreview" class="custom-file-upload__file-name">
+        <div v-else-if="fileName && !imageOnly" class="custom-file-upload__file-name">
             <div v-if="!showFileURL">
                 <img @click="remove" v-if="previewImage || fileName" class="close-img"
                 :class="{ 'd-block remove-button btn-close': previewImage || fileName }"
@@ -47,7 +47,7 @@
             file: {
                 type: [File, Object],
             },
-            showPreview: {
+            imageOnly: {
                 type: Boolean,
                 default: true,
             },
@@ -84,7 +84,7 @@
                     this.fileName = selectedFile.name;
                     const fileType = selectedFile.type;
 
-                    if (this.showPreview && fileType.startsWith("image/")) {
+                    if (this.imageOnly && fileType.startsWith("image/")) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
                             this.previewImage = e.target.result;
