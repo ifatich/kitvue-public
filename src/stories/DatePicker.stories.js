@@ -35,7 +35,7 @@ export const DatePicker = {
     template: `
       <InputSmallDate 
         v-bind="args" 
-        v-model="selectedDate"
+        v-model="selectesdDate"
       />
     `,
   }),
