@@ -486,11 +486,12 @@ export default {
   }
   
   .card {
-    position: absolute;
+    position: relative;
     z-index: 999;
     background-color: white;
     width: 360px;
     margin: 0 auto;
+    height: fit-content;
   }
   
   .card-header {
@@ -517,6 +518,7 @@ export default {
   .datepicker table {
     width: 100%;
     border-collapse: collapse;
+    margin: 0px;
   }
   
   .datepicker th,
@@ -654,6 +656,12 @@ export default {
     color: white;
     margin: 10px 14px;
     border-radius: 12px;
+  }
+
+  .offcanvas.offcanvas-kit {
+    .offcanvas-body {
+      padding: 0 !important;
+    }
   }
   
   .offcanvas img {

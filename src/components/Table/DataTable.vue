@@ -251,4 +251,14 @@
             display: block;
         }
     }
+
+    table.dataTable thead > tr > th.sorting:before {
+        opacity: 0 !important;
+        content: "" !important;
+    }
+
+    table.dataTable thead > tr > th.sorting::after {
+        opacity: 0 !important;
+        content: "" !important;
+    }
 </style>
