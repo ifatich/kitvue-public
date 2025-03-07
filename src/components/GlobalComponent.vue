@@ -155,10 +155,7 @@
                 color="danger"
                 label="Lorem ipsum dolor sit amet"
               />
-              <div class="card">
-                <CardProduct/>
-              </div>
-
+              
               <AlertVarian />
             </div>
           </div>
