@@ -474,15 +474,11 @@ export default {
   }
   
   .content-date {
-    position: relative;
+    position: absolute;
   }
   
   .form-control {
     cursor: pointer;
-  }
-  
-  .content-date {
-    position: relative;
   }
   
   .card {
@@ -695,6 +691,10 @@ export default {
   
     .datepicker {
       max-width: 100%;
+    }
+
+    .content-date {
+      position: relative;
     }
   
     .datepicker th,
