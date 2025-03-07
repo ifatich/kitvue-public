@@ -3,10 +3,10 @@ import { defineOptions, computed, defineProps, defineEmits } from 'vue'
 import InputText from './InputText.vue'
 
 defineOptions({
-  name: 'InputRupiah'
+  name: 'InputNominalStart'
 })
 
-const props = defineProps(['modelValue', 'placeholder'])
+const props = defineProps(['modelValue', 'placeholder', 'unit'])
 const emit = defineEmits(['update:modelValue'])
 
 const rupiahValue = computed({
@@ -51,6 +51,7 @@ const onlyNumber = (event) => {
 
 <template>
   <InputText
+    rupiah="rupiah"
     v-model="rupiahValue"
     @keydown="onlyNumber"
     :placeholder="props.placeholder || 'Masukkan rupiah'"
@@ -58,7 +59,40 @@ const onlyNumber = (event) => {
     :use-delimiter="false"
   >
     <template #prefix>
-      <span class="input-group-text border-0">Rupiah</span>
+      <span class="input-group-text border-0">{{ props.unit || "Rupiah" }}</span>
     </template>
   </InputText>
 </template>
+
+<style lang="scss">
+  .rupiah.custom-input-group-icon{
+    position: relative;
+    border: 1px solid var(--g-kit-black-20);
+
+    &:hover {
+      border: 1px solid var(--g-kit-lime-50);
+    }
+
+    .input-group-text{
+      height: 46px;
+    }
+
+    input {
+      box-shadow: none !important;
+      border: none !important;
+      border-radius: 6px;
+
+      &:disabled {
+        border-color: var(--g-kit-black-20);
+      }
+    }
+  }
+
+  .rupiah.custom-input-group-icon:has(input:disabled) {
+    border-color: var(--g-kit-black-20);
+
+    &:hover {
+      border-color: var(--g-kit-black-20);
+    }
+  }
+</style>

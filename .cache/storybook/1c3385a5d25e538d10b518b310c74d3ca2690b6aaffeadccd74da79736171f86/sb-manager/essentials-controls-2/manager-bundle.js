@@ -1,0 +1,1 @@
+import '/Users/poj/Documents/Pegadaian/pegadaian-ui-kit-vue/node_modules/@storybook/addon-essentials/dist/controls/manager.js';
