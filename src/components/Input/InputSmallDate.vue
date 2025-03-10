@@ -251,6 +251,14 @@ export default {
     minDaysFromToday: {
       type: Number,
       default: null
+    },
+    maxDate: {
+      type: String,
+      default: null
+    },
+    minDate: {
+      type: String,
+      default: null
     }
   },
   emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -474,6 +482,18 @@ export default {
         if (date < minDate) return true;
       }
 
+      if (this.maxDate) {
+        const maxDate = new Date(this.maxDate);
+        maxDate.setHours(0, 0, 0, 0);
+        if (date > maxDate) return true;
+      }
+
+      if (this.minDate) {
+        const minDate = new Date(this.minDate);
+        minDate.setHours(0, 0, 0, 0);
+        if (date < minDate) return true;
+      }
+
       return false;
     },
     scrollToSelectedYear() {
@@ -631,7 +651,7 @@ export default {
     background-color: white;
     border-bottom: 1px solid var(--g-kit-black-20);
     font-size: var(--g-kit-font-size-lambda);
-    line-height: var(--g-kit-line-height-lambda);
+    line-height: var (--g-kit-line-height-lambda);
     font-weight: var (--g-kit-font-weight-normal);
     color: var(--g-kit-black-60);
   }

@@ -9,6 +9,8 @@
       :disableFutureDates="true"
       :maxDaysFromToday="30"
       :minDaysFromToday="-30"
+      :maxDate="'2023-12-31'"
+      :minDate="'2023-01-01'"
       @buttomSheetShown="handleBottomSheetShown"
     />
   </div>
