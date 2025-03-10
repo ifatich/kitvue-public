@@ -799,7 +799,8 @@ export default {
     }
   
     .year {
-      top: 64px;
+      top: 92px;
+      height: 380px;
     }
   
     .year-menu {
