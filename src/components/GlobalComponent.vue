@@ -176,13 +176,28 @@
                 v-model="selectedDate"
                 id="birthdate"
                 placeholder="sadf Tanggal Lahir"
+                maxDaysFromToday="10"
               />
+
+              <InputSmallDate
+                v-model="selectedDate"
+                :title="'Tanggal Lahir'"
+                :placeholder="'Pilih tanggal'"
+                :disabled="false"
+                :required="true"
+                :maxDaysFromToday="3"
+                :minDaysFromToday="-3"
+                @buttomSheetShown="handleBottomSheetShown"
+              />
+              
               <TestPicker
                   v-model="selectedDate"
                   id="birthdate"
                   placeholder="davin Tanggal Lahir"
                   :max-date="maxDate"
+                  disableFutureDates
               />
+
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
                 :disabled="false"

@@ -69,25 +69,21 @@
                 />
               </button>
             </div>
-            <table>
-              <thead>
-                <tr>
-                  <th v-for="day in days" :key="day">{{ day }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(week, index) in calendar" :key="index">
-                  <td
-                    v-for="day in week"
-                    :key="day.date"
-                    :class="{ active: isSelectedDate(day.date) }"
-                    @click="selectDate(day)"
-                  >
-                    {{ day.date ? day.date.getDate() : '' }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="calendar-header d-flex">
+              <div v-for="day in days" :key="day" class="calendar-day">{{ day }}</div>
+            </div>
+            <div class="calendar-body">
+              <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
+                <div
+                  v-for="day in week"
+                  :key="day.date"
+                  :class="{ 'calendar-date': true, active: isSelectedDate(day.date), disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
+                  @click="selectDate(day)"
+                >
+                  {{ day.date ? day.date.getDate() : '' }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -164,25 +160,21 @@
                   />
                 </button>
               </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th v-for="day in days" :key="day">{{ day }}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(week, index) in calendar" :key="index">
-                    <td
-                      v-for="day in week"
-                      :key="day.date"
-                      :class="{ active: isSelectedDate(day.date) }"
-                      @click="selectDate(day)"
-                    >
-                      {{ day.date ? day.date.getDate() : '' }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="calendar-header d-flex">
+                <div v-for="day in days" :key="day" class="calendar-day">{{ day }}</div>
+              </div>
+              <div class="calendar-body">
+                <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
+                  <div
+                    v-for="day in week"
+                    :key="day.date"
+                    :class="{ 'calendar-date': true, active: isSelectedDate(day.date), disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
+                    @click="selectDate(day)"
+                  >
+                    {{ day.date ? day.date.getDate() : '' }}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -247,6 +239,18 @@ export default {
     },
     addClass: {
       type: String
+    },
+    disableFutureDates: {
+      type: Boolean,
+      default: false
+    },
+    maxDaysFromToday: {
+      type: Number,
+      default: null
+    },
+    minDaysFromToday: {
+      type: Number,
+      default: null
     }
   },
   emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -295,6 +299,7 @@ export default {
       const lastDayOfMonth = new Date(this.currentYear, this.currentMonth, 0);
       const firstDayOfWeek = firstDayOfMonth.getDay();
       const lastDateOfMonth = lastDayOfMonth.getDate();
+      const lastDayOfWeek = lastDayOfMonth.getDay();
 
       let dayCount = 1;
       const weeks = [];
@@ -304,9 +309,25 @@ export default {
         let hasDate = false;
         for (let j = 0; j < 7; j++) {
           if ((i === 0 && j < firstDayOfWeek) || dayCount > lastDateOfMonth) {
-            week.push({
-              date: null,
-            });
+            if (i === 0 && j < firstDayOfWeek) {
+              const prevMonthDate = new Date(this.currentYear, this.currentMonth - 1, 0);
+              prevMonthDate.setDate(prevMonthDate.getDate() - (firstDayOfWeek - j - 1));
+              week.push({
+                date: prevMonthDate,
+                isPrevMonth: true,
+              });
+            } else if (dayCount > lastDateOfMonth) {
+              const nextMonthDate = new Date(this.currentYear, this.currentMonth, dayCount - lastDateOfMonth);
+              week.push({
+                date: nextMonthDate,
+                isNextMonth: true,
+              });
+              dayCount++;
+            } else {
+              week.push({
+                date: null,
+              });
+            }
           } else {
             const date = new Date(
               this.currentYear,
@@ -364,7 +385,7 @@ export default {
       this.showCalendar = !this.showCalendar
     },
     selectDate(day) {
-      if (day.date) {
+      if (day.date && (!this.disableFutureDates || !this.isFutureDate(day.date)) && !this.isOutOfRange(day.date) && !day.isPrevMonth && !day.isNextMonth) {
         const newSelectedDate = new Date(day.date)
         newSelectedDate.setDate(newSelectedDate.getDate() + 0)
 
@@ -430,6 +451,31 @@ export default {
         selected.getFullYear() === date.getFullYear()
       );
     },
+    isFutureDate(date) {
+      if (!date) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      return date > today;
+    },
+    isOutOfRange(date) {
+      if (!date) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (this.maxDaysFromToday !== null) {
+        const maxDate = new Date(today);
+        maxDate.setDate(today.getDate() + this.maxDaysFromToday);
+        if (date > maxDate) return true;
+      }
+
+      if (this.minDaysFromToday !== null) {
+        const minDate = new Date(today);
+        minDate.setDate(today.getDate() + this.minDaysFromToday);
+        if (date < minDate) return true;
+      }
+
+      return false;
+    },
     scrollToSelectedYear() {
       const yearMenu = this.years
 
@@ -490,16 +536,12 @@ export default {
     height: fit-content;
   }
   
-  .card-header {
+  .card-header{
     padding: 1rem;
     background-color: white;
     border-bottom: 1px solid var(--g-kit-black-20);
   }
-  
-  .card-body .d-flex {
-    border-bottom: 1px solid var(--g-kit-black-20);
-  }
-  
+
   .card b {
     font-size: var(--g-kit-font-size-lambda);
     line-height: var(--g-kit-line-height-lambda);
@@ -511,10 +553,50 @@ export default {
     justify-content: space-between;
   }
   
-  .datepicker table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0px;
+  .datepicker {
+    /* ...existing code... */
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: .5rem;
+      border-bottom: 1px solid var(--g-kit-black-20);
+    }
+    .calendar-day {
+      flex: 1;
+      text-align: center;
+      font-weight: bold;
+    }
+    .calendar-body {
+      display: flex;
+      gap: .5rem;
+      flex-direction: column;
+    }
+    .calendar-week {
+      display: flex;
+      gap: .5rem;
+    }
+    .calendar-date {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem;
+      cursor: pointer;
+      aspect-ratio: 1 / 1; /* Ensures a 1:1 ratio */
+      border-radius: 50%;
+      place-content: center;
+      &:hover {
+        background-color: var(--g-kit-lime-50);
+        color: white;
+      }
+      &.active {
+        background-color: var(--g-kit-lime-50);
+        color: white;
+        border-radius: 50%;
+      }
+      &.disabled {
+        pointer-events: none;
+        color: var(--g-kit-black-20);
+      }
+    }
   }
   
   .datepicker th,
@@ -523,7 +605,7 @@ export default {
     padding: unset;
     font-size: var(--g-kit-font-size-lambda);
     line-height: var(--g-kit-line-height-lambda);
-    font-weight: var(--g-kit-font-weight-normal);
+    font-weight: var (--g-kit-font-weight-normal);
     color: var(--g-kit-black-80);
     cursor: pointer;
 
@@ -550,7 +632,7 @@ export default {
     border-bottom: 1px solid var(--g-kit-black-20);
     font-size: var(--g-kit-font-size-lambda);
     line-height: var(--g-kit-line-height-lambda);
-    font-weight: var(--g-kit-font-weight-normal);
+    font-weight: var (--g-kit-font-weight-normal);
     color: var(--g-kit-black-60);
   }
   
@@ -562,7 +644,7 @@ export default {
     background-color: transparent;
     border: none;
     font-size: var(--g-kit-font-size-lambda);
-    line-height: var(--g-kit-line-height-lambda);
+    line-height: var (--g-kit-line-height-lambda);
     font-weight: var(--g-kit-font-weight-bold);
   }
   
@@ -582,7 +664,7 @@ export default {
   
   .datepicker span {
     font-size: var(--g-kit-font-size-lambda);
-    line-height: var(--g-kit-line-height-lambda);
+    line-height: var (--g-kit-line-height-lambda);
     font-weight: var(--g-kit-font-weight-bold);
     color: var(--g-kit-black-80);
     cursor: pointer;
@@ -611,7 +693,7 @@ export default {
     background-color: white;
     top: 120px;
     width: 360px;
-    height: 320px;
+    height: 340px;
     overflow: scroll;
     scrollbar-width: none;
     border-bottom-left-radius: 6px;
@@ -663,6 +745,21 @@ export default {
   .offcanvas img {
     margin-bottom: unset;
   }
+
+  .datepicker td.disabled {
+    pointer-events: none;
+    color: var(--g-kit-black-20);
+  }
+
+  .datepicker .calendar-date.future-date {
+    color: var(--g-kit-black-40);
+  }
+  .datepicker .calendar-date.isPrevMonth,
+  .datepicker .calendar-date.isNextMonth,
+  .datepicker .calendar-date.disabled {
+    color: var(--g-kit-black-40);
+    pointer-events: none;
+  }
   
   @media only screen and (max-width: 600px) {
     .year-menu button {
@@ -693,7 +790,7 @@ export default {
       max-width: 100%;
     }
 
-    .content-date {
+     .content-date {
       position: relative;
     }
   
@@ -708,4 +805,3 @@ export default {
     }
   }
   </style>
-  
