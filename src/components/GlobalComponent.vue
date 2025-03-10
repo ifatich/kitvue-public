@@ -185,8 +185,8 @@
                 :placeholder="'Pilih tanggal'"
                 :disabled="false"
                 :required="true"
-                :maxDaysFromToday="3"
-                :minDaysFromToday="-3"
+                :maxDate="'2025-03-20'"
+                :minDate="'2025-03-01'"
                 @buttomSheetShown="handleBottomSheetShown"
               />
               
