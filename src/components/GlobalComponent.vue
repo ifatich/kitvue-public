@@ -236,10 +236,21 @@
               <p>Selected Date: {{ selectedDate }}</p>
               <DateRangePickerOption
                 :disabled="false"
-                placeholder="Pilih Tanggal Anjing"
+                placeholder="Pilih Tanggal"
                 label="Date Range Picker"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
+              />
+
+              <DateRangePickerOption
+                :disabled="false"
+                placeholder="Pilih Tanggal"
+                label="Date Range Picker with Separator"
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                firstLabel="Periode Program"
+                secondLabel=" "
+                separator
               />
               <p>Selected Date: {{ startDate }} - {{ endDate }}</p>
               <div class="row">

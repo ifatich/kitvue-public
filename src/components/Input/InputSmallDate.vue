@@ -656,12 +656,17 @@ export default {
     width: 360px;
     margin: 0 auto;
     height: fit-content;
+    border-radius: .875rem;
   }
   
   .card-header{
     padding: 1rem;
     background-color: white;
     border-bottom: 1px solid var(--g-kit-black-20);
+    &:first-child {
+      border-top-left-radius: .875rem;
+      border-top-right-radius: .875rem;
+    }
   }
 
   .card b {
@@ -676,13 +681,13 @@ export default {
   }
   
   .datepicker {
-    /* ...existing code... */
     .calendar-header {
       display: flex;
       justify-content: space-between;
       padding: .5rem 1rem;
       border-top: 1px solid var(--g-kit-black-20);
       border-bottom: 1px solid var(--g-kit-black-20);
+      
     }
     .calendar-day {
       flex: 1;
