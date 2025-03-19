@@ -15,11 +15,14 @@ deploy:
     - apk add --no-cache jq
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
-    # - CURRENT_VERSION=$(npm view . version)
+    # -------------------------------------------------------------
     # - echo "Current version :$CURRENT_VERSION"
-    # - ALL_VERSIONS=$(npm view . versions --json)
     # - echo "All available versions :$ALL_VERSIONS"
+    # -------------------------------------------------------------
+    - CURRENT_VERSION=$(npm view . version)
+    - ALL_VERSIONS=$(npm view . versions --json)
     - YOUR_VERSION=$(node -p "require('./package.json').version")
+    # -------------------------------------------------------------
     - echo "Your Project Version :$YOUR_VERSION"
     - echo "Latest version :$(echo $ALL_VERSIONS | jq -r '.[-1]')"
     - if [ "$CURRENT_VERSION" = "$YOUR_VERSION" ]; then 
