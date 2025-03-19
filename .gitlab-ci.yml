@@ -15,12 +15,20 @@ deploy:
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
     - CURRENT_VERSION=$(npm view . version)
-    - NEW_VERSION=$(node -p "require('./package.json').version")
+    - NEW_VERSION=$(node -p "require('./package.json').version)
     - echo "Current version :$CURRENT_VERSION"
     - echo "New version :$NEW_VERSION"
     - ALL_VERSIONS=$(npm view . versions --json)
     - echo "All available versions :$ALL_VERSIONS"
-    - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then echo "Version is the same, rebuilding..."; npm rebuild; else npm publish --userconfig .npmrc; fi
+    - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then 
+        echo "Version is the same, rebuilding..."; 
+        npm rebuild; 
+      elif [ "$NEW_VERSION" = "$(echo $ALL_VERSIONS | jq -r '.[-1]')" ]; then 
+        echo "New version is the latest, publishing..."; 
+        npm publish --userconfig .npmrc; 
+      else 
+        echo "New version is not the latest, skipping publish."; 
+      fi
   only:
     - master
 
