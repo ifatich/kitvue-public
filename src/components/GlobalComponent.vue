@@ -143,7 +143,7 @@
               <Alert
                 class="variant"
                 color="info"
-                label="Lorem ipsum dolor sit amet"
+                label="Lorem ipsum dolor sit amet, Pastikan data yang diisi telah sesuai dengan data nasabah."
               />
               <Alert
                 class="variant"
@@ -172,10 +172,16 @@
               </p>
             </div>
             <div class="card-body">
+              <CalendarDropdown
+                v-model="selectedDate"
+                id="birthdate"
+                placeholder="Pilih Tanggal Lahir"
+              />
+
               <InputSmallDate
                 v-model="selectedDate"
                 id="birthdate"
-                placeholder="sadf Tanggal Lahir"
+                placeholder="Pilih Tanggal Lahir"
                 maxDaysFromToday="10"
               />
 
@@ -246,7 +252,8 @@
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
-                label="Ini Bisa Text"
+                label="Ini Bisa Text Tested"
+                class="pb-4"
               />
 
               <InputText
@@ -306,7 +313,7 @@
                 :defaultMinute="'30'"
                 @activeTime="handleActiveTime"
               />
-              <p>Selected Time: {{ selectedTime }}</p>
+              <p>Selected Number: {{ selectedTime }}</p>
 
               <div class="d-flex align-items-center gap-3">
                 <TimePickerResponsive
@@ -322,20 +329,42 @@
               <p>Selected Time: {{ selectedTimes }}</p>
 
               <InputText
+                id="iniidnumber"
+                placeholder="Test placeholder!"
+                v-model="number"
+                label="Ini Number Only"
+                type="number"
+              />
+
+              <p>Selected Date: {{ number }}</p>
+
+              <InputText
                 id="inisearch"
                 placeholder="Cari data"
                 v-model="text"
                 type="search"
-                
               />
+
+              <NewIput
+                id="inisearch"
+                placeholder="Cari data"
+                v-model="text"
+                type="search" 
+              />
+
+              <p>Search Value: {{ text }}</p>
+
 
               <InputNominalStart
                 id="input-rupiah"
                 label="Input Rupiah"
                 v-model="rupiah"
+                class="pb-4"
               />
+
               {{ rupiah }}
               <InputNominalEnd id="15" title="Persentase DP" required="" />
+              
               <InputTextArea id="16" />
               <Dropdown
                 v-model="nilaiTerpilih"
@@ -1469,6 +1498,8 @@ import CardProductSyariah from "./Card/CardProductSyariah.vue";
 import CardPromo from "./Card/CardPromo.vue";
 import CardPromoCode from "./Card/CardPromoCode.vue";
 import CardVoucher from "./Card/CardVoucher.vue";
+import CalendarDropdown from "./Input/CalendarDropdown.vue";
+import NewIput from "./Input/newIput.vue";
 
 
 

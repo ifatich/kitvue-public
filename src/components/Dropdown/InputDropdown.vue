@@ -140,6 +140,7 @@
             {{ selectedText || props.placeholder }}
           </p>
         </slot>
+        <slot name="icon-right">
           <span>
             <BSpinner v-if="loading" small />
             <img
@@ -151,6 +152,7 @@
               src="../../assets/icon/chevron_down.svg"
             />
           </span>
+        </slot>
       </template>
       <div v-if="!props.useBottomSheet">
         <slot></slot>
@@ -230,6 +232,10 @@
   }
 
   .gkit-dd {
+    &.w-100 {
+      padding-left: 11px;
+      padding-right: 12px;
+    }
     .dropdown-menu {
       &.show {
         max-height: 358px !important;

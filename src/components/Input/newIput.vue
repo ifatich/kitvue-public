@@ -10,7 +10,7 @@
 
 	// Define component options
 	defineOptions({
-		name: 'InputText',
+		name: 'NewInput',
 		inheritAttrs: false
 	})
 
@@ -62,7 +62,7 @@
 
 	// Define reactive variables
 	const inputValue = ref(props.modelValue)
-	const displayValue = ref(props.type === 'number' ? formatNumber(props.modelValue) : props.modelValue)
+    const displayValue = ref((props.type === 'number' || (props.type === 'search' && /^\d+$/.test(props.modelValue))) ? formatNumber(props.modelValue) : props.modelValue)
 	const localError = ref(false)
 	const isSearchActive = ref(false)
 
@@ -74,7 +74,7 @@
 				localError.value = newVal ?.trim() === ''
 			}
 			inputValue.value = newVal
-			displayValue.value = props.type === 'number' ? formatNumber(newVal) : newVal
+            displayValue.value = (props.type === 'number' || (props.type === 'search' && /^\d+$/.test(newVal))) ? formatNumber(newVal) : newVal
 		}
 	)
 
@@ -98,7 +98,25 @@
 
 				event.target.setSelectionRange(newCursorPosition, newCursorPosition)
 			}, 0)
-		} else {
+		} else if (props.type === 'search' && /^\d+$/.test(event.target.value.replace(/\s+/g, ''))) {
+            const rawValue = event.target.value.replace(/\s+/g, '')
+            localError.value = props.required && rawValue.trim() === ''
+            inputValue.value = rawValue
+            displayValue.value = formatNumber(rawValue)
+
+            emit('update:modelValue', rawValue)
+
+            // Restore cursor position
+            setTimeout(() => {
+                const cursorPosition = event.target.selectionStart
+                const unformattedValue = event.target.value.replace(/\s+/g, '')
+                const formattedValue = formatNumber(unformattedValue)
+                let spacesBeforeCursor = formattedValue.slice(0, cursorPosition).split(' ').length - 1
+                let newCursorPosition = cursorPosition + spacesBeforeCursor
+
+                event.target.setSelectionRange(newCursorPosition, newCursorPosition)
+            }, 0)
+        } else {
 			inputValue.value = event.target.value
 			displayValue.value = event.target.value
 			emit('update:modelValue', event.target.value)
