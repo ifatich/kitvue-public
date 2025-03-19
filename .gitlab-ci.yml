@@ -12,7 +12,6 @@ deploy:
   image: $REGISTRY/node:20.10.0-alpine
   stage: deploy
   script:
-    - apk add --no-cache jq
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
     - CURRENT_VERSION=$(npm view . version)
@@ -20,13 +19,11 @@ deploy:
     - echo "Current version :$CURRENT_VERSION"
     - echo "New version :$NEW_VERSION"
     - ALL_VERSIONS=$(npm view . versions --json)
-    - LATEST_VERSION= "$(echo $ALL_VERSIONS | jq -r '.[-1]')"
     - echo "All available versions :$ALL_VERSIONS"
-    - echo "Latest version :$LATEST_VERSION"
     - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then 
         echo "Version is the same, rebuilding..."; 
-        npm rebuild; 
-      elif [ "$NEW_VERSION" = "$LATEST_VERSION" ]; then 
+        npm rebuild --userconfig .npmrc; 
+      elif [ "$NEW_VERSION" = "$(echo $ALL_VERSIONS | jq -r '.[-1]')" ]; then 
         echo "New version is the latest, publishing..."; 
         npm publish --userconfig .npmrc; 
       else 
