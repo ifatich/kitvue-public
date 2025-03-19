@@ -8,29 +8,13 @@ stages:
   - deploy
   - snapshot
 
-# deploy:
-#   image: $REGISTRY/node:20.10.0-alpine
-#   stage: deploy
-#   script:
-#     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
-#     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
-#     - npm publish --userconfig .npmrc
-#   only:
-#     - master
-
 deploy:
   image: $REGISTRY/node:20.10.0-alpine
   stage: deploy
   script:
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
-    - |
-      if npm info $CI_PROJECT_NAME@$CI_COMMIT_REF_NAME > /dev/null 2>&1; then
-        echo "Version already exists, rebuilding..."
-        npm rebuild $CI_PROJECT_NAME
-      else
-        npm publish --userconfig .npmrc
-      fi
+    - npm rebuild --userconfig .npmrc
   only:
     - master
 
@@ -40,12 +24,6 @@ snapshot:
   script:
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
-    - |
-      if npm info $CI_PROJECT_NAME@$CI_COMMIT_REF_NAME > /dev/null 2>&1; then
-        echo "Version already exists, rebuilding..."
-        npm rebuild $CI_PROJECT_NAME
-      else
-        npm publish --userconfig .npmrc
-      fi
+    - npm publish --userconfig .npmrc
   only:
     - /^dev-update-component$/
