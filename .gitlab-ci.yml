@@ -17,9 +17,10 @@ deploy:
     - CURRENT_VERSION=$(npm view . version)
     - NEW_VERSION=$(node -p "require('./package.json').version")
     - echo "Current version :$CURRENT_VERSION"
-    - echo "New version :$NEW_VERSION"
     - ALL_VERSIONS=$(npm view . versions --json)
     - echo "All available versions :$ALL_VERSIONS"
+    - echo "New version :$NEW_VERSION"
+    - echo "Latest version :$(echo $ALL_VERSIONS | jq -r '.[-1]')"
     - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then 
         echo "Version is the same, rebuilding..."; 
         npm rebuild --userconfig .npmrc; 
