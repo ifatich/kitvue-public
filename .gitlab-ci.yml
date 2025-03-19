@@ -14,7 +14,9 @@ deploy:
   script:
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
-    - npm rebuild --userconfig .npmrc
+    - CURRENT_VERSION=$(npm view . version)
+    - NEW_VERSION=$(node -p "require('./package.json').version")
+    - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then echo "Version is the same, rebuilding..."; npm rebuild; else npm publish --userconfig .npmrc; fi
   only:
     - master
 
