@@ -3,15 +3,16 @@
     <div class="date-range-picker">
       <InputSmallDate
         :disabled="props.disabled"
+        :title="props.firstLabel"
         v-model="startDate"
-        title="Dari"
         placeholder="DD / MM / YYYY"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
+      <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative;">s/d</div>
       <InputSmallDate
         :disabled="props.disabled"
+        :title="props.secondLabel"
         v-model="endDate"
-        title="Hingga"
         placeholder="DD / MM / YYYY"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
@@ -38,7 +39,25 @@ const errorValidation = computed(() => {
   }
 })
 
-const props = defineProps(['disabled'])
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  firstLabel: {
+    type: String,
+    default: 'Dari',
+    required: true
+  },
+  secondLabel: {
+    type: String,
+    default: 'Hingga'
+  },
+  separator: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const handleOffcanvasToggle = (value) => {
   emits('buttomSheetShown', value)
@@ -50,7 +69,6 @@ export default {
   name: 'DateRangePicker'
 }
 </script>
-
 
 <style scoped>
 .form-label {
