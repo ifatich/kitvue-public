@@ -19,12 +19,14 @@ deploy:
     - echo "Current version :$CURRENT_VERSION"
     - echo "New version :$NEW_VERSION"
     - ALL_VERSIONS=$(npm view . versions --json)
+    - LATEST_VERSION=$(echo $ALL_VERSIONS | jq -r '.[-1]')
     - echo "All available versions :$ALL_VERSIONS"
+    - echo "Latest version :$LATEST_VERSION"
     - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then 
-        echo "Version is the same, rebuilding..."; 
+        echo "Version is the same, rebuilding on $NEW_VERSION..."; 
         npm rebuild; 
-      elif [ "$NEW_VERSION" = "$(echo $ALL_VERSIONS | jq -r '.[-1]')" ]; then 
-        echo "New version is the latest, publishing..."; 
+      elif [ "$NEW_VERSION" = "$LATEST_VERSION" ]; then 
+        echo "Your version is the latest at $NEW_VERSION, publishing..."; 
         npm publish --userconfig .npmrc; 
       else 
         echo "New version is not the latest, skipping publish."; 
