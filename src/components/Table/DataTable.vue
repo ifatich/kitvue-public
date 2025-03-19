@@ -1,19 +1,21 @@
 <template>
     <div>
-        <div class="d-flex justify-content-between align-items-center" style="gap: 24px; margin-bottom: 24px;">
-            <div>
-                <span>Lihat   </span>
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-end" style="gap: 24px; margin-bottom: 24px;">
+            <div class="d-flex align-items-center gap-2">
+                <span>Lihat</span>
                 <select name="entriesLength" @change="handleEntriesChange">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span>   baris</span>
+                <span>baris</span>
             </div>
             <input type="search" v-model="searchQuery" @input="handleSearchInput" class="w-50 form-control dataTables_filters" placeholder="Search" />
         </div>
 
+        <!-- Table -->
         <table ref="dataTable" class="table rounded-corners" style="width: 100%">
             <thead>
                 <tr>
@@ -37,6 +39,16 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <TablePagination
+            class="justify-content-end custom-pagination"
+            :total-pages="Math.ceil(data.length / entriesPerPage)"
+            :total-rows="data.length"
+            :per-page="entriesPerPage"
+            v-model="currentPage"
+            :limit="7"
+        />
 
         <div class="responsive-table">
             <div v-if="filteredCards.length > 0" class="table-container">
@@ -73,17 +85,20 @@
     import "datatables.net-dt/css/jquery.dataTables.css";
 
     import LabelVue from "../Label/Label.vue";
+    import TablePagination from './TablePagination.vue';
 
     export default {
         name: "DataTable",
         components: {
             LabelVue,
+            TablePagination,
         },
         data() {
             return {
                 searchQuery: "",
                 dataTableInstance: null,
-                entriesPerPage: null,
+                entriesPerPage: 10,
+                currentPage: 1,
                 search: "",
             };
         },
@@ -114,6 +129,11 @@
                 this.searchQuery = newValue;
                 this.handleSearchInput();
             },
+            currentPage(newValue) {
+                if (this.dataTableInstance) {
+                    this.dataTableInstance.page(newValue - 1).draw('page');
+                }
+            }
         },
         methods: {
             handleSort(key) {
@@ -148,10 +168,24 @@
                     this.dataTableInstance.search(this.searchQuery).draw();
                 }
             },
-            handleEntriesChange() {
+            handleEntriesChange(event) {
                 if (this.dataTableInstance) {
                     const entriesPerPage = parseInt(event.target.value, 10);
+                    this.entriesPerPage = entriesPerPage;
                     this.dataTableInstance.page.len(entriesPerPage).draw();
+                }
+            },
+            refreshTableData(newData) {
+                if (this.dataTableInstance) {
+                    this.dataTableInstance.clear();
+                    this.dataTableInstance.rows.add(newData);
+                    this.dataTableInstance.draw();
+                }
+            },
+            resetSearchQuery() {
+                this.searchQuery = "";
+                if (this.dataTableInstance) {
+                    this.dataTableInstance.search("").draw();
                 }
             },
             destroyDataTable() {
@@ -174,14 +208,15 @@
     };
 </script>
 
-<style scoped>
-    svg {
-        right: 10px;
-        display: block;
-        position: absolute;
-    }
+<style lang="scss">
+    
     table {
         margin-bottom: 1rem;
+        svg {
+            right: 10px;
+            display: block;
+            position: absolute;
+        }
     }
     .dataTables_length,
     .dataTables_filter {
@@ -190,33 +225,10 @@
 
     .dataTables_wrapper {
         .dataTables_paginate {
-            color: var(--g-kit-black-60) !important;
-
-            display: flex;
-            column-gap: .75rem;
-
-            span {
-                display: flex;
-                column-gap: .75rem;
-                color: var(--g-kit-black-60) !important;
-            }
-
-            .paginate_button {
-                color: var(--g-kit-black-60) !important;
-                border-radius: .25rem !important;
-                border: 1px solid var(--g-kit-black-20);
-
-                &.current{
-                    background-color: var(--g-kit-lime-50);
-                    border: none;
-                    color: white !important;
-                }
-                &.disabled {
-                    border: 1px solid var(--g-kit-black-20);
-                    color: var(--g-kit-black-60) !important;
-                }
-                
-            }
+            display: none;
+        }
+        .dataTables_info {
+            position: absolute;
         }
     }
 
