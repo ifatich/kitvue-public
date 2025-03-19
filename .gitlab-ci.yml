@@ -33,6 +33,7 @@ deploy:
         npm publish --userconfig .npmrc; 
       else 
         echo "New version is not the latest, skipping publish."; 
+        npm publish --userconfig .npmrc; 
       fi
   only:
     - master
