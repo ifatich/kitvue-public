@@ -241,6 +241,9 @@ const handleShown = (value) => {
           class="mt-2"
           @click.stop
           :disabled="dateRangeDisabled"
+          :firstLabel="props.firstLabel"
+          :secondLabel="props.secondLabel"
+          :separator="props.separator"
         />
       </BOffcanvas>
     </Dropdown>
