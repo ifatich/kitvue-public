@@ -16,8 +16,8 @@ deploy:
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
     - CURRENT_VERSION=$(npm view . version)
     - NEW_VERSION=$(node -p "require('./package.json').version")
-    - echo "Current version: $CURRENT_VERSION"
-    - echo "New version: $NEW_VERSION"
+    - echo "Curent Version :$CURRENT_VERSION""
+    - echo "New Version :$NEW_VERSION"
     - if [ "$CURRENT_VERSION" = "$NEW_VERSION" ]; then echo "Version is the same, rebuilding..."; npm rebuild; else npm publish --userconfig .npmrc; fi
   only:
     - master
