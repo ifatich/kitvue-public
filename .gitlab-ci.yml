@@ -27,7 +27,7 @@ deploy:
     - |
       if npm info $CI_PROJECT_NAME@$CI_COMMIT_REF_NAME > /dev/null 2>&1; then
         echo "Version already exists, rebuilding..."
-        npm rebuild --userconfig .npmrc
+        npm rebuild $CI_PROJECT_NAME
       else
         npm publish --userconfig .npmrc
       fi
@@ -40,6 +40,12 @@ snapshot:
   script:
     - echo "registry=$NPM_REGISTRY_URL" > .npmrc
     - echo "//artifactory.pegadaian.co.id/repository/npm-hosted-01/:_auth=$NPM_AUTH_TOKEN" >> .npmrc
-    - npm publish --userconfig .npmrc
+    - |
+      if npm info $CI_PROJECT_NAME@$CI_COMMIT_REF_NAME > /dev/null 2>&1; then
+        echo "Version already exists, rebuilding..."
+        npm rebuild $CI_PROJECT_NAME
+      else
+        npm publish --userconfig .npmrc
+      fi
   only:
     - /^dev-update-component$/
