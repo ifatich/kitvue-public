@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="date-range-picker">
+    <div :class="['date-range-picker', { 'with-separator': props.separator }]">
       <InputSmallDate
         :disabled="props.disabled"
         :title="props.firstLabel"
@@ -8,7 +8,7 @@
         placeholder="DD / MM / YYYY"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
-      <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative;">s/d</div>
+      <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
       <InputSmallDate
         :disabled="props.disabled"
         :title="props.secondLabel"
@@ -78,5 +78,9 @@ export default {
 .date-range-picker {
   display: flex;
   gap: 16px;
+}
+
+.date-range-picker.with-separator {
+  gap: 8px;
 }
 </style>
