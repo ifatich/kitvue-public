@@ -1,6 +1,6 @@
 {
   "name": "@pegadaian/kitvue",
-  "version": "0.1.01",
+  "version": "0.1.1",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -69,8 +69,5 @@
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ],
-  "peerDependencies": {
-    "jquery": "^3.7.1"
-  }
+  ]
 }
