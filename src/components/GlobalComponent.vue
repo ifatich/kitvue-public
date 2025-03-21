@@ -1098,6 +1098,28 @@
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
               />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                :min-start-date="new Date()"
+                :min-end-date="new Date()"
+                date-position="top"
+                format-type="short"
+                separator
+              />
 
               <p>Selected Date: {{ startDate }}</p>
               <p>Selected Date: {{ endDate }}</p>
