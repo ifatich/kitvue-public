@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="['date-range-picker', { 'with-separator': props.separator }]">
-      <InputSmallDate
+      <CalendarDropdown
         :disabled="props.disabled"
         :title="props.firstLabel"
         v-model="startDate"
@@ -13,7 +13,7 @@
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
       <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
-      <InputSmallDate
+      <CalendarDropdown
         :disabled="props.disabled"
         :title="props.secondLabel"
         v-model="endDate"
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import InputSmallDate from './InputSmallDate.vue'
+import CalendarDropdown from './CalendarDropdown.vue';
 import { computed, defineProps } from 'vue'
 
 const startDate = defineModel('startDate') // eslint-disable-line

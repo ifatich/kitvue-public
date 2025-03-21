@@ -1,5 +1,5 @@
 <template>
-    <div :class="computedClassList">
+    <div :class="computedClassList" class="custom-width">
         <div class="desktop">
 
             <label :for="$attrs.id" class="form-label">
@@ -220,6 +220,14 @@
             minDate: {
                 type: String,
                 default: null
+            },
+            /**
+             * @value date | short
+             * @default date
+             */
+            formatType: {
+                type: String,
+                default: 'date'
             }
         },
         emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -248,9 +256,6 @@
             }
         },
         computed: {
-            computedClassList() {
-                return ['group-input calendar-input', this.addClass];
-            },
             selectedDate: {
                 get() {
                     return this.formattedDate(this.modelValue)
@@ -372,10 +377,12 @@
                 } else {
                     this.showCalendar = false
                 }
+                this.resetMonthYear()
             },
             showDatePicker() {
                 this.showYearMenu = true
                 this.showCalendar = !this.showCalendar
+                this.resetMonthYear()
                 this.$nextTick(() => {
                     this.adjustDatePickerPosition();
                 });
@@ -404,13 +411,30 @@
                 this.showDatePickerOffcanvas = false;
                 this.showCalendar = false;
             },
+            // formattedDate(value) {
+            //     let formatted = ''
+            //     if (value && value !== 'null') {
+            //         const [year, month, day] = value.split('-')
+            //         const newDay = String(Number(day)).padStart(2, '0')
+            //         const newMonth = String(Number(month)).padStart(2, '0')
+            //         formatted = `${newDay}/${newMonth}/${year}`
+            //     }
+            //     return formatted
+            // },
             formattedDate(value) {
                 let formatted = ''
                 if (value && value !== 'null') {
                     const [year, month, day] = value.split('-')
                     const newDay = String(Number(day)).padStart(2, '0')
+
+                    if (this.formatType === 'short') {
+                    const shortMonth = this.months[Number(month) - 1].substring(0, 3)
+                    
+                    formatted = `${newDay} ${shortMonth} ${year}`
+                    } else {
                     const newMonth = String(Number(month)).padStart(2, '0')
                     formatted = `${newDay}/${newMonth}/${year}`
+                    }
                 }
                 return formatted
             },
@@ -514,6 +538,10 @@
                     }
                 });
             },
+            resetMonthYear() {
+                this.currentMonth = new Date().getMonth() + 1
+                this.currentYear = new Date().getFullYear()
+            },
         },
         mounted() {
             this.$nextTick(() => {
@@ -526,6 +554,12 @@
 </script>
 
 <style lang="scss">
+
+    .desktop {
+        .custom-width {
+            min-width: 246px;
+        }
+    }
 
     .calendar-input .dropdown-menu.show.overflow-auto {
         padding: 0px;
