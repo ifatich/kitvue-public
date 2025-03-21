@@ -1,6 +1,6 @@
 <template>
   <div :class="['group-input calendar-input', addClass]">
-    <div class="desktop">
+    <div class="desktop" :class="{ 'top-modal': datePosition === 'top' }">
       <label :for="$attrs.id" class="form-label">
         {{ title || 'Tanggal Lahir' }}
       </label>
@@ -330,6 +330,10 @@ export default {
     minDate: {
       type: String,
       default: null
+    },
+    datePosition: {
+      type: String,
+      default: 'bottom'
     }
   },
   emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -478,10 +482,12 @@ export default {
       } else {
         this.showCalendar = false
       }
+      this.resetMonthYear()
     },
     showDatePicker() {
       this.showYearMenu = false
       this.showCalendar = !this.showCalendar
+      this.resetMonthYear()
     },
     selectDate(day) {
       if (day.date && (!this.disableFutureDates || !this.isFutureDate(day.date)) && !this.isOutOfRange(day.date) && !day.isPrevMonth && !day.isNextMonth) {
@@ -612,6 +618,10 @@ export default {
           }
         }
       });
+    },
+    resetMonthYear() {
+      this.currentMonth = new Date().getMonth() + 1
+      this.currentYear = new Date().getFullYear()
     },
   },
   mounted() {
@@ -837,6 +847,18 @@ export default {
   .datepicker .calendar-date.disabled {
     color: var(--g-kit-black-40);
     pointer-events: none;
+  }
+
+  .desktop {
+    &.top-modal {
+      position: relative;
+      
+      .content-date {
+        top: 0;
+        transform: translateY(-95%);
+        z-index: 1;
+      }
+    }
   }
   
   @media only screen and (max-width: 600px) {

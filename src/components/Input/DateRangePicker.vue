@@ -5,7 +5,10 @@
         :disabled="props.disabled"
         :title="props.firstLabel"
         v-model="startDate"
-        placeholder="DD / MM / YYYY"
+        :placeholder="props.firstPlaceholder"
+        :date-position="props.datePosition"
+        :min-date="props.minStartDate"
+        :max-date="endDate"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
       <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
@@ -13,7 +16,9 @@
         :disabled="props.disabled"
         :title="props.secondLabel"
         v-model="endDate"
-        placeholder="DD / MM / YYYY"
+        :placeholder="props.secondPlaceholder"
+        :date-position="props.datePosition"
+        :min-date="startDate || props.minEndDate"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
     </div>
@@ -56,6 +61,24 @@ const props = defineProps({
   separator: {
     type: Boolean,
     default: false
+  },
+  firstPlaceholder: {
+    type: String,
+    default: 'DD / MM / YYYY'
+  },
+  secondPlaceholder: {
+    type: String,
+    default: 'DD / MM / YYYY'
+  },
+  datePosition: {
+    type: String,
+    default: 'bottom'
+  },
+  minStartDate: {
+    type: Date,
+  },
+  minEndDate: {
+    type: Date,
   }
 })
 
