@@ -9,6 +9,7 @@
         :date-position="props.datePosition"
         :min-date="props.minStartDate"
         :max-date="endDate"
+        :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
       <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
@@ -19,6 +20,7 @@
         :placeholder="props.secondPlaceholder"
         :date-position="props.datePosition"
         :min-date="startDate || props.minEndDate"
+        :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
     </div>
@@ -79,6 +81,14 @@ const props = defineProps({
   },
   minEndDate: {
     type: Date,
+  },
+  /**
+   * @value date | short
+   * @default date
+   */
+  formatType: {
+    type: String,
+    default: 'date'
   }
 })
 

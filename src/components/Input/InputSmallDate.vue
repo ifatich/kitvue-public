@@ -334,6 +334,14 @@ export default {
     datePosition: {
       type: String,
       default: 'bottom'
+    },
+    /**
+     * @value date | short
+     * @default date
+     */
+    formatType: {
+      type: String,
+      default: 'date'
     }
   },
   emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -514,8 +522,15 @@ export default {
       if (value && value !== 'null') {
         const [year, month, day] = value.split('-')
         const newDay = String(Number(day)).padStart(2, '0')
-        const newMonth = String(Number(month)).padStart(2, '0')
-        formatted = `${newDay}/${newMonth}/${year}`
+
+        if (this.formatType === 'short') {
+          const shortMonth = this.months[Number(month) - 1].substring(0, 3)
+          
+          formatted = `${newDay} ${shortMonth} ${year}`
+        } else {
+          const newMonth = String(Number(month)).padStart(2, '0')
+          formatted = `${newDay}/${newMonth}/${year}`
+        }
       }
       return formatted
     },
