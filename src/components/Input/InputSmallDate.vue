@@ -567,8 +567,13 @@ export default {
       });
     },
     resetMonthYear() {
-      this.currentMonth = new Date().getMonth() + 1
-      this.currentYear = new Date().getFullYear()
+      if (!this.modelValue) {
+        this.currentMonth = new Date().getMonth() + 1
+        this.currentYear = new Date().getFullYear()
+      } else {
+        this.currentMonth = new Date(this.modelValue).getMonth() + 1
+        this.currentYear = new Date(this.modelValue).getFullYear()
+      }
     },
   },
   mounted() {
