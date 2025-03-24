@@ -1,6 +1,6 @@
 <template>
   <div :class="['group-input calendar-input', addClass]">
-    <div class="desktop">
+    <div class="desktop" :class="{ 'top-modal': datePosition === 'top' }">
       <label :for="$attrs.id" class="form-label">
         {{ title || 'Tanggal Lahir' }}
       </label>
@@ -102,74 +102,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <Dropdown
-        :disabled="disabled"
-        :id="$attrs.id"
-        class="calendar-input"
-      >
-        <template #button-content>
-          <p
-              class="overflow-hidden my-auto text-ellipsis"
-              :style="[
-                  selectedDate ? 'color: #252528 !important' : '',
-                  !selectedDate ? 'color: #939597 !important' : '',
-              ]"
-              >
-              {{ selectedDate || placeholder }}
-          </p>
-        </template>
-        <div class="content-date">
-          <div class="card">
-              <div class="card-header d-flex justify-content-between align-items-center">
-                  <b>Pilih Tanggal</b>
-                  <button class="btn p-0">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                              d="M7.97814 6.27576C7.50308 5.88357 6.79868 5.90971 6.3542 6.3542C5.88193 6.82646 5.88193 7.59215 6.3542 8.06441L10.7898 12.5L6.3542 16.9356C5.88193 17.4079 5.88193 18.1735 6.3542 18.6458C6.79868 19.0903 7.50308 19.1164 7.97814 18.7242L8.06441 18.6458L12.5 14.2102L16.9356 18.6458L17.0219 18.7242C17.4969 19.1164 18.2013 19.0903 18.6458 18.6458C19.1181 18.1735 19.1181 17.4079 18.6458 16.9356L14.2102 12.5L18.6458 8.06441C19.1181 7.59215 19.1181 6.82646 18.6458 6.3542C18.2013 5.90971 17.4969 5.88357 17.0219 6.27576L16.9356 6.3542L12.5 10.7898L8.06441 6.3542L7.97814 6.27576Z"
-                              fill="#58585B" />
-                      </svg>
-                  </button>
-              </div>
-
-              <div  ref="calendar" class="datepicker">
-                  <div class="d-flex justify-content-between p-3" @click.stop>
-                      <button @click="previousMonth">
-                          <img src="../../assets/icon/icon-system/icon-chevron-left.svg" alt="" />
-                      </button>
-                      <div class="d-flex justify-content-center border-0">
-                          <span class="month-year-text" @click="toggleYearMenu">{{ formattedMonthYear }}</span>
-                      </div>
-                      <button @click="nextMonth">
-                          <img src="../../assets/icon/icon-system/icon-chevron-right.svg" alt="" />
-                      </button>
-                  </div>
-                  <div class="calendar-header d-flex">
-                      <div v-for="day in days" :key="day" class="calendar-day">{{ day }}</div>
-                  </div>
-                  <div class="calendar-body">
-                      <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
-                          <div v-for="day in week" :key="day.date"
-                              :class="{ 'calendar-date': true, active: isSelectedDate(day.date), disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
-                              @click="selectDate(day)">
-                              {{ day.date ? day.date.getDate() : '' }}
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
-          <div v-if="showYearMenu" class="year" @click.stop>
-              <div class="year-menu" ref="yearMenu">
-                  <button v-for="year in years" :key="year" :class="{ active: isSelectedYear(year) }"
-                      @click="selectYear(year)" :data-year="year" ref="yearMenus">
-                      {{ year }}
-                  </button>
-              </div>
-          </div>
-        </div>
-      </Dropdown> -->
     </div>
 
     <div class="mobile">
@@ -330,6 +262,18 @@ export default {
     minDate: {
       type: String,
       default: null
+    },
+    datePosition: {
+      type: String,
+      default: 'bottom'
+    },
+    /**
+     * @value date | short
+     * @default date
+     */
+    formatType: {
+      type: String,
+      default: 'date'
     }
   },
   emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -478,10 +422,12 @@ export default {
       } else {
         this.showCalendar = false
       }
+      this.resetMonthYear()
     },
     showDatePicker() {
       this.showYearMenu = false
       this.showCalendar = !this.showCalendar
+      this.resetMonthYear()
     },
     selectDate(day) {
       if (day.date && (!this.disableFutureDates || !this.isFutureDate(day.date)) && !this.isOutOfRange(day.date) && !day.isPrevMonth && !day.isNextMonth) {
@@ -508,8 +454,15 @@ export default {
       if (value && value !== 'null') {
         const [year, month, day] = value.split('-')
         const newDay = String(Number(day)).padStart(2, '0')
-        const newMonth = String(Number(month)).padStart(2, '0')
-        formatted = `${newDay}/${newMonth}/${year}`
+
+        if (this.formatType === 'short') {
+          const shortMonth = this.months[Number(month) - 1].substring(0, 3)
+          
+          formatted = `${newDay} ${shortMonth} ${year}`
+        } else {
+          const newMonth = String(Number(month)).padStart(2, '0')
+          formatted = `${newDay}/${newMonth}/${year}`
+        }
       }
       return formatted
     },
@@ -612,6 +565,15 @@ export default {
           }
         }
       });
+    },
+    resetMonthYear() {
+      if (!this.modelValue) {
+        this.currentMonth = new Date().getMonth() + 1
+        this.currentYear = new Date().getFullYear()
+      } else {
+        this.currentMonth = new Date(this.modelValue).getMonth() + 1
+        this.currentYear = new Date(this.modelValue).getFullYear()
+      }
     },
   },
   mounted() {
@@ -837,6 +799,18 @@ export default {
   .datepicker .calendar-date.disabled {
     color: var(--g-kit-black-40);
     pointer-events: none;
+  }
+
+  .desktop {
+    &.top-modal {
+      position: relative;
+      
+      .content-date {
+        top: 0;
+        transform: translateY(-95%);
+        z-index: 1;
+      }
+    }
   }
   
   @media only screen and (max-width: 600px) {

@@ -1088,7 +1088,7 @@
         <div class="col-lg-6 mt-4">
           <div class="card">
             <div class="card-header">
-              <h5>Date Range Picker</h5>
+              <h5>Date Range Picker New 21/03/25</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -1101,8 +1101,30 @@
                 v-model:end-date="endDate"
               />
 
-              <p>Selected Date: {{ startDate }}</p>
-              <p>Selected Date: {{ endDate }}</p>
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                :min-start-date="new Date()"
+                :min-end-date="new Date()"
+                format-type="short"
+                separator
+              />
+
+              <p>Start Date: {{ startDate }}</p>
+              <p>End Date: {{ endDate }}</p>
             </div>
           </div>
         </div>

@@ -1,19 +1,24 @@
 <template>
   <div>
     <div :class="['date-range-picker', { 'with-separator': props.separator }]">
-      <InputSmallDate
+      <CalendarDropdown
         :disabled="props.disabled"
         :title="props.firstLabel"
         v-model="startDate"
-        placeholder="DD / MM / YYYY"
+        :placeholder="props.firstPlaceholder"
+        :min-date="props.minStartDate"
+        :max-date="endDate"
+        :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
       <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
-      <InputSmallDate
+      <CalendarDropdown
         :disabled="props.disabled"
         :title="props.secondLabel"
         v-model="endDate"
-        placeholder="DD / MM / YYYY"
+        :placeholder="props.secondPlaceholder"
+        :min-date="startDate || props.minEndDate"
+        :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
     </div>
@@ -24,7 +29,7 @@
 </template>
 
 <script setup>
-import InputSmallDate from './InputSmallDate.vue'
+import CalendarDropdown from './CalendarDropdown.vue';
 import { computed, defineProps } from 'vue'
 
 const startDate = defineModel('startDate') // eslint-disable-line
@@ -56,6 +61,28 @@ const props = defineProps({
   separator: {
     type: Boolean,
     default: false
+  },
+  firstPlaceholder: {
+    type: String,
+    default: 'DD / MM / YYYY'
+  },
+  secondPlaceholder: {
+    type: String,
+    default: 'DD / MM / YYYY'
+  },
+  minStartDate: {
+    type: Date,
+  },
+  minEndDate: {
+    type: Date,
+  },
+  /**
+   * @value date | short
+   * @default date
+   */
+  formatType: {
+    type: String,
+    default: 'date'
   }
 })
 
