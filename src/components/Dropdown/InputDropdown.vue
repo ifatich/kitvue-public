@@ -56,7 +56,7 @@
     executeFetch: Function
   })
 
-  const emit = defineEmits(['update:modelValue', 'buttomSheetShown'])
+  const emit = defineEmits(['update:modelValue', 'buttomSheetShown', "close"])
 
   const search = ref('')
   const shown = ref(false)
@@ -64,7 +64,13 @@
   const dropdownRef = ref(null)
 
   const handleShown = () => {
-    if (!props.useBottomSheet) shown.value = !shown.value
+    if (!props.useBottomSheet) {
+      if (shown.value) {
+        emit('close')
+      }
+
+      shown.value = !shown.value
+    }
     if (props.useBottomSheet) shownOffcanvas.value = true
   }
 

@@ -1117,7 +1117,6 @@
                 second-placeholder="End Date"
                 :min-start-date="new Date()"
                 :min-end-date="new Date()"
-                date-position="top"
                 format-type="short"
                 separator
               />

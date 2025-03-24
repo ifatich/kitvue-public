@@ -13,6 +13,7 @@
                 :disabled="disabled"
                 :required="required"
                 :class="['calendar-input', classes]"
+                @close="this.resetMonthYear"
             >
 
                 <template #button-content>
@@ -410,6 +411,7 @@
             closeDropdown() {
                 this.showDatePickerOffcanvas = false;
                 this.showCalendar = false;
+                this.resetMonthYear()
             },
             // formattedDate(value) {
             //     let formatted = ''
@@ -539,8 +541,13 @@
                 });
             },
             resetMonthYear() {
-                this.currentMonth = new Date().getMonth() + 1
-                this.currentYear = new Date().getFullYear()
+                if (!this.modelValue) {
+                    this.currentMonth = new Date().getMonth() + 1
+                    this.currentYear = new Date().getFullYear()
+                } else {
+                    this.currentMonth = new Date(this.modelValue).getMonth() + 1
+                    this.currentYear = new Date(this.modelValue).getFullYear()
+                }
             },
         },
         mounted() {

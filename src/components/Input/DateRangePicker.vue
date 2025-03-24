@@ -6,7 +6,6 @@
         :title="props.firstLabel"
         v-model="startDate"
         :placeholder="props.firstPlaceholder"
-        :date-position="props.datePosition"
         :min-date="props.minStartDate"
         :max-date="endDate"
         :format-type="props.formatType"
@@ -18,7 +17,6 @@
         :title="props.secondLabel"
         v-model="endDate"
         :placeholder="props.secondPlaceholder"
-        :date-position="props.datePosition"
         :min-date="startDate || props.minEndDate"
         :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
@@ -71,10 +69,6 @@ const props = defineProps({
   secondPlaceholder: {
     type: String,
     default: 'DD / MM / YYYY'
-  },
-  datePosition: {
-    type: String,
-    default: 'bottom'
   },
   minStartDate: {
     type: Date,
