@@ -166,12 +166,14 @@
 </template>
 
 <script>
+    import { BOffcanvas } from 'bootstrap-vue-next'
     import Dropdown from '../Dropdown/InputDropdown.vue'
     /* eslint-disable */
     export default {
         name: 'DatePicker',
         inheritAttrs: false,
         components: {
+            BOffcanvas,
             Dropdown
         },
         props: {
