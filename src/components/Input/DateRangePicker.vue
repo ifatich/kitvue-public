@@ -22,8 +22,8 @@
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
     </div>
-    <div v-if="errorValidation" class="error-text mt-2">
-      {{ errorValidation }}
+    <div v-if="props.errorMessage || errorValidation" class="error-text mt-2">
+      {{ props.errorMessage || errorValidation }}
     </div>
   </div>
 </template>
@@ -83,6 +83,9 @@ const props = defineProps({
   formatType: {
     type: String,
     default: 'date'
+  },
+  errorMessage: {
+    type: String
   }
 })
 
@@ -107,7 +110,7 @@ export default {
   gap: 16px;
 }
 
-.date-range-picker.with-separator {
-  gap: 8px;
+.error-text {
+  margin-bottom: 16px;
 }
 </style>

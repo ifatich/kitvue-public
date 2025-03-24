@@ -1119,6 +1119,7 @@
                 :min-end-date="new Date()"
                 format-type="short"
                 separator
+                error-message="custom error"
               />
 
               <p>Start Date: {{ startDate }}</p>

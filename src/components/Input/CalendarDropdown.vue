@@ -800,6 +800,12 @@
         pointer-events: none;
     }
 
+    .date-range-picker:has(~ .error-text) {
+        .group-input {
+            margin-bottom: 0;
+        }
+    }
+
     @media only screen and (max-width: 600px) {
         .year-menu button {
             padding: .75rem 1.5rem;
