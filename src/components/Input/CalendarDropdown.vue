@@ -12,7 +12,7 @@
                 :aria-describedby="title"
                 :disabled="disabled"
                 :required="required"
-                :class="['calendar-input', classes]"
+                :class="['calendar-input custom-width', classes]"
                 @close="this.resetMonthYear"
             >
 
