@@ -29,7 +29,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <b>Pilih Tanggal</b>
-                            <button class="btn p-0" aria-label="Close calendar" @click="closeDropdown">
+                            <button type="button" class="btn p-0" aria-label="Close calendar" @click="closeDropdown">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
                                         d="M7.97814 6.27576C7.50308 5.88357 6.79868 5.90971 6.3542 6.3542C5.88193 6.82646 5.88193 7.59215 6.3542 8.06441L10.7898 12.5L6.3542 16.9356C5.88193 17.4079 5.88193 18.1735 6.3542 18.6458C6.79868 19.0903 7.50308 19.1164 7.97814 18.7242L8.06441 18.6458L12.5 14.2102L16.9356 18.6458L17.0219 18.7242C17.4969 19.1164 18.2013 19.0903 18.6458 18.6458C19.1181 18.1735 19.1181 17.4079 18.6458 16.9356L14.2102 12.5L18.6458 8.06441C19.1181 7.59215 19.1181 6.82646 18.6458 6.3542C18.2013 5.90971 17.4969 5.88357 17.0219 6.27576L16.9356 6.3542L12.5 10.7898L8.06441 6.3542L7.97814 6.27576Z"
@@ -40,13 +40,13 @@
 
                         <div  ref="calendar" class="datepicker">
                             <div class="d-flex justify-content-between p-3" @click.stop>
-                                <button @click="previousMonth">
+                                <button type="button" @click="previousMonth">
                                     <img src="../../assets/icon/icon-system/icon-chevron-left.svg" alt="" />
                                 </button>
                                 <div class="d-flex justify-content-center border-0">
                                     <span class="month-year-text" @click="toggleYearMenu">{{ formattedMonthYear }}</span>
                                 </div>
-                                <button @click="nextMonth">
+                                <button type="button" @click="nextMonth">
                                     <img src="../../assets/icon/icon-system/icon-chevron-right.svg" alt="" />
                                 </button>
                             </div>
@@ -67,7 +67,7 @@
 
                     <div v-if="showYearMenu" class="year" @click.stop>
                         <div class="year-menu" ref="yearMenu">
-                            <button v-for="year in years" :key="year" :class="{ active: isSelectedYear(year) }" @click="selectYear(year)" :data-year="year" ref="yearMenus">
+                            <button v-for="year in years" :key="year" type="button" :class="{ active: isSelectedYear(year) }" @click="selectYear(year)" :data-year="year" ref="yearMenus">
                                 {{ year }}
                             </button>
                         </div>
@@ -113,7 +113,7 @@
                     <div v-if="showCalendar" class="card">
                         <div v-if="showCalendar" ref="calendar" class="datepicker">
                         <div class="d-flex justify-content-between p-3">
-                            <button @click="previousMonth">
+                            <button type="button" @click="previousMonth">
                                 <img src="../../assets/icon/icon-system/icon-chevron-left.svg" alt="Previous month" />
                             </button>
                             <div class="d-flex justify-content-center border-0">
@@ -121,7 +121,7 @@
                                     {{ formattedMonthYear }}
                                 </span>
                             </div>
-                            <button @click="nextMonth">
+                            <button type="button" @click="nextMonth">
                                 <img src="../../assets/icon/icon-system/icon-chevron-right.svg" alt="" />
                             </button>
                         </div>
@@ -148,6 +148,7 @@
                         <button
                             v-for="year in years"
                             :key="year"
+                            type="button"
                             :class="{ active: isSelectedYear(year) }"
                             @click="selectYear(year)"
                             :data-year="year"
@@ -165,12 +166,14 @@
 </template>
 
 <script>
+    import { BOffcanvas } from 'bootstrap-vue-next'
     import Dropdown from '../Dropdown/InputDropdown.vue'
     /* eslint-disable */
     export default {
         name: 'DatePicker',
         inheritAttrs: false,
         components: {
+            BOffcanvas,
             Dropdown
         },
         props: {
@@ -795,6 +798,12 @@
     .datepicker .calendar-date.disabled {
         color: var(--g-kit-black-40);
         pointer-events: none;
+    }
+
+    .date-range-picker:has(~ .error-text) {
+        .group-input {
+            margin-bottom: 0;
+        }
     }
 
     @media only screen and (max-width: 600px) {
