@@ -4,7 +4,7 @@ import { defineOptions, defineProps, defineEmits, ref, watch } from "vue";
 
 // Define component options
 defineOptions({
-  name: "NewInput",
+  name: "InputNIK",
   inheritAttrs: false,
 });
 
