@@ -7,7 +7,7 @@
         v-model="startDate"
         :placeholder="props.firstPlaceholder"
         :min-date="props.minStartDate"
-        :max-date="endDate"
+        :max-date="endDate || props.maxStartDate"
         :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
@@ -18,6 +18,7 @@
         v-model="endDate"
         :placeholder="props.secondPlaceholder"
         :min-date="startDate || props.minEndDate"
+        :max-date="props.maxEndDate"
         :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
       />
@@ -73,7 +74,13 @@ const props = defineProps({
   minStartDate: {
     type: Date,
   },
+  maxStartDate: {
+    type: Date,
+  },
   minEndDate: {
+    type: Date,
+  },
+  maxEndDate: {
     type: Date,
   },
   /**
