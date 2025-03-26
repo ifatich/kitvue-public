@@ -41,9 +41,9 @@
       default: true
     },
     color: {
-			type: String,
-			default: 'default'
-		},
+      type: String,
+      default: 'default'
+    },
     error: String,
     label: String,
     items: Array,
@@ -53,7 +53,11 @@
     placeholder: String,
     class: String,
     errorFetch: String,
-    executeFetch: Function
+    executeFetch: Function,
+    required: {
+      type: Boolean,
+      default: false
+    }
   })
 
   const emit = defineEmits(['update:modelValue', 'buttomSheetShown', "close"])
@@ -62,6 +66,7 @@
   const shown = ref(false)
   const shownOffcanvas = ref(false)
   const dropdownRef = ref(null)
+  const isTouched = ref(false)
 
   const handleShown = () => {
     if (!props.useBottomSheet) {
@@ -70,6 +75,7 @@
       }
 
       shown.value = !shown.value
+      isTouched.value = true
     }
     if (props.useBottomSheet) shownOffcanvas.value = true
   }
@@ -101,6 +107,10 @@
     }
   })
 
+  const showError = computed(() => {
+    return isTouched.value && props.required && !selectedValue.value
+  })
+
   const handleOptionClick = (option) => {
     selectedValue.value = option[props.itemValue]
     if (props.useBottomSheet) shownOffcanvas.value = false
@@ -127,13 +137,17 @@
       <label v-if="props.label" :for="$attrs.id" class="form-label overflow-hidden">
         {{ props.label }}
       </label>
-      <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh"
-        src="../../assets/icon/refresh.svg" />
+      <img v-if="props.errorFetch" @click="props.executeFetch" class="icon-refresh" src="../../assets/icon/refresh.svg" />
     </div>
-    <BDropdown ref="dropdownRef" :value="selectedValue"
-      :toggle-class="['w-100 gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]"
-      class="prevent-zero gkit-dd" v-bind="$attrs" :disabled="disabled || loading" @toggle="handleShown"
-      :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}">
+    <BDropdown ref="dropdownRef" 
+      :value="selectedValue" 
+      :toggle-class="['w-100 gkit-dd d-flex justify-content-between align-items-center', `type-${color}`]" 
+      :class="['prevent-zero gkit-dd', { 'dd-error': showError }]" 
+      v-bind="$attrs" 
+      :disabled="disabled || loading" 
+      @toggle="handleShown" 
+      :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}"
+    >
       <template #button-content>
         <slot name="button-content">
           <p
@@ -195,7 +209,7 @@
         </ul>
       </BOffcanvas>
     </BDropdown>
-    <div class="error-text mt-2" v-if="props.error">
+    <div class="error-text mt-2" v-if="showError">
       {{ props.error }}
     </div>
   </div>
@@ -235,6 +249,15 @@
     width: 1.2rem !important;
     margin-left: 0.2rem;
     cursor: pointer;
+  }
+  
+  .dd-error {
+    .gkit-dd {
+      border-color: var(--g-kit-red-50);
+      &:hover {
+        border-color: var(--g-kit-red-60);
+      }
+    }
   }
 
   .gkit-dd {
