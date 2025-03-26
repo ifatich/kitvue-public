@@ -386,15 +386,17 @@
                 type="search"
               />
 
-              <InputNik
-                id="inisearch"
+              <p>Search old Value: {{ text }}</p>
+
+              <InputNIK
+                id="input-nik"
                 label="Ini search nik sendiri"
                 placeholder="Cari nik"
-                v-model="text"
+                v-model="nik"
                 type="nik"
               />
 
-              <p>Search Value: {{ text }}</p>
+              <p>Search nik Value: {{ nik }}</p>
 
               <InputNominalStart
                 id="input-rupiah"
@@ -1269,6 +1271,7 @@ import CustomTable from "@/components/Table/CustomTable.vue";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
+const nik = ref("1234 1234");
 const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
