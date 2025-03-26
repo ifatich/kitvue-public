@@ -7,9 +7,10 @@
         v-model="startDate"
         :placeholder="props.firstPlaceholder"
         :min-date="props.minStartDate"
-        :max-date="endDate"
+        :max-date="endDate || props.maxStartDate"
         :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
+        @close="emits('close:start')"
       />
       <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
       <CalendarDropdown
@@ -18,8 +19,10 @@
         v-model="endDate"
         :placeholder="props.secondPlaceholder"
         :min-date="startDate || props.minEndDate"
+        :max-date="props.maxEndDate"
         :format-type="props.formatType"
         @buttom-sheet-shown="handleOffcanvasToggle"
+        @close="emits('close:end')"
       />
     </div>
     <div v-if="props.errorMessage || errorValidation" class="error-text mt-2">
@@ -34,7 +37,7 @@ import { computed, defineProps } from 'vue'
 
 const startDate = defineModel('startDate') // eslint-disable-line
 const endDate = defineModel('endDate') // eslint-disable-line
-const emits = defineEmits(['buttomSheetShown']) // eslint-disable-line
+const emits = defineEmits(['buttomSheetShown', 'close:start', 'close:end']) // eslint-disable-line
 
 const errorValidation = computed(() => {
   if (startDate.value && endDate.value && startDate.value > endDate.value) {
@@ -73,7 +76,13 @@ const props = defineProps({
   minStartDate: {
     type: Date,
   },
+  maxStartDate: {
+    type: Date,
+  },
   minEndDate: {
+    type: Date,
+  },
+  maxEndDate: {
     type: Date,
   },
   /**

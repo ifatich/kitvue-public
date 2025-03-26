@@ -13,7 +13,10 @@
                 :disabled="disabled"
                 :required="required"
                 :class="['calendar-input custom-width', classes]"
-                @close="this.resetMonthYear"
+                @close="() => {
+                    this.resetMonthYear()
+                    this.$emit('close')
+                }"
             >
 
                 <template #button-content>
@@ -107,7 +110,10 @@
                 placement="bottom"
                 :title="'Pilih Tanggal' || title"
                 @shown="handleOffcanvasToggle(true)"
-                @hidden="handleOffcanvasToggle(false)"
+                @hidden="() => {
+                    handleOffcanvasToggle(false)
+                    this.$emit('close')
+                }"
             >
                 <div class="content-date">
                     <div v-if="showCalendar" class="card">
@@ -234,7 +240,7 @@
                 default: 'date'
             }
         },
-        emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
+        emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown', 'close'],
         data() {
             return {
                 showDatePickerOffcanvas: false,
