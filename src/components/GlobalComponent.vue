@@ -1121,6 +1121,36 @@
                 separator
                 error-message="custom error"
               />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                :min-start-date="new Date()"
+                :max-start-date="new Date('2025-03-31')"
+                :min-end-date="new Date()"
+                :max-end-date="new Date('2025-03-31')"
+                format-type="short"
+                separator
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                :min-start-date="new Date()"
+                :max-start-date="new Date('2025-03-31')"
+                :min-end-date="new Date()"
+                :max-end-date="new Date('2025-03-31')"
+                format-type="short"
+                separator
+                @close:start="() => console.log('close start')"
+                @close:end="() => console.log('close end')"
+              />
 
               <p>Start Date: {{ startDate }}</p>
               <p>End Date: {{ endDate }}</p>
