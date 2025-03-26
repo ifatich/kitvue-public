@@ -416,6 +416,7 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+                required
               />
               <Dropdown
                 v-model="nilaiTerpilih"
@@ -1765,7 +1766,7 @@ export default {
       propertiTeksPilihan: "nama",
       teksPlaceholder: "Pilih salah satu",
       kelasKustom: "input-dropdown-kustom",
-      teksError: null,
+      teksError: "null",
 
       selectedRadio: "",
       selectedOption: null,
