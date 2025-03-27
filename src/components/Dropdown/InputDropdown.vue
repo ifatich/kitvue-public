@@ -57,6 +57,12 @@
     required: {
       type: Boolean,
       default: false
+    },
+    /**
+     * @value start | center | end
+     */
+    alignment: {
+      type: String
     }
   })
 
@@ -147,6 +153,9 @@
       :disabled="disabled || loading" 
       @toggle="handleShown" 
       :menuClass="{'hide-dropdown-menu': props.useBottomSheet || props.showMenu === false}"
+      :start="props.alignment === 'start'"
+      :center="props.alignment === 'center'"
+      :end="props.alignment === 'end'"
     >
       <template #button-content>
         <slot name="button-content">

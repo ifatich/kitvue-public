@@ -9,6 +9,7 @@
         :min-date="props.minStartDate"
         :max-date="endDate || props.maxStartDate"
         :format-type="props.formatType"
+        :alignment="props.firstAlignment"
         @buttom-sheet-shown="handleOffcanvasToggle"
         @close="emits('close:start')"
       />
@@ -21,6 +22,7 @@
         :min-date="startDate || props.minEndDate"
         :max-date="props.maxEndDate"
         :format-type="props.formatType"
+        :alignment="props.secondAlignment"
         @buttom-sheet-shown="handleOffcanvasToggle"
         @close="emits('close:end')"
       />
@@ -94,6 +96,18 @@ const props = defineProps({
     default: 'date'
   },
   errorMessage: {
+    type: String
+  },
+  /**
+   * @value start | center | end
+   */
+  firstAlignment: {
+    type: String
+  },
+  /**
+   * @value start | center | end
+   */
+  secondAlignment: {
     type: String
   }
 })
