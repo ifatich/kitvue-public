@@ -17,6 +17,7 @@
                     this.resetMonthYear()
                     this.$emit('close')
                 }"
+                :alignment="alignment"
             >
 
                 <template #button-content>
@@ -238,6 +239,12 @@
             formatType: {
                 type: String,
                 default: 'date'
+            },
+            /**
+             * @value start | center | end
+             */
+            alignment: {
+                type: String
             }
         },
         emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown', 'close'],
