@@ -262,9 +262,9 @@
   
   .dd-error {
     .gkit-dd {
-      border-color: var(--g-kit-red-50);
+      border-color: var(--g-kit-black-20);
       &:hover {
-        border-color: var(--g-kit-red-60);
+        border-color: var(--g-kit-black-20);
       }
     }
   }
