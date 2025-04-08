@@ -1,1 +1,0 @@
-import '/Users/poj/Documents/Pegadaian/pegadaian-ui-kit-vue/node_modules/@storybook/core/dist/core-server/presets/common-manager.js';
