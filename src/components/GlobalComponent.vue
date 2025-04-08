@@ -207,6 +207,13 @@
                 placeholder="Pilih Tanggal Lahir"
               />
 
+              <CalendarDropdown
+                v-model="selectedDate"
+                id="birthdate"
+                placeholder="Pilih Tanggal Lahir"
+                alignment="center"
+              />
+
               <InputSmallDate
                 v-model="selectedDate"
                 id="birthdate"
@@ -1153,6 +1160,16 @@
                 separator
                 @close:start="() => console.log('close start')"
                 @close:end="() => console.log('close end')"
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                second-alignment="end"
               />
 
               <p>Start Date: {{ startDate }}</p>
