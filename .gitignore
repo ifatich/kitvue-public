@@ -7,6 +7,7 @@
 .yarn/install-state.gz
 
 # testing
+/.storybook
 /coverage
 
 # next.js
@@ -16,7 +17,7 @@
 package-lock.json
 
 # production
-# production
+/storybook-static
 /build
 /dist
 
