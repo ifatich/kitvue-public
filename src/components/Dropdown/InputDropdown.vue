@@ -321,11 +321,11 @@
   }
 
   .gkit-dd:hover {
-    border-color: #00883e;
+    border-color: var(--g-kit-lime-50);
   }
 
   .error-text {
-    color: #ae1e22;
+    color: var(--g-kit-black-20);
     font-size: var(--g-kit-font-size-omega);
     line-height: var(--g-kit-line-height-omega);
     font-weight: var(--g-kit-font-weight-normal);
@@ -360,4 +360,4 @@
       background-color: var(--g-kit-orange-10) !important;
     }
   }
-</style>
+</style>s
