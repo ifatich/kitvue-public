@@ -7,7 +7,9 @@
 .yarn/install-state.gz
 
 # testing
-/.storybook
+.storybook
+.cache
+.cache/storybook
 /coverage
 
 # next.js
