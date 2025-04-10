@@ -31,10 +31,14 @@
 <style lang="scss">
     .custom-pagination {
         &.pagination{
-            gap: 1.25rem;
+            gap: .75rem;
         }
         .page-item {
+            min-width: 40px;
+
             &.disabled {
+                pointer-events: none;
+
                 .page-link {
                     background-color: #fff;
                     border-color: var(--g-kit-black-20);
@@ -50,6 +54,9 @@
                     font-weight: 500;
                     align-items: center;
                     aspect-ratio: 1/1;
+
+                    margin: 0px !important;
+
                 }
             }
             &:last-child {
@@ -60,22 +67,19 @@
                     font-weight: 500;
                     align-items: center;
                     aspect-ratio: 1/1;
+
+                    margin: 0px !important;
+
                 }
             }
             .page-link {
                 border-radius: 6px !important;
-                font-size: var(--g-kit-font-size-sigma);
-                line-height: unset;
+                font-size: var(--g-kit-font-size-omicron);
+                line-height: var(--g-kit-line-height-omicron);
                 font-weight: var(--g-kit-font-weight-normal);
                 border: 1px solid var(--g-kit-black-20);
 
-                width: 40px;
-                height: unset;
                 aspect-ratio: 1/1;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
             }
         }
     }
