@@ -34,7 +34,6 @@
             gap: 1.25rem;
         }
         .page-item {
-            
             &.disabled {
                 .page-link {
                     background-color: #fff;
@@ -46,27 +45,37 @@
             &:first-child {
                 .page-link {
                     border-radius: 6px;
-                    font-size: 24px;
-                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 24px;
+                    font-weight: 500;
                     align-items: center;
+                    aspect-ratio: 1/1;
                 }
             }
             &:last-child {
                 .page-link {
                     border-radius: 6px;
-                    font-size: 24px;
-                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 24px;
+                    font-weight: 500;
                     align-items: center;
+                    aspect-ratio: 1/1;
                 }
             }
             .page-link {
                 border-radius: 6px !important;
                 font-size: var(--g-kit-font-size-sigma);
-                line-height: var(--g-kit-line-height-sigma);
+                line-height: unset;
                 font-weight: var(--g-kit-font-weight-normal);
-                align-items: self-end;
-
                 border: 1px solid var(--g-kit-black-20);
+
+                width: 40px;
+                height: unset;
+                aspect-ratio: 1/1;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
     }
