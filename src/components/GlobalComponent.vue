@@ -472,6 +472,24 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+
+                required
+                :isChecked="triggerValue"
+              />
+              
+              <button @click="testTrigger" class="btn btn-primary mt-2">
+                Trigger Dropdown Validation
+              </button>
+
+              <Dropdown
+                v-model="nilaiTerpilih"
+                :label="'Pilihan Anda'"
+                :items="daftarPilihan"
+                :itemValue="'id'"
+                :itemText="'nama'"
+                :placeholder="'Pengajuan kredit'"
+                :class="'input-dropdown-kustom'"
+                :error="teksError"
                 disabled
               />
               <Dropdown
@@ -1341,6 +1359,16 @@ const isSwitched = ref(false);
 const phoneCode = ref('');
 const phoneNumber = ref('');
 const phoneError = ref('Nomor telepon wajib diisi');
+
+const triggerValue = ref(false); // Ref untuk memicu validasi dropdown
+
+const testTrigger = () => {
+  console.log("trigger dropdown clicked");
+  triggerValue.value = true;
+  setTimeout(() => {
+    triggerValue.value = false; // Reset setelah validasi
+  }, 10000); // Sesuaikan waktu jika diperlukan
+};
 
 const handleFileDropped = (file) => {
   console.log("file droppped", file);
