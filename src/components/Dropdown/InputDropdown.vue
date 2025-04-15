@@ -63,6 +63,10 @@
      */
     alignment: {
       type: String
+    },
+    isChecked: {
+      type: Boolean,
+      default: false
     }
   })
 
@@ -73,6 +77,7 @@
   const shownOffcanvas = ref(false)
   const dropdownRef = ref(null)
   const isTouched = ref(false)
+  const isChecked = ref(false) // Ref untuk memicu validasi manual
 
   const handleShown = () => {
     if (!props.useBottomSheet) {
@@ -114,8 +119,12 @@
   })
 
   const showError = computed(() => {
-    return isTouched.value && props.required && !selectedValue.value
+    return (isTouched.value || props.isChecked) && props.required && !selectedValue.value;
   })
+
+  const triggerValidation = () => {
+    isChecked.value = true
+  }
 
   const handleOptionClick = (option) => {
     selectedValue.value = option[props.itemValue]
