@@ -286,6 +286,41 @@
                   State: <strong>{{ status }}</strong>
                 </div>
               </div>
+              <SwitchComponent
+                v-model="isSwitched"
+              />
+
+              <label for="flexSwitchCheckDefault" class="form-label">
+                selected : {{ isSwitched }}
+              </label>
+
+              <InputPhone
+                label="Nomor Telepon"
+                v-model:phone-code="phoneCode"
+                v-model:phone-number="phoneNumber"
+              />
+
+              <InputPhone
+                required
+                label="Nomor Telepon"
+                v-model:phone-code="phoneCode"
+                v-model:phone-number="phoneNumber"
+                eror="Ini text eror"
+              />
+
+              <InputPhone
+                required
+                label="Nomor Telepon"
+                phoneCodeLength="3"
+                v-model:phone-code="phoneCode"
+                v-model:phone-number="phoneNumber"
+                eror="Kode area dan nomor telepon wajib diisi"
+              />
+
+              <label class="form-label">
+                Phone: {{ phoneCode }} - {{ phoneNumber }}
+              </label>
+
               <InputSmallText
                 id="13"
                 title="Test Juduls"
@@ -415,7 +450,8 @@
               {{ rupiah }}
               <InputNominalEnd id="15" title="Persentase DP" required="" />
 
-              <InputTextArea id="16" />
+              <InputTextArea v-model="text" id="16" />
+              <InputTextArea v-model="text" variant="count" :maxLength="270" />
               <Dropdown
                 v-model="nilaiTerpilih"
                 :label="'Pilihan Anda'"
@@ -1285,6 +1321,8 @@ import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
 import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
+import SwitchComponent from "./Switch/Switch.vue";
+import InputPhone from "./Input/InputPhone.vue";
 
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
@@ -1298,6 +1336,11 @@ const modalOpen1 = ref(false);
 const modalOpen2 = ref(false);
 const modalOpen3 = ref(false);
 const showPicker = ref(false);
+
+const isSwitched = ref(false);
+const phoneCode = ref('');
+const phoneNumber = ref('');
+const phoneError = ref('Nomor telepon wajib diisi');
 
 const handleFileDropped = (file) => {
   console.log("file droppped", file);
@@ -1685,6 +1728,7 @@ import CardPromo from "./Card/CardPromo.vue";
 import CardPromoCode from "./Card/CardPromoCode.vue";
 import CardVoucher from "./Card/CardVoucher.vue";
 import CalendarDropdown from "./Input/CalendarDropdown.vue";
+
 import InputNIK from "./Input/InputNIK.vue";
 
 export default {
@@ -1710,7 +1754,6 @@ export default {
     InputText,
     InputTextArea,
     InputNominalStart,
-    InputTextArea,
     InputNominalEnd,
     Accordion,
     AccordionItem,
@@ -1742,6 +1785,8 @@ export default {
     TabProduct,
     TimePickerResponsive,
     RadioComponent,
+    SwitchComponent,
+    InputPhone,
   },
   data() {
     return {

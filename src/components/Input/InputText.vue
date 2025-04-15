@@ -1,6 +1,7 @@
 <script setup>
 	// Import necessary functions from Vue
 	import {
+		defineExpose,
 		defineOptions,
 		defineProps,
 		defineEmits,
@@ -121,6 +122,11 @@
 		displayValue.value = ''
 		emit('update:modelValue', '')
 	}
+	defineExpose({
+		focus: () => inputRef.value?.focus(),
+	});
+
+	const inputRef = ref(null);
 </script>
 
 <template>
@@ -135,10 +141,21 @@
 					<img src="../../assets/icon/search.svg" />
 				</div>
 			</slot>
-			<input :value="displayValue" @input="handleInput" @focus="handleFocus" @blur="handleBlur"
-				:class="['form-control', `type-${props.color}`]" v-bind="$attrs" :required="props.required"
-				:disabled="props.disabled" :type="props.type === 'number' ? 'text' : props.type"
-				:inputmode="props.type === 'number' ? 'numeric' : 'text'" />
+				
+			<input
+				ref="inputRef"
+				:value="displayValue"
+				@input="handleInput"
+				@focus="handleFocus"
+				@blur="handleBlur"
+				:class="['form-control', `type-${props.color}`]"
+				v-bind="$attrs"
+				:required="props.required"
+				:disabled="props.disabled"
+				:type="props.type === 'number' ? 'text' : props.type"
+				:inputmode="props.type === 'number' ? 'numeric' : 'text'"
+			/>
+
 			<div v-if="props.type === 'search' && displayValue" class="input-group-icon me-3">
 				<button @click="clearSearch" class="btn btn-link p-0">
 					<img src="../../assets/icon/close_round.svg" />
