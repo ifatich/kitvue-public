@@ -1,6 +1,6 @@
 <template>
   <div :class="['group-input calendar-input', addClass]">
-    <div class="desktop" :class="{ 'top-modal': datePosition === 'top' }">
+    <div class="desktop">
       <label :for="$attrs.id" class="form-label">
         {{ title || 'Tanggal Lahir' }}
       </label>
@@ -204,15 +204,12 @@
 
 <script>
 import { BOffcanvas } from 'bootstrap-vue-next'
-import Dropdown from '../Dropdown/InputDropdown.vue'
-
 /* eslint-disable */
 export default {
   name: 'DatePicker',
   inheritAttrs: false,
   components: {
-    BOffcanvas,
-    Dropdown
+    BOffcanvas
   },
   props: {
     title: {
@@ -262,18 +259,6 @@ export default {
     minDate: {
       type: String,
       default: null
-    },
-    datePosition: {
-      type: String,
-      default: 'bottom'
-    },
-    /**
-     * @value date | short
-     * @default date
-     */
-    formatType: {
-      type: String,
-      default: 'date'
     }
   },
   emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown'],
@@ -422,12 +407,10 @@ export default {
       } else {
         this.showCalendar = false
       }
-      this.resetMonthYear()
     },
     showDatePicker() {
       this.showYearMenu = false
       this.showCalendar = !this.showCalendar
-      this.resetMonthYear()
     },
     selectDate(day) {
       if (day.date && (!this.disableFutureDates || !this.isFutureDate(day.date)) && !this.isOutOfRange(day.date) && !day.isPrevMonth && !day.isNextMonth) {
@@ -454,15 +437,8 @@ export default {
       if (value && value !== 'null') {
         const [year, month, day] = value.split('-')
         const newDay = String(Number(day)).padStart(2, '0')
-
-        if (this.formatType === 'short') {
-          const shortMonth = this.months[Number(month) - 1].substring(0, 3)
-          
-          formatted = `${newDay} ${shortMonth} ${year}`
-        } else {
-          const newMonth = String(Number(month)).padStart(2, '0')
-          formatted = `${newDay}/${newMonth}/${year}`
-        }
+        const newMonth = String(Number(month)).padStart(2, '0')
+        formatted = `${newDay}/${newMonth}/${year}`
       }
       return formatted
     },
@@ -566,15 +542,6 @@ export default {
         }
       });
     },
-    resetMonthYear() {
-      if (!this.modelValue) {
-        this.currentMonth = new Date().getMonth() + 1
-        this.currentYear = new Date().getFullYear()
-      } else {
-        this.currentMonth = new Date(this.modelValue).getMonth() + 1
-        this.currentYear = new Date(this.modelValue).getFullYear()
-      }
-    },
   },
   mounted() {
     this.$nextTick(() => {
@@ -618,17 +585,12 @@ export default {
     width: 360px;
     margin: 0 auto;
     height: fit-content;
-    border-radius: .875rem;
   }
   
   .card-header{
     padding: 1rem;
     background-color: white;
     border-bottom: 1px solid var(--g-kit-black-20);
-    &:first-child {
-      border-top-left-radius: .875rem;
-      border-top-right-radius: .875rem;
-    }
   }
 
   .card b {
@@ -643,13 +605,13 @@ export default {
   }
   
   .datepicker {
+    /* ...existing code... */
     .calendar-header {
       display: flex;
       justify-content: space-between;
       padding: .5rem 1rem;
       border-top: 1px solid var(--g-kit-black-20);
       border-bottom: 1px solid var(--g-kit-black-20);
-      
     }
     .calendar-day {
       flex: 1;
@@ -799,18 +761,6 @@ export default {
   .datepicker .calendar-date.disabled {
     color: var(--g-kit-black-40);
     pointer-events: none;
-  }
-
-  .desktop {
-    &.top-modal {
-      position: relative;
-      
-      .content-date {
-        top: 0;
-        transform: translateY(-95%);
-        z-index: 1;
-      }
-    }
   }
   
   @media only screen and (max-width: 600px) {
