@@ -211,7 +211,7 @@
                 v-model="selectedDate"
                 id="birthdate"
                 placeholder="Pilih Tanggal Lahir"
-                alignment="center"
+                alignment="end"
               />
 
               <InputSmallDate
@@ -461,6 +461,7 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+                chevron="chevronLime"
                 required
               />
               <Dropdown
