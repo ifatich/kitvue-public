@@ -44,6 +44,10 @@
       type: String,
       default: 'default'
     },
+    chevron: {
+      type: String,
+      default: 'chevronDefault'
+    },
     error: String,
     label: String,
     items: Array,
@@ -181,14 +185,20 @@
         <slot name="icon-right">
           <span>
             <BSpinner v-if="loading" small />
-            <img
-              v-else
-              :class="[
-                shown ? 'dropdown-open' : 'dropdown-close',
-                'icon-dropdown'
-              ]"
-              src="../../assets/icon/chevron_down.svg"
-            />
+            <svg v-else 
+              :class="[ chevron, shown ? 'dropdown-open' : 'dropdown-close', 'icon-dropdown' ]" 
+              width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" />
+              <mask id="mask0_0_5346" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="9" width="12"
+                height="7">
+                <path
+                  d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" />
+              </mask>
+              <g mask="url(#mask0_0_5346)">
+                <rect width="24" height="24" />
+              </g>
+            </svg>
           </span>
         </slot>
       </template>
@@ -351,6 +361,15 @@
   .icon-dropdown {
     transition: all 0.2s;
   }
+
+  .chevronDefault {
+    color: var(--g-kit-black-50);
+  }
+
+  .chevronLime {
+    color: var(--g-kit-lime-50);
+  }
+
   .type-{
     &red {
       border: 1px solid var(--g-kit-red-50) !important;
