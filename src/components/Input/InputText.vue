@@ -22,6 +22,11 @@
 		return cleanNumber.replace(/(\d{4})(?=(\d))/g, '$1 ')
 	}
 
+    const toUpperCase = (text) => {
+        if (typeof text !== 'string') return ''
+        return text.toUpperCase()
+    }
+
 	// Define props for the component
 	const props = defineProps({
 		error: {},
@@ -41,6 +46,10 @@
 			default: true
 		},
 		disabled: {
+			type: Boolean,
+			default: false
+		},
+		useAutoCaps: {
 			type: Boolean,
 			default: false
 		},
@@ -74,37 +83,48 @@
 			if (props.required) {
 				localError.value = newVal ?.trim() === ''
 			}
-			inputValue.value = newVal
-			displayValue.value = props.type === 'number' ? formatNumber(newVal) : newVal
+            const upperCasedValue = props.useAutoCaps ? toUpperCase(newVal) : newVal;
+
+			inputValue.value = upperCasedValue
+			displayValue.value = props.type === 'number' ? formatNumber(newVal) :  upperCasedValue
 		}
 	)
 
 	// Handle input events
-	const handleInput = (event) => {
-		if (props.type === 'number') {
-			const rawValue = event.target.value.replace(/\s+/g, '')
-			localError.value = props.required && rawValue.trim() === ''
-			inputValue.value = rawValue
-			displayValue.value = formatNumber(rawValue)
+    const handleInput = (event) => {
+        const rawValue = event.target.value;
+        if (props.type === 'number') {
+            const cleanedValue = rawValue.replace(/\s+/g, '');
+            localError.value = props.required && cleanedValue.trim() === '';
+            inputValue.value = cleanedValue;
+            displayValue.value = formatNumber(cleanedValue);
 
-			emit('update:modelValue', rawValue)
+            emit('update:modelValue', cleanedValue);
 
-			// Restore cursor position
-			setTimeout(() => {
-				const cursorPosition = event.target.selectionStart
-				const unformattedValue = event.target.value.replace(/\s+/g, '')
-				const formattedValue = formatNumber(unformattedValue)
-				let spacesBeforeCursor = formattedValue.slice(0, cursorPosition).split(' ').length - 1
-				let newCursorPosition = cursorPosition + spacesBeforeCursor
+            // Restore cursor position
+            setTimeout(() => {
+                const cursorPosition = event.target.selectionStart;
+                const unformattedValue = event.target.value.replace(/\s+/g, '');
+                const formattedValue = formatNumber(unformattedValue);
+                let spacesBeforeCursor = formattedValue.slice(0, cursorPosition).split(' ').length - 1;
+                let newCursorPosition = cursorPosition + spacesBeforeCursor;
 
-				event.target.setSelectionRange(newCursorPosition, newCursorPosition)
-			}, 0)
-		} else {
-			inputValue.value = event.target.value
-			displayValue.value = event.target.value
-			emit('update:modelValue', event.target.value)
-		}
-	}
+                event.target.setSelectionRange(newCursorPosition, newCursorPosition);
+            }, 0);
+        } else {
+            const upperCasedValue = props.useAutoCaps ? toUpperCase(rawValue) : rawValue;
+            inputValue.value = upperCasedValue;
+            displayValue.value = upperCasedValue;
+
+            emit('update:modelValue', upperCasedValue);
+
+            // Restore cursor position for text input
+            setTimeout(() => {
+                const cursorPosition = event.target.selectionStart;
+                event.target.setSelectionRange(cursorPosition, cursorPosition);
+            }, 0);
+        }
+    };
 
 	// Handle focus events
 	const handleFocus = () => {
@@ -141,7 +161,7 @@
 					<img src="../../assets/icon/search.svg" />
 				</div>
 			</slot>
-				
+
 			<input
 				ref="inputRef"
 				:value="displayValue"
