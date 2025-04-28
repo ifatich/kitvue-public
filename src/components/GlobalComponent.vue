@@ -211,7 +211,7 @@
                 v-model="selectedDate"
                 id="birthdate"
                 placeholder="Pilih Tanggal Lahir"
-                alignment="center"
+                alignment="end"
               />
 
               <InputSmallDate
@@ -330,7 +330,14 @@
                 required=""
                 type="number"
               />
-
+                <InputText
+                    :use-auto-caps="true"
+                    v-model="testValue"
+                    id="ini-id"
+                    placeholder="hello world!"
+                    label="Ini Caps Sample"
+                    class="pb-4"
+                />
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
@@ -461,6 +468,7 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
+                chevron="chevronLime"
                 required
               />
               <Dropdown
@@ -1342,6 +1350,7 @@ import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
 
+const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
 const nik = ref("1234 1234");
