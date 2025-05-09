@@ -60,7 +60,7 @@
                             <div class="calendar-body">
                                 <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
                                     <div v-for="day in week" :key="day.date"
-                                        :class="{ 'calendar-date': true, active: isSelectedDate(day.date), disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
+                                        :class="{ 'calendar-date': true, active: isSelectedDate(day.date), 'slash' : !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
                                         @click="selectDate(day)">
                                         {{ day.date ? day.date.getDate() : '' }}
                                     </div>
@@ -812,6 +812,28 @@
         color: var(--g-kit-black-40);
         pointer-events: none;
     }
+
+    .datepicker .calendar-date.slash{
+        position: relative;
+    }
+    .datepicker .calendar-date.slash::before{
+        position: absolute;
+        content: "";
+        left: 15%;
+        top: 45%;
+        right: 0;
+        border-top: 1px solid;
+        border-color: var(--g-kit-black-40);
+        width: 30px;
+        
+        -webkit-transform:rotate(-45deg);
+        -moz-transform:rotate(-45deg);
+        -ms-transform:rotate(-45deg);
+        -o-transform:rotate(-45deg);
+        transform:rotate(-45deg);
+    }
+
+
 
     .date-range-picker:has(~ .error-text) {
         .group-input {
