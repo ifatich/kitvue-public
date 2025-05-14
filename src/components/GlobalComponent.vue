@@ -217,7 +217,7 @@
               <InputSmallDate
                 v-model="selectedDate"
                 id="birthdate"
-                placeholder="Pilih Tanggal Lahir"
+                placeholder="Pilih Tanggal Lahirrrr"
                 maxDaysFromToday="10"
               />
 
