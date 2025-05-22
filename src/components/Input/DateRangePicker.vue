@@ -2,6 +2,7 @@
   <div>
     <div :class="['date-range-picker', { 'with-separator': props.separator }]">
       <CalendarDropdown
+        :flexWidth="props.flexWidth"
         :disabled="props.disabled || props.disabledStartDate"
         :title="props.firstLabel"
         v-model="startDate"
@@ -16,6 +17,7 @@
       />
       <div v-if="props.separator" class="form-label d-block" style="top: 40px; position: relative; height: min-content;">s.d</div>
       <CalendarDropdown
+        :flexWidth="props.flexWidth"
         :disabled="props.disabled || props.disabledEndDate"
         :title="props.secondLabel"
         v-model="endDate"
@@ -88,6 +90,10 @@ const props = defineProps({
   },
   maxEndDate: {
     type: Date,
+  },
+  flexWidth: {
+      type: Boolean,
+      default: false
   },
   /**
    * @value date | short
