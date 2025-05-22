@@ -1231,7 +1231,49 @@
                 first-placeholder="Start Date"
                 second-placeholder="End Date"
                 separator
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Tanpa Slash"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                no-slash
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Disabled"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
                 second-alignment="end"
+                disabled
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Disabled Start"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                second-alignment="end"
+                disabled-start-date
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Disabled End"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                second-alignment="end"
+                disabled-end-date
               />
 
               <p>Start Date: {{ startDate }}</p>
