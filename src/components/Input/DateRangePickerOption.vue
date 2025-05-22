@@ -57,7 +57,11 @@ const props = defineProps({
   separator: {
     type: Boolean,
     default: false
-  }
+  },
+  flexWidth: {
+      type: Boolean,
+      default: false
+  },
 })
 
 const startDate = defineModel('startDate')
@@ -179,6 +183,7 @@ const handleShown = (value) => {
           </BDropdownItem>
         </div>
         <DateRangePicker
+          :flexWidth="props.flexWidth"
           v-model:start-date="startDate"
           v-model:end-date="endDate"
           class="mt-2"
@@ -255,7 +260,7 @@ const handleShown = (value) => {
 .input-filter {
   .dropdown-menu {
     &.show {
-      display: table;
+      overflow: visible !important;
     }
   }
 }

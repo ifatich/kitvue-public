@@ -1,5 +1,5 @@
 <template>
-    <div :class="computedClassList" class="custom-width">
+    <div :class="[computedClassList, { 'flex-width': flexWidth }]">
         <div class="desktop">
 
             <label :for="$attrs.id" class="form-label">
@@ -12,7 +12,7 @@
                 :aria-describedby="title"
                 :disabled="disabled"
                 :required="required"
-                :class="['calendar-input custom-width', classes]"
+                :class="['calendar-input', { 'custom-width': !flexWidth }, classes]"
                 @close="() => {
                     this.resetMonthYear()
                     this.$emit('close')
@@ -239,6 +239,10 @@
             minDate: {
                 type: String,
                 default: null
+            },
+            flexWidth: {
+                type: Boolean,
+                default: false
             },
             /**
              * @value date | short
@@ -592,6 +596,10 @@
 </script>
 
 <style lang="scss">
+
+    .flex-width {
+        width: calc(50% - 8px);
+    }
 
     .desktop {
         .custom-width {
