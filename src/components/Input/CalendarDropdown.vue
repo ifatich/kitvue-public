@@ -60,7 +60,15 @@
                             <div class="calendar-body">
                                 <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
                                     <div v-for="day in week" :key="day.date"
-                                        :class="{ 'calendar-date': true, active: isSelectedDate(day.date), 'slash' : !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
+                                        :class="{
+                                            'calendar-date': true,
+                                            active: isSelectedDate(day.date),
+                                            'slash' : !noSlash && (!day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth),
+                                            disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth,
+                                            'future-date': disableFutureDates && isFutureDate(day.date),
+                                            'isPrevMonth': day.isPrevMonth,
+                                            'isNextMonth': day.isNextMonth
+                                        }"
                                         @click="selectDate(day)">
                                         {{ day.date ? day.date.getDate() : '' }}
                                     </div>
@@ -245,6 +253,13 @@
              */
             alignment: {
                 type: String
+            },
+            /**
+             * remove slash from in out of range date
+             */
+            noSlash: {
+                type: Boolean,
+                default: false
             }
         },
         emits: ['update:modelValue', 'update:selectedYear', 'buttomSheetShown', 'close'],
