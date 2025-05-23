@@ -241,15 +241,37 @@
               />
 
               <p>Selected Date: {{ selectedDate }}</p>
-              <div class="w-50">
-                <DateRangePickerOption
-                  flexWidth
-                  :disabled="false"
-                  placeholder="Pilih Tanggal"
-                  label="Date Range Picker"
-                  v-model:start-date="startDate"
-                  v-model:end-date="endDate"
-                />
+              <div class="row">
+                <div class="col-4">
+                  <DateRangePickerOption
+                    flexWidth
+                    :disabled="false"
+                    placeholder="Pilih Tanggal"
+                    label="Date Range Picker"
+                    v-model:start-date="startDate"
+                    v-model:end-date="endDate"
+                  />
+                </div>
+                <div class="col-4">
+                  <DateRangePickerOption
+                    flexWidth
+                    :disabled="false"
+                    placeholder="Pilih Tanggal"
+                    label="Date Range Picker"
+                    v-model:start-date="startDate"
+                    v-model:end-date="endDate"
+                  />
+                </div>
+                <div class="col-4">
+                  <DateRangePickerOption
+                    flexWidth
+                    :disabled="false"
+                    placeholder="Pilih Tanggal"
+                    label="Date Range Picker"
+                    v-model:start-date="startDate"
+                    v-model:end-date="endDate"
+                  />
+                </div>
               </div>
 
               <DateRangePickerOption

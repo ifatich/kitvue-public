@@ -32,7 +32,7 @@ const props = defineProps({
       {
         label: '30 Hari Terakhir',
         value: '30'
-      }
+      },
     ]
   },
   showAny: {
@@ -161,6 +161,7 @@ const handleShown = (value) => {
             </BDropdownItemButton>
           </BDropdownItem>
         </div>
+
         <div
           v-if="props.showAny"
           class="preset-btn mt-2"
@@ -169,7 +170,7 @@ const handleShown = (value) => {
           <BDropdownItem>
             <BDropdownItemButton
               class="overflow-hidden"
-              buttonClass="d-flex align-items-center test"
+              buttonClass="d-flex align-items-center"
               @click.stop="SELECTED_PRESET = 'ANY'"
             >
               <div
@@ -182,6 +183,7 @@ const handleShown = (value) => {
             </BDropdownItemButton>
           </BDropdownItem>
         </div>
+
         <DateRangePicker
           :flexWidth="props.flexWidth"
           v-model:start-date="startDate"
@@ -194,6 +196,7 @@ const handleShown = (value) => {
           :separator="props.separator"
         />
       </div>
+
       <BOffcanvas
         v-if="props.useBottomSheet"
         v-model="showOffcanvas"
@@ -261,6 +264,7 @@ const handleShown = (value) => {
   .dropdown-menu {
     &.show {
       overflow: visible !important;
+      max-height: fit-content !important;
     }
   }
 }
