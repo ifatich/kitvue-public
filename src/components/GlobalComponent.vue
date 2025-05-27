@@ -223,7 +223,7 @@
 
               <InputSmallDate
                 v-model="selectedDate"
-                :title="'Tanggal Lahir'"
+                :title="'Tanggal Lahirr'"
                 :placeholder="'Pilih tanggal'"
                 :disabled="false"
                 :required="true"
@@ -231,6 +231,17 @@
                 :minDate="'2025-03-01'"
                 @buttomSheetShown="handleBottomSheetShown"
               />
+
+               <InputMonth
+                v-model="selectedMonth"
+                :title="'Tanggal Ulang Tahun'"
+                :placeholder="'Pilih tanggal'"
+                :disabled="false"
+                :required="true"
+                formatType="short"
+                @buttomSheetShown="handleBottomSheetShown"
+              />
+
 
               <TestPicker
                 v-model="selectedDate"
@@ -1796,6 +1807,7 @@ import FilePickerLG from "./Filepicker/FilePickerLG.vue";
 import ModalComponent from "./Modal/ModalComponent.vue";
 import InputDatePicker from "./Input/InputDatePicker.vue";
 import InputSmallDate from "./Input/InputSmallDate.vue";
+import InputMonth from "./Input/InputMonth.vue";
 import ListGroupOrdered from "./ListGroup/ListGroupOrdered.vue";
 import ListGroupUnit from "./ListGroup/ListGroupUnit.vue";
 import ListGroupUnordered from "./ListGroup/ListGroupUnordered.vue";
@@ -2008,6 +2020,7 @@ export default {
         },
       ],
       selectedDate: null,
+      selectedMonth: null,
       tableData: [
         {
           id: 1,
