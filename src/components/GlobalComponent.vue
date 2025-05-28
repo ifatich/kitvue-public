@@ -1208,7 +1208,7 @@
               <DateRangePicker
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
-                first-label="Waktu Berlaku"
+                first-label="Waktu Berlaku now"
                 second-label=" "
                 first-placeholder="Start Date"
                 second-placeholder="End Date"
@@ -1221,7 +1221,7 @@
               <DateRangePicker
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
-                first-label="Waktu Berlaku"
+                first-label="Waktu Berlaku custom max date"
                 second-label=" "
                 first-placeholder="Start Date"
                 second-placeholder="End Date"
