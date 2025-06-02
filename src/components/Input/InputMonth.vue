@@ -16,6 +16,7 @@
           :required="required"
           :placeholder="placeholder || ['Pilih ' + (title || '').toLowerCase()]"
           v-model="selectedDate"
+          
           @click="showDatePicker"
           readonly
         />
@@ -30,7 +31,7 @@
           <div
             class="card-header d-flex justify-content-between align-items-center"
           >
-            <b>Pilih Tanggal</b>
+            <b>Pilih Waktu</b>
             <button class="btn p-0" @click="showDatePicker">
               <svg
                 width="24"
@@ -50,40 +51,36 @@
           </div>
 
           <div v-if="showCalendar" ref="calendar" class="datepicker">
-            <div class="d-flex justify-content-between p-3">
-              <button @click="previousMonth">
+            <div class="calendar-nav">
+              <button @click="chevronLeftToggle">
                 <img
                   src="../../assets/icon/icon-system/icon-chevron-left.svg"
                   alt=""
                 />
               </button>
-              <div class="d-flex justify-content-center border-0">
-                <span class="month-year-text" @click="toggleYearMenu">{{
-                  formattedMonthYear
+              <div class="cursor-pointer d-flex justify-content-center border-0" @click="toggleYearMenu">
+                <span class="month-year-text" >{{
+                  showYearMenu ?  formattedMonth : currentYear
                 }}</span>
+                <img
+                  :class="[`chevron`, showYearMenu && `open`]"
+                  src="../../assets/icon/icon-system/icon-chevron-down.svg"
+                  alt=""
+                />
               </div>
-              <button @click="nextMonth">
+              <button @click="chevronRightToggle">
                 <img
                   src="../../assets/icon/icon-system/icon-chevron-right.svg"
                   alt=""
                 />
               </button>
             </div>
-            <div class="calendar-header d-flex">
-              <div v-for="day in days" :key="day" class="calendar-day">{{ day }}</div>
-            </div>
-            <div class="calendar-body">
-              <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
-                <div
-                  v-for="day in week"
-                  :key="day.date"
-                  :class="{ 'calendar-date': true, active: isSelectedDate(day.date), 'slash' : !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
-                  @click="selectDate(day)"
-                >
-                  {{ day.date ? day.date.getDate() : '' }}
+            <!-- Month Container -->
+               <div class="calendar-body">
+                <div ref="monthWidth" :class="[`calendar-month cursor-pointer`, {active : isSelectedMonth(index+1)}, monthWidth<105 ? `` : ``]" v-for="(month, index) in monthsDigit" :key="index" @click="selectMonth(index)">
+                  {{ month }}
                 </div>
               </div>
-            </div>
           </div>
         </div>
 
@@ -133,16 +130,16 @@
         v-model="showDatePickerOffcanvas"
         class="w-100 offcanvas-kit"
         placement="bottom"
-        :title="'Pilih Tanggal' || title"
-        style="min-height: 485px; height: fit-content;"
+        :title="'Pilih Waktu' || title"
+        style="height: fit-content;"
         @shown="handleOffcanvasToggle(true)"
         @hidden="handleOffcanvasToggle(false)"
       >
         <div class="content-date">
           <div v-if="showCalendar" class="card">
             <div v-if="showCalendar" ref="calendar" class="datepicker">
-              <div class="d-flex justify-content-between p-3">
-                <button @click="previousMonth">
+              <div class="calendar-nav">
+                <button @click="chevronLeftToggle">
                   <img
                     src="../../assets/icon/icon-system/icon-chevron-left.svg"
                     alt=""
@@ -150,29 +147,25 @@
                 </button>
                 <div class="d-flex justify-content-center border-0">
                   <span class="month-year-text" @click="toggleYearMenu">{{
-                    formattedMonthYear
+                    showYearMenu ?  formattedMonth : currentYear
                   }}</span>
+                   <img
+                    :class="[`chevron`, showYearMenu && `open`]"
+                    src="../../assets/icon/icon-system/icon-chevron-down.svg"
+                  alt=""
+                />
                 </div>
-                <button @click="nextMonth">
-                  <img
-                    src="../../assets/icon/icon-system/icon-chevron-right.svg"
-                    alt=""
-                  />
-                </button>
+                <button @click="chevronRightToggle">
+                <img
+                  src="../../assets/icon/icon-system/icon-chevron-right.svg"
+                  alt=""
+                />
+              </button>
               </div>
-              <div class="calendar-header d-flex">
-                <div v-for="day in days" :key="day" class="calendar-day">{{ day }}</div>
-              </div>
-              <div class="calendar-body">
-                <div v-for="(week, index) in calendar" :key="index" class="calendar-week d-flex">
-                  <div
-                    v-for="day in week"
-                    :key="day.date"
-                    :class="{ 'calendar-date': true, active: isSelectedDate(day.date), disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
-                    @click="selectDate(day)"
-                  >
-                    {{ day.date ? day.date.getDate() : '' }}
-                  </div>
+              <!-- Month Container -->
+               <div class="calendar-body">
+                <div ref="monthWidth" :class="[`calendar-month cursor-pointer`, {active : isSelectedMonth(index+1)}, {monthWidth}]" v-for="(month, index) in monthsDigit" :key="index" @click="selectMonth(index)">
+                  {{ month }}
                 </div>
               </div>
             </div>
@@ -205,6 +198,7 @@
 <script>
 import { BOffcanvas } from 'bootstrap-vue-next'
 import Dropdown from '../Dropdown/InputDropdown.vue'
+import { ref } from 'vue'
 
 /* eslint-disable */
 export default {
@@ -284,7 +278,6 @@ export default {
       showYearMenu: false,
       currentMonth: new Date().getMonth() + 1,
       currentYear: new Date().getFullYear(),
-      days: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
       months: [
         'Januari',
         'Februari',
@@ -298,6 +291,20 @@ export default {
         'Oktober',
         'November',
         'Desember'
+      ],
+      monthsDigit: [
+        'JAN',
+        'FEB',
+        'MAR',
+        'APR',
+        'MEI',
+        'JUN',
+        'JUL',
+        'AGU',
+        'SEP',
+        'OKT',
+        'NOV',
+        'DES'
       ]
     }
   },
@@ -312,6 +319,9 @@ export default {
     },
     formattedMonthYear() {
       return `${this.months[this.currentMonth - 1]} ${this.currentYear}`
+    },
+    formattedMonth() {
+      return `${this.months[this.currentMonth - 1]}`
     },
     calendar() {
       const firstDayOfMonth = new Date(
@@ -448,8 +458,18 @@ export default {
         }
       }
     },
+    
+    selectMonth(indexMonth){
+      this.currentMonth = indexMonth + 1
+      this.selectedDate  = `${this.currentYear}-${String(this.currentMonth).padStart(2, '0')}`
+      console.log(this.currentMonth, " ",this.currentYear)
 
-    formattedDate(value) {
+        if (this.showCalendar) {
+          this.showDatePickerOffcanvas = false
+          this.showCalendar = false
+        }
+    },
+   formattedDate(value) {
       let formatted = ''
       if (value && value !== 'null') {
         const [year, month, day] = value.split('-')
@@ -458,13 +478,21 @@ export default {
         if (this.formatType === 'short') {
           const shortMonth = this.months[Number(month) - 1].substring(0, 3)
           
-          formatted = `${newDay} ${shortMonth} ${year}`
+          formatted = `${shortMonth} ${year}`
         } else {
           const newMonth = String(Number(month)).padStart(2, '0')
-          formatted = `${newDay}/${newMonth}/${year}`
+          formatted = `${newMonth}/${year}`
         }
       }
       return formatted
+    },
+    chevronLeftToggle() {
+      this.showYearMenu ? this.previousMonth() : this.previousYear()
+      this.selectedDate  = `${this.currentYear}-${String(this.currentMonth).padStart(2, '0')}`
+    },
+    chevronRightToggle() {
+      this.showYearMenu ? this.nextMonth() : this.nextYear()
+      this.selectedDate  = `${this.currentYear}-${String(this.currentMonth).padStart(2, '0')}`
     },
     previousMonth() {
       if (this.currentMonth > 1) {
@@ -473,6 +501,12 @@ export default {
         this.currentMonth = 12
         this.currentYear--
       }
+    },
+    previousYear() {
+        this.currentYear--
+    },
+      nextYear() {
+        this.currentYear++
     },
     nextMonth() {
       if (this.currentMonth < 12) {
@@ -493,6 +527,9 @@ export default {
     },
     isSelectedYear(year) {
       return year === this.currentYear
+    },
+    isSelectedMonth(month) {
+      return month === this.currentMonth
     },
     isSelectedDate(date) {
       if (!date || !this.selectedDate) return false;
@@ -584,6 +621,7 @@ export default {
     });
   }
 }
+const monthWidth = ref<HTMLElement | null>(null)
 </script>
 
 
@@ -608,6 +646,10 @@ export default {
   }
   
   .form-control {
+    cursor: pointer;
+  }
+
+  .cursor-pointer {
     cursor: pointer;
   }
   
@@ -657,10 +699,41 @@ export default {
       font-weight: bold;
     }
     .calendar-body {
+      width: 100%;
       padding: 1rem;
-      display: flex;
       gap: .5rem;
-      flex-direction: column;
+      display: inline-grid;
+      justify-items: center ;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      grid-template-columns: 1fr 1fr 1fr ;
+      text-align: center;
+      row-gap: 1.25rem;
+    }
+    .calendar-month{
+      width: fit-content;
+      height: fit-content;
+      padding-inline: 1rem;
+      padding-block: 0.25rem;
+      color: var(--g-kit-black-80);
+      font-size: var(--g-kit-font-size-lambda);
+
+      &.active {
+        background-color: var(--g-kit-lime-50);
+        color: white;
+        border-radius: 8px;
+      }
+    }
+
+     .calendar-month:hover:not(.active){
+      color: var(--g-kit-lime-50)
+    }
+    .calendar-nav{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--g-kit-black-20);
     }
     .calendar-week {
       display: flex;
@@ -745,8 +818,8 @@ export default {
     height: -webkit-fill-available;
     overflow: scroll;
     scrollbar-width: none;
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 0.875rem;
+    border-bottom-right-radius: 0.875rem;
     border: 1px solid var(--g-kit-black-20);
     filter: drop-shadow(0px 12px 6px rgba(0, 0, 0, 0.02))
       drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.02));
@@ -757,11 +830,11 @@ export default {
     gap: 1rem;
     padding: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
   }
   
   .year-menu button {
-    padding: .75rem 1.5rem;
+    padding: .25rem 1rem;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -832,6 +905,14 @@ export default {
       }
     }
   }
+
+  .chevron {
+  transition: transform 0.3s ease-in-out;
+}
+
+.chevron.open {
+  transform: rotate(-180deg);
+}
   
   @media only screen and (max-width: 600px) {
     .year-menu button {

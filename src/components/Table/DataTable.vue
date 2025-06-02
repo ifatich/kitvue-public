@@ -30,10 +30,10 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in data" :key="index">
-                    <td v-for="column in columns" :key="column.data">
+                    <td v-for="column in columns" :key="column.data" class="align-middle">
                         {{ item[column.data] }}
                     </td>
-                    <td>
+                    <td class="align-middle">
                         <slot name="tableActionButtons" :item="item"></slot>
                     </td>
                 </tr>

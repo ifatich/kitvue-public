@@ -217,13 +217,13 @@
               <InputSmallDate
                 v-model="selectedDate"
                 id="birthdate"
-                placeholder="Pilih Tanggal Lahir"
+                placeholder="Pilih Tanggal Lahirrrr"
                 maxDaysFromToday="10"
               />
 
               <InputSmallDate
                 v-model="selectedDate"
-                :title="'Tanggal Lahir'"
+                :title="'Tanggal Lahirr'"
                 :placeholder="'Pilih tanggal'"
                 :disabled="false"
                 :required="true"
@@ -231,6 +231,17 @@
                 :minDate="'2025-03-01'"
                 @buttomSheetShown="handleBottomSheetShown"
               />
+
+               <InputMonth
+                v-model="selectedMonth"
+                :title="'Tanggal Ulang Tahun'"
+                :placeholder="'Pilih tanggal'"
+                :disabled="false"
+                :required="true"
+                formatType="short"
+                @buttomSheetShown="handleBottomSheetShown"
+              />
+
 
               <TestPicker
                 v-model="selectedDate"
@@ -241,13 +252,38 @@
               />
 
               <p>Selected Date: {{ selectedDate }}</p>
-              <DateRangePickerOption
-                :disabled="false"
-                placeholder="Pilih Tanggal"
-                label="Date Range Picker"
-                v-model:start-date="startDate"
-                v-model:end-date="endDate"
-              />
+              <div class="row">
+                <div class="col-4">
+                  <DateRangePickerOption
+                    flexWidth
+                    :disabled="false"
+                    placeholder="Pilih Tanggal"
+                    label="Date Range Picker"
+                    v-model:start-date="startDate"
+                    v-model:end-date="endDate"
+                  />
+                </div>
+                <div class="col-4">
+                  <DateRangePickerOption
+                    flexWidth
+                    :disabled="false"
+                    placeholder="Pilih Tanggal"
+                    label="Date Range Picker"
+                    v-model:start-date="startDate"
+                    v-model:end-date="endDate"
+                  />
+                </div>
+                <div class="col-4">
+                  <DateRangePickerOption
+                    flexWidth
+                    :disabled="false"
+                    placeholder="Pilih Tanggal"
+                    label="Date Range Picker"
+                    v-model:start-date="startDate"
+                    v-model:end-date="endDate"
+                  />
+                </div>
+              </div>
 
               <DateRangePickerOption
                 :disabled="false"
@@ -330,7 +366,14 @@
                 required=""
                 type="number"
               />
-
+                <InputText
+                    :use-auto-caps="true"
+                    v-model="testValue"
+                    id="ini-id"
+                    placeholder="hello world!"
+                    label="Ini Caps Sample"
+                    class="pb-4"
+                />
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
@@ -1224,7 +1267,49 @@
                 first-placeholder="Start Date"
                 second-placeholder="End Date"
                 separator
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Tanpa Slash"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                no-slash
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Disabled"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
                 second-alignment="end"
+                disabled
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Disabled Start"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                second-alignment="end"
+                disabled-start-date
+              />
+              <DateRangePicker
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                first-label="Waktu Berlaku Disabled End"
+                second-label=" "
+                first-placeholder="Start Date"
+                second-placeholder="End Date"
+                separator
+                second-alignment="end"
+                disabled-end-date
               />
 
               <p>Start Date: {{ startDate }}</p>
@@ -1343,6 +1428,7 @@ import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
 
+const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
 const nik = ref("1234 1234");
@@ -1721,6 +1807,7 @@ import FilePickerLG from "./Filepicker/FilePickerLG.vue";
 import ModalComponent from "./Modal/ModalComponent.vue";
 import InputDatePicker from "./Input/InputDatePicker.vue";
 import InputSmallDate from "./Input/InputSmallDate.vue";
+import InputMonth from "./Input/InputMonth.vue";
 import ListGroupOrdered from "./ListGroup/ListGroupOrdered.vue";
 import ListGroupUnit from "./ListGroup/ListGroupUnit.vue";
 import ListGroupUnordered from "./ListGroup/ListGroupUnordered.vue";
@@ -1933,6 +2020,7 @@ export default {
         },
       ],
       selectedDate: null,
+      selectedMonth: null,
       tableData: [
         {
           id: 1,
