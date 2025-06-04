@@ -232,6 +232,16 @@
                 @buttomSheetShown="handleBottomSheetShown"
               />
 
+              <InputMonth
+                v-model="selectedMonth"
+                :title="'Tanggal Ulang Tahun'"
+                :placeholder="'Pilih tanggal'"
+                :disabled="false"
+                :required="true"
+                formatType="short"
+                @buttomSheetShown="handleBottomSheetShown"
+              />
+
               <TestPicker
                 v-model="selectedDate"
                 id="birthdate"
@@ -250,6 +260,7 @@
                     label="Date Range Picker"
                     v-model:start-date="startDate"
                     v-model:end-date="endDate"
+                    :no-slash="true"
                   />
                 </div>
                 <div class="col-4">
@@ -277,7 +288,18 @@
               <DateRangePickerOption
                 :disabled="false"
                 placeholder="Pilih Tanggal"
-                label="Date Range Picker with Separator"
+                title="Date Range Picker with Separator and no-slash true"
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                firstLabel="Periode Program"
+                secondLabel=" "
+                separator
+                no-slash
+              />
+              <DateRangePickerOption
+                :disabled="false"
+                placeholder="Pilih Tanggal"
+                title="Date Range Picker with Separator and no-slash false"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
                 firstLabel="Periode Program"
@@ -311,9 +333,7 @@
                   State: <strong>{{ status }}</strong>
                 </div>
               </div>
-              <SwitchComponent
-                v-model="isSwitched"
-              />
+              <SwitchComponent v-model="isSwitched" />
 
               <label for="flexSwitchCheckDefault" class="form-label">
                 selected : {{ isSwitched }}
@@ -355,14 +375,14 @@
                 required=""
                 type="number"
               />
-                <InputText
-                    :use-auto-caps="true"
-                    v-model="testValue"
-                    id="ini-id"
-                    placeholder="hello world!"
-                    label="Ini Caps Sample"
-                    class="pb-4"
-                />
+              <InputText
+                :use-auto-caps="true"
+                v-model="testValue"
+                id="ini-id"
+                placeholder="hello world!"
+                label="Ini Caps Sample"
+                class="pb-4"
+              />
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
@@ -505,11 +525,10 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
-
                 required
                 :isChecked="triggerValue"
               />
-              
+
               <button @click="testTrigger" class="btn btn-primary mt-2">
                 Trigger Dropdown Validation
               </button>
@@ -1432,9 +1451,9 @@ const modalOpen3 = ref(false);
 const showPicker = ref(false);
 
 const isSwitched = ref(false);
-const phoneCode = ref('');
-const phoneNumber = ref('');
-const phoneError = ref('Nomor telepon wajib diisi');
+const phoneCode = ref("");
+const phoneNumber = ref("");
+const phoneError = ref("Nomor telepon wajib diisi");
 
 const triggerValue = ref(false); // Ref untuk memicu validasi dropdown
 
