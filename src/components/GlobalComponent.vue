@@ -306,7 +306,8 @@
                 >
                   I accept the terms and use
                 </BFormCheckbox>
-
+                  <CustomCheckbox v-model="isSelected" color="secondary" label="asdfsadfsadf"/>
+                  <CustomCheckbox v-model="isSelected" color="primary" />
                 <div>
                   State: <strong>{{ status }}</strong>
                 </div>
@@ -1416,6 +1417,7 @@ import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
+import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -1895,7 +1897,8 @@ export default {
   data() {
     return {
       activeLabel: null,
-      dropdownItemss: [
+        isSelected: ref(false),
+        dropdownItemss: [
         { id: 1, label: "Step 1", completed: false },
         { id: 2, label: "Step 2", completed: false },
         { id: 3, label: "Step 3", completed: false },
