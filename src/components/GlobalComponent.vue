@@ -232,7 +232,7 @@
                 @buttomSheetShown="handleBottomSheetShown"
               />
 
-               <InputMonth
+              <InputMonth
                 v-model="selectedMonth"
                 :title="'Tanggal Ulang Tahun'"
                 :placeholder="'Pilih tanggal'"
@@ -241,7 +241,6 @@
                 formatType="short"
                 @buttomSheetShown="handleBottomSheetShown"
               />
-
 
               <TestPicker
                 v-model="selectedDate"
@@ -261,6 +260,7 @@
                     label="Date Range Picker"
                     v-model:start-date="startDate"
                     v-model:end-date="endDate"
+                    :no-slash="true"
                   />
                 </div>
                 <div class="col-4">
@@ -288,7 +288,18 @@
               <DateRangePickerOption
                 :disabled="false"
                 placeholder="Pilih Tanggal"
-                label="Date Range Picker with Separator"
+                title="Date Range Picker with Separator and no-slash true"
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                firstLabel="Periode Program"
+                secondLabel=" "
+                separator
+                no-slash
+              />
+              <DateRangePickerOption
+                :disabled="false"
+                placeholder="Pilih Tanggal"
+                title="Date Range Picker with Separator and no-slash false"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
                 firstLabel="Periode Program"
@@ -317,14 +328,13 @@
                 >
                   I accept the terms and use
                 </BFormCheckbox>
-
+                  <CustomCheckbox v-model="isSelected" color="secondary" label="asdfsadfsadf"/>
+                  <CustomCheckbox v-model="isSelected" color="primary" />
                 <div>
                   State: <strong>{{ status }}</strong>
                 </div>
               </div>
-              <SwitchComponent
-                v-model="isSwitched"
-              />
+              <SwitchComponent v-model="isSwitched" />
 
               <label for="flexSwitchCheckDefault" class="form-label">
                 selected : {{ isSwitched }}
@@ -366,14 +376,14 @@
                 required=""
                 type="number"
               />
-                <InputText
-                    :use-auto-caps="true"
-                    v-model="testValue"
-                    id="ini-id"
-                    placeholder="hello world!"
-                    label="Ini Caps Sample"
-                    class="pb-4"
-                />
+              <InputText
+                :use-auto-caps="true"
+                v-model="testValue"
+                id="ini-id"
+                placeholder="hello world!"
+                label="Ini Caps Sample"
+                class="pb-4"
+              />
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
@@ -516,11 +526,10 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
-
                 required
                 :isChecked="triggerValue"
               />
-              
+
               <button @click="testTrigger" class="btn btn-primary mt-2">
                 Trigger Dropdown Validation
               </button>
@@ -1427,6 +1436,7 @@ import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
+import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -1443,9 +1453,9 @@ const modalOpen3 = ref(false);
 const showPicker = ref(false);
 
 const isSwitched = ref(false);
-const phoneCode = ref('');
-const phoneNumber = ref('');
-const phoneError = ref('Nomor telepon wajib diisi');
+const phoneCode = ref("");
+const phoneNumber = ref("");
+const phoneError = ref("Nomor telepon wajib diisi");
 
 const triggerValue = ref(false); // Ref untuk memicu validasi dropdown
 
@@ -1907,7 +1917,8 @@ export default {
   data() {
     return {
       activeLabel: null,
-      dropdownItemss: [
+        isSelected: ref(false),
+        dropdownItemss: [
         { id: 1, label: "Step 1", completed: false },
         { id: 2, label: "Step 2", completed: false },
         { id: 3, label: "Step 3", completed: false },
