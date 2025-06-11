@@ -1,6 +1,6 @@
 {
-  "name": "kitvue",
-  "version": "0.9.69",
+  "name": "@pegadaian/kitvue",
+  "version": "0.1.13-4",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
