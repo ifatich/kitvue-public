@@ -134,8 +134,7 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
 
 <template>
     <div :class="['group-input', props.class]">
-        <div class="label-container">
-            <label v-if="props.label" :for="$attrs.id" class="form-label overflow-hidden">
+            <label v-if="props.label" :for="$attrs.id" class="form-label">
                 {{ props.label }}
             </label>
             <img
@@ -144,7 +143,6 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
                 class="icon-refresh"
                 src="../../assets/icon/refresh.svg"
             />
-        </div>
         <BDropdown
             ref="dropdownRef"
             :value="selectedValue"
@@ -299,11 +297,6 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
 
 .text-ellipsis {
     text-overflow: ellipsis;
-}
-
-.label-container {
-    display: flex;
-    align-items: center;
 }
 
 .icon-refresh {
