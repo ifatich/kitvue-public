@@ -391,6 +391,31 @@
                 class="pb-4"
               />
 
+              <div class="row">
+                <div class="col-6">
+                  <InputText
+                    id="ini-id"
+                    placeholder="hello world!"
+                    label="Ini Bisa Text"
+                    class="pb-4"
+                  />
+                </div>
+                <div class="col-6">
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    chevron="chevronLime"
+                    required
+                  />
+                </div>
+              </div>
+
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
@@ -493,9 +518,14 @@
 
               <p>Search nik Value: {{ nik }}</p>
 
+             <LabelIcon
+                  text="Status Aktif"
+                  iconEnd
+                  tooltip="Status ini menandakan akun aktif."
+                  tooltipPosition="bottom"
+              />
               <InputNominalStart
                 id="input-rupiah"
-                label="Input Rupiah"
                 v-model="rupiah"
                 class="pb-4"
               />
@@ -727,6 +757,7 @@
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
+                :imageOnly="false"
               />
               <FilePickerLG
                 v-model="selectedFile"
@@ -1437,6 +1468,7 @@ import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
 import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
+import LabelIcon from "./Label/LabelIcon.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();

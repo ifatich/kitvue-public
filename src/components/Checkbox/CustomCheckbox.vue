@@ -54,11 +54,11 @@ function handleChange() {
 
 const checkboxIcon = computed(() => {
     if (!isChecked.value) {
-        return new URL('@/assets/icon/icon-checkbox-off.svg', import.meta.url).href
+        return new URL('../../assets/icon/icon-checkbox-off.svg', import.meta.url).href
     }
     return props.color === 'secondary'
-        ? new URL('@/assets/icon/icon-checkbox-on-secondary.svg', import.meta.url).href
-        : new URL('@/assets/icon/icon-checkbox-on-primary.svg', import.meta.url).href
+        ? new URL('../../assets/icon/icon-checkbox-on-secondary.svg', import.meta.url).href
+        : new URL('../../assets/icon/icon-checkbox-on-primary.svg', import.meta.url).href
 })
 
 const ripples = ref([])
