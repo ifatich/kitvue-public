@@ -757,6 +757,7 @@
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
+                :imageOnly="false"
               />
               <FilePickerLG
                 v-model="selectedFile"
