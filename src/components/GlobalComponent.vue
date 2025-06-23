@@ -52,7 +52,7 @@
           />
         </template>
       </BerandaHeader>
-      <LoadAnimate />
+      <LoadAnimate v-model="isSelected"/>
 
       <div class="row">
         <div class="col-lg-6">
@@ -750,9 +750,30 @@
               </p>
             </div>
             <div class="card-body">
+                <NewInputImage
+                    v-model="selectedFile"
+                    @fileRemoved="handleFileDropped"
+                    @fileDropped="handleDropedfotoPelunasanKur"
+                    @errorPermission="handleCameraPermission"
+                    id="file_fotoDokumenPelunasanKur"
+                    image-placeholder="form"
+                    name="fotoFormDua"
+                    :useBottomSheet="true"
+                    :user-name="'P12344'"
+                    noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
+                />
               <FilePickerLG
                 v-model="selectedFile"
-                :showPreview="false"
+                :showPreview="true"
+                errorText="ini text eror props"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+                :image-only="false"
+              />
+              <FilePickerLG
+                v-model="selectedFile"
+                :showPreview="true"
                 errorText="ini text eror props"
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
@@ -768,6 +789,7 @@
                 @fileRemoved="handleFileRemoved"
                 @showUrlData="handleShowFile"
                 @errorPermission="handleErrorPermission"
+                :image-only="false"
               />
               <FilePickerLG
                 v-model="selectedFile"
@@ -1846,6 +1868,7 @@ import Dropdown from "./Dropdown/InputDropdown.vue";
 import Accordion from "./Accordion/Accordion.vue";
 import AccordionItem from "./Accordion/AccordionItem.vue";
 import FilePickerLG from "./Filepicker/FilePickerLG.vue";
+import NewInputCamera from "./Input/NewInputCamera.vue";
 import ModalComponent from "./Modal/ModalComponent.vue";
 import InputDatePicker from "./Input/InputDatePicker.vue";
 import InputSmallDate from "./Input/InputSmallDate.vue";
