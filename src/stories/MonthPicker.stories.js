@@ -1,9 +1,9 @@
 import { ref } from "vue";
-import InputSmallDate from "../components/Input/InputSmallDate.vue";
+import InputMonth from "../components/Input/InputMonth.vue";
 
 export default {
-  title: "Components/DatePicker/Default",
-  component: InputSmallDate,
+  title: "Components/MonthPicker",
+  component: InputMonth,
   tags: ["autodocs"],
   argTypes: {
     title: { control: "text" },
@@ -11,8 +11,8 @@ export default {
     disabled: { control: "boolean" },
     required: { control: "boolean" },
     classes: { control: "text" },
-    modelValue: { control: "text" },
-    selectedYear: { control: "number" },
+    modelValue: { control: "object" },
+    selectedYear: { control: "object" },
     addClass: { control: "text" },
     maxDate: { control: "text" },
     minDate: { control: "text" },
@@ -23,27 +23,25 @@ export default {
     formatType: { control: "select", options: ["date", "short"] },
   },
   args: {
-    title: "Tanggal Lahir",
-    placeholder: "Pilih tanggal",
+    title: "Bulan Tagihan",
+    placeholder: "Pilih bulan",
     disabled: false,
     required: false,
     selectedYear: new Date().getFullYear(),
-    maxDate: "2025-01-20",
-    minDate : "2025-12-01",
     modelValue: "selectedDate",
     formatType: "date",
   },
 };
 
-export const DatePicker = {
+export const MonthPicker = {
   render: (args) => ({
-    components: { InputSmallDate },
+    components: { InputMonth },
     setup() {
       const selectedDate = ref(null);
       return { args, selectedDate };
     },
     template: `
-      <InputSmallDate 
+      <InputMonth 
         v-bind="args" 
         v-model="selectedDate"
         :maxDate="maxDate"
