@@ -11,7 +11,7 @@ import {
     ref,
     watch
 } from 'vue'
-import Button from "@/components/Button/Button.vue";
+import Button from '../Button/Button.vue'
 import { BModal, BOffcanvas } from 'bootstrap-vue-next'
 
 const fileSourceChooserDialog = ref(false)
