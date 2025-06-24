@@ -1,7 +1,7 @@
 {
   "name": "kitvue",
   "author": "Fatich Imam Al Arasy <ifatich@gmail.com>",
-  "version": "0.9.69",
+  "version": "0.9.70",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
