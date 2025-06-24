@@ -14,7 +14,7 @@
         </template>
         <template v-else-if="iconEnd">
             {{ text }}
-            <span class="icon-tooltip-wrapper">
+            <span class="icon-tooltip-wrapper icon-tooltip-right">
                 <img :src="require('../../assets/images/icon-info.svg')" />
                 <span
                   class="custom-tooltip"
@@ -91,6 +91,9 @@ export default {
     .icon-tooltip-wrapper {
         position: relative;
         display: inline-block;
+    }
+    .icon-tooltip-right{
+        margin-left: 8px;
     }
     .custom-tooltip {
         visibility: hidden;

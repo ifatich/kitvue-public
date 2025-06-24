@@ -4,7 +4,7 @@
             type="checkbox"
             v-model="isChecked"
             @change="handleChange"
-            class="hidden-checkbox"
+            class="g-checkbox hidden-checkbox"
         />
         <span class="checkbox-container" @mousedown="createRipple">
             <img
