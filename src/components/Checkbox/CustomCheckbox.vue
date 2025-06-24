@@ -54,7 +54,9 @@ function handleChange() {
 
 const checkboxIcon = computed(() => {
     if (!isChecked.value) {
-        return new URL('../../assets/icon/icon-checkbox-off.svg', import.meta.url).href
+        return props.color === 'secondary'
+            ? new URL('../../assets/icon/icon-checkbox-off-secondary.svg', import.meta.url).href
+            : new URL('../../assets/icon/icon-checkbox-off-primary.svg', import.meta.url).href
     }
     return props.color === 'secondary'
         ? new URL('../../assets/icon/icon-checkbox-on-secondary.svg', import.meta.url).href
@@ -100,8 +102,8 @@ function createRipple(event) {
     display: none;
 }
 .checkbox-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
 .checkbox-container {
