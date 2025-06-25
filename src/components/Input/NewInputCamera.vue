@@ -455,17 +455,17 @@ const openFile = () => {
                     <div class="custom-file-upload__box-input-icon">
                         <img
                             v-if="props.imagePlaceholder === 'idcard'"
-                            src="@/assets/images/ico-image-upload.svg"
+                            src="../../assets/images/ico-image-upload.svg"
                             alt="Upload Icon"
                             draggable="false"
                         />
                         <img
                             v-else-if="props.fileType === 'image/*'"
-                            src="@/assets/images/image-add.svg"
+                            src="../../assets/images/image-add.svg"
                             alt="Upload Icon"
                         />
                         <div v-else class="d-flex gap-2">
-                            <img src="@/assets/icon/upload.svg" alt="" />
+                            <img src="../../assets/icon/upload.svg" alt="" />
                             <p class="mb-0 text-black mw-1">
                                 Tarik file ke sini, <b class="text-green">ambil foto</b> atau
                                 <b class="text-green">pilih dari perangkat</b>
@@ -504,7 +504,7 @@ const openFile = () => {
                 />
                 <div v-else class="d-flex flex-column align-items-center gapc-0">
                     <img
-                        src="@/assets/images/file-image.svg"
+                        src="../../assets/images/file-image.svg"
                         alt="File Icon"
                         class="file-icon"
                         :id="`${$attrs.id}_fileIcon`"
@@ -512,7 +512,7 @@ const openFile = () => {
                         v-if="fileSrcType.startsWith('image/')"
                     />
                     <img
-                        src="@/assets/images/file-non-image.svg"
+                        src="../../assets/images/file-non-image.svg"
                         alt="File Icon"
                         class="file-icon"
                         :id="`${$attrs.id}_fileIcon`"
@@ -529,7 +529,7 @@ const openFile = () => {
                     alt="Remove Button"
                     :id="`${$attrs.id}_removeFile`"
                     class="close-img"
-                    src="@/assets/icon/cross.svg"
+                    src="../../assets/icon/cross.svg"
                     draggable="false"
                 />
             </div>
@@ -564,7 +564,7 @@ const openFile = () => {
                     Galeri
                     <span>
             <img
-                src="@/assets/images/icon-galeri.svg"
+                src="../../assets/images/icon-galeri.svg"
                 alt="Upload Icon"
                 height="24px"
                 width="24px"
@@ -580,7 +580,7 @@ const openFile = () => {
                     Kamera
                     <span>
             <img
-                src="@/assets/images/camera-outline.svg"
+                src="../../assets/images/camera-outline.svg"
                 alt="Kamera Icon"
                 height="24px"
                 width="24px"
@@ -604,7 +604,7 @@ const openFile = () => {
             <template #header="{ close }">
                 <img
                     @click="close"
-                    src="@/assets/icon/arrow_left.svg"
+                    src="../../assets/icon/arrow_left.svg"
                     alt="Close Camera"
                     :id="`${$attrs.id}_closeCamera`"
                     v-if="cameraIsReady"
@@ -633,7 +633,7 @@ const openFile = () => {
                     </div>
                     <img
                         @click="handleCameraSnap"
-                        src="@/assets/icon/shutter-button.svg"
+                        src="../../assets/icon/shutter-button.svg"
                         alt="Take Image"
                         :id="`${$attrs.id}_cameraSnap`"
                         class="shutter-btn"
@@ -642,7 +642,7 @@ const openFile = () => {
                     />
                     <img
                         @click="handleSwitchCamera"
-                        src="@/assets/icon/switch.svg"
+                        src="../../assets/icon/switch.svg"
                         alt="Switch Camera"
                         :id="`${$attrs.id}_cameraSwitch`"
                         class="switch-camera-btn"
@@ -694,7 +694,7 @@ const openFile = () => {
                     >
                         Galeri
                         <img
-                            src="@/assets/images/icon-galeri.svg"
+                            src="../../assets/images/icon-galeri.svg"
                             alt="Upload Icon"
                             height="24px"
                             width="24px"
@@ -708,7 +708,7 @@ const openFile = () => {
                     >
                         Kamera
                         <img
-                            src="@/assets/images/camera-outline.svg"
+                            src="../../assets/images/camera-outline.svg"
                             alt="Kamera Icon"
                             height="24px"
                             width="24px"
@@ -722,7 +722,7 @@ const openFile = () => {
                     >
                         Pilih FIle
                         <img
-                            src="@/assets/images/icon-file.svg"
+                            src="../../assets/images/icon-file.svg"
                             alt="Upload Icon"
                             height="24px"
                             width="24px"
@@ -747,7 +747,7 @@ const openFile = () => {
                     <div id="cameraGuidance"></div>
                     <img
                         @click="handleCameraSnap"
-                        src="@/assets/icon/shutter-button.svg"
+                        src="../../assets/icon/shutter-button.svg"
                         alt="Take Image"
                         :id="`${$attrs.id}_cameraSnap`"
                         class="shutter-btn"
