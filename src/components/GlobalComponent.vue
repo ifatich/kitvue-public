@@ -750,15 +750,15 @@
               </p>
             </div>
             <div class="card-body">
-                <NewInputImage
+                <NewInputCamera
                     v-model="selectedFile"
                     @fileRemoved="handleFileDropped"
-                    @fileDropped="handleDropedfotoPelunasanKur"
+                    @fileDropped="handleFileDropped"
                     @errorPermission="handleCameraPermission"
                     id="file_fotoDokumenPelunasanKur"
                     image-placeholder="form"
                     name="fotoFormDua"
-                    :useBottomSheet="true"
+                    :useBottomSheet="false"
                     :user-name="'P12344'"
                     noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
                 />
@@ -1491,6 +1491,7 @@ import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
 import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
 import LabelIcon from "./Label/LabelIcon.vue";
+import NewInputCamera from "@/components/Input/NewInputCamera.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -1868,7 +1869,6 @@ import Dropdown from "./Dropdown/InputDropdown.vue";
 import Accordion from "./Accordion/Accordion.vue";
 import AccordionItem from "./Accordion/AccordionItem.vue";
 import FilePickerLG from "./Filepicker/FilePickerLG.vue";
-import NewInputCamera from "./Input/NewInputCamera.vue";
 import ModalComponent from "./Modal/ModalComponent.vue";
 import InputDatePicker from "./Input/InputDatePicker.vue";
 import InputSmallDate from "./Input/InputSmallDate.vue";
