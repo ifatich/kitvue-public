@@ -43,7 +43,10 @@ const props = defineProps({
     },
     error: {},
     uniqueKey: {},
-    deviceCoordinate:{},
+    deviceCoordinate: {
+        type: Object,
+        default: () => null,
+    },
     imagePlaceholder: {
         type: String,
         default: 'idcard'
@@ -79,7 +82,8 @@ const fileSrc = defineModel()
 const isMobileView = computed(() => props.useBottomSheet)
 const fileSrcType = ref('')
 const fileSize = ref(0)
-
+const isFromCamera = ref(false)
+const internalError = ref('')
 const redirectGmaps = () => {
     if (locationData.value) {
         window.open(
@@ -240,10 +244,13 @@ const handleCameraSnap = () => {
         ctx.fillText(text, canvas.width / 2, canvas.height - watermarkHeight / 2)
     }
 
-    locationData.value = {
-        lat: props.deviceCoordinate?.latitude,
-        lng: props.deviceCoordinate?.longitude
-    }
+    locationData.value =
+        props.deviceCoordinate
+            ?
+            {
+                lat: props.deviceCoordinate.latitude,
+                lng: props.deviceCoordinate.longitude
+            } : null
 
     fileSrcType.value = 'image/jpeg'
     snappedCameraPict.value = canvas.toDataURL('image/jpeg')
@@ -261,6 +268,8 @@ const blobToDataUrl = (blob) =>
 
 const handleCameraChosen = async () => {
     fileSrc.value = snappedCameraPict.value
+    internalError.value = null
+    isFromCamera.value = true
     const compressedImg = await compressImg(props.compressionMaxKb, snappedCameraPict.value)
     emit('fileDropped', compressedImg, props.uniqueKey)
     cameraDialog.value = false
@@ -286,7 +295,7 @@ const stopCamera = async () => {
         const stream = video.value?.srcObject
         if (stream) {
             const tracks = stream.getTracks()
-            tracks.forEach(async (track) => await track.stop())
+            tracks.forEach((track) => track.stop())
             video.value.srcObject = null
         }
         resolve()
@@ -379,34 +388,56 @@ const handleDrop = async (e) => {
     const files = e.dataTransfer.files
     if (files.length > 0) {
         const file = files[0]
-        if (file.type.startsWith('image/')) {
-            await handleFileProcessing(file)
-        }
+        await handleFileProcessing(file)
     }
 }
 
 const handleFileProcessing = async (file) => {
-    locationData.value = null
-    fileSrcType.value = file.type
-    fileSize.value = Math.round(file.size / 1024)
-    const reader = new FileReader()
+    locationData.value = null;
+    internalError.value = null
+    fileSrcType.value = file.type;
+    fileSize.value = Math.round(file.size / 1024);
+    isFromCamera.value = false;
+
+    const allowedTypes = props.fileType.split(',');
+
+    const isValidType = allowedTypes.some((type) => {
+        type = type.trim();
+
+        if (type.startsWith('.')) {
+            return file.name?.toLowerCase().endsWith(type.toLowerCase());
+        }
+
+        if (type.includes('*')) {
+            const regex = new RegExp(type.replace('*', '.*'));
+            return regex.test(file.type);
+        }
+
+        return file.type === type;
+    });
+
+    if (!isValidType) {
+        internalError.value = 'Invalid file type. Allowed: ' + props.fileType + ', Received: ' + file.type;
+        return;
+    }
+
+    const reader = new FileReader();
     reader.onload = async (e) => {
         if (props.fileType === 'image/*') {
-            fileSrc.value = e.target.result
-            const compressedImg = await compressImg(props.compressionMaxKb, reader.result)
-            emit('fileDropped', compressedImg, props.uniqueKey)
+            fileSrc.value = e.target.result;
+            const compressedImg = await compressImg(props.compressionMaxKb, reader.result);
+            emit('fileDropped', compressedImg, props.uniqueKey);
         } else {
             if (file.size > 20 * 1024 * 1024) {
-                // 20 MB in bytes
-                emit('errorPermission', 'File size exceeds the maximum limit of 20 MB')
-                return
+                internalError.value = 'File size exceeds the maximum limit of 20 MB'
+                return;
             }
-            fileSrc.value = file
-            emit('fileDropped', file, props.uniqueKey)
+            fileSrc.value = file;
+            emit('fileDropped', file, props.uniqueKey);
         }
-    }
-    reader.readAsDataURL(file)
-}
+    };
+    reader.readAsDataURL(file);
+};
 
 const handleFilePicked = async (event) => {
     const file = event.target.files[0]
@@ -486,14 +517,14 @@ const openFile = () => {
             <div
                 v-else
                 :class="
-          props.fileType === 'image/*'
+          props.fileType === 'image/*'|| isFromCamera
             ? 'custom-file-upload__box-preview d-block'
             : 'custom-file-upload__box-no-preview d-block'
         "
                 id="box-preview-image"
             >
                 <img
-                    v-if="props.fileType === 'image/*'"
+                    v-if="props.fileType === 'image/*' || isFromCamera"
                     ref="imgElement"
                     :src="fileSrc"
                     alt="Captured Image"
@@ -534,15 +565,16 @@ const openFile = () => {
                 />
             </div>
         </div>
-        <div v-if="props.noteText && !props.error" class="note-text mt-2">
+        <div v-if="props.noteText && !(internalError || props.error)" class="note-text mt-2">
             {{ noteText
             }}<span @click="redirectGmaps" v-if="fileSrc && locationData" class="loc-text">
         Lihat Lokasi</span
         >
         </div>
-        <div class="error-text mt-2" v-if="props.error">
-            {{ props.error }}
+        <div class="error-text mt-2" v-if="internalError || props.error">
+            {{ internalError || props.error }}
         </div>
+
     </section>
 
     <section v-if="isMobileView">
@@ -585,6 +617,22 @@ const openFile = () => {
                 height="24px"
                 width="24px"
             />
+          </span>
+                </li>
+                <li
+                    @click="handleSourceFileClick"
+                    class="list-group-item d-flex justify-content-between align-items-center cpb-1"
+                    :id="`${$attrs.id}_file`"
+                    v-if="isFileDisabled"
+                >
+                    Pilih FIle
+                    <span>
+          <img
+              src="../../assets/images/icon-file.svg"
+              alt="Upload Icon"
+              height="24px"
+              width="24px"
+          />
           </span>
                 </li>
                 <li v-show="false" />
@@ -778,7 +826,7 @@ const openFile = () => {
     </section>
     <div v-if="fileSrc">
         <BModal
-            v-if="isMobileView"
+            v-if="!isMobileView"
             v-model="previewDialog"
             title="Lihat Foto"
             size="lg"
