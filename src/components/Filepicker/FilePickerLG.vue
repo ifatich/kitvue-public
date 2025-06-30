@@ -71,6 +71,9 @@
       </div>
     </div>
   </div>
+  <div v-if="showHelperText" class="helper-text">
+    {{ helperText }}
+  </div>
   <div v-if="fileError" class="error-text">
     {{ fileError }}
   </div>
@@ -95,6 +98,10 @@ export default {
       type: String,
       required: true,
     },
+    helperText: {
+      type: String,
+      default: "Maksimal ukuran file 1 MB.",
+    },
   },
   data() {
     return {
@@ -104,6 +111,11 @@ export default {
     };
   },
   emits: ["fileDropped", "fileRemoved", "errorPermission", "showUrlData"],
+  computed: {
+    showHelperText() {
+      return !!this.helperText && !this.fileError;
+    }
+  },
   methods: {
     imagesPreview1(files) {
       if (files && files[0]) {
@@ -286,8 +298,16 @@ export default {
 }
 
 .error-text {
-  color: red;
-  font-size: 0.9em;
+  color: var(--g-kit-red-50);
+  font-size: var(--g-kit-font-size-omega);
+  line-height: var(--g-kit-line-height-omega);
+  margin-top: 5px;
+}
+
+.helper-text {
+  color: var(--g-kit-black-50);
+  font-size: var(--g-kit-font-size-omega);
+  line-height: var(--g-kit-line-height-omega);
   margin-top: 5px;
 }
 </style>
