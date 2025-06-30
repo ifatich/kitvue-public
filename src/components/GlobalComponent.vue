@@ -52,7 +52,7 @@
           />
         </template>
       </BerandaHeader>
-      <LoadAnimate />
+      <LoadAnimate v-model="isSelected"/>
 
       <div class="row">
         <div class="col-lg-6">
@@ -232,7 +232,7 @@
                 @buttomSheetShown="handleBottomSheetShown"
               />
 
-               <InputMonth
+              <InputMonth
                 v-model="selectedMonth"
                 :title="'Tanggal Ulang Tahun'"
                 :placeholder="'Pilih tanggal'"
@@ -241,7 +241,6 @@
                 formatType="short"
                 @buttomSheetShown="handleBottomSheetShown"
               />
-
 
               <TestPicker
                 v-model="selectedDate"
@@ -261,6 +260,7 @@
                     label="Date Range Picker"
                     v-model:start-date="startDate"
                     v-model:end-date="endDate"
+                    :no-slash="true"
                   />
                 </div>
                 <div class="col-4">
@@ -288,7 +288,18 @@
               <DateRangePickerOption
                 :disabled="false"
                 placeholder="Pilih Tanggal"
-                label="Date Range Picker with Separator"
+                title="Date Range Picker with Separator and no-slash true"
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                firstLabel="Periode Program"
+                secondLabel=" "
+                separator
+                no-slash
+              />
+              <DateRangePickerOption
+                :disabled="false"
+                placeholder="Pilih Tanggal"
+                title="Date Range Picker with Separator and no-slash false"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
                 firstLabel="Periode Program"
@@ -317,14 +328,13 @@
                 >
                   I accept the terms and use
                 </BFormCheckbox>
-
+                  <CustomCheckbox v-model="isSelected" color="secondary" label="asdfsadfsadf"/>
+                  <CustomCheckbox v-model="isSelected" color="primary" />
                 <div>
                   State: <strong>{{ status }}</strong>
                 </div>
               </div>
-              <SwitchComponent
-                v-model="isSwitched"
-              />
+              <SwitchComponent v-model="isSwitched" />
 
               <label for="flexSwitchCheckDefault" class="form-label">
                 selected : {{ isSwitched }}
@@ -366,20 +376,45 @@
                 required=""
                 type="number"
               />
-                <InputText
-                    :use-auto-caps="true"
-                    v-model="testValue"
-                    id="ini-id"
-                    placeholder="hello world!"
-                    label="Ini Caps Sample"
-                    class="pb-4"
-                />
+              <InputText
+                :use-auto-caps="true"
+                v-model="testValue"
+                id="ini-id"
+                placeholder="hello world!"
+                label="Ini Caps Sample"
+                class="pb-4"
+              />
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
                 label="Ini Bisa Text Tested"
                 class="pb-4"
               />
+
+              <div class="row">
+                <div class="col-6">
+                  <InputText
+                    id="ini-id"
+                    placeholder="hello world!"
+                    label="Ini Bisa Text"
+                    class="pb-4"
+                  />
+                </div>
+                <div class="col-6">
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    chevron="chevronLime"
+                    required
+                  />
+                </div>
+              </div>
 
               <InputText
                 id="ini-id"
@@ -483,9 +518,14 @@
 
               <p>Search nik Value: {{ nik }}</p>
 
+             <LabelIcon
+                  text="Status Aktif"
+                  iconEnd
+                  tooltip="Status ini menandakan akun aktif."
+                  tooltipPosition="bottom"
+              />
               <InputNominalStart
                 id="input-rupiah"
-                label="Input Rupiah"
                 v-model="rupiah"
                 class="pb-4"
               />
@@ -516,11 +556,10 @@
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
-
                 required
                 :isChecked="triggerValue"
               />
-              
+
               <button @click="testTrigger" class="btn btn-primary mt-2">
                 Trigger Dropdown Validation
               </button>
@@ -711,13 +750,35 @@
               </p>
             </div>
             <div class="card-body">
+                <NewInputCamera
+                    v-model="selectedFile"
+                    @fileRemoved="handleFileDropped"
+                    @fileDropped="handleFileDropped"
+                    @errorPermission="handleCameraPermission"
+                    id="file_fotoDokumenPelunasanKur"
+                    image-placeholder="form"
+                    name="fotoFormDua"
+                    :useBottomSheet="false"
+                    :user-name="'P12344'"
+                    noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
+                />
               <FilePickerLG
                 v-model="selectedFile"
-                :showPreview="false"
+                :showPreview="true"
                 errorText="ini text eror props"
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
+                :image-only="false"
+              />
+              <FilePickerLG
+                v-model="selectedFile"
+                :showPreview="true"
+                errorText="ini text eror props"
+                @fileDropped="handleFileDropped"
+                @fileRemoved="handleFileRemoved"
+                @errorPermission="handleErrorPermission"
+                :imageOnly="false"
               />
               <FilePickerLG
                 v-model="selectedFile"
@@ -728,6 +789,7 @@
                 @fileRemoved="handleFileRemoved"
                 @showUrlData="handleShowFile"
                 @errorPermission="handleErrorPermission"
+                :image-only="false"
               />
               <FilePickerLG
                 v-model="selectedFile"
@@ -1219,7 +1281,7 @@
               <DateRangePicker
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
-                first-label="Waktu Berlaku"
+                first-label="Waktu Berlaku now"
                 second-label=" "
                 first-placeholder="Start Date"
                 second-placeholder="End Date"
@@ -1232,7 +1294,7 @@
               <DateRangePicker
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
-                first-label="Waktu Berlaku"
+                first-label="Waktu Berlaku custom max date"
                 second-label=" "
                 first-placeholder="Start Date"
                 second-placeholder="End Date"
@@ -1427,6 +1489,9 @@ import { ref } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
+import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
+import LabelIcon from "./Label/LabelIcon.vue";
+import NewInputCamera from "@/components/Input/NewInputCamera.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -1443,9 +1508,9 @@ const modalOpen3 = ref(false);
 const showPicker = ref(false);
 
 const isSwitched = ref(false);
-const phoneCode = ref('');
-const phoneNumber = ref('');
-const phoneError = ref('Nomor telepon wajib diisi');
+const phoneCode = ref("");
+const phoneNumber = ref("");
+const phoneError = ref("Nomor telepon wajib diisi");
 
 const triggerValue = ref(false); // Ref untuk memicu validasi dropdown
 
@@ -1907,7 +1972,8 @@ export default {
   data() {
     return {
       activeLabel: null,
-      dropdownItemss: [
+        isSelected: ref(false),
+        dropdownItemss: [
         { id: 1, label: "Step 1", completed: false },
         { id: 2, label: "Step 2", completed: false },
         { id: 3, label: "Step 3", completed: false },

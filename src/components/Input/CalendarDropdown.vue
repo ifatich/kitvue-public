@@ -148,7 +148,15 @@
                             <div
                                 v-for="day in week"
                                 :key="day.date"
-                                :class="{ 'calendar-date': true, active: isSelectedDate(day.date), disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth, 'future-date': disableFutureDates && isFutureDate(day.date), 'isPrevMonth': day.isPrevMonth, 'isNextMonth': day.isNextMonth }"
+                                :class="{
+                                    'calendar-date': true,
+                                    active: isSelectedDate(day.date),
+                                    'slash' : !noSlash && (!day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth),
+                                    disabled: !day.date || (disableFutureDates && isFutureDate(day.date)) || isOutOfRange(day.date) || day.isPrevMonth || day.isNextMonth,
+                                    'future-date': disableFutureDates && isFutureDate(day.date),
+                                    'isPrevMonth': day.isPrevMonth,
+                                    'isNextMonth': day.isNextMonth
+                                }"
                                 @click="selectDate(day)"
                             >
                                 {{ day.date ? day.date.getDate() : '' }}
@@ -465,15 +473,27 @@
                     const newDay = String(Number(day)).padStart(2, '0')
 
                     if (this.formatType === 'short') {
-                    const shortMonth = this.months[Number(month) - 1].substring(0, 3)
-                    
-                    formatted = `${newDay} ${shortMonth} ${year}`
+                        const shortMonth = this.months[Number(month) - 1].substring(0, 3)
+                        
+                        formatted = `${newDay} ${shortMonth} ${year}`
                     } else {
-                    const newMonth = String(Number(month)).padStart(2, '0')
-                    formatted = `${newDay}/${newMonth}/${year}`
+                        const newMonth = String(Number(month)).padStart(2, '0')
+                        formatted = `${newDay}/${newMonth}/${year}`
                     }
                 }
                 return formatted
+            },
+            deformattedDate(value) {
+                if (!value) return null;
+                
+                if (this.formatType === 'short') {
+                    const [day, month, year] = value.split(' ')
+                    const monthIndex = this.months.findIndex(m => m.startsWith(month))
+                    return `${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+                } else {
+                    const [day, month, year] = value.split('/')
+                    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+                }
             },
             previousMonth() {
                 if (this.currentMonth > 1) {
@@ -505,7 +525,7 @@
             },
             isSelectedDate(date) {
                 if (!date || !this.selectedDate) return false;
-                const selected = new Date(this.selectedDate.split('/').reverse().join('-'));
+                const selected = new Date(this.deformattedDate(this.selectedDate));
                 return (
                     selected.getDate() === date.getDate() &&
                     selected.getMonth() === date.getMonth() &&
