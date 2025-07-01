@@ -751,17 +751,17 @@
             </div>
             <div class="card-body">
                 <NewInputCamera
-                    v-model="selectedFile"
-                    @fileRemoved="handleFileDropped"
-                    @fileDropped="handleFileDropped"
-                    @errorPermission="handleCameraPermission"
-                    id="file_fotoDokumenPelunasanKur"
-                    image-placeholder="form"
-                    name="fotoFormDua"
-                    :useBottomSheet="false"
-                    :user-name="'P12344'"
-                    noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
-                />
+                  v-model="selectedFile"
+                  @fileRemoved="handleFileDropped"
+                  @fileDropped="handleFileDropped"
+                  @errorPermission="handleCameraPermission"
+                  id="file_fotoDokumenPelunasanKur"
+                  image-placeholder="form"
+                  name="fotoFormDua"
+                  :useBottomSheet="false"
+                  :user-name="'P12344'"
+                  noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
+              />
               <FilePickerLG
                 v-model="selectedFile"
                 :showPreview="true"
@@ -952,6 +952,12 @@
                   </div>
                 </template>
               </ModalComponent>
+              <TablePagination
+                class="mt-4"
+                :totalRows="totalRows"
+                :perPage="perPage"
+                v-model="currentPage"
+              />
             </div>
           </div>
         </div>
@@ -1492,6 +1498,7 @@ import InputPhone from "./Input/InputPhone.vue";
 import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
 import LabelIcon from "./Label/LabelIcon.vue";
 import NewInputCamera from "@/components/Input/NewInputCamera.vue";
+import TablePagination from "./Table/TablePagination.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -1537,6 +1544,11 @@ const today = new Date();
 const twoWeeksAgo = new Date(today);
 twoWeeksAgo.setDate(today.getDate() - 14);
 const maxDate = twoWeeksAgo.toISOString().split("T")[0]; // Mengisi maxDate dengan tanggal hari ini
+
+// Table Pagination
+const totalRows = ref(100)
+const perPage = ref(10)
+const currentPage = ref(1)
 
 const tableParentHead2 = [
   {
