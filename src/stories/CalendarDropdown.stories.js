@@ -1,9 +1,16 @@
 import { ref } from "vue";
-import InputSmallDate from "../components/Input/InputSmallDate.vue";
+import CalendarDropdown from "../components/Input/CalendarDropdown.vue";
 
 export default {
-  title: "Components/DatePicker/Default",
-  component: InputSmallDate,
+  title: "Components/DatePicker/CalendarDropdown",
+  component: CalendarDropdown,
+  parameters: {
+    docs: {
+      description: {
+        component: 'CalendarDropdown is component part of DateRangePicker component.'
+      }
+    }
+  },
   tags: ["autodocs"],
   argTypes: {
     title: { control: "text" },
@@ -17,14 +24,13 @@ export default {
     maxDate: { control: "text" },
     minDate: { control: "text" },
     maxDaysFromToday: { control: "number" },
+    minDaysFromToday: { control: "number" },
+    error: { control: "text" },
+    formatType: { control: "select", options: ["date", "short"] },
     disableFutureDates : { control: "boolean"},
     flexWidth : { control: "boolean"},
     noSlash : { control: "boolean"},
     alingment: {control: "select", options: ['start', 'center', 'end']},
-    minDaysFromToday: { control: "number" },
-    error: { control: "text" },
-    datePosition: { control: "text" },
-    formatType: { control: "select", options: ["date", "short"] },
   },
   args: {
     title: "Tanggal Lahir",
@@ -32,29 +38,26 @@ export default {
     disabled: false,
     required: false,
     selectedYear: new Date().getFullYear(),
-    maxDate: "2025-01-20",
-    minDate : "2025-12-01",
     modelValue: "selectedDate",
     formatType: "date",
     noSlash: true,
-    flexWidth: true,
-    alingment: 'start'
+    flexWidth: false,
+    alingment: 'start',
+    disableFutureDates: false
   },
 };
 
-export const DatePicker = {
+export const DatePickerDropdown = {
   render: (args) => ({
-    components: { InputSmallDate },
+    components: { CalendarDropdown },
     setup() {
       const selectedDate = ref(null);
       return { args, selectedDate };
     },
     template: `
-      <InputSmallDate 
+      <CalendarDropdown 
         v-bind="args" 
         v-model="selectedDate"
-        :maxDate="maxDate"
-        :minDate="minDate"
       />
     `,
   }),
