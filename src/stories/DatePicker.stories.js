@@ -17,10 +17,6 @@ export default {
     maxDate: { control: "text" },
     minDate: { control: "text" },
     maxDaysFromToday: { control: "number" },
-    disableFutureDates : { control: "boolean"},
-    flexWidth : { control: "boolean"},
-    noSlash : { control: "boolean"},
-    alingment: {control: "select", options: ['start', 'center', 'end']},
     minDaysFromToday: { control: "number" },
     error: { control: "text" },
     datePosition: { control: "text" },
@@ -36,9 +32,6 @@ export default {
     minDate : "2025-12-01",
     modelValue: "selectedDate",
     formatType: "date",
-    noSlash: true,
-    flexWidth: true,
-    alingment: 'start'
   },
 };
 
