@@ -59,3 +59,4 @@ const model = defineModel()
       </template>
     </BModal>
 </template>
+
