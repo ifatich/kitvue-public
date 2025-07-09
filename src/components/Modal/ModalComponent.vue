@@ -24,6 +24,10 @@ const props = defineProps({
   showCloseButton: {
     type: Boolean,
     default: true
+  },
+  scrollable: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -31,7 +35,7 @@ const model = defineModel()
 </script>
 
 <template>
-    <BModal :size="props.size" v-model="model" :id="$attrs.id" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent">
+    <BModal :size="props.size" v-model="model" :id="$attrs.id" :centered="props.centered" :title="props.title" :noCloseOnBackdrop="persistent" :noCloseOnEsc="persistent" :scrollable="scrollable">
       <template #modal-header="{ close }">
         <BButton id="closeBoy" class="btn btn-outline-danger" @click="close()">Close Modal</BButton>
       </template>

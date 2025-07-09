@@ -821,8 +821,30 @@
                 title="Test Modal"
                 size="lg"
                 centered
+                scrollable
               >
                 <template v-slot:body>
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
                   <InputNominalEnd id="7" title="Persentase DP" required="" />
                   <InputNominalEnd id="8" title="Persentase DP" required="" />
                   <InputNominalEnd id="9" title="Persentase DP" required="" />
