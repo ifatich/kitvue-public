@@ -850,7 +850,7 @@
                   <InputNominalEnd id="9" title="Persentase DP" required="" />
                 </template>
                 <template v-slot:footer>
-                  <div class="d-flex flex-column w-100 gap-2 p-3">
+                  <div class="d-flex flex-column w-100 gap-2 p-3 sticky">
                     <Button
                       type="secondary"
                       label="Button Seccondary"
