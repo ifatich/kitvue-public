@@ -1,6 +1,7 @@
 .modal {
     --bs-modal-border-radius: 0.8rem;
     --bs-modal-box-shadow: none;
+    --g-bs-modal-margin: 4rem;
 
     .modal-content {
         border-radius: var(--bs-modal-border-radius);
@@ -69,7 +70,7 @@
 
     .modal-header {
         border-bottom: none;
-        padding: 16px;
+        padding: 0px ;
     }
 }
 
