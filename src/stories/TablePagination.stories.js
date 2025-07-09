@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import TablePagination from "../components/Table/TablePagination.vue";
 
   export default {
@@ -26,4 +27,14 @@ import TablePagination from "../components/Table/TablePagination.vue";
   };
 
   export const Pagination = {
+        render: (args) => ({
+                components: { TablePagination },
+                setup() {
+                  const modelValue = ref(null)
+                  return { args, modelValue };
+                },
+                template: `
+                      <TablePagination v-bind="args" v-model="args.modelValue"/>
+                `,      
+              }),
   };
