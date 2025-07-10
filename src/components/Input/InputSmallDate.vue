@@ -196,7 +196,7 @@
       </BOffcanvas>
     </div>
 
-    <div class="error-text" v-if="error">
+    <div class="error-text mt-2" v-if="error">
       {{ error }}
     </div>
   </div>
