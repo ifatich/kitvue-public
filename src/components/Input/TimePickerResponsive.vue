@@ -139,7 +139,25 @@ export default {
       showContent: false,
     };
   },
+  watch: {
+  modelValue: {
+    immediate: true,
+    handler(value) {
+      if (!this.isValidTimeFormat(value)) {
+        console.error(`[TimePickerResponsive] Invalid time format: "${value}". Expected format: "HH:MM"`);
+        // Optional: fallback value
+        this.selectedTime = '';
+      } else {
+        this.selectedTime = value;
+      }
+    }
+  }
+},
   methods: {
+     isValidTimeFormat(value) {
+    const regex = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+    return regex.test(value);
+  },
     reInitMobilePicker() {
       // Akses metode di ContentTimePicker setelah tampil
       this.$nextTick(() => {
