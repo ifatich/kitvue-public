@@ -20,7 +20,7 @@ const model = defineModel()
 
 <template>
   <div>
-    <BModal class="modal-component"
+    <BModal :class="[`modal-component`,props.title && 'border-bottom']"
       v-model="model" :title="props.title"
       ok-only
       no-stacking
@@ -90,6 +90,12 @@ const model = defineModel()
       }
     }
     
+  }
+
+  .modal-component.border-bottom {
+    .modal-header{
+      border-bottom: 1px solid var(--g-kit-black-20);
+    }
   }
 
 </style>

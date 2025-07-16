@@ -17,7 +17,7 @@ export default {
     error: { control: "text" },
     separator: { control: "boolean" },
     flexWdith: { control: "boolean" },
-    noSlash: { control: "boolean" },
+    noSlash: { control: "boolean" , description: "Remove slash from in out of range date"},
   },
   args: {
     title: "Tanggal Lahir",
