@@ -41,7 +41,8 @@
           </button>
         </div>
         <ContentTimePicker
-          :initialTime="selectedTime"
+          :default-hour="modelValue ? modelValue.split(':')[0] : '23'"
+          :default-minute="modelValue ? modelValue.split(':')[1] : '58'"
           @activeTime="handleActiveTime"
         />
 
@@ -93,11 +94,13 @@
       @hidden="handleOffcanvasToggle(false)"
     >
       <ContentTimePicker
-        :initialTime="selectedTime"
+        ref="mobileTimePicker"
+        :default-hour="modelValue ? modelValue.split(':')[0] : '23'"
+        :default-minute="modelValue ? modelValue.split(':')[1] : '58'"
         @activeTime="handleActiveTime"
       />
 
-      <div class="px-3 pb-0 pt-3">
+      <div class="px-3 py-3">
         <Button
           class="w-100"
           type="primary"
@@ -137,6 +140,12 @@ export default {
     };
   },
   methods: {
+    reInitMobilePicker() {
+      // Akses metode di ContentTimePicker setelah tampil
+      this.$nextTick(() => {
+       this.$refs.mobileTimePicker?.initializeAndScroll?.(); // method dari ContentTimePicker
+      });
+    },
     handleActiveTime(event) {
       this.tempSelectedTime = event.activeTime;
     },
@@ -151,7 +160,10 @@ export default {
     },
     handleOffcanvasToggle(value) {
       this.$emit("bottomSheetShown", value);
-    },
+      if (value) {
+        this.reInitMobilePicker();
+      }
+    }
   },
 };
 </script>

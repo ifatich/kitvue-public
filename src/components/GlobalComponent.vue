@@ -2048,7 +2048,7 @@ export default {
       fileError: "", // pastikan deklarasi di sini
       //untuk InputTimePicker
       selectedTime: "",
-      selectedTimes: "",
+      selectedTimes: "10:24",
       showPicker: false,
       showDismissibleAlert: true,
 
