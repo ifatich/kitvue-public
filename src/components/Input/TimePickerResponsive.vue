@@ -126,10 +126,11 @@ export default {
     required: Boolean,
     placeholder: String,
     error: String, // Error message
+    modelValue: String,
   },
   data() {
     return {
-      selectedTime: null,
+      selectedTime: this.modelValue,
       tempSelectedTime: "",
       showDatePickerOffcanvas: false,
       showContent: false,

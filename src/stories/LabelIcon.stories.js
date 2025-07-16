@@ -17,7 +17,7 @@ import LabelIcon from "../components/Label/LabelIcon.vue";
       variant: "default",
       iconStart: true,
       iconEnd: false,
-      tooltip: "https://ifatich4.github.io/img/ico-image-upload.1e0a3166.svg",
+      tooltip: `https://ifatich4.github.io/static/media/black.dfed9e1e.svg`,
       tooltipPosition: "top",
     },
   };

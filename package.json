@@ -1,7 +1,7 @@
 {
-  "name": "kitvue",
+  "name": "@pegadaian/kitvue",
   "author": "Fatich Imam Al Arasy <ifatich@gmail.com>",
-  "version": "0.9.70",
+  "version": "0.1.13-4",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -31,7 +31,9 @@
     "@storybook/addon-onboarding": "^8.4.7",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
     "@storybook/blocks": "^8.4.7",
+    "@storybook/manager-api": "^8.6.14",
     "@storybook/test": "^8.4.7",
+    "@storybook/theming": "^8.6.14",
     "@storybook/vue3": "^8.4.7",
     "@storybook/vue3-webpack5": "^8.4.7",
     "@vue/cli-plugin-babel": "~5.0.0",

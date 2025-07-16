@@ -750,18 +750,18 @@
               </p>
             </div>
             <div class="card-body">
-                <NewInputImage
-                    v-model="selectedFile"
-                    @fileRemoved="handleFileDropped"
-                    @fileDropped="handleDropedfotoPelunasanKur"
-                    @errorPermission="handleCameraPermission"
-                    id="file_fotoDokumenPelunasanKur"
-                    image-placeholder="form"
-                    name="fotoFormDua"
-                    :useBottomSheet="true"
-                    :user-name="'P12344'"
-                    noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
-                />
+                <NewInputCamera
+                  v-model="selectedFile"
+                  @fileRemoved="handleFileDropped"
+                  @fileDropped="handleFileDropped"
+                  @errorPermission="handleCameraPermission"
+                  id="file_fotoDokumenPelunasanKur"
+                  image-placeholder="form"
+                  name="fotoFormDua"
+                  :useBottomSheet="false"
+                  :user-name="'P12344'"
+                  noteText="Foto Dokumen Pelunasan KUR Tampak Depan. Maksimal ukuran foto 1 MB/ file 20 MB. (.jpeg, .jpg, .png, .pdf)"
+              />
               <FilePickerLG
                 v-model="selectedFile"
                 :showPreview="true"
@@ -821,14 +821,36 @@
                 title="Test Modal"
                 size="lg"
                 centered
+                scrollable
               >
                 <template v-slot:body>
                   <InputNominalEnd id="7" title="Persentase DP" required="" />
                   <InputNominalEnd id="8" title="Persentase DP" required="" />
                   <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
+                  <InputNominalEnd id="7" title="Persentase DP" required="" />
+                  <InputNominalEnd id="8" title="Persentase DP" required="" />
+                  <InputNominalEnd id="9" title="Persentase DP" required="" />
                 </template>
                 <template v-slot:footer>
-                  <div class="d-flex flex-column w-100 gap-2 p-3">
+                  <div class="d-flex flex-column w-100 gap-2 p-3 sticky">
                     <Button
                       type="secondary"
                       label="Button Seccondary"
@@ -952,6 +974,12 @@
                   </div>
                 </template>
               </ModalComponent>
+              <TablePagination
+                class="mt-4"
+                :totalRows="totalRows"
+                :perPage="perPage"
+                v-model="currentPage"
+              />
             </div>
           </div>
         </div>
@@ -1491,6 +1519,8 @@ import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
 import CustomCheckbox from "@/components/Checkbox/CustomCheckbox.vue";
 import LabelIcon from "./Label/LabelIcon.vue";
+import NewInputCamera from "@/components/Input/NewInputCamera.vue";
+import TablePagination from "./Table/TablePagination.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -1536,6 +1566,11 @@ const today = new Date();
 const twoWeeksAgo = new Date(today);
 twoWeeksAgo.setDate(today.getDate() - 14);
 const maxDate = twoWeeksAgo.toISOString().split("T")[0]; // Mengisi maxDate dengan tanggal hari ini
+
+// Table Pagination
+const totalRows = ref(100)
+const perPage = ref(10)
+const currentPage = ref(1)
 
 const tableParentHead2 = [
   {
@@ -1868,7 +1903,6 @@ import Dropdown from "./Dropdown/InputDropdown.vue";
 import Accordion from "./Accordion/Accordion.vue";
 import AccordionItem from "./Accordion/AccordionItem.vue";
 import FilePickerLG from "./Filepicker/FilePickerLG.vue";
-import NewInputCamera from "./Input/NewInputCamera.vue";
 import ModalComponent from "./Modal/ModalComponent.vue";
 import InputDatePicker from "./Input/InputDatePicker.vue";
 import InputSmallDate from "./Input/InputSmallDate.vue";

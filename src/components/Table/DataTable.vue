@@ -47,7 +47,6 @@
             :total-rows="data.length"
             :per-page="entriesPerPage"
             v-model="currentPage"
-            :limit="7"
         />
 
         <div class="responsive-table">
