@@ -424,19 +424,19 @@
               />
 
               <InputText
+                label="Input Number Without Formater"
+                placeholder="Input number without formater"
                 id="iniidnumber"
-                color="red"
-                placeholder="Test placeholder!"
                 v-model="number"
-                label="Ini Number Only"
                 type="number"
+
+                general
               />
               <InputText
+                label="Input Number With Formater"
+                placeholder="Input number with formater"
                 id="iniidnumber"
-                color="green"
-                placeholder="Test placeholder!"
                 v-model="number"
-                label="Ini Number Only"
                 type="number"
               />
               <InputText
@@ -1540,6 +1540,7 @@ const isSwitched = ref(false);
 const phoneCode = ref("");
 const phoneNumber = ref("");
 const phoneError = ref("Nomor telepon wajib diisi");
+const kodepos = ref("00000000000");
 
 const triggerValue = ref(false); // Ref untuk memicu validasi dropdown
 

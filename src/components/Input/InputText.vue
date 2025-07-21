@@ -64,7 +64,11 @@
 		rupiah: {
 			type: String,
 			default: ''
-		}
+		},
+		general: {
+			type: Boolean,
+			default: false
+		},
 	})
 
 	// Define emits for the component
@@ -72,7 +76,12 @@
 
 	// Define reactive variables
 	const inputValue = ref(props.modelValue)
-	const displayValue = ref(props.type === 'number' ? formatNumber(props.modelValue) : props.modelValue)
+	// const displayValue = ref(props.type === 'number' ? formatNumber(props.modelValue) : props.modelValue)
+	const displayValue = ref(
+		props.type === 'number' && props.general
+		? (props.modelValue ? String(props.modelValue).replace(/[^0-9]/g, '') : '')
+		: props.type === 'number' ? formatNumber(props.modelValue) : props.modelValue
+	)
 	const localError = ref(false)
 	const isSearchActive = ref(false)
 
@@ -86,14 +95,36 @@
             const upperCasedValue = props.useAutoCaps ? toUpperCase(newVal) : newVal;
 
 			inputValue.value = upperCasedValue
-			displayValue.value = props.type === 'number' ? formatNumber(newVal) :  upperCasedValue
+			
+			if (props.type === 'number' && props.general) {
+				displayValue.value = upperCasedValue?.replace(/[^0-9]/g, '') || ''
+			} else if (props.type === 'number') {
+				displayValue.value = formatNumber(newVal)
+			} else {
+				displayValue.value = upperCasedValue
+			}
 		}
 	)
 
 	// Handle input events
     const handleInput = (event) => {
         const rawValue = event.target.value;
-        if (props.type === 'number') {
+		if (props.type === 'number' && props.general) {
+			const cleanedValue = rawValue.replace(/[^0-9]/g, '');
+			localError.value = props.required && cleanedValue.trim() === '';
+			inputValue.value = cleanedValue;
+			displayValue.value = cleanedValue;
+
+			emit('update:modelValue', cleanedValue);
+
+			// Set value input agar tidak ada karakter non-angka yang lolos
+			event.target.value = cleanedValue;
+
+			setTimeout(() => {
+				const cursorPosition = event.target.selectionStart;
+				event.target.setSelectionRange(cursorPosition, cursorPosition);
+			}, 0);
+		} else if (props.type === 'number') {
             const cleanedValue = rawValue.replace(/\s+/g, '');
             localError.value = props.required && cleanedValue.trim() === '';
             inputValue.value = cleanedValue;
