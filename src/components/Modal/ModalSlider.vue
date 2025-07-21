@@ -12,6 +12,10 @@ const props = defineProps({
   images: {
     type: Array,
     default: () => []
+  },
+  interval: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -20,7 +24,7 @@ const model = defineModel()
 
 <template>
   <div>
-    <BModal :class="[`modal-component`,props.title && 'border-bottom']"
+    <BModal :class="[`modal-slider-component`,props.title && 'border-bottom']"
       v-model="model" :title="props.title"
       ok-only
       no-stacking
@@ -33,9 +37,9 @@ const model = defineModel()
       </template>
 
       <BCarousel id="carousel"
-        :interval="4000"
+        :key="model"
+        :interval="props.interval"
         controls
-        fade
         img-width="532"
         img-height="416">
         <BCarouselSlide v-for="(imgSrc, index) in props.images" :key="index" :img-src="imgSrc"></BCarouselSlide>
@@ -45,7 +49,7 @@ const model = defineModel()
 </template>
 
 <style lang="scss">
-  .modal-component {
+  .modal-slider-component {
     .carousel {
       button {
           &.carousel-control-next {
@@ -80,22 +84,27 @@ const model = defineModel()
         
       }
       .carousel-inner {
-        border-radius: 0.25rem;
-
         .carousel-item {
+          transition: transform 0.4s ease-out; // dari 0.6s ke 0.3s
+          padding-inline: 1rem;
+          background-color: transparent !important;
           img {
             object-fit: cover;
+            border-radius: 0.25rem;
           }
         }
       }
     }
+
+    .modal-body{
+      padding-inline: 0;
+    }
     
   }
 
-  .modal-component.border-bottom {
+  .modal-slider-component.border-bottom {
     .modal-header{
       border-bottom: 1px solid var(--g-kit-black-20);
     }
   }
-
 </style>
