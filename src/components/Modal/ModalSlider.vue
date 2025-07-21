@@ -12,6 +12,10 @@ const props = defineProps({
   images: {
     type: Array,
     default: () => []
+  },
+  interval: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -34,7 +38,7 @@ const model = defineModel()
 
       <BCarousel id="carousel"
         :key="model"
-        :interval="0"
+        :interval="props.interval"
         controls
         img-width="532"
         img-height="416">
