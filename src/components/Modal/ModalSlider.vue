@@ -25,7 +25,8 @@ const model = defineModel()
 <template>
   <div>
     <BModal :class="[`modal-slider-component`,props.title && 'border-bottom']"
-      v-model="model" :title="props.title"
+      v-model="model" 
+      :title="props.title"
       ok-only
       no-stacking
       hide-footer
@@ -36,9 +37,11 @@ const model = defineModel()
         </BButton>
       </template>
 
-      <BCarousel id="carousel"
+      <BCarousel
+        id="carousel"
         :key="model"
         :interval="props.interval"
+        ride="carousel"      
         controls
         img-width="532"
         img-height="416">
@@ -98,6 +101,12 @@ const model = defineModel()
 
     .modal-body{
       padding-inline: 0;
+    }
+
+    .modal-footer{
+      .btn{
+        display: none;
+      }
     }
     
   }
