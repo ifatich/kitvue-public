@@ -16,7 +16,6 @@ import LabelIcon from "./Label/LabelIcon.vue";
 import NewInputCamera from "@/components/Input/NewInputCamera.vue";
 import TablePagination from "./Table/TablePagination.vue";
 import { BButton, BCarousel, BCarouselSlide } from 'bootstrap-vue-next'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -2361,9 +2360,11 @@ export default {
             </div>
             <div id="btm-scroll" class="card-body">
               <BButton @click="showModal = true">Show Modal</BButton>
+
+              
+
               <ModalSlider
                 v-model="showModal"
-                :interval="1000"
                 title="Foto Jaminan"
                 :persistent="true"
                 :centered="true"

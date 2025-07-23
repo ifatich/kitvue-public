@@ -1,5 +1,5 @@
 <script setup>
-import { defineOptions, defineProps, defineModel } from 'vue'
+import { defineOptions, defineProps, defineModel, ref, nextTick } from 'vue'
 import { BModal, BButton, BCarousel, BCarouselSlide } from 'bootstrap-vue-next'
 
 defineOptions({ name: 'ModalSlider' })
@@ -20,6 +20,14 @@ const props = defineProps({
 })
 
 const model = defineModel()
+
+const carouselKey = ref(0)
+
+function onModalShown() {
+  nextTick(() => {
+    carouselKey.value++
+  })
+}
 </script>
 
 <template>
@@ -28,8 +36,8 @@ const model = defineModel()
       v-model="model" 
       :title="props.title"
       ok-only
-      no-stacking
       hide-footer
+      @shown="onModalShown"
       centered>
       <template #modal-header="{ close }">
         <BButton class="btn btn-outline-danger" @click="close()">
@@ -38,8 +46,9 @@ const model = defineModel()
       </template>
 
       <BCarousel
+        no-hover-pause
         id="carousel"
-        :key="model"
+        :key="carouselKey"
         :interval="props.interval"
         ride="carousel"      
         controls
