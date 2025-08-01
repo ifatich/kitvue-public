@@ -38,6 +38,8 @@ const phoneError = ref("Nomor telepon wajib diisi");
 
 const triggerValue = ref(false); // Ref untuk memicu validasi dropdown
 
+const caraouselModalModel = ref(0);
+
 const testTrigger = () => {
   console.log("trigger dropdown clicked");
   triggerValue.value = true;
@@ -54,8 +56,9 @@ const executeFetch = () => {
   console.log("execute fetch");
 };
 
-// const selectedFile = ref(null);
-// const fileError = ref('');
+const handleAlertClick = () => {
+      alert(`Isi Input adalah: ${rupiah.value}`)
+    }
 
 const today = new Date();
 const twoWeeksAgo = new Date(today);
@@ -66,6 +69,15 @@ const maxDate = twoWeeksAgo.toISOString().split("T")[0]; // Mengisi maxDate deng
 const totalRows = ref(100)
 const perPage = ref(10)
 const currentPage = ref(1)
+
+const date = new Date()
+const timeUpdate = new Intl.DateTimeFormat('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true,
+}).format(date)
+
+const dateUpdate = today.toLocaleDateString('en-GB')
 
 const tableParentHead2 = [
   {
@@ -440,6 +452,11 @@ import CardVoucher from "./Card/CardVoucher.vue";
 import CalendarDropdown from "./Input/CalendarDropdown.vue";
 
 import InputNIK from "./Input/InputNIK.vue";
+import InputWithActionButton from "./Input/InputWithActionButton.vue";
+import HeaderCMS from "./Header/HeaderCMS.vue";
+import FilterCMS from "./Filter/FilterCMS.vue"
+import ImageView from "./Image/ImageView.vue";
+
 
 export default {
   name: "App",
@@ -878,6 +895,10 @@ export default {
           title: "Salary",
         },
       ],
+      subMenuCMS: [
+          { name: 'Dashboard', route: '/dashboard', icon:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8232 1.00009C8.96506 1.00009 6.70621 3.58223 6.70621 6.70609C6.70621 9.82995 8.96506 12.4121 11.8232 12.4121C14.6815 12.4121 16.9412 9.8298 16.9412 6.70609C16.9412 3.58239 14.6815 1.00009 11.8232 1.00009ZM11.8232 3.00009C13.5131 3.00009 14.9412 4.632 14.9412 6.70609C14.9412 8.78018 13.5131 10.4121 11.8232 10.4121C10.1336 10.4121 8.70621 8.78046 8.70621 6.70609C8.70621 4.63172 10.1336 3.00009 11.8232 3.00009ZM11.8235 13.941C8.72992 13.941 6.263 14.4493 4.36684 15.2959C2.92181 15.9419 1.99951 17.3817 1.99951 18.97C1.99951 21.196 3.80393 23 6.02951 23H17.6175C19.8431 23 21.6475 21.196 21.6475 18.97C21.6475 17.3817 20.7252 15.9419 19.2807 15.2961C17.384 14.4493 14.9171 13.941 11.8235 13.941ZM11.8235 15.941C14.6406 15.941 16.8296 16.392 18.4648 17.1221C19.1849 17.444 19.6475 18.1663 19.6475 18.97C19.6475 20.0913 18.7386 21 17.6175 21H6.02951C4.9084 21 3.99951 20.0913 3.99951 18.97C3.99951 18.1663 4.46215 17.444 5.18268 17.1219C6.81746 16.392 9.00644 15.941 11.8235 15.941Z" fill="currentColor"/></svg>` },
+          { name: 'Settings', route: '/settings', icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_2618_30977" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="2" width="16" height="20"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.8967 2.17168L19.8197 6.85906C19.9296 6.96363 20 7.11367 20 7.27344V20.2422C20 21.2114 19.1718 22 18.1538 22H5.84615C4.82818 22 4 21.2114 4 20.2422V3.75781C4 2.78855 4.82818 2 5.84615 2H14.4615C14.625 2 14.7818 2.06223 14.8967 2.17168ZM17.899 6.6875L15.0769 4.00051V6.10156C15.0769 6.42465 15.353 6.6875 15.6923 6.6875H17.899ZM5.84615 20.8281H18.1538C18.4932 20.8281 18.7692 20.5653 18.7692 20.2422V7.85938H15.6923C14.6743 7.85938 13.8462 7.07082 13.8462 6.10156V3.17188H5.84615C5.50683 3.17188 5.23077 3.43473 5.23077 3.75781V20.2422C5.23077 20.5653 5.50683 20.8281 5.84615 20.8281ZM8.30769 12.625H15.6923C16.0322 12.625 16.3077 12.8873 16.3077 13.2109C16.3077 13.5345 16.0322 13.7969 15.6923 13.7969H8.30769C7.96784 13.7969 7.69231 13.5345 7.69231 13.2109C7.69231 12.8873 7.96784 12.625 8.30769 12.625ZM15.6923 14.9688H8.30769C7.96784 14.9688 7.69231 15.2311 7.69231 15.5547C7.69231 15.8783 7.96784 16.1406 8.30769 16.1406H15.6923C16.0322 16.1406 16.3077 15.8783 16.3077 15.5547C16.3077 15.2311 16.0322 14.9688 15.6923 14.9688ZM8.30769 17.3125H13.2308C13.5706 17.3125 13.8462 17.5748 13.8462 17.8984C13.8462 18.222 13.5706 18.4844 13.2308 18.4844H8.30769C7.96784 18.4844 7.69231 18.222 7.69231 17.8984C7.69231 17.5748 7.96784 17.3125 8.30769 17.3125Z" fill="black"/></mask><g mask="url(#mask0_2618_30977)"><rect width="24" height="24" fill="currentColor"/></g></svg>` }
+        ]
     };
   },
   methods: {
@@ -942,7 +963,7 @@ export default {
   <div class="home">
     <div class="container">
       <button @click="scrollTo('btm-scroll')">Scroll Test</button>
-      <BerandaHeader>
+      <!-- <BerandaHeader>
         <template #search>
           <InputDropdownHeader
             v-model="nilaiTerpilih"
@@ -991,8 +1012,12 @@ export default {
             label="Button Seccondary"
           />
         </template>
-      </BerandaHeader>
+      </BerandaHeader> -->
       <LoadAnimate v-model="isSelected"/>
+
+        <HeaderCMS 
+          :fixed="true" 
+          :subMenu="subMenuCMS"/>
 
       <div class="row">
         <div class="col-lg-6">
@@ -1055,6 +1080,7 @@ export default {
               </p>
             </div>
             <div class="card-body">
+
               <Alert color="success" label="Lorem ipsum dolor sit amet" />
               <Alert color="info" label="Lorem ipsum dolor sit amet" />
               <Alert color="warning" label="Lorem ipsum dolor sit amet" />
@@ -1350,7 +1376,7 @@ export default {
                     :placeholder="'Pengajuan kredit'"
                     :class="'input-dropdown-kustom'"
                     :error="teksError"
-                    chevron="chevronLime"
+                    chevron="chevron"
                     required
                   />
                 </div>
@@ -1464,6 +1490,8 @@ export default {
                   tooltip="Status ini menandakan akun aktif."
                   tooltipPosition="bottom"
               />
+
+
               <InputNominalStart
                 id="input-rupiah"
                 v-model="rupiah"
@@ -1484,7 +1512,7 @@ export default {
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
-                chevron="chevronLime"
+                chevron="chevron"
                 required
               />
               <Dropdown
@@ -1499,6 +1527,20 @@ export default {
                 required
                 :isChecked="triggerValue"
               />
+
+              <InputWithActionButton button-title="Hitung" @click="handleAlertClick">
+                  <template #input>
+                        <InputText
+                          id="iniidnumber"
+                          placeholder="Test placeholder!"
+                          v-model="number"
+                          label="Ini Number Only"
+                          type="number"
+                        />
+                  </template>
+              </InputWithActionButton>
+
+              {{ rupiah }}
 
               <button @click="testTrigger" class="btn btn-primary mt-2">
                 Trigger Dropdown Validation
@@ -2008,6 +2050,22 @@ export default {
         <div class="col-lg-6 mt-4">
           <div class="card">
             <div class="card-header">
+              <h5>ImageView</h5>
+              <p class="mb-0">
+               Ini adalah component image view
+              </p>
+            </div>
+            <div class="card-body flex">
+              <ImageView title="Foto Pemandangan" img-src="https://picsum.photos/1024/480/?image=58" img-alt="Gambar Pemandangan"/>
+              <ImageView title="Foto Pemandangan" img-broken img-src="https://picsum.photos/1024/480/?image=58" img-alt="Gambar Pemandangan"/>
+              <ImageView title="Foto Pemandangan" img-alt="Gambar Pemandangan"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 mt-4">
+          <div class="card">
+            <div class="card-header">
               <h5>Table Data Basic</h5>
               <p class="mb-0">
                 <code
@@ -2123,6 +2181,106 @@ export default {
                   :child-head="tableChildHead2"
                   :dataFormatter="dataFormatter2"
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+
+         <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>Filter Template</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <FilterCMS filter>
+                  <template #update-text>
+                    {{ `Last update on `+ dateUpdate + `, ` + timeUpdate}}
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M17.65 6.34999C16.02 4.71999 13.71 3.77999 11.17 4.03999C7.50002 4.40999 4.48002 7.38999 4.07002 11.06C3.52002 15.91 7.27002 20 12 20C15.19 20 17.93 18.13 19.21 15.44C19.53 14.77 19.05 14 18.31 14C17.94 14 17.59 14.2 17.43 14.53C16.3 16.96 13.59 18.5 10.63 17.84C8.41002 17.35 6.62002 15.54 6.15002 13.32C5.31002 9.43999 8.26002 5.99999 12 5.99999C13.66 5.99999 15.14 6.68999 16.22 7.77999L14.71 9.28999C14.08 9.91999 14.52 11 15.41 11H19C19.55 11 20 10.55 20 9.99999V6.40999C20 5.51999 18.92 5.06999 18.29 5.69999L17.65 6.34999Z" fill="#58585B"/>
+                      <mask id="mask0_0_6179" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="3" width="16" height="17">
+                        <path d="M17.65 6.34999C16.02 4.71999 13.71 3.77999 11.17 4.03999C7.50002 4.40999 4.48002 7.38999 4.07002 11.06C3.52002 15.91 7.27002 20 12 20C15.19 20 17.93 18.13 19.21 15.44C19.53 14.77 19.05 14 18.31 14C17.94 14 17.59 14.2 17.43 14.53C16.3 16.96 13.59 18.5 10.63 17.84C8.41002 17.35 6.62002 15.54 6.15002 13.32C5.31002 9.43999 8.26002 5.99999 12 5.99999C13.66 5.99999 15.14 6.68999 16.22 7.77999L14.71 9.28999C14.08 9.91999 14.52 11 15.41 11H19C19.55 11 20 10.55 20 9.99999V6.40999C20 5.51999 18.92 5.06999 18.29 5.69999L17.65 6.34999Z" fill="white"/>
+                      </mask>
+                      <g mask="url(#mask0_0_6179)">
+                        <rect width="24" height="24" fill="#58585B"/>
+                      </g>
+                      </svg>
+
+                  </template>
+                  <template #buttons>
+                    <BButton>Download</BButton>
+                  </template>
+                  <template #filters>
+                    <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    required
+                  />
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    required
+                  />
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    required
+                  />
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    required
+                  />
+
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    required
+                  />
+
+                  <Dropdown
+                    v-model="nilaiTerpilih"
+                    :label="'Pilihan Anda'"
+                    :items="daftarPilihan"
+                    :itemValue="'id'"
+                    :itemText="'nama'"
+                    :placeholder="'Pengajuan kredit'"
+                    :class="'input-dropdown-kustom'"
+                    :error="teksError"
+                    required
+                  />
+                  </template>
+                </FilterCMS>
               </div>
             </div>
           </div>
@@ -2365,7 +2523,9 @@ export default {
 
               <ModalSlider
                 v-model="showModal"
+                v-model:carousel="caraouselModalModel"
                 title="Foto Jaminan"
+                ratio="2/3"
                 :persistent="true"
                 :centered="true"
                 :images="[
@@ -2374,7 +2534,27 @@ export default {
                   'https://picsum.photos/1024/480/?image=60',
                   'https://picsum.photos/1024/480/?image=61',
                 ]"
-              />
+                :date-images="[
+                  `12 Jan 2024`, `12 Feb 2024`, `12 Mar 2024`, `12 Apr 2024`
+                ]"
+                :time-images="[
+                  `13:00`, `14:00`, `15:00`, `16:00`
+                ]"
+                uploader="P12345"
+              >
+               <template v-slot:footer>
+                    <Button
+                      type="neutral"
+                      label="Ambil Ulang Foto"
+                      class="w-100"
+                    />
+                    <Button
+                      type="neutral"
+                      label="Lihat Lokasi"
+                      class="w-100"
+                    />
+                </template>
+              </ModalSlider>
 
               <InputCamera general />
 
