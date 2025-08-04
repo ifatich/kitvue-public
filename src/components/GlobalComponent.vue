@@ -738,6 +738,19 @@ export default {
           city: "New York",
           occupation: "Software Engineer",
           salary: 80000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: "" } // ini juga valid walau value-nya kosong
+          ],
+          fotoBarang: [
+            { src: "https://picsum.photos/1024/480/?image=59" },
+            { src: "https://picsum.photos/1024/480/?image=60" },
+            { src: "https://picsum.photos/1024/480/?image=61" },
+          ]
         },
         {
           id: 2,
@@ -745,6 +758,14 @@ export default {
           city: "Angeles",
           occupation: "Data Scientist",
           salary: 95000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: "" } // ini juga valid walau value-nya kosong
+          ],fotoBarang: [
+            { src: "https://picsum.photos/1024/480/?image=59" },
+            { src: "https://picsum.photos/1024/480/?image=60" },
+          ]
         },
         {
           id: 3,
@@ -752,6 +773,18 @@ export default {
           city: "Chicago",
           occupation: "Graphic Designer",
           salary: 60000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: "" } // ini juga valid walau value-nya kosong
+            ,
+          ],
+           fotoBarang: [
+            { src: "https://picsum.photos/1024/480/?image=59" },
+            { src: "https://picsum.photos/1024/480/?image=60" },
+            { src: "https://picsum.photos/1024/480/?image=61" },
+            { src: "https://picsum.photos/1024/480/?image=61" },
+          ]
         },
         {
           id: 4,
@@ -759,6 +792,11 @@ export default {
           city: "Francisco",
           occupation: "UX Designer",
           salary: 85000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: "" } // ini juga valid walau value-nya kosong
+          ]
         },
         {
           id: 5,
@@ -766,6 +804,11 @@ export default {
           city: "Seattle",
           occupation: "Marketing Manager",
           salary: 90000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: "" } // ini juga valid walau value-nya kosong
+          ],
         },
         {
           id: 6,
@@ -773,6 +816,11 @@ export default {
           city: "Miami",
           occupation: "Financial Analyst",
           salary: 75000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: "" } // ini juga valid walau value-nya kosong
+          ]
         },
         {
           id: 7,
@@ -780,6 +828,11 @@ export default {
           city: "Denver",
           occupation: "Product Manager",
           salary: 100000,
+          barangJaminan: [
+            { title: "Nama Barang", value: "Emas" },
+            { title: "Harga Barang", value: "12000" },
+            { title: "Kondisi", value: " " } // ini juga valid walau value-nya kosong
+          ]
         },
         {
           id: 8,
@@ -894,6 +947,14 @@ export default {
           data: "salary",
           title: "Salary",
         },
+        {
+          data: "barangJaminan",
+          title: "Barang Jaminan",
+        },
+        {
+          data: "fotoBarang",
+          title: "Foto Barang Jaminan",
+        },
       ],
       subMenuCMS: [
           { name: 'Dashboard', route: '/dashboard', icon:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8232 1.00009C8.96506 1.00009 6.70621 3.58223 6.70621 6.70609C6.70621 9.82995 8.96506 12.4121 11.8232 12.4121C14.6815 12.4121 16.9412 9.8298 16.9412 6.70609C16.9412 3.58239 14.6815 1.00009 11.8232 1.00009ZM11.8232 3.00009C13.5131 3.00009 14.9412 4.632 14.9412 6.70609C14.9412 8.78018 13.5131 10.4121 11.8232 10.4121C10.1336 10.4121 8.70621 8.78046 8.70621 6.70609C8.70621 4.63172 10.1336 3.00009 11.8232 3.00009ZM11.8235 13.941C8.72992 13.941 6.263 14.4493 4.36684 15.2959C2.92181 15.9419 1.99951 17.3817 1.99951 18.97C1.99951 21.196 3.80393 23 6.02951 23H17.6175C19.8431 23 21.6475 21.196 21.6475 18.97C21.6475 17.3817 20.7252 15.9419 19.2807 15.2961C17.384 14.4493 14.9171 13.941 11.8235 13.941ZM11.8235 15.941C14.6406 15.941 16.8296 16.392 18.4648 17.1221C19.1849 17.444 19.6475 18.1663 19.6475 18.97C19.6475 20.0913 18.7386 21 17.6175 21H6.02951C4.9084 21 3.99951 20.0913 3.99951 18.97C3.99951 18.1663 4.46215 17.444 5.18268 17.1219C6.81746 16.392 9.00644 15.941 11.8235 15.941Z" fill="currentColor"/></svg>` },
@@ -963,7 +1024,7 @@ export default {
   <div class="home">
     <div class="container">
       <button @click="scrollTo('btm-scroll')">Scroll Test</button>
-      <!-- <BerandaHeader>
+      <BerandaHeader>
         <template #search>
           <InputDropdownHeader
             v-model="nilaiTerpilih"
@@ -1012,7 +1073,7 @@ export default {
             label="Button Seccondary"
           />
         </template>
-      </BerandaHeader> -->
+      </BerandaHeader>
       <LoadAnimate v-model="isSelected"/>
 
         <HeaderCMS 
@@ -1080,7 +1141,6 @@ export default {
               </p>
             </div>
             <div class="card-body">
-
               <Alert color="success" label="Lorem ipsum dolor sit amet" />
               <Alert color="info" label="Lorem ipsum dolor sit amet" />
               <Alert color="warning" label="Lorem ipsum dolor sit amet" />
@@ -1490,8 +1550,6 @@ export default {
                   tooltip="Status ini menandakan akun aktif."
                   tooltipPosition="bottom"
               />
-
-
               <InputNominalStart
                 id="input-rupiah"
                 v-model="rupiah"
@@ -1512,7 +1570,7 @@ export default {
                 :placeholder="'Pengajuan kredit'"
                 :class="'input-dropdown-kustom'"
                 :error="teksError"
-                chevron="chevron"
+                chevron="chevronLime"
                 required
               />
               <Dropdown
@@ -2144,6 +2202,7 @@ export default {
                 :columns="tableColumnss"
                 leftContent="name"
                 rightContent="city"
+                v-model:modalSliderOpen="showModal"
               >
                 <template v-slot:tableActionButtons="{ item }">
                   <div class="d-flex">
@@ -2518,8 +2577,6 @@ export default {
             </div>
             <div id="btm-scroll" class="card-body">
               <BButton @click="showModal = true">Show Modal</BButton>
-
-              
 
               <ModalSlider
                 v-model="showModal"
