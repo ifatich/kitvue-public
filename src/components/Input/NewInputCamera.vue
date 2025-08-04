@@ -851,7 +851,7 @@ const openFile = () => {
                     <Button
                         v-if="fileSrc && locationData"
                         @click="redirectGmaps"
-                        label="Cek Lokasi"
+                        label="Lihat Lokasi"
                         type="neutral"
                         id="btn_CekDukcapilNasabah"
                         class="w-100"
@@ -881,7 +881,7 @@ const openFile = () => {
                 <Button
                     v-if="fileSrc && locationData"
                     @click="redirectGmaps"
-                    label="Cek Lokasi"
+                    label="Lihat Lokasi"
                     type="neutral"
                     id="btn_CekDukcapilNasabah"
                     class="w-100"
