@@ -1450,19 +1450,19 @@ export default {
               />
 
               <InputText
+                label="Input Number Without Formater"
+                placeholder="Input number without formater"
                 id="iniidnumber"
-                color="red"
-                placeholder="Test placeholder!"
                 v-model="number"
-                label="Ini Number Only"
                 type="number"
+
+                general
               />
               <InputText
+                label="Input Number With Formater"
+                placeholder="Input number with formater"
                 id="iniidnumber"
-                color="green"
-                placeholder="Test placeholder!"
                 v-model="number"
-                label="Ini Number Only"
                 type="number"
               />
               <InputText
