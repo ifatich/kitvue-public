@@ -25,7 +25,7 @@
                         </svg>
                         {{ column.title }}
                     </th>
-                    <th>Actions</th>
+                    <th v-if="$slots.tableActionButtons">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,7 +73,7 @@
                              {{ item[column.data] }}
                          </template>
                     </td>
-                    <td class="align-middle">
+                    <td class="align-middle" v-if="$slots.tableActionButtons">
                         <slot name="tableActionButtons" :item="item"></slot>
                     </td>
                 </tr>
