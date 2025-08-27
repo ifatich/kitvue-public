@@ -4,7 +4,8 @@
             type="checkbox"
             v-model="isChecked"
             @change="handleChange"
-            class="g-checkbox hidden-checkbox"
+            :class="[`g-checkbox hidden-checkbox`]"
+            :disabled="props.disabled"
         />
         <span class="checkbox-container" @mousedown="createRipple">
             <img
@@ -15,7 +16,7 @@
             <span v-for="ripple in ripples" :key="ripple.id" class="ripple"
                   :style="ripple.style" />
         </span>
-        <span :class="checkboxTextClass">
+        <span :class="[checkboxTextClass, props.color && `label-disabled`]">
             {{ label }}
         </span>
     </label>
@@ -38,6 +39,10 @@ const props = defineProps({
         type: String,
         default: 'checkbox-text',
     },
+    disabled: {
+        type: Boolean,
+        default: false,
+    }
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -88,11 +93,15 @@ function createRipple(event) {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .checkbox-wrapper {
     display: inline-flex;
     align-items: center;
     cursor: pointer;
+
+     .label-disabled {
+        color: var(--g-kit-black-60);
+    }
 }
 .checkbox-container:hover {
     background-color: rgba(0, 0, 0, 0.05);
