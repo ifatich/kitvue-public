@@ -10,13 +10,12 @@
   <div class="label-menu">
     <div class="flex align-items-center gap-2">
       <span v-if="item.icon && props.level === 1" v-html="item.icon" class="icon-menu w-4 h-4"></span>
-      <a v-if="item.href" :href="item.href">{{ item.label }}</a>
-      <span v-else>{{ item.label }}</span>
+      <a v-if="item.href && props.containerOpened" :href="item.href">{{ item.label }}</a>
+      <span v-else-if="props.containerOpened">{{ item.label }}</span>
     </div>
 
-    <!-- tambah class untuk rotasi panah (opsional) -->
     <svg
-      v-if="props.level < 3 && props.item.children"
+      v-if="props.level < 3 && props.item.children && props.containerOpened"
       class="chevron"
       width="24" height="24" viewBox="0 0 24 24" fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -25,14 +24,14 @@
     </svg>
   </div>
 
-  <!-- SELALU render UL kalau ada children; animasi di CSS via class .open -->
-  <ul v-if="props.item.children && props.item.children.length" class="submenu">
+  <ul v-if="props.item.children && props.item.children.length && props.containerOpened" class="submenu">
     <ItemSideNav
       v-for="child in props.item.children"
       :key="child.label"
       :item="child"
       :level="props.level + 1"
       v-model="model"
+      :containerOpened="props.containerOpened"
     />
   </ul>
 </li>
@@ -46,6 +45,7 @@ import { defineProps, defineModel, ref } from 'vue'
 const props = defineProps({
   item: { type: Object, required: true },
   level: { type: Number, default: 1 },
+  containerOpened: { type: Boolean }
 })
 
 const model = defineModel()
@@ -53,7 +53,6 @@ const model = defineModel()
 const isOpen = ref(false)
 
 function setActive(item) {
-  // hanya leaf yang bisa jadi active
   if (!item.children || item.children.length === 0) {
     model.value = item.label
   }
@@ -112,29 +111,25 @@ function toggle() {
     }
   }
 
-  /* panah (opsional) */
   .chevron { transition: transform .2s ease; }
   &.open > .label-menu > .chevron {
     transform: rotate(180deg);
   }
 
-  /* Submenu animation */
   .submenu {
     max-height: 0;
-    overflow: hidden;         /* pakai hidden, bukan clip */
+    overflow: hidden;
     opacity: 0;
     transition: max-height .3s ease, opacity .2s ease;
     margin-bottom: 0 !important;
   }
 
-  /* saat item-sidenav punya class .open, submenu terbuka */
   &.open > .submenu {
-    max-height: 10000px;        /* kasih nilai cukup besar */
+    max-height: 10000px;    
     opacity: 1;
   }
 }
 
-/* level styling tetap */
 .menu-level-1 { padding-left: 0; font-weight: bold; }
 .menu-level-2 { color: gray; }
 .menu-level-3 { 

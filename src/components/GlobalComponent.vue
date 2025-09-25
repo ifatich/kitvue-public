@@ -39,6 +39,13 @@ const modalOpen2 = ref(false);
 const modalOpen3 = ref(false);
 const showPicker = ref(false);
 
+const myItems = ref([
+  { id: 1, name: "Kreasi" },
+  { id: 2, name: "Tabungan Emas" },
+  { id: 3, name: "Gadai KCA" },
+  { id: 4, name: "Gadai Perhiasan" },
+]);
+
 const isSwitched = ref(false);
 const phoneCode = ref("");
 const phoneNumber = ref("");
@@ -87,6 +94,72 @@ const timeUpdate = new Intl.DateTimeFormat('en-US', {
 }).format(date)
 
 const dateUpdate = today.toLocaleDateString('en-GB')
+
+const chartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+
+const chartDatasetsMultiple = [
+  {
+    label: "Example",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(255, 99, 132, 0.7)", // merah soft
+  },
+  {
+    label: "AAAA",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(54, 162, 235, 0.7)", // biru soft
+  },
+  {
+    label: "BBBB",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(255, 206, 86, 0.7)", // kuning soft
+  },
+  {
+    label: "CCCC",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(75, 192, 192, 0.7)", // hijau tosca soft
+  },
+  {
+    label: "DDDD",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(153, 102, 255, 0.7)", // ungu soft
+  },
+  {
+    label: "EEEE",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(255, 159, 64, 0.7)", // oranye soft
+  },
+  {
+    label: "FFFF",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(201, 203, 207, 0.7)", // abu soft
+  },
+];
+
+const chartDatasetsSingle = [
+  {
+    label: "Medan I",
+    data: [-20, 30, 40, 50, 60, 70, 80, 90, 100],
+  },
+];
+
+
+const customOptions = {
+  plugins: {
+    legend: {
+      position: "bottom",             // pindah legend ke bawah
+    },
+  },
+};
+
+const customOptionsSingle = {
+  plugins: {
+    legend: {
+      position: "bottom",             // pindah legend ke bawah
+      display: false,
+    },
+  },
+};
+
 
 const tableParentHead2 = [
   {
@@ -468,6 +541,8 @@ import ImageView from "./Image/ImageView.vue";
 import GOffCanvas from "./BottomSheet/GOffCanvas.vue";
 import TestDataTable from "./Table/TestDataTable.vue";
 import SideNavCMS from "./Navbar/SideNavCMS.vue";
+import ListSorted from "./ListGroup/ListSorted.vue";
+import BarChart from "./Chart/BarChart.vue";
 
 
 export default {
@@ -3019,20 +3094,59 @@ export default {
           </div>
         </div>
 
+        <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>Chart</h5>
+            </div>
+            <div class="card-body">
+              <div class="row row-cols-3 g-3">
+                <BarChart style="height: 370px;" :labels="chartLabels" :datasets="chartDatasetsMultiple" :options="customOptions"/>
+                <BarChart
+                  style="height: 300px;"
+                  :labels="chartLabels"
+                  :datasets="chartDatasetsSingle"
+                  :options="customOptionsSingle"
+                >
+                  <template #tooltip="{ datasetLabel, label, value }">
+                    <div class="flex items-center gap-2">
+                      <div class="w-3 h-3 rounded bg-blue-500"></div>
+                      <div>
+                        <div class="font-semibold">{{ datasetLabel }}</div>
+                        <div class="text-xs">{{ label }} — {{ value }}</div>
+                      </div>
+                    </div>
+                  </template>
+                </BarChart>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>List Sorted</h5>
+            </div>
+            <div class="card-body ">
+              <ListSorted v-model="myItems"/>
+              <div class="" v-for="value in myItems">{{ value.name }}</div>
+            </div>
+          </div>
+        </div>
+
           <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
               <h5>SideNav CMS</h5>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                {{ activeSideNav }}
-               <SideNavCMS :opened="false" v-model="activeSideNav" filter :items="menuSideNav">
+                    {{ activeSideNav }}
+               <SideNavCMS v-model="activeSideNav" filter :items="menuSideNav">
                   <template #logo>
                     <img style="height: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Pegadaian_logo_%282013%29.svg/2560px-Pegadaian_logo_%282013%29.svg.png" alt="Logo" />
                   </template>
               </SideNavCMS>
-              </div>
             </div>
           </div>
         </div>
