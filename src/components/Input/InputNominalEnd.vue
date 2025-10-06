@@ -42,7 +42,7 @@
                 type: String,
                 default: "placeholder . . .",
             },
-            value: {
+            modelValue: {
                 type: [String, Number],
                 default: "",
             },
@@ -79,7 +79,7 @@
             currentValue(newVal) {
                 this.localError = this.required && !newVal;
             },
-            value: {
+            modelValue: {
                 handler(after) {
                     this.currentValue = this.format(after);
                 },
@@ -92,7 +92,7 @@
 
             handleInput() {
                 this.currentValue = this.format(this.currentValue);
-                this.$emit("input", (this.currentValue + "").replace(/[^0-9]/g, ""));
+                this.$emit("update:modelValue", (this.currentValue + "").replace(/[^0-9]/g, ""));
             },
         },
     };
