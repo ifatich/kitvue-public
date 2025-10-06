@@ -37,6 +37,14 @@ const props = defineProps({
   },
   general: {
     type: Boolean,
+  },
+  guidanceRatio: {
+    type: String,
+    default: `1:1`,
+    validator(value) 
+    {
+        return ["1:1", "6:10"].includes(value);
+    },
   }
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
@@ -61,24 +69,14 @@ window.onresize = onResizeScreen
 onResizeScreen()
 
 const constraints = computed(() => {
-  if (isMobileView) {
-    return {
-      video: {
-          facingMode: facingMode.value,
-          deviceId: {},
-      },
-      audio: false,
-    }
-  } else {
-    return {
-      video: {
-          width: 532,
-          height: 416,
-          facingMode: facingMode.value,
-          deviceId: {},
-      },
-      audio: false,
-    }
+  return {
+    video: {
+      width: { ideal: 1920 },
+      height: { ideal: 1080 },
+      facingMode: facingMode.value,
+      deviceId: {},
+    },
+    audio: false,
   }
 })
 
@@ -146,21 +144,55 @@ const handleSwitchCamera = async() => {
   startCamera()
 }
 
+// const handleCameraSnap = () => {
+//   const canvas = document.createElement('canvas')
+//   const ctx = canvas.getContext('2d')
+//   if (isMobileView) {
+//     canvas.width = video.value.videoWidth
+//     canvas.height = video.value.videoHeight
+//     ctx.drawImage(video.value, 0, 0, canvas.width, canvas.height)
+//   } else {
+//     const element = document.getElementById('cameraGuidance')
+//     const rect = element.getBoundingClientRect()
+//     ctx.drawImage(video.value, 0, 0, video.value.videoWidth, video.value.videoHeight, 0, 0, rect.width, rect.height)
+//   }
+//   stopCamera()
+//   snappedCameraPict.value = canvas.toDataURL('image/jpeg')
+// }
+
 const handleCameraSnap = () => {
+  const videoEl = video.value
+  if (!videoEl) return
+
+  const videoW = videoEl.videoWidth
+  const videoH = videoEl.videoHeight
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
-  if (isMobileView) {
-    canvas.width = video.value.videoWidth
-    canvas.height = video.value.videoHeight
-    ctx.drawImage(video.value, 0, 0, canvas.width, canvas.height)
-  } else {
-    const element = document.getElementById('cameraGuidance')
-    const rect = element.getBoundingClientRect()
-    ctx.drawImage(video.value, 0, 0, video.value.videoWidth, video.value.videoHeight, 0, 0, rect.width, rect.height)
-  }
+
+  // Crop area
+  let guideW = videoW * 0.55
+  let guideH = videoH * 0.45
+  const scale = props.useBottomSheet ? 0.8 : 1.5
+  guideW *= scale
+  guideH *= scale
+  const startX = (videoW - guideW) / 2
+  const startY = (videoH - guideH) / (props.useBottomSheet ? 2 : 2.7)
+
+  // Output scale ikut pixel ratio device
+  const outputScale = window.devicePixelRatio || 10
+  canvas.width = guideW * outputScale
+  canvas.height = guideH * outputScale
+
+  ctx.imageSmoothingEnabled = false
+  ctx.imageSmoothingQuality = "high"
+
+  ctx.drawImage(videoEl, startX, startY, guideW, guideH, 0, 0, canvas.width, canvas.height)
+
+  // Simpan dengan kualitas tinggi
+  snappedCameraPict.value = canvas.toDataURL("image/png")
   stopCamera()
-  snappedCameraPict.value = canvas.toDataURL('image/jpeg')
 }
+
 
 const blobToDataUrl = (blob) =>
   new Promise((resolve, reject) => {
@@ -382,8 +414,8 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       v-model="cameraDialog"
       class="inputCameraMobile"
       centered
-      hide-footer
       fullscreen
+      :hide-footer="!snappedCameraPict"
       id="modal-camera"
     >
       <template #header="{ close }">
@@ -394,7 +426,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           :id="`${$attrs.id}_closeCamera`"
           v-if="cameraIsReady"
         />
-        <div class="mx-2">Ambil Foto</div>
+        <div class="mx-2 fw-bolder">Ambil Foto</div>
       </template>
       <template v-if="!snappedCameraPict">
         <div class="camera-container" id="camera-container">
@@ -426,25 +458,27 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           />
         </div>
       </template>
-      <div v-else>
+      <template v-else>
         <div class="preview-container">
           <img :src="snappedCameraPict" alt="Captured Image" />
         </div>
-        <div class="footer-button">
+      </template>
+      <template #footer>
           <Button
             @click="handleRetakePhotoClick"
             type="neutral"
             label="Ambil Ulang Foto"
             :id="`${$attrs.id}_cameraRetake`"
+            class="w-100"
           />
           <Button
             @click="handleCameraChosen"
             type="primary"
             label="Gunakan Foto"
             :id="`${$attrs.id}_cameraChoose`"
+            class="w-100"
           />
-        </div>
-      </div>
+      </template>
     </BModal>
   </section>
 
@@ -540,14 +574,26 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 </template>
 
 <style lang="scss">
+.modal.inputCamera .modal-dialog {
+  max-width: 564px;
+}
 .modal.inputCamera .modal-body {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
 .modal.inputCameraMobile .modal-body {
+  background-color: var(--g-kit-black-80);
   padding-top: 0px !important;
   padding-bottom: 0px !important;
+  display: flex !important;
+  align-items: center !important;
 }
+
+.modal.inputCameraMobile .modal-footer {
+  padding: 16px;
+  background-color: var(--g-kit-black-80);
+}
+
 .inputCamera {
   .video {
     width: 100%;
@@ -588,6 +634,15 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     margin-top: 0px !important;
     border-top: 1px solid #EEEEEF;
     padding: 0px;
+
+    .preview-container {
+      top: 50%;
+      left: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
   }
 
   .camera-container {
@@ -625,163 +680,61 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   }
 
   .card-ktp {
-    width: 318px;
-    height: 200px;
-    background-color: transparent;
-    border-radius: 2px;
-    position: absolute;
-    left: 18%;
-    top: 17%;
-    opacity: 0.7;
-    box-shadow: 0px 25px 0px 74px rgb(1, 1, 1);
+    // width: 318px;
+    // height: 200px;
+    // background-color: transparent;
+    // border-radius: 2px;
+    // position: absolute;
+    // left: 18%;
+    // top: 17%;
+    // opacity: 0.7;
+    // box-shadow: 0px 25px 0px 75px rgb(1, 1, 1);
   }
 }
 
 .inputCameraMobile {
   .preview-container {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;            /* responsif ikuti layar */
+    aspect-ratio: 16 / 10;  /* fix ratio hanya di mobile view */
+    background: #000;
+    overflow: hidden;
+
     img {
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
 
-  .video {
-    height: 100%;
-		width: 100%;
-    object-fit: cover;
-  }
-
-  .modal-body {
-    margin: 0px !important;
-    padding: 0px;
-    height: 100% !important;
-    overflow: hidden !important;
-    max-height: unset !important;
-  }
-
-  .camera-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-  .slot-container {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-    padding: 16px;
-  }
-
   .card-ktp {
+    position: absolute;
+    top: 50% !important;      
+    left: 50% !important;   
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    max-width: 318px; 
+    aspect-ratio: 16 / 10; 
+    
     background-color: transparent;
     border-radius: 6px;
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 30%;
-    bottom: 40%;
     opacity: 0.7;
-    box-shadow: 0px 30px 0px 740px rgb(1, 1, 1);
-    &.landscape {
-      left: 30%;
-      top: 10%;
-      right: 25%;
-      bottom: 20%;
-    }
-  }
-
-  .card-general {
-    width: 100%;
-    height: 360px;
-    background-color: transparent;
-    border-radius: 6px;
-    position: absolute;
-    top: 20%;
-    left: 0;
-    right: 0;
-    opacity: 0.7;
-    box-shadow: 0px 30px 0px 740px rgb(1, 1, 1);
-    &.landscape {
-      left: 30%;
-      top: 0;
-      width: 360px;
-      height: 100%;
-    }
-  }
-
-  .shutter-btn {
-    position: absolute !important;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 64px !important;
-    height: 64px !important;
-    &.landscape {
-      left: unset;
-      bottom: unset;
-      top: 30%;
-      right: 40px;
-    }
-  }
-
-  .switch-camera-btn {
-    position: absolute !important;
-    bottom: 55px;
-    right: 9%;
-    transform: translateX(-50%);
-    width: 48px !important;
-    height: 48px !important;
-    &.landscape {
-      left: unset;
-      bottom: unset;
-      top: 70%;
-      right: 55px;
-    }
-  }
-
-  .helper-text {
-    position: relative;
+    box-shadow: 0 0 0 9999px rgba(1, 1, 1, 0.7); 
+    
     display: flex;
-    flex-direction: column;
-    margin-top: 48px;
-    text-align: center;
-    color: var(--text-white, #FFF);
-    &.landscape {
-      margin-top: unset;
-      top: 30%;
-      width: 190px;
-      text-align: left;
-    }
-    .title {
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 800;
-      line-height: 30px;
-    }
-    .subtitle {
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 20px;
-    }
-  }
-  .footer-button {
-    position: absolute;
-    display: flex;
-    width: 100%;
-    padding: 16px;
-    flex-direction: column;
-    gap: 8px;
-    bottom: 16px;
-    .btn {
-      width: 100%;
-    }
-  }
+    justify-content: center;
+    align-items: center;
 }
+}
+
 
 .custom-file-upload__box-preview {
   z-index: 0;

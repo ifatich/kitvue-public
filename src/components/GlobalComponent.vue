@@ -24,6 +24,7 @@ const nik = ref("1234 1234");
 const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
+const nominalEndValue = ref(20000);
 
 const showModal = ref(false);
 const showModalSlider = ref(false);
@@ -71,6 +72,12 @@ const handleFileDropped = (file) => {
 const executeFetch = () => {
   console.log("execute fetch");
 };
+
+const image = ref(null)
+
+function handleCaptured(dataUrl) {
+  image.value = dataUrl
+}
 
 const handleAlertClick = () => {
       alert(`Isi Input adalah: ${rupiah.value}`)
@@ -543,6 +550,8 @@ import TestDataTable from "./Table/TestDataTable.vue";
 import SideNavCMS from "./Navbar/SideNavCMS.vue";
 import ListSorted from "./ListGroup/ListSorted.vue";
 import BarChart from "./Chart/BarChart.vue";
+
+import InputCameraTry from "./Input/InputCameraTry.vue";
 
 
 export default {
@@ -2211,7 +2220,10 @@ export default {
                         id="4"
                         title="Persentase DP"
                         required=""
+                        v-model="nominalEndValue"
                       />
+                      {{ nominalEndValue }}
+                      
                       <InputNominalEnd
                         id="5"
                         title="Persentase DP"
@@ -3431,6 +3443,8 @@ export default {
                 @errorPermission="handleErrorPermission"
               />
 
+              aaa
+
               <InputCamera
                 :compressionMaxKb="1024"
                 title="Upload Foto Anda"
@@ -3440,7 +3454,6 @@ export default {
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
-                general
               />
 
               <p>{{ generatedFileName }}</p>
