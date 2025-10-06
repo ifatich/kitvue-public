@@ -137,7 +137,16 @@ function createTooltipElIfNeeded() {
   el.style.borderRadius = "12px";
   el.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)";
   el.style.padding = "8px 12px";
-  el.style.transition = "opacity 0.12s ease";
+  el.style.transition = "opacity 0.5s ease, left 0.3s ease, top 0.3s ease";
+el.style.willChange = "left, top, opacity";
+el.style.cssText = `
+  position: absolute;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease, left 0.2s ease, top 0.2s ease;
+  will-change: left, top, opacity;
+`;
   document.body.appendChild(el);
   tooltipElRef.value = el;
   return el;
@@ -165,41 +174,58 @@ function externalTooltip(context) {
     return;
   }
 
-  // data point aktif (ambil first)
-  const dataPoint = tooltip.dataPoints && tooltip.dataPoints[0];
+  const dataPoint = tooltip.dataPoints?.[0];
   if (!dataPoint) {
     tooltipEl.style.opacity = "0";
     return;
   }
 
-  const datasetIndex = dataPoint.datasetIndex;
-  const dataIndex = dataPoint.dataIndex;
-  const dataset = chart.data.datasets[datasetIndex];
-
+  // slot props
+  const dataset = chart.data.datasets[dataPoint.datasetIndex];
   const slotProps = {
     datasetLabel: dataset?.label,
-    label: dataPoint.label ?? chart.data.labels?.[dataIndex],
+    label: dataPoint.label ?? chart.data.labels?.[dataPoint.dataIndex],
     value: dataPoint.formattedValue ?? dataPoint.raw,
     raw: dataPoint.raw,
-    dataIndex,
-    datasetIndex,
+    dataIndex: dataPoint.dataIndex,
+    datasetIndex: dataPoint.datasetIndex,
     dataPoint,
-    tooltip // full tooltip object if needed
+    tooltip
   };
 
-  // render slot content into tooltipEl
-  const vnode = h("div", {}, slots.tooltip(slotProps));
-  render(vnode, tooltipEl);
+  // render slot
+  render(h("div", {}, slots.tooltip(slotProps)), tooltipEl);
 
-  // position: use chart canvas bounding rect + caret coords
+  // posisi
   const canvasRect = chart.canvas.getBoundingClientRect();
-  const left = canvasRect.left + window.pageXOffset + (tooltip.caretX || 0);
-  const top = canvasRect.top + window.pageYOffset + (tooltip.caretY || 0);
+  const caretX = tooltip.caretX;
+  const caretY = tooltip.caretY;
+  const tooltipWidth = tooltipEl.offsetWidth || 120;
+  const tooltipHeight = tooltipEl.offsetHeight || 40;
 
-  tooltipEl.style.left = `${left}px`;
-  tooltipEl.style.top = `${top}px`;
+  const left = canvasRect.left + window.pageXOffset + caretX;
+  const top = canvasRect.top + window.pageYOffset + caretY;
+
+  // cek apakah di kanan atau kiri center
+  const centerX = canvasRect.left + canvasRect.width / 2;
+
+  if (left > centerX) {
+    // tooltip di kanan -> caret di kiri
+    tooltipEl.classList.add("caret-left");
+    tooltipEl.classList.remove("caret-right");
+    tooltipEl.style.left = `${left - tooltipWidth - 12}px`; // geser kiri
+  } else {
+    // tooltip di kiri -> caret di kanan
+    tooltipEl.classList.add("caret-right");
+    tooltipEl.classList.remove("caret-left");
+    tooltipEl.style.left = `${left + 12}px`; // geser kanan
+  }
+
+  // vertikal posisi biar caret center
+  tooltipEl.style.top = `${top - tooltipHeight / 2}px`;
   tooltipEl.style.opacity = "1";
 }
+
 
 // styledDatasets sama seperti kode awal
 const defaultColors = [
@@ -368,3 +394,45 @@ const chartPlugins = computed(() => {
     />
   </div>
 </template>
+
+<style>
+.chartjs-tooltip-slot {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  padding: 8px 12px;
+  font-size: 13px;
+  position: relative;
+}
+
+/* caret kanan (tooltip di kiri bar) */
+.chartjs-tooltip-slot.caret-right::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -6px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #fff;
+  filter: drop-shadow(-2px 0 2px rgba(0,0,0,0.08));
+}
+
+/* caret kiri (tooltip di kanan bar) */
+.chartjs-tooltip-slot.caret-left::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -6px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 6px solid #fff;
+  filter: drop-shadow(2px 0 2px rgba(0,0,0,0.08));
+}
+
+</style>
