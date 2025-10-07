@@ -38,14 +38,10 @@ const props = defineProps({
   general: {
     type: Boolean,
   },
-  guidanceRatio: {
+  userName: {
     type: String,
-    default: `1:1`,
-    validator(value) 
-    {
-        return ["1:1", "6:10"].includes(value);
-    },
-  }
+    default: 'unknown'
+  },
 })
 const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
 const fileSrc = defineModel()
@@ -144,21 +140,20 @@ const handleSwitchCamera = async() => {
   startCamera()
 }
 
-// const handleCameraSnap = () => {
-//   const canvas = document.createElement('canvas')
-//   const ctx = canvas.getContext('2d')
-//   if (isMobileView) {
-//     canvas.width = video.value.videoWidth
-//     canvas.height = video.value.videoHeight
-//     ctx.drawImage(video.value, 0, 0, canvas.width, canvas.height)
-//   } else {
-//     const element = document.getElementById('cameraGuidance')
-//     const rect = element.getBoundingClientRect()
-//     ctx.drawImage(video.value, 0, 0, video.value.videoWidth, video.value.videoHeight, 0, 0, rect.width, rect.height)
-//   }
-//   stopCamera()
-//   snappedCameraPict.value = canvas.toDataURL('image/jpeg')
-// }
+const idCardCropping = (videoH, videoW) => {
+  let guideW = videoW * 0.25
+  let guideH = videoH * 0.35
+  const scale = props.useBottomSheet ? 1 : 2
+  guideW *= scale
+  guideH *= scale
+  return { guideW, guideH }
+}
+
+const generalCropping = (videoH, videoW) => {
+  let guideW = videoW
+  let guideH = videoH
+  return { guideW, guideH }
+}
 
 const handleCameraSnap = () => {
   const videoEl = video.value
@@ -169,16 +164,12 @@ const handleCameraSnap = () => {
   const canvas = document.createElement('canvas')
   const ctx = canvas.getContext('2d')
 
-  // Crop area
-  let guideW = videoW * 0.55
-  let guideH = videoH * 0.45
-  const scale = props.useBottomSheet ? 0.8 : 1.5
-  guideW *= scale
-  guideH *= scale
-  const startX = (videoW - guideW) / 2
-  const startY = (videoH - guideH) / (props.useBottomSheet ? 2 : 2.7)
+  // Hitung area crop dari fungsi
+  const { guideW, guideH } = props.imagePlaceholder === "idcard" ? idCardCropping(videoH, videoW) : generalCropping(videoH, videoW)
 
-  // Output scale ikut pixel ratio device
+  const startX = (videoW - guideW) / 2
+  const startY = (videoH - guideH) / 2
+
   const outputScale = window.devicePixelRatio || 10
   canvas.width = guideW * outputScale
   canvas.height = guideH * outputScale
@@ -188,11 +179,9 @@ const handleCameraSnap = () => {
 
   ctx.drawImage(videoEl, startX, startY, guideW, guideH, 0, 0, canvas.width, canvas.height)
 
-  // Simpan dengan kualitas tinggi
   snappedCameraPict.value = canvas.toDataURL("image/png")
   stopCamera()
 }
-
 
 const blobToDataUrl = (blob) =>
   new Promise((resolve, reject) => {
@@ -419,13 +408,16 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       id="modal-camera"
     >
       <template #header="{ close }">
-        <img
-          @click="close"
-          src="../../assets/icon/arrow_left.svg"
-          alt="Close Camera"
-          :id="`${$attrs.id}_closeCamera`"
-          v-if="cameraIsReady"
-        />
+        <svg :id="`${$attrs.id}_closeCamera`" @click="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 12C20 11.4477 19.5523 11 19 11H7.83L12.71 6.12C13.1017 5.72829 13.1006 5.09284 12.7075 4.70251C12.3164 4.31412 11.6848 4.31524 11.295 4.705L4.07921 11.9208C4.03546 11.9645 4.03546 12.0355 4.07921 12.0792L11.2947 19.2947C11.6842 19.6842 12.3158 19.6842 12.7053 19.2947C13.0946 18.9054 13.0949 18.2743 12.7059 17.8847L7.83 13H19C19.5523 13 20 12.5523 20 12Z" fill="currentColor"/>
+          <mask id="mask0_0_5132" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="4" width="16" height="16">
+            <path d="M20 12C20 11.4477 19.5523 11 19 11H7.83L12.71 6.12C13.1017 5.72829 13.1006 5.09284 12.7075 4.70251C12.3164 4.31412 11.6848 4.31524 11.295 4.705L4.07921 11.9208C4.03546 11.9645 4.03546 12.0355 4.07921 12.0792L11.2947 19.2947C11.6842 19.6842 12.3158 19.6842 12.7053 19.2947C13.0946 18.9054 13.0949 18.2743 12.7059 17.8847L7.83 13H19C19.5523 13 20 12.5523 20 12Z" fill="currentColor"/>
+          </mask>
+          <g mask="url(#mask0_0_5132)">
+            <rect width="24" height="24" fill="currentColor"/>
+          </g>
+        </svg>
+
         <div class="mx-2 fw-bolder">Ambil Foto</div>
       </template>
       <template v-if="!snappedCameraPict">
@@ -460,6 +452,10 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       </template>
       <template v-else>
         <div class="preview-container">
+          <div class="timestamp">
+            <div>{{ userName }}</div>
+            <div>{{ 'Waktu: '+ new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}}</div>
+          </div>
           <img :src="snappedCameraPict" alt="Captured Image" />
         </div>
       </template>
@@ -493,7 +489,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       centered
     >
       <div class="d-flex justify-content-center flex-column cameraInput">
-        <ul class="list-group list-group-flush" style="margin-top: 16px;">
+        <ul class="list-group list-group-flush">
           <li
             style="height: 56px"
             @click="handleSourceGalleryClick"
@@ -538,6 +534,11 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           <video class="video" ref="video" autoplay></video>
         </div>
         <div class="slot-container">
+          <div class="helper-text" v-if="!props.general" :class="'landscape'">
+            <div class="rect"></div>
+            <div class="title">{{ helperText.title }}</div>
+            <div class="subtitle">{{ helperText.message }}</div>
+          </div>
           <div id="cameraGuidance" v-if="!props.general" :class="props.imagePlaceholder === 'idcard' ? 'card-ktp' : 'card-general'"></div>
           <img
             @click="handleCameraSnap"
@@ -551,6 +552,10 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       </template>
       <div v-else>
         <div class="preview-container">
+          <div class="timestamp">
+            <div>{{ userName }}</div>
+            <div>{{ 'Waktu: '+ new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}}</div>
+          </div>
           <img :src="snappedCameraPict" alt="Captured Image" />
         </div>
         <div class="footer-button">
@@ -581,32 +586,79 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
-.modal.inputCameraMobile .modal-body {
-  background-color: var(--g-kit-black-80);
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-  display: flex !important;
-  align-items: center !important;
+
+.modal.inputCameraMobile  {
+
+  .modal-body {
+    background-color: var(--g-kit-black-80);
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .modal-content {
+    border-radius: 0px;
+    background-color: var(--g-kit-black-80);
+  }
+
+  .modal-footer {
+    padding: 16px;
+    background-color: var(--g-kit-black-80);
+  }
+
+  .modal-header {
+    background-image: url('../../assets/images/background-broccolli-header.svg');
+    color: var(--g-kit-white);
+    object-fit: contain;
+  }
 }
 
-.modal.inputCameraMobile .modal-footer {
-  padding: 16px;
-  background-color: var(--g-kit-black-80);
+.preview-container {
+   .timestamp {
+      position: absolute;
+      justify-content: space-between;
+      display: flex;
+      padding: 8px;
+      background: color-mix(in srgb, var(--g-kit-black-80) 80%, transparent);
+      border-bottom-right-radius: .75rem;
+      border-bottom-left-radius: .75rem;
+      color: var(--g-kit-white);
+      text-align: center; 
+   }
 }
 
 .inputCamera {
-  .video {
-    width: 100%;
-    height: 100%;
-    border-radius: .5rem;
-  }
+  .camera-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      video {
+        height: 416px !important; 
+        width: 100% !important;   
+        border-radius: .5rem;
+        background-color: #000; 
+        object-fit: cover;
+      }
+    }
 
   .preview-container {
+    position: relative;
     padding: 16px;
     img{
       width: 100%;
       height: 100%;
-      border-radius: .5rem;
+      border-radius: .75rem;
+      object-fit: cover;
+    }
+
+    .timestamp {
+      font-size: var(--g-kit-font-size-omnicron);
+      padding: 16px 8px;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
     }
   }
 
@@ -634,15 +686,6 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     margin-top: 0px !important;
     border-top: 1px solid #EEEEEF;
     padding: 0px;
-
-    .preview-container {
-      top: 50%;
-      left: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
   }
 
   .camera-container {
@@ -680,16 +723,61 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
   }
 
   .card-ktp {
-    // width: 318px;
-    // height: 200px;
-    // background-color: transparent;
-    // border-radius: 2px;
-    // position: absolute;
-    // left: 18%;
-    // top: 17%;
-    // opacity: 0.7;
-    // box-shadow: 0px 25px 0px 75px rgb(1, 1, 1);
+    position: absolute;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 318px;
+    aspect-ratio: 16 / 10;
+    background-color: transparent;
+    border-radius: 2px;
+    opacity: 0.7;
+    box-shadow: 0 0 0 106px rgba(1, 1, 1, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 205px;
   }
+
+  .helper-text {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: 16px;
+        margin-inline: 40px;
+        padding-inline: 16px;
+        padding-block: 12px;
+        text-align: center;
+        color: var(--g-kit-white);
+       
+
+        .rect{
+          background-color: var(--g-kit-black-80);
+          opacity: 0.75;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 0;
+          border-radius: 8px;
+        }
+
+        .title {
+            font-size: var(--g-kit-font-size-omicron);
+            font-weight: var(--g-kit-font-weight-bold);
+            z-index: 1;
+        }
+
+        .subtitle {
+          z-index: 1;
+            font-size: var(--g-kit-font-size-omega);
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+        }
+    }
 }
 
 .inputCameraMobile {
@@ -701,9 +789,10 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: .75rem;
 
-    width: 100vw;            /* responsif ikuti layar */
-    aspect-ratio: 16 / 10;  /* fix ratio hanya di mobile view */
+    width: 100vw;            
+    aspect-ratio: 16 / 10; 
     background: #000;
     overflow: hidden;
 
@@ -712,6 +801,13 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       height: 100%;
       object-fit: cover;
     }
+
+    .timestamp {
+      font-size: var(--g-kit-font-size-omega);
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+    }
   }
 
   .card-ktp {
@@ -719,16 +815,13 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     top: 50% !important;      
     left: 50% !important;   
     transform: translate(-50%, -50%);
-
     width: 100%;
     max-width: 318px; 
     aspect-ratio: 16 / 10; 
-    
     background-color: transparent;
     border-radius: 6px;
     opacity: 0.7;
     box-shadow: 0 0 0 9999px rgba(1, 1, 1, 0.7); 
-    
     display: flex;
     justify-content: center;
     align-items: center;

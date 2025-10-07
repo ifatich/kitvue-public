@@ -551,9 +551,6 @@ import SideNavCMS from "./Navbar/SideNavCMS.vue";
 import ListSorted from "./ListGroup/ListSorted.vue";
 import BarChart from "./Chart/BarChart.vue";
 
-import InputCameraTry from "./Input/InputCameraTry.vue";
-
-
 export default {
   name: "App",
   components: {
@@ -2220,10 +2217,10 @@ export default {
                         id="4"
                         title="Persentase DP"
                         required=""
+                        delimeter="comma"
                         v-model="nominalEndValue"
                       />
                       {{ nominalEndValue }}
-                      
                       <InputNominalEnd
                         id="5"
                         title="Persentase DP"
@@ -3442,8 +3439,6 @@ export default {
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
               />
-
-              aaa
 
               <InputCamera
                 :compressionMaxKb="1024"
