@@ -550,6 +550,7 @@ import TestDataTable from "./Table/TestDataTable.vue";
 import SideNavCMS from "./Navbar/SideNavCMS.vue";
 import ListSorted from "./ListGroup/ListSorted.vue";
 import BarChart from "./Chart/BarChart.vue";
+import DoughnutChart from "./Chart/DoughnutChart.vue";
 
 export default {
   name: "App",
@@ -661,6 +662,7 @@ export default {
 
       startDate: ref(null),
       endDate: ref(null),
+      allDate: ref(null),
       timePicker: ref(""),
 
       generatedFileName: "",
@@ -1774,20 +1776,28 @@ export default {
                 title="Date Range Picker with Separator and no-slash true"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
+                v-model:all-date="allDate"
                 firstLabel="Periode Program"
                 secondLabel=" "
                 separator
                 no-slash
+                useBottomSheet
+                showAll
               />
+
+              {{ allDate }}
+              
               <DateRangePickerOption
                 :disabled="false"
                 placeholder="Pilih Tanggal"
                 title="Date Range Picker with Separator and no-slash false"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
+                v-model:all-date="allDate"
                 firstLabel="Periode Program"
                 secondLabel=" "
                 separator
+                showAll
               />
               <p>Selected Date: {{ startDate }} - {{ endDate }}</p>
               <div class="row">
@@ -2221,6 +2231,7 @@ export default {
                         v-model="nominalEndValue"
                       />
                       {{ nominalEndValue }}
+                      
                       <InputNominalEnd
                         id="5"
                         title="Persentase DP"
@@ -3127,6 +3138,22 @@ export default {
                     </div>
                   </template>
                 </BarChart>
+                <DoughnutChart
+  :labels="['Produk A', 'Produk B', 'Produk C', 'Produk D']"
+                  :values="[120, 90, 60,20]"
+  :options="{ /* override bila perlu */ }"
+>
+  <template #tooltip="{ datasetLabel, label, value }">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded bg-blue-500"></div>
+      <div>
+        <div class="font-semibold">{{ datasetLabel }}</div>
+        <div class="text-xs">{{ label }} — {{ value }}</div>
+      </div>
+    </div>
+  </template>
+</DoughnutChart>
+
               </div>
             </div>
           </div>
