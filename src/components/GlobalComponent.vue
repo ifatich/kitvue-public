@@ -2750,7 +2750,7 @@ export default {
           </div>
         </div>
 
-        <div class="col-lg-12 mt-4">
+        <!-- <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
               <h5>Table Kredit & Barang Jaminan</h5>
@@ -2870,7 +2870,7 @@ export default {
               </GOffCanvas>
             </div>
           </div>
-        </div>
+        </div> -->
 
          <!-- CUSTOM TABLE -->
         <div class="col-lg-12 mt-4">
