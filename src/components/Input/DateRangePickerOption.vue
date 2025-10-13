@@ -41,6 +41,10 @@ const props = defineProps({
       },
     ],
   },
+  showAll: {
+    type: Boolean,
+    default: false,
+  },
   showAny: {
     default: true,
   },
@@ -79,6 +83,7 @@ const props = defineProps({
 
 const startDate = defineModel("startDate");
 const endDate = defineModel("endDate");
+const allDate = defineModel("allDate");
 const showOffcanvas = ref(false);
 
 const getDateString = (date) => {
@@ -90,25 +95,35 @@ const getDateString = (date) => {
 };
 
 const getFormattedDateString = (dateString) => {
+  if (!dateString || typeof dateString !== "string" || dateString === "Semua") return "";
   const [year, month, day] = dateString.split("-");
-
   return `${day}/${month}/${year}`;
 };
 
-const valueString = computed(() =>
-  startDate.value && endDate.value
-    ? `${getFormattedDateString(startDate.value)} - ${getFormattedDateString(
-        endDate.value
-      )}`
-    : ""
-);
+const valueString = computed(() => {
+  if (allDate.value) {
+    return "Semua";
+  } else if (startDate.value && endDate.value) {
+    return `${getFormattedDateString(startDate.value)} - ${getFormattedDateString(endDate.value)}`;
+  } else {
+    return "";
+  }
+});
 
 watch(SELECTED_PRESET, () => {
   if (SELECTED_PRESET.value === "ANY") {
     startDate.value = "";
     endDate.value = "";
+    allDate.value = false
+    return;
+  }else if (SELECTED_PRESET.value === "ALL") {
+    startDate.value = "";
+    endDate.value = "";
+    allDate.value = true
+    handleShown(false)
     return;
   }
+  allDate.value = false
   const todaysDate = new Date();
   const previousDate = new Date();
   previousDate.setDate(todaysDate.getDate() - parseInt(SELECTED_PRESET.value));
@@ -153,7 +168,32 @@ const handleShown = (value) => {
           {{ valueString || props.placeholder }}
         </p>
       </template>
-      <div v-if="!props.useBottomSheet">
+      <div v-if="!props.useBottomSheet" class="date-picker-option desktop">
+        <!-- Tampilkan pilihan "Semua" -->
+        <div
+          v-if="props.showAll"
+          class="preset-btn mb-2"
+          :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ALL' }"
+        >
+          <BDropdownItem>
+            <BDropdownItemButton
+              class="overflow-hidden"
+              buttonClass="d-flex align-items-center"
+              @click.stop="SELECTED_PRESET = 'ALL'"
+            >
+              <div
+                class="btn-identifier"
+                :class="{
+                  'btn-identifier--selected': SELECTED_PRESET === 'ALL',
+                }"
+              >
+                &nbsp;
+              </div>
+              Semua
+            </BDropdownItemButton>
+          </BDropdownItem>
+        </div>
+
         <div
           v-for="(preset, idx) in props.preset"
           :key="preset.value"
@@ -207,10 +247,11 @@ const handleShown = (value) => {
         </div>
 
         <DateRangePicker
+          v-if="SELECTED_PRESET !== 'ALL'"
           :flexWidth="props.flexWidth"
           v-model:start-date="startDate"
           v-model:end-date="endDate"
-          class="mt-2"
+          class="mt-4"
           @click.stop
           :disabled="dateRangeDisabled"
           :firstLabel="props.firstLabel"
@@ -221,6 +262,7 @@ const handleShown = (value) => {
       </div>
 
       <BOffcanvas
+        class="date-picker-option mobile"
         v-if="props.useBottomSheet"
         v-model="showOffcanvas"
         placement="bottom"
@@ -230,6 +272,25 @@ const handleShown = (value) => {
       >
         <template #title>Pilih Waktu</template>
         <div
+          v-if="props.showAll"
+          class="preset-btn mb-2"
+          :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ALL' }"
+          @click.stop="SELECTED_PRESET = 'ALL'"
+        >
+          <BFormRadio
+            class="btn-identifier d-flex align-items-center"
+            :class="{
+              'btn-identifier--selected': SELECTED_PRESET === 'ALL',
+            }"
+            style="margin-top: auto"
+            v-model="SELECTED_PRESET"
+            :value="'ALL'"
+            :id="$attrs.id + '-preset-all'"
+            @click.stop
+            >Semua</BFormRadio
+          >
+        </div>
+        <div
           v-for="(preset, idx) in props.preset"
           :key="preset.value"
           class="preset-btn"
@@ -237,6 +298,7 @@ const handleShown = (value) => {
             'preset-btn--selected': SELECTED_PRESET === preset.value,
             'mt-2': idx > 0,
           }"
+           @click.stop="SELECTED_PRESET = preset.value"
         >
           <BFormRadio
             style="margin-top: auto"
@@ -254,6 +316,7 @@ const handleShown = (value) => {
           v-if="props.showAny"
           class="preset-btn mt-2"
           :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
+          @click.stop="SELECTED_PRESET = 'ALL'"
         >
           <BFormRadio
             class="btn-identifier d-flex align-items-center"
@@ -269,9 +332,10 @@ const handleShown = (value) => {
           >
         </div>
         <DateRangePicker
+          v-if="SELECTED_PRESET !== 'ALL'"
           v-model:start-date="startDate"
           v-model:end-date="endDate"
-          class="mt-2"
+          class="mt-4"
           @click.stop
           :disabled="dateRangeDisabled"
           :firstLabel="props.firstLabel"
@@ -306,8 +370,26 @@ const handleShown = (value) => {
     border-color: green;
   }
 
+  .form-check {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+
+    .btn-identifier {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .form-check-input:checked[type=radio] {
+      background-color: transparent;
+      background-image: none;
+      border: 6px solid var(--g-kit-lime-50);
+    }
+  }
+
   & .dropdown-item {
     margin-top: 0 !important;
+    gap: .5rem;
 
     &:hover,
     &:active,
@@ -322,10 +404,45 @@ const handleShown = (value) => {
   height: 1.4rem;
   border-radius: 50%;
   border: 2px solid grey;
-  margin-right: 0.6rem;
+  margin: none;
+  display: flex;
 
   &--selected {
-    border: 6.5px solid green;
+       border: 5.5px solid var(--g-kit-lime-50);
   }
+}
+
+.date-picker-option.mobile {
+  .offcanvas-body {
+    padding-top: 1rem !important;
+    padding-inline: 1rem !important;
+
+    .date-range-picker.with-separator {
+      > :first-child{
+        width: 100%;
+      }
+
+      > :last-child{
+         width: 100%;
+      }
+    }
+  }
+}
+
+.date-picker-option.desktop {
+  .date-range-picker.with-separator {
+      > :first-child{
+        width: 100%;
+      }
+
+      > :last-child{
+         width: 100%;
+      }
+
+      .custom-width {
+        min-width: 0 !important;
+      }
+    }
+
 }
 </style>

@@ -24,6 +24,7 @@ const nik = ref("1234 1234");
 const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
+const nominalEndValue = ref(20000);
 
 const showModal = ref(false);
 const showModalSlider = ref(false);
@@ -38,6 +39,13 @@ const modalOpen1 = ref(false);
 const modalOpen2 = ref(false);
 const modalOpen3 = ref(false);
 const showPicker = ref(false);
+
+const myItems = ref([
+  { id: 1, name: "Kreasi" },
+  { id: 2, name: "Tabungan Emas" },
+  { id: 3, name: "Gadai KCA" },
+  { id: 4, name: "Gadai Perhiasan" },
+]);
 
 const isSwitched = ref(false);
 const phoneCode = ref("");
@@ -65,6 +73,12 @@ const executeFetch = () => {
   console.log("execute fetch");
 };
 
+const image = ref(null)
+
+function handleCaptured(dataUrl) {
+  image.value = dataUrl
+}
+
 const handleAlertClick = () => {
       alert(`Isi Input adalah: ${rupiah.value}`)
     }
@@ -87,6 +101,72 @@ const timeUpdate = new Intl.DateTimeFormat('en-US', {
 }).format(date)
 
 const dateUpdate = today.toLocaleDateString('en-GB')
+
+const chartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+
+const chartDatasetsMultiple = [
+  {
+    label: "Example",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(255, 99, 132, 0.7)", // merah soft
+  },
+  {
+    label: "AAAA",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(54, 162, 235, 0.7)", // biru soft
+  },
+  {
+    label: "BBBB",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(255, 206, 86, 0.7)", // kuning soft
+  },
+  {
+    label: "CCCC",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(75, 192, 192, 0.7)", // hijau tosca soft
+  },
+  {
+    label: "DDDD",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(153, 102, 255, 0.7)", // ungu soft
+  },
+  {
+    label: "EEEE",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(255, 159, 64, 0.7)", // oranye soft
+  },
+  {
+    label: "FFFF",
+    data: [20, 30, 40, 50, 60, 70, 80, 90, 100],
+    backgroundColor: "rgba(201, 203, 207, 0.7)", // abu soft
+  },
+];
+
+const chartDatasetsSingle = [
+  {
+    label: "Medan I",
+    data: [-20, 30, 40, 50, 60, 70, 80, 90, 100],
+  },
+];
+
+
+const customOptions = {
+  plugins: {
+    legend: {
+      position: "bottom",             // pindah legend ke bawah
+    },
+  },
+};
+
+const customOptionsSingle = {
+  plugins: {
+    legend: {
+      position: "bottom",             // pindah legend ke bawah
+      display: false,
+    },
+  },
+};
+
 
 const tableParentHead2 = [
   {
@@ -466,7 +546,11 @@ import HeaderCMS from "./Header/HeaderCMS.vue";
 import FilterCMS from "./Filter/FilterCMS.vue"
 import ImageView from "./Image/ImageView.vue";
 import GOffCanvas from "./BottomSheet/GOffCanvas.vue";
-
+import TestDataTable from "./Table/TestDataTable.vue";
+import SideNavCMS from "./Navbar/SideNavCMS.vue";
+import ListSorted from "./ListGroup/ListSorted.vue";
+import BarChart from "./Chart/BarChart.vue";
+import DoughnutChart from "./Chart/DoughnutChart.vue";
 
 export default {
   name: "App",
@@ -574,8 +658,11 @@ export default {
       showPicker: false,
       showDismissibleAlert: true,
 
+      activeSideNav: '',
+
       startDate: ref(null),
       endDate: ref(null),
+      allDate: ref(null),
       timePicker: ref(""),
 
       generatedFileName: "",
@@ -640,6 +727,44 @@ export default {
           value: "option3",
           label: "Option 3",
         },
+      ],
+      menuSideNav : [
+        {
+          label: "Dashboard",
+          href: "#dashboard",
+          icon: `<svg width="24" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M23.1214 13.7713L21.994 13.843L22.0019 14.5582L22.0031 15.0209L21.9981 15.9893C21.9765 18.0316 21.8863 19.7095 21.7479 20.9896C21.6033 22.4253 20.5734 23.5855 19.2139 23.7579C18.364 23.862 17.3241 23.945 16.0971 23.9981C15.0084 24.046 14.0843 23.2147 14.006 22.1434L14.0006 21.9959V18.1718C14.0006 17.6138 13.633 17.1363 13.1757 17.0593C12.5949 16.9614 12.0689 17.3755 12.0054 17.9364L11.999 18.0505V21.9959C11.999 23.1373 11.0407 24.0482 9.90336 23.9981C8.67547 23.945 7.63562 23.862 6.78153 23.7573C5.42624 23.5855 4.39628 22.4253 4.25241 20.9968L4.1918 20.3754C4.07778 19.0772 4.00787 17.4484 3.99779 15.5116L3.99774 14.5582L4.005 13.843L3.13693 13.7893L2.87816 13.7713C1.15786 13.648 0.394097 11.5829 1.55117 10.3665L1.66168 10.2583L10.9346 1.80354C12.0581 0.776803 13.7449 0.734023 14.9146 1.67451L15.0641 1.80276L24.3381 10.2585C25.651 11.4561 24.8947 13.6443 23.1214 13.7713ZM22.9935 11.7686L22.9985 11.7527L22.9904 11.7362L13.7158 3.27988C13.3388 2.93542 12.7856 2.90892 12.3809 3.201L12.283 3.28066L3.00934 11.7361C2.99391 11.7502 3.00253 11.7751 3.02125 11.7764L3.81637 11.8284C4.1971 11.8511 4.61522 11.8734 5.07434 11.8954C5.6195 11.9215 6.04305 12.3799 6.02605 12.9254C6.01034 13.4295 6.00087 13.9794 5.99771 14.5702L5.99652 15.0209C5.99652 17.4378 6.08869 19.3737 6.24159 20.7892C6.29646 21.3339 6.64249 21.7237 7.02895 21.7727C7.82471 21.8702 8.8125 21.9491 9.99057 22L9.99898 21.9959V18.0505C9.99898 16.2026 11.6615 14.7758 13.5079 15.0871C14.9099 15.3231 15.9173 16.5683 15.9957 17.9929L16.0006 18.1718V21.9959L16.0099 22C17.1871 21.9491 18.1749 21.8702 18.9665 21.7732C19.3571 21.7237 19.7031 21.3339 19.7588 20.782C19.9109 19.3737 20.0031 17.4378 20.0031 15.0209L19.9983 14.1348C19.9936 13.7073 19.9853 13.3034 19.9736 12.9254C19.9566 12.3799 20.3801 11.9215 20.9253 11.8954L22.1832 11.8284L22.9783 11.7764L22.9935 11.7686Z" fill="currentColor"/>
+                </svg>`
+        },
+        {
+          label: "Management",
+          children: [
+            {
+              label: "Orang",
+              children: [
+                { label: "List Users", href: "#users-list" },
+                { label: "Add User", href: "#users-add" }
+              ],
+            },
+            {
+              label: "Roles",
+              children: [
+                { label: "List Roles", href: "#roles-list" },
+                { label: "Add Role", href: "#roles-add" }
+              ]
+            }
+          ],
+           icon: `<svg width="24" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M23.1214 13.7713L21.994 13.843L22.0019 14.5582L22.0031 15.0209L21.9981 15.9893C21.9765 18.0316 21.8863 19.7095 21.7479 20.9896C21.6033 22.4253 20.5734 23.5855 19.2139 23.7579C18.364 23.862 17.3241 23.945 16.0971 23.9981C15.0084 24.046 14.0843 23.2147 14.006 22.1434L14.0006 21.9959V18.1718C14.0006 17.6138 13.633 17.1363 13.1757 17.0593C12.5949 16.9614 12.0689 17.3755 12.0054 17.9364L11.999 18.0505V21.9959C11.999 23.1373 11.0407 24.0482 9.90336 23.9981C8.67547 23.945 7.63562 23.862 6.78153 23.7573C5.42624 23.5855 4.39628 22.4253 4.25241 20.9968L4.1918 20.3754C4.07778 19.0772 4.00787 17.4484 3.99779 15.5116L3.99774 14.5582L4.005 13.843L3.13693 13.7893L2.87816 13.7713C1.15786 13.648 0.394097 11.5829 1.55117 10.3665L1.66168 10.2583L10.9346 1.80354C12.0581 0.776803 13.7449 0.734023 14.9146 1.67451L15.0641 1.80276L24.3381 10.2585C25.651 11.4561 24.8947 13.6443 23.1214 13.7713ZM22.9935 11.7686L22.9985 11.7527L22.9904 11.7362L13.7158 3.27988C13.3388 2.93542 12.7856 2.90892 12.3809 3.201L12.283 3.28066L3.00934 11.7361C2.99391 11.7502 3.00253 11.7751 3.02125 11.7764L3.81637 11.8284C4.1971 11.8511 4.61522 11.8734 5.07434 11.8954C5.6195 11.9215 6.04305 12.3799 6.02605 12.9254C6.01034 13.4295 6.00087 13.9794 5.99771 14.5702L5.99652 15.0209C5.99652 17.4378 6.08869 19.3737 6.24159 20.7892C6.29646 21.3339 6.64249 21.7237 7.02895 21.7727C7.82471 21.8702 8.8125 21.9491 9.99057 22L9.99898 21.9959V18.0505C9.99898 16.2026 11.6615 14.7758 13.5079 15.0871C14.9099 15.3231 15.9173 16.5683 15.9957 17.9929L16.0006 18.1718V21.9959L16.0099 22C17.1871 21.9491 18.1749 21.8702 18.9665 21.7732C19.3571 21.7237 19.7031 21.3339 19.7588 20.782C19.9109 19.3737 20.0031 17.4378 20.0031 15.0209L19.9983 14.1348C19.9936 13.7073 19.9853 13.3034 19.9736 12.9254C19.9566 12.3799 20.3801 11.9215 20.9253 11.8954L22.1832 11.8284L22.9783 11.7764L22.9935 11.7686Z" fill="currentColor"/>
+                </svg>`
+        },
+        {
+          label: "Reports",
+          href: "#reports",
+          icon: `<svg width="24" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M23.1214 13.7713L21.994 13.843L22.0019 14.5582L22.0031 15.0209L21.9981 15.9893C21.9765 18.0316 21.8863 19.7095 21.7479 20.9896C21.6033 22.4253 20.5734 23.5855 19.2139 23.7579C18.364 23.862 17.3241 23.945 16.0971 23.9981C15.0084 24.046 14.0843 23.2147 14.006 22.1434L14.0006 21.9959V18.1718C14.0006 17.6138 13.633 17.1363 13.1757 17.0593C12.5949 16.9614 12.0689 17.3755 12.0054 17.9364L11.999 18.0505V21.9959C11.999 23.1373 11.0407 24.0482 9.90336 23.9981C8.67547 23.945 7.63562 23.862 6.78153 23.7573C5.42624 23.5855 4.39628 22.4253 4.25241 20.9968L4.1918 20.3754C4.07778 19.0772 4.00787 17.4484 3.99779 15.5116L3.99774 14.5582L4.005 13.843L3.13693 13.7893L2.87816 13.7713C1.15786 13.648 0.394097 11.5829 1.55117 10.3665L1.66168 10.2583L10.9346 1.80354C12.0581 0.776803 13.7449 0.734023 14.9146 1.67451L15.0641 1.80276L24.3381 10.2585C25.651 11.4561 24.8947 13.6443 23.1214 13.7713ZM22.9935 11.7686L22.9985 11.7527L22.9904 11.7362L13.7158 3.27988C13.3388 2.93542 12.7856 2.90892 12.3809 3.201L12.283 3.28066L3.00934 11.7361C2.99391 11.7502 3.00253 11.7751 3.02125 11.7764L3.81637 11.8284C4.1971 11.8511 4.61522 11.8734 5.07434 11.8954C5.6195 11.9215 6.04305 12.3799 6.02605 12.9254C6.01034 13.4295 6.00087 13.9794 5.99771 14.5702L5.99652 15.0209C5.99652 17.4378 6.08869 19.3737 6.24159 20.7892C6.29646 21.3339 6.64249 21.7237 7.02895 21.7727C7.82471 21.8702 8.8125 21.9491 9.99057 22L9.99898 21.9959V18.0505C9.99898 16.2026 11.6615 14.7758 13.5079 15.0871C14.9099 15.3231 15.9173 16.5683 15.9957 17.9929L16.0006 18.1718V21.9959L16.0099 22C17.1871 21.9491 18.1749 21.8702 18.9665 21.7732C19.3571 21.7237 19.7031 21.3339 19.7588 20.782C19.9109 19.3737 20.0031 17.4378 20.0031 15.0209L19.9983 14.1348C19.9936 13.7073 19.9853 13.3034 19.9736 12.9254C19.9566 12.3799 20.3801 11.9215 20.9253 11.8954L22.1832 11.8284L22.9783 11.7764L22.9935 11.7686Z" fill="currentColor"/>
+                </svg>`
+        }
       ],
       selectedDate: null,
       selectedMonth: null,
@@ -914,10 +1039,15 @@ export default {
           { title: "Nama Barang", value: "Cincin Emas 24K" },
           { title: "Berat", value: "5 gram" },
           { title: "Kondisi", value: "Baik" },
+          { title: "Kondisi", value: "Baik" },
+          { title: "Kondisi", value: "Baik" },
+          { title: "Kondisi", value: "Baik" },
         ],
         fotoJaminan: [
           { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
-          { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "13 Jan 2024", timeImages: "12:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "14 Jan 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "15 Jan 2024", timeImages: "10:00" },
         ]
       },
       {
@@ -930,8 +1060,8 @@ export default {
           { title: "Kondisi", value: "Seperti Baru" },
         ],
         fotoJaminan: [
-          { src: "https://picsum.photos/200/150?image=3", dateImages: "13 Jan 2024", timeImages: "13:00" },
-          { src: "https://picsum.photos/200/150?image=4", dateImages: "13 Jan 2024", timeImages: "12:00" },
+          { src: "https://picsum.photos/200/150?image=3", dateImages: "16 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=4", dateImages: "17 Jan 2024", timeImages: "11:00" },
         ]
       },
       {
@@ -944,8 +1074,8 @@ export default {
           { title: "Kondisi", value: "Bekas, Baik" },
         ],
         fotoJaminan: [
-          { src: "https://picsum.photos/200/150?image=5", dateImages: "14 Jan 2024", timeImages: "13:00" },
-          { src: "https://picsum.photos/200/150?image=6", dateImages: "14 Jan 2024", timeImages: "12:00" },
+          { src: "https://picsum.photos/200/150?image=5", dateImages: "18 Jan 2024", timeImages: "09:00" },
+          { src: "https://picsum.photos/200/150?image=6", dateImages: "19 Jan 2024", timeImages: "10:00" },
         ]
       },
       {
@@ -985,7 +1115,7 @@ export default {
         { data: "fotoJaminan", title: "Foto Jaminan" },
       ],
 
-      tableKreditBarangJaminan: [
+       tableKreditBarangJaminan: [
       {
         id: 1,
         name: "John Doe",
@@ -1002,10 +1132,6 @@ export default {
               { title: "Berat", value: "5 gram" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
-              { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
-            ]
           },
           {
             id: 2,
@@ -1016,10 +1142,6 @@ export default {
               { title: "Kondisi", value: "Baik" },
               { title: "Tahun", value: "2021" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=3", dateImages: "10 Feb 2024", timeImages: "09:30" },
-              { src: "https://picsum.photos/200/150?image=4", dateImages: "10 Feb 2024", timeImages: "09:45" },
-            ]
           },
           {
             id: 3,
@@ -1030,11 +1152,21 @@ export default {
               { title: "Tahun", value: "2020" },
               { title: "Kondisi", value: "Sangat Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=5", dateImages: "15 Mar 2024", timeImages: "14:20" },
-              { src: "https://picsum.photos/200/150?image=6", dateImages: "15 Mar 2024", timeImages: "14:25" },
-            ]
           },
+        ],
+        fotoJaminan: [
+          [
+            { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+            { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=3", dateImages: "10 Feb 2024", timeImages: "09:30" },
+            { src: "https://picsum.photos/200/150?image=4", dateImages: "10 Feb 2024", timeImages: "09:45" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=5", dateImages: "15 Mar 2024", timeImages: "14:20" },
+            { src: "https://picsum.photos/200/150?image=6", dateImages: "15 Mar 2024", timeImages: "14:25" },
+          ],
         ]
       },
       {
@@ -1053,10 +1185,6 @@ export default {
               { title: "Berat", value: "10 gram" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=7", dateImages: "20 Apr 2024", timeImages: "11:00" },
-              { src: "https://picsum.photos/200/150?image=8", dateImages: "20 Apr 2024", timeImages: "11:05" },
-            ]
           },
           {
             id: 2,
@@ -1067,10 +1195,6 @@ export default {
               { title: "Kondisi", value: "Sangat Baik" },
               { title: "Tahun", value: "2022" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=9", dateImages: "25 Apr 2024", timeImages: "15:15" },
-              { src: "https://picsum.photos/200/150?image=10", dateImages: "25 Apr 2024", timeImages: "15:20" },
-            ]
           },
           {
             id: 3,
@@ -1081,11 +1205,21 @@ export default {
               { title: "Tahun", value: "2019" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=11", dateImages: "28 Apr 2024", timeImages: "16:00" },
-              { src: "https://picsum.photos/200/150?image=12", dateImages: "28 Apr 2024", timeImages: "16:05" },
-            ]
           },
+        ],
+        fotoJaminan: [
+          [
+            { src: "https://picsum.photos/200/150?image=7", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=8", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=9", dateImages: "25 Apr 2024", timeImages: "15:15" },
+            { src: "https://picsum.photos/200/150?image=10", dateImages: "25 Apr 2024", timeImages: "15:20" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=11", dateImages: "30 Apr 2024", timeImages: "14:00" },
+            { src: "https://picsum.photos/200/150?image=12", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
+          ]
         ]
       },
       {
@@ -1104,10 +1238,6 @@ export default {
               { title: "Berat", value: "8 gram" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=13", dateImages: "01 Mei 2024", timeImages: "10:00" },
-              { src: "https://picsum.photos/200/150?image=14", dateImages: "01 Mei 2024", timeImages: "10:10" },
-            ]
           },
           {
             id: 2,
@@ -1118,10 +1248,6 @@ export default {
               { title: "Kondisi", value: "Baik" },
               { title: "Tahun", value: "2023" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=15", dateImages: "02 Mei 2024", timeImages: "09:00" },
-              { src: "https://picsum.photos/200/150?image=16", dateImages: "02 Mei 2024", timeImages: "09:05" },
-            ]
           },
           {
             id: 3,
@@ -1132,11 +1258,21 @@ export default {
               { title: "Tahun", value: "2021" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=17", dateImages: "03 Mei 2024", timeImages: "08:00" },
-              { src: "https://picsum.photos/200/150?image=18", dateImages: "03 Mei 2024", timeImages: "08:05" },
-            ]
           },
+        ],
+        fotoJaminan: [
+          [
+            { src: "https://picsum.photos/200/150?image=13", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=14", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=15", dateImages: "25 Apr 2024", timeImages: "15:15" },
+            { src: "https://picsum.photos/200/150?image=16", dateImages: "25 Apr 2024", timeImages: "15:20" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=17", dateImages: "30 Apr 2024", timeImages: "14:00" },
+            { src: "https://picsum.photos/200/150?image=18", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
+          ]
         ]
       },
       {
@@ -1155,10 +1291,6 @@ export default {
               { title: "Berat", value: "4 gram" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=19", dateImages: "10 Mei 2024", timeImages: "14:00" },
-              { src: "https://picsum.photos/200/150?image=20", dateImages: "10 Mei 2024", timeImages: "14:05" },
-            ]
           },
           {
             id: 2,
@@ -1169,10 +1301,6 @@ export default {
               { title: "Kondisi", value: "Sangat Baik" },
               { title: "Tahun", value: "2022" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=21", dateImages: "11 Mei 2024", timeImages: "13:00" },
-              { src: "https://picsum.photos/200/150?image=22", dateImages: "11 Mei 2024", timeImages: "13:05" },
-            ]
           },
           {
             id: 3,
@@ -1183,11 +1311,21 @@ export default {
               { title: "Tahun", value: "2021" },
               { title: "Kondisi", value: "Sangat Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=23", dateImages: "12 Mei 2024", timeImages: "12:00" },
-              { src: "https://picsum.photos/200/150?image=24", dateImages: "12 Mei 2024", timeImages: "12:05" },
-            ]
           },
+        ],
+        fotoJaminan: [
+          [
+            { src: "https://picsum.photos/200/150?image=19", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=20", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=21", dateImages: "25 Apr 2024", timeImages: "15:15" },
+            { src: "https://picsum.photos/200/150?image=22", dateImages: "25 Apr 2024", timeImages: "15:20" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=23", dateImages: "30 Apr 2024", timeImages: "14:00" },
+            { src: "https://picsum.photos/200/150?image=24", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
+          ]
         ]
       },
       {
@@ -1206,10 +1344,6 @@ export default {
               { title: "Berat", value: "7 gram" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=25", dateImages: "15 Jun 2024", timeImages: "15:00" },
-              { src: "https://picsum.photos/200/150?image=26", dateImages: "15 Jun 2024", timeImages: "15:05" },
-            ]
           },
           {
             id: 2,
@@ -1220,10 +1354,6 @@ export default {
               { title: "Kondisi", value: "Baik" },
               { title: "Tahun", value: "2020" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=27", dateImages: "16 Jun 2024", timeImages: "16:00" },
-              { src: "https://picsum.photos/200/150?image=28", dateImages: "16 Jun 2024", timeImages: "16:05" },
-            ]
           },
           {
             id: 3,
@@ -1234,11 +1364,21 @@ export default {
               { title: "Tahun", value: "2018" },
               { title: "Kondisi", value: "Baik" },
             ],
-            fotoJaminan: [
-              { src: "https://picsum.photos/200/150?image=29", dateImages: "17 Jun 2024", timeImages: "17:00" },
-              { src: "https://picsum.photos/200/150?image=30", dateImages: "17 Jun 2024", timeImages: "17:05" },
-            ]
           },
+        ],
+        fotoJaminan: [
+          [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=27", dateImages: "25 Apr 2024", timeImages: "15:15" },
+            { src: "https://picsum.photos/200/150?image=28", dateImages: "25 Apr 2024", timeImages: "15:20" },
+          ],
+          [
+            { src: "https://picsum.photos/200/150?image=29", dateImages: "30 Apr 2024", timeImages: "14:00" },
+            { src: "https://picsum.photos/200/150?image=", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
+          ]
         ]
       }
     ],
@@ -1269,12 +1409,16 @@ export default {
           data: "daftarJaminan",
           title: "Daftar Jaminan",
         },
+        {
+          data: "fotoJaminan",
+          title: "Foto Jaminan",
+        } 
       ],
 
 
       subMenuCMS: [
           { name: 'Dashboard', route: '/dashboard', icon:`<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8232 1.00009C8.96506 1.00009 6.70621 3.58223 6.70621 6.70609C6.70621 9.82995 8.96506 12.4121 11.8232 12.4121C14.6815 12.4121 16.9412 9.8298 16.9412 6.70609C16.9412 3.58239 14.6815 1.00009 11.8232 1.00009ZM11.8232 3.00009C13.5131 3.00009 14.9412 4.632 14.9412 6.70609C14.9412 8.78018 13.5131 10.4121 11.8232 10.4121C10.1336 10.4121 8.70621 8.78046 8.70621 6.70609C8.70621 4.63172 10.1336 3.00009 11.8232 3.00009ZM11.8235 13.941C8.72992 13.941 6.263 14.4493 4.36684 15.2959C2.92181 15.9419 1.99951 17.3817 1.99951 18.97C1.99951 21.196 3.80393 23 6.02951 23H17.6175C19.8431 23 21.6475 21.196 21.6475 18.97C21.6475 17.3817 20.7252 15.9419 19.2807 15.2961C17.384 14.4493 14.9171 13.941 11.8235 13.941ZM11.8235 15.941C14.6406 15.941 16.8296 16.392 18.4648 17.1221C19.1849 17.444 19.6475 18.1663 19.6475 18.97C19.6475 20.0913 18.7386 21 17.6175 21H6.02951C4.9084 21 3.99951 20.0913 3.99951 18.97C3.99951 18.1663 4.46215 17.444 5.18268 17.1219C6.81746 16.392 9.00644 15.941 11.8235 15.941Z" fill="currentColor"/></svg>` },
-          { name: 'Settings', route: '/settings', icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_2618_30977" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="2" width="16" height="20"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.8967 2.17168L19.8197 6.85906C19.9296 6.96363 20 7.11367 20 7.27344V20.2422C20 21.2114 19.1718 22 18.1538 22H5.84615C4.82818 22 4 21.2114 4 20.2422V3.75781C4 2.78855 4.82818 2 5.84615 2H14.4615C14.625 2 14.7818 2.06223 14.8967 2.17168ZM17.899 6.6875L15.0769 4.00051V6.10156C15.0769 6.42465 15.353 6.6875 15.6923 6.6875H17.899ZM5.84615 20.8281H18.1538C18.4932 20.8281 18.7692 20.5653 18.7692 20.2422V7.85938H15.6923C14.6743 7.85938 13.8462 7.07082 13.8462 6.10156V3.17188H5.84615C5.50683 3.17188 5.23077 3.43473 5.23077 3.75781V20.2422C5.23077 20.5653 5.50683 20.8281 5.84615 20.8281ZM8.30769 12.625H15.6923C16.0322 12.625 16.3077 12.8873 16.3077 13.2109C16.3077 13.5345 16.0322 13.7969 15.6923 13.7969H8.30769C7.96784 13.7969 7.69231 13.5345 7.69231 13.2109C7.69231 12.8873 7.96784 12.625 8.30769 12.625ZM15.6923 14.9688H8.30769C7.96784 14.9688 7.69231 15.2311 7.69231 15.5547C7.69231 15.8783 7.96784 16.1406 8.30769 16.1406H15.6923C16.0322 16.1406 16.3077 15.8783 16.3077 15.5547C16.3077 15.2311 16.0322 14.9688 15.6923 14.9688ZM8.30769 17.3125H13.2308C13.5706 17.3125 13.8462 17.5748 13.8462 17.8984C13.8462 18.222 13.5706 18.4844 13.2308 18.4844H8.30769C7.96784 18.4844 7.69231 18.222 7.69231 17.8984C7.69231 17.5748 7.96784 17.3125 8.30769 17.3125Z" fill="black"/></mask><g mask="url(#mask0_2618_30977)"><rect width="24" height="24" fill="currentColor"/></g></svg>` }
+          { name: 'Settings', route: '/settings', icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><mask id="mask0_2618_30977" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="2" width="16" height="20"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.8967 2.17168L19.8197 6.85906C19.9296 6.96363 20 7.11367 20 7.27344V20.2422C20 21.2114 19.1718 22 18.1538 22H5.84615C4.82818 22 4 21.2114 4 20.2422V3.75781C4 2.78855 4.82818 2 5.84615 2H14.4615C14.625 2 14.7818 2.06223 14.8967 2.17168ZM17.899 6.6875L15.0769 4.00051V6.10156C15.0769 6.42465 15.353 6.6875 15.6923 6.6875H17.899ZM5.84615 20.8281H18.1538C18.4932 20.8281 18.7692 20.5653 18.7692 20.2422V7.85938H15.6923C14.6743 7.85938 13.8462 7.07082 13.8462 6.10156V3.17188H5.84615C5.50683 3.17188 5.23077 3.43473 5.23077 3.75781V20.2422C5.23077 20.5653 5.50683 20.8281 5.84615 20.8281ZM8.30769 12.625H15.6923C16.0322 12.625 16.3077 12.8873 16.3077 13.2109C16.3077 13.5345 16.0322 13.7969 15.6923 13.7969H8.30769C7.96784 13.7969 7.69231 13.5345 7.69231 13.2109C7.69231 12.8873 7.96784 12.625 8.30769 12.625ZM15.6923 14.9688H8.30769C7.96784 14.9688 7.69231 15.2311 7.69231 15.5547C7.69231 15.8783 7.96784 16.1406 8.30769 16.1406H15.6923C16.0322 16.1406 16.3077 15.8783 16.3077 15.5547C16.3077 15.2311 16.0322 14.9688 15.6923 14.9688ZM8.30769 17.3125H13.2308C13.5706 17.3125 13.8462 17.5748 13.8462 17.8984C13.8462 18.222 13.5706 18.4844 13.2308 18.4844H8.30769C7.96784 18.4844 7.69231 18.222 7.69231 17.8984C7.69231 17.5748 7.96784 17.3125 8.30769 17.3125Z" fill="currentColor"/></mask><g mask="url(#mask0_2618_30977)"><rect width="24" height="24" fill="currentColor"/></g></svg>` }
         ]
     };
   },
@@ -1632,20 +1776,28 @@ export default {
                 title="Date Range Picker with Separator and no-slash true"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
+                v-model:all-date="allDate"
                 firstLabel="Periode Program"
                 secondLabel=" "
                 separator
                 no-slash
+                useBottomSheet
+                showAll
               />
+
+              {{ allDate }}
+              
               <DateRangePickerOption
                 :disabled="false"
                 placeholder="Pilih Tanggal"
                 title="Date Range Picker with Separator and no-slash false"
                 v-model:start-date="startDate"
                 v-model:end-date="endDate"
+                v-model:all-date="allDate"
                 firstLabel="Periode Program"
                 secondLabel=" "
                 separator
+                showAll
               />
               <p>Selected Date: {{ startDate }} - {{ endDate }}</p>
               <div class="row">
@@ -1670,7 +1822,7 @@ export default {
                   I accept the terms and use
                 </BFormCheckbox>
                   <CustomCheckbox v-model="isSelected" color="secondary" label="asdfsadfsadf"/>
-                  <CustomCheckbox v-model="isSelected" color="primary" />
+                  <CustomCheckbox disabled v-model="isSelected" label="asdfsadfsadf" color="primary" />
                 <div>
                   State: <strong>{{ status }}</strong>
                 </div>
@@ -2075,7 +2227,11 @@ export default {
                         id="4"
                         title="Persentase DP"
                         required=""
+                        delimeter="comma"
+                        v-model="nominalEndValue"
                       />
+                      {{ nominalEndValue }}
+                      
                       <InputNominalEnd
                         id="5"
                         title="Persentase DP"
@@ -2125,6 +2281,7 @@ export default {
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
                 :image-only="false"
+                csv-only
               />
               <FilePickerLG
                 v-model="selectedFile"
@@ -2133,7 +2290,6 @@ export default {
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
-                :imageOnly="false"
               />
               <FilePickerLG
                 v-model="selectedFile"
@@ -2568,7 +2724,7 @@ export default {
 
               <ModalSlider
                 v-model="showModalSliderJaminan"
-                title="Foto Jaminan"s
+                title="Foto Jaminan"
                 ratio="2/3"
                 :persistent="true"
                 :centered="true"
@@ -2598,6 +2754,129 @@ export default {
           <div class="card">
             <div class="card-header">
               <h5>Table Kredit & Barang Jaminan</h5>
+              <p class="mb-0">
+                <code
+                  >&lt;List type="primary" size="md" label="Button"&gt;</code
+                >
+              </p>
+            </div>
+            <div class="card-body"> 
+              <TestDataTable
+                :data="tableKreditBarangJaminan"
+                :columns="tableKreditBarangJaminanColumns"
+                leftContent="name"
+                rightContent="city"
+                v-model:modalSliderOpen="showModalSliderKreditJaminan"
+                v-model:modalTableOpen="showModalKreditJaminanBarang"
+                v-model:selectedDataIndex="selectedRowData"
+                v-model:selectedImgIndex="selectedImgData"
+              >
+                <template v-slot:tableActionButtons="{ item }">
+                  <div class="d-flex">
+                    <Button
+                      class="w-100"
+                      type="neutral"
+                      size="sm"
+                      label="Edit"
+                      @click="handleEditAction(item)"
+                    />
+                    <Button
+                      class="w-100"
+                      type="secondary"
+                      size="sm"
+                      label="Delete"
+                      @click="handleViewAction(item)"
+                    />
+                  </div>
+                </template>
+              </TestDataTable> 
+
+              <ModalSlider
+                v-model="showModalSliderKreditJaminan"
+                title="Foto Jaminan"
+                ratio="1/1"
+                :persistent="true"
+                :centered="true"
+                :images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.src)"
+                :date-images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.dateImages)"
+                :time-images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.timeImages)"
+                uploader="P12345"
+              >
+               <template v-slot:footer>
+                    <Button
+                      type="neutral"
+                      label="Ambil Ulang Foto"
+                      class="w-100"
+                    />
+                    <Button
+                      type="neutral"
+                      label="Lihat Lokasi"
+                      class="w-100"
+                    />
+                </template>
+              </ModalSlider>
+
+              <GOffCanvas
+                v-model="showModalKreditJaminanBarang"
+                close-button
+                sticky-footer
+                title="Daftar Barang Jaminan"
+                >
+
+                <div >
+                    <TestDataTable
+                      :data="tableKreditBarangJaminan[selectedRowData]?.daftarJaminan || []"
+                      :columns="tableJaminanColumns"
+                      leftContent="nomorJaminan"
+                      rightContent="tipeJaminan"
+                      v-model:modalTableOpen="showModalKreditJaminanBarang"
+                      v-model:modalSliderOpen="showModalSliderKreditJaminan"
+                      v-model:selectedDataIndex="selectedRowData"
+                      v-model:selectedImgIndex="selectedImgData"
+                    >
+                      <template v-slot:tableActionButtons="{ item }">
+                        <div class="d-flex">
+                          <Button
+                            class="w-100"
+                            type="neutral"
+                            size="sm"
+                            label="Edit"
+                            @click="handleEditAction(item)"
+                          />
+                          <Button
+                            class="w-100"
+                            type="secondary"
+                            size="sm"
+                            label="Delete"
+                            @click="handleViewAction(item)"
+                          />
+                        </div>
+                      </template>
+                    </TestDataTable>
+                </div>
+
+                <template #footer>
+                    <Button
+                      type="neutral"
+                      label="Ambil Ulang Foto"
+                      class="w-100"
+                    />
+                    <Button
+                      type="neutral"
+                      label="Lihat Lokasi"
+                      class="w-100"
+                    />
+                </template>
+              </GOffCanvas>
+            </div>
+          </div>
+        </div>
+
+         <!-- CUSTOM TABLE -->
+        <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>CUSTOM Table Kredit & Barang Jaminan</h5>
               <p class="mb-0">
                 <code
                   >&lt;List type="primary" size="md" label="Button"&gt;</code
@@ -2638,7 +2917,7 @@ export default {
               <ModalSlider
                 v-model="showModalSliderKreditJaminan"
                 title="Foto Jaminan"
-                ratio="2/3"
+                ratio="1/1"
                 :persistent="true"
                 :centered="true"
                 :images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.src)"
@@ -2831,6 +3110,79 @@ export default {
                   </template>
                 </FilterCMS>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>Chart</h5>
+            </div>
+            <div class="card-body">
+              <div class="row row-cols-3 g-3">
+                <BarChart style="height: 370px;" :labels="chartLabels" :datasets="chartDatasetsMultiple" :options="customOptions"/>
+                <BarChart
+                  style="height: 300px;"
+                  :labels="chartLabels"
+                  :datasets="chartDatasetsSingle"
+                  :options="customOptionsSingle"
+                >
+                  <template #tooltip="{ datasetLabel, label, value }">
+                    <div class="flex items-center gap-2">
+                      <div class="w-3 h-3 rounded bg-blue-500"></div>
+                      <div>
+                        <div class="font-semibold">{{ datasetLabel }}</div>
+                        <div class="text-xs">{{ label }} — {{ value }}</div>
+                      </div>
+                    </div>
+                  </template>
+                </BarChart>
+                <DoughnutChart
+  :labels="['Produk A', 'Produk B', 'Produk C', 'Produk D']"
+                  :values="[120, 90, 60,20]"
+  :options="{ /* override bila perlu */ }"
+>
+  <template #tooltip="{ datasetLabel, label, value }">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded bg-blue-500"></div>
+      <div>
+        <div class="font-semibold">{{ datasetLabel }}</div>
+        <div class="text-xs">{{ label }} — {{ value }}</div>
+      </div>
+    </div>
+  </template>
+</DoughnutChart>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>List Sorted</h5>
+            </div>
+            <div class="card-body ">
+              <ListSorted v-model="myItems"/>
+              <div class="" v-for="value in myItems">{{ value.name }}</div>
+            </div>
+          </div>
+        </div>
+
+          <div class="col-lg-12 mt-4">
+          <div class="card">
+            <div class="card-header">
+              <h5>SideNav CMS</h5>
+            </div>
+            <div class="card-body">
+                    {{ activeSideNav }}
+               <SideNavCMS v-model="activeSideNav" filter :items="menuSideNav">
+                  <template #logo>
+                    <img style="height: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Pegadaian_logo_%282013%29.svg/2560px-Pegadaian_logo_%282013%29.svg.png" alt="Logo" />
+                  </template>
+              </SideNavCMS>
             </div>
           </div>
         </div>
@@ -3110,7 +3462,6 @@ export default {
                 title="Upload Foto Anda"
                 uniqueKey="userPhoto"
                 imagePlaceholder="idcard"
-                useBottomSheet
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
@@ -3125,7 +3476,6 @@ export default {
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
-                general
               />
 
               <p>{{ generatedFileName }}</p>

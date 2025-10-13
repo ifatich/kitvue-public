@@ -42,7 +42,7 @@
                 type: String,
                 default: "placeholder . . .",
             },
-            value: {
+            modelValue: {
                 type: [String, Number],
                 default: "",
             },
@@ -69,6 +69,16 @@
             unit: {
                 type: String,
                 default: "%"
+            },
+            tooltip: {
+                type: Boolean,
+                default: true,
+            },
+            delimeter: {
+                type: String,
+                default: "comma",
+                validator: (value) => ["comma", "dot", "none"].includes(value),
+                required: false,
             }
         },
         data: () => ({
@@ -79,7 +89,7 @@
             currentValue(newVal) {
                 this.localError = this.required && !newVal;
             },
-            value: {
+            modelValue: {
                 handler(after) {
                     this.currentValue = this.format(after);
                 },
@@ -87,13 +97,25 @@
             },
         },
         methods: {
-            format: (value) =>
-                (value + "").replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            format(value) {
+                if (value == null || value === "") return "";
+
+                const clean = (value + "").replace(/\D/g, "");
+
+                if (this.delimeter === "comma") {
+                return clean.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                } else if (this.delimeter === "dot") {
+                return clean.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                } else {
+                return clean;
+                }
+            },
 
             handleInput() {
                 this.currentValue = this.format(this.currentValue);
-                this.$emit("input", (this.currentValue + "").replace(/[^0-9]/g, ""));
+                this.$emit("update:modelValue", (this.currentValue + "").replace(/[^0-9]/g, ""));
             },
         },
+
     };
 </script>
