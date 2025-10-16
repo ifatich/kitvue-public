@@ -29,58 +29,119 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in data" :key="index">
-                    <td v-for="column in columns" :key="column.data" class="align-middle">
-                           <template v-if="isDataArrayhasArrayObject(item[column.data])">
-                            <div class="text-link-data-table photo" @click="openModalTable(index)">
-                                Lihat Detail
-                            </div>
-                            </template>
-                         <template v-else-if="isDataArrayObject(item[column.data])">
-                            <div class="d-flex flex-column gap-1">
-                                <span v-html="getLimitedArrayDisplay(item[column.data])"></span>
-                                <div v-if="item[column.data].length > 5" class="d-flex gap-1 align-items-center text-link-data-table" @click="isDataExpanded= !isDataExpanded">
-                                    {{isDataExpanded ? `Sembunyikan` : `Lihat Selengkapnya`}}
-                                     <svg :class="[`icon-chevron`, isDataExpanded && `rotate-180`]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" fill="black"/>
-                                        <mask id="mask0_0_5346" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="9" width="12" height="7">
-                                            <path d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" fill="white"/>
-                                        </mask>
-                                        <g mask="url(#mask0_0_5346)">
-                                            <rect width="24" height="24" fill="currentColor"/>
-                                        </g>
-                                    </svg>
-                                </div>
-                            </div>
-                         </template>
-                         <template v-else-if="isDataImg(item[column.data])">
-                            <div class="image-data-table-wrapper" @click="openModalSlider(index)">
-                                <img
-                                    v-if="item[column.data] && item[column.data][0]"
-                                    :src="item[column.data][0].src || item[column.data][0][0].src"
-                                    alt="Foto 1"
-                                    class="image-data-table image-data-no-overlay"
-                                />
+                <template v-for="(item, index) in data" :key="index">
+                    <tr>
+                        <template v-for="(column, colIndex) in columns" :key="column.data">
+                            <td v-if="colIndex < 5" :rowspan="item.daftarJaminan?.length" class="align-middle">
+                                <template v-if="isDataArrayhasArrayObject(item[column.data])">
+                                    <div class="text-link-data-table photo" @click="openModalTable(index)">
+                                        Lihat Detail
+                                    </div>
+                                    </template>
+                                <template v-else-if="isDataArrayObject(item[column.data])">
+                                    <div class="d-flex flex-column gap-1">
+                                        <span v-html="getLimitedArrayDisplay(item[column.data])"></span>
+                                        <div v-if="item[column.data].length > 5" class="d-flex gap-1 align-items-center text-link-data-table" @click="isDataExpanded= !isDataExpanded">
+                                            {{isDataExpanded ? `Sembunyikan` : `Lihat Selengkapnya`}}
+                                            <svg :class="[`icon-chevron`, isDataExpanded && `rotate-180`]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" fill="black"/>
+                                                <mask id="mask0_0_5346" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="9" width="12" height="7">
+                                                    <path d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" fill="white"/>
+                                                </mask>
+                                                <g mask="url(#mask0_0_5346)">
+                                                    <rect width="24" height="24" fill="currentColor"/>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else-if="isDataImg(item[column.data])">
+                                    <div class="image-data-table-wrapper">
+                                        <img
+                                            v-if="item[column.data] && item[column.data][0]"
+                                            :src="item[column.data][0].src || item[column.data][0][0].src"
+                                            alt="Foto 1"
+                                            class="image-data-table image-data-no-overlay"
+                                            @click="$emit('update:modalSliderOpen', true)"
+                                        />
 
-                                <div class="image-data-second-wrapper"  @click="openModalSlider(index)">
-                                    <img
-                                    v-if="item[column.data] && item[column.data][1]"
-                                    :src="item[column.data][1].src || item[column.data][1][0].src"
-                                    alt="Foto 2"
-                                    :class="[`image-data-table`, item[column.data].length > 2 ?  `image-data-with-overlay` : `image-data-no-overlay`]"
-                                    />
-                                    <div v-if="item[column.data].length > 2" class="image-overlay-data-table">{{ (item[column.data].length - 2) + "+" }}</div>
-                                </div>
-                            </div>
+                                        <div class="image-data-second-wrapper"  @click="this.$emit('update:modalSliderOpen', true)">
+                                            <img
+                                            v-if="item[column.data] && item[column.data][1]"
+                                            :src="item[column.data][1].src || item[column.data][1][0].src"
+                                            alt="Foto 2"
+                                            :class="[`image-data-table`, item[column.data].length > 2 ?  `image-data-with-overlay` : `image-data-no-overlay`]"
+                                            />
+                                            <div v-if="item[column.data].length > 2" class="image-overlay-data-table">{{ (item[column.data].length - 2) + "+" }}</div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    {{ item[column.data]+ " 2" }}
+                                </template>
+                            </td>
+                            <td v-else class="align-middle">
+                                <template v-if="isDataArrayhasArrayObject(item[column.data])">
+                                    <div class="text-link-data-table photo" @click="openModalTable(index)">
+                                        Lihat Detail
+                                    </div>
+                                    </template>
+                                <template v-else-if="isDataArrayObject(item[column.data])">
+                                    <div class="d-flex flex-column gap-1">
+                                        <span v-html="getLimitedArrayDisplay(item[column.data])"></span>
+                                        <div v-if="item[column.data].length > 5" class="d-flex gap-1 align-items-center text-link-data-table" @click="isDataExpanded= !isDataExpanded">
+                                            {{isDataExpanded ? `Sembunyikan` : `Lihat Selengkapnya`}}
+                                            <svg :class="[`icon-chevron`, isDataExpanded && `rotate-180`]" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" fill="black"/>
+                                                <mask id="mask0_0_5346" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="6" y="9" width="12" height="7">
+                                                    <path d="M8.1225 9.70253L12.0025 13.5825L15.8825 9.70253C16.2725 9.31253 16.9025 9.31253 17.2925 9.70253C17.6825 10.0925 17.6825 10.7225 17.2925 11.1125L12.7025 15.7025C12.3125 16.0925 11.6825 16.0925 11.2925 15.7025L6.7025 11.1125C6.3125 10.7225 6.3125 10.0925 6.7025 9.70253C7.0925 9.32253 7.7325 9.31253 8.1225 9.70253Z" fill="white"/>
+                                                </mask>
+                                                <g mask="url(#mask0_0_5346)">
+                                                    <rect width="24" height="24" fill="currentColor"/>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else-if="isDataImg(item[column.data])">
+                                    <div class="image-data-table-wrapper">
+                                        <img
+                                            v-if="item[column.data] && item[column.data][0]"
+                                            :src="item[column.data][0].src || item[column.data][0][0].src"
+                                            alt="Foto 1"
+                                            class="image-data-table image-data-no-overlay"
+                                            @click="$emit('update:modalSliderOpen', true)"
+                                        />
+
+                                        <div class="image-data-second-wrapper"  @click="this.$emit('update:modalSliderOpen', true)">
+                                            <img
+                                            v-if="item[column.data] && item[column.data][1]"
+                                            :src="item[column.data][1].src || item[column.data][1][0].src"
+                                            alt="Foto 2"
+                                            :class="[`image-data-table`, item[column.data].length > 2 ?  `image-data-with-overlay` : `image-data-no-overlay`]"
+                                            />
+                                            <div v-if="item[column.data].length > 2" class="image-overlay-data-table">{{ (item[column.data].length - 2) + "+" }}</div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else>
+                                    {{ item[column.data] }}
+                                </template>
+                            </td>
                         </template>
-                         <template v-else>
-                             {{ item[column.data] }}
-                         </template>
-                    </td>
-                    <td class="align-middle" v-if="$slots.tableActionButtons">
-                        <slot name="tableActionButtons" :item="item"></slot>
-                    </td>
-                </tr>
+                         <td class="align-middle" v-if="$slots.tableActionButtons" :rowspan="item.daftarJaminan?.length">
+                            <slot name="tableActionButtons" :item="item"></slot>
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>AAAA</td>
+                        <td>AAAA</td>
+                    </tr>
+                    <tr>
+                        <td>AAAA</td>
+                        <td>AAAA</td>
+                    </tr> -->
+                </template>
             </tbody>
         </table>
 

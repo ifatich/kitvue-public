@@ -95,7 +95,7 @@ watch(isDesktop, (newVal) => {
             <BCarouselSlide v-for="(imgSrc, index) in props.images" :key="index" :img-src="imgSrc">
               <div v-if="props.timeImages && props.dateImages" class="timestamp flex content-between">
                 <div class="uploader"> {{ "Diambil oleh: " + props.uploader }}</div>
-                <div class="date-time"> {{ "Waktu Ambil Foto: "+ dateImages[carouselModel] + ", " + timeImages[carouselModel] }}</div>
+                <div class="date-time"> {{ "Waktu: "+ dateImages[carouselModel] + ", " + timeImages[carouselModel] }}</div>
               </div>
             </BCarouselSlide>
           </BCarousel>
