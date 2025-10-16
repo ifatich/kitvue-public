@@ -2761,7 +2761,7 @@ export default {
               </p>
             </div>
             <div class="card-body"> 
-              <TestDataTable
+              <!-- <TestDataTable
                 :data="tableKreditBarangJaminan"
                 :columns="tableKreditBarangJaminanColumns"
                 leftContent="name"
@@ -2789,7 +2789,7 @@ export default {
                     />
                   </div>
                 </template>
-              </TestDataTable> 
+              </TestDataTable>  -->
 
               <ModalSlider
                 v-model="showModalSliderKreditJaminan"
@@ -2873,129 +2873,6 @@ export default {
         </div>
 
          <!-- CUSTOM TABLE -->
-        <div class="col-lg-12 mt-4">
-          <div class="card">
-            <div class="card-header">
-              <h5>CUSTOM Table Kredit & Barang Jaminan</h5>
-              <p class="mb-0">
-                <code
-                  >&lt;List type="primary" size="md" label="Button"&gt;</code
-                >
-              </p>
-            </div>
-            <div class="card-body"> 
-              <DataTable
-                :data="tableKreditBarangJaminan"
-                :columns="tableKreditBarangJaminanColumns"
-                leftContent="name"
-                rightContent="city"
-                v-model:modalSliderOpen="showModalSliderKreditJaminan"
-                v-model:modalTableOpen="showModalKreditJaminanBarang"
-                v-model:selectedDataIndex="selectedRowData"
-                v-model:selectedImgIndex="selectedImgData"
-              >
-                <template v-slot:tableActionButtons="{ item }">
-                  <div class="d-flex">
-                    <Button
-                      class="w-100"
-                      type="neutral"
-                      size="sm"
-                      label="Edit"
-                      @click="handleEditAction(item)"
-                    />
-                    <Button
-                      class="w-100"
-                      type="secondary"
-                      size="sm"
-                      label="Delete"
-                      @click="handleViewAction(item)"
-                    />
-                  </div>
-                </template>
-              </DataTable> 
-
-              <ModalSlider
-                v-model="showModalSliderKreditJaminan"
-                title="Foto Jaminan"
-                ratio="1/1"
-                :persistent="true"
-                :centered="true"
-                :images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.src)"
-                :date-images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.dateImages)"
-                :time-images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.timeImages)"
-                uploader="P12345"
-              >
-               <template v-slot:footer>
-                    <Button
-                      type="neutral"
-                      label="Ambil Ulang Foto"
-                      class="w-100"
-                    />
-                    <Button
-                      type="neutral"
-                      label="Lihat Lokasi"
-                      class="w-100"
-                    />
-                </template>
-              </ModalSlider>
-
-              <GOffCanvas
-                v-model="showModalKreditJaminanBarang"
-                close-button
-                sticky-footer
-                title="Daftar Barang Jaminan"
-                >
-
-                <div >
-                    <DataTable
-                      :data="tableKreditBarangJaminan[selectedRowData]?.daftarJaminan || []"
-                      :columns="tableJaminanColumns"
-                      leftContent="nomorJaminan"
-                      rightContent="tipeJaminan"
-                      v-model:modalTableOpen="showModalKreditJaminanBarang"
-                      v-model:modalSliderOpen="showModalSliderKreditJaminan"
-                      v-model:selectedDataIndex="selectedRowData"
-                      v-model:selectedImgIndex="selectedImgData"
-                    >
-                      <template v-slot:tableActionButtons="{ item }">
-                        <div class="d-flex">
-                          <Button
-                            class="w-100"
-                            type="neutral"
-                            size="sm"
-                            label="Edit"
-                            @click="handleEditAction(item)"
-                          />
-                          <Button
-                            class="w-100"
-                            type="secondary"
-                            size="sm"
-                            label="Delete"
-                            @click="handleViewAction(item)"
-                          />
-                        </div>
-                      </template>
-                    </DataTable>
-                </div>
-
-                <template #footer>
-                    <Button
-                      type="neutral"
-                      label="Ambil Ulang Foto"
-                      class="w-100"
-                    />
-                    <Button
-                      type="neutral"
-                      label="Lihat Lokasi"
-                      class="w-100"
-                    />
-                </template>
-              </GOffCanvas>
-            </div>
-          </div>
-        </div>
-        
-
         <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
