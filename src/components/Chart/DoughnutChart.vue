@@ -1,9 +1,9 @@
 <template>
-  <div class="h-full relative">
+  <div :class="[`doughnut-chart h-full relative`, props.class]">
     <Doughnut
-      :data="chartDataPayload"
+      :data="chartData"
       :options="mergedOptions"
-      :plugins="chartPlugins"
+      :plugins="mergedPlugins"
     />
   </div>
 </template>
@@ -25,36 +25,33 @@ import {
   render,
   useSlots,
   defineProps,
-  watch
 } from "vue";
 
-/* default fonts/colors like di BarChart-mu */
+ChartJS.register(Title, Tooltip, Legend, ArcElement);
 ChartJS.defaults.font.family = getComputedStyle(document.body).fontFamily;
 ChartJS.defaults.font.weight = "normal";
 ChartJS.defaults.font.size = 12;
 ChartJS.defaults.color = "#252528";
 
-function drawRoundedRect(ctx, x, y, width, height, radius) {
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + width - radius, y);
-  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-  ctx.lineTo(x + width, y + height - radius);
-  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-  ctx.lineTo(x + radius, y + height);
-  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.closePath();
-  ctx.fill();
+/* ========= Simple Deep Merge Helper ========= */
+function deepMerge(target, source) {
+  const output = { ...target };
+  if (typeof target !== "object" || typeof source !== "object") return output;
+  for (const key of Object.keys(source)) {
+    if (source[key] instanceof Object && key in target) {
+      output[key] = deepMerge(target[key], source[key]);
+    } else {
+      output[key] = source[key];
+    }
+  }
+  return output;
 }
 
-/* shadow plugin (mirip BarChart) */
+/* ========= Tooltip Shadow Plugin ========= */
 const tooltipShadowPlugin = {
   id: "tooltipShadow",
   beforeDraw(chart) {
     const tooltip = chart.tooltip;
-    // for canvas tooltip presence use internal fields (similar check di BarChart)
     if (tooltip?._active && tooltip.opacity) {
       const ctx = chart.ctx;
       ctx.save();
@@ -63,45 +60,56 @@ const tooltipShadowPlugin = {
       ctx.shadowOffsetY = 2;
       ctx.fillStyle = tooltip.options.backgroundColor || "#fff";
 
-      // Chart.js exposes x,y,width,height for the tooltip box
       const { x, y, width, height } = tooltip;
       const radius = tooltip.options.cornerRadius || 12;
       if (width && height) {
-        drawRoundedRect(ctx, x, y, width, height, radius);
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.lineTo(x + width - radius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+        ctx.lineTo(x + width, y + height - radius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        ctx.lineTo(x + radius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+        ctx.lineTo(x, y + radius);
+        ctx.quadraticCurveTo(x, y, x + radius, y);
+        ctx.closePath();
+        ctx.fill();
       }
       ctx.restore();
     }
   }
 };
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement);
-
+/* ========= Props ========= */
 const props = defineProps({
-  labels: { type: Array, default: () => ["Red", "Blue", "Yellow"] },
-  values: { type: Array, default: () => [300, 50, 100] },
-  options: { type: Object, default: () => ({}) }
+  labels: { type: Array, default: () => [] },
+  values: { type: Array, default: () => [] },
+  class: { type: String, default: "" },
+  options: { type: Object, default: () => ({}) },
+  plugins: { type: Array, default: () => [] },
 });
 
+/* ========= Tooltip Slot ========= */
 const slots = useSlots();
 const hasTooltipSlot = !!slots.tooltip;
 const tooltipElRef = ref(null);
 
-function createTooltipElIfNeeded() {
+function createTooltipEl() {
   if (tooltipElRef.value) return tooltipElRef.value;
   const el = document.createElement("div");
-  el.className = "chartjs-tooltip-slot";
-  // default wrapper styles (developer can override with global CSS)
-  el.style.position = "absolute";
-  el.style.pointerEvents = "none";
-  el.style.zIndex = "9999";
-  el.style.opacity = "0";
-  el.style.transform = "translate(-50%, -120%)";
-  el.style.background = "#ffffff";
-  el.style.borderRadius = "12px";
-  el.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)";
-  el.style.padding = "8px 12px";
-  el.style.transition = "opacity 0.3s ease, left 0.2s ease, top 0.2s ease";
-  el.style.willChange = "left, top, opacity";
+  el.className = "doughnut-chart-tooltip-slot";
+  Object.assign(el.style, {
+    position: "absolute",
+    pointerEvents: "none",
+    zIndex: 9999,
+    opacity: 0,
+    background: "#fff",
+    borderRadius: "12px",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
+    padding: "8px 12px",
+    transition: "opacity 0.3s ease-in-out, left 0.5s ease, top 0.5s ease",
+  });
   document.body.appendChild(el);
   tooltipElRef.value = el;
   return el;
@@ -109,32 +117,26 @@ function createTooltipElIfNeeded() {
 
 onUnmounted(() => {
   if (tooltipElRef.value) {
-    try {
-      render(null, tooltipElRef.value);
-    } catch (e) { /* empty */ }
-    if (tooltipElRef.value.parentNode) tooltipElRef.value.parentNode.removeChild(tooltipElRef.value);
+    render(null, tooltipElRef.value);
+    tooltipElRef.value.remove();
     tooltipElRef.value = null;
   }
 });
 
-/* external tooltip function - memakai slot tooltip jika ada (identik pola BarChart) */
+/* ========= Custom Tooltip Logic ========= */
 function externalTooltip(context) {
   if (!hasTooltipSlot) return;
   const { chart, tooltip } = context;
-  const tooltipEl = createTooltipElIfNeeded();
+  const tooltipEl = createTooltipEl();
 
-  // sembunyikan tooltip bila tidak aktif
+  // hide
   if (!tooltip || tooltip.opacity === 0) {
-    tooltipEl.style.opacity = "0";
+    tooltipEl.style.opacity = '0';
     return;
   }
 
-  // pastikan ada data point
   const dataPoint = tooltip.dataPoints?.[0];
-  if (!dataPoint) {
-    tooltipEl.style.opacity = "0";
-    return;
-  }
+  if (!dataPoint) return;
 
   const dataset = chart.data.datasets[dataPoint.datasetIndex];
   const slotProps = {
@@ -148,44 +150,78 @@ function externalTooltip(context) {
     tooltip
   };
 
-  // render slot
-  render(h("div", {}, slots.tooltip(slotProps)), tooltipEl);
+  // render slot content
+  render(h('div', {}, slots.tooltip(slotProps)), tooltipEl);
 
-  // posisi akhir (menggunakan koordinat Chart.js)
-  const canvasRect = chart.canvas.getBoundingClientRect();
-  const left = canvasRect.left + window.pageXOffset + tooltip.x;
-  const top = canvasRect.top + window.pageYOffset + tooltip.y;
+  // position AFTER DOM updated (size available)
+  requestAnimationFrame(() => {
+    const canvasRect = chart.canvas.getBoundingClientRect();
+    // caretX / caretY adalah titik referensi relatif ke canvas
+    const caretX = typeof tooltip.caretX === 'number' ? tooltip.caretX : tooltip.x || (canvasRect.width / 2);
+    const caretY = typeof tooltip.caretY === 'number' ? tooltip.caretY : tooltip.y || (canvasRect.height / 2);
 
-  tooltipEl.style.left = `${left}px`;
-  tooltipEl.style.top = `${top}px`;
-  tooltipEl.style.opacity = "1";
+    const tooltipW = tooltipEl.offsetWidth;
+    const tooltipH = tooltipEl.offsetHeight;
 
-  // posisi fix sesuai keinginanmu
-  tooltipEl.style.transform = "translate(-10%, 0%)";
+    // base pos in viewport coords
+    let left = canvasRect.left + window.pageXOffset + caretX;
+    let top  = canvasRect.top  + window.pageYOffset + caretY;
 
-  // tentukan caret kanan atau kiri berdasarkan posisi tooltip
-  const centerX = canvasRect.left + canvasRect.width / 2;
-  tooltipEl.classList.remove("caret-left", "caret-right");
+    // adjust by xAlign / yAlign like Chart.js does
+    // small gap (8px) to mimic default caret spacing
+    const GAP = 1;
 
-  if (left > centerX) {
-    tooltipEl.classList.add("caret-left"); // muncul di kanan chart point
-  } else {
-    tooltipEl.classList.add("caret-right"); // muncul di kiri chart point
-  }
+    // vertical alignment
+    if (tooltip.yAlign === 'top') {
+      top -= (tooltipH + GAP);
+    } else if (tooltip.yAlign === 'bottom') {
+      top += GAP;
+    } else { // center
+      top -= tooltipH / 2;
+    }
+
+    // horizontal alignment
+    if (tooltip.xAlign === 'left') {
+      left -= (tooltipW + GAP);
+    } else if (tooltip.xAlign === 'right') {
+      left += GAP;
+    } else { // center
+      left -= tooltipW / 2;
+    }
+
+    // apply
+    tooltipEl.style.left = `${Math.round(left)}px`;
+    tooltipEl.style.top = `${Math.round(top)}px`;
+    tooltipEl.style.opacity = '1';
+
+    // caret direction (optional, for styling)
+    tooltipEl.classList.remove('caret-left', 'caret-right');
+
+if (tooltip.xAlign === 'left') {
+  // tooltip muncul di kanan titik data → caret di kiri
+  tooltipEl.classList.add('caret-left');
+} else if (tooltip.xAlign === 'right') {
+  // tooltip muncul di kiri titik data → caret di kanan
+  tooltipEl.classList.add('caret-right');
+} else {
+  // posisi tengah, misalnya atas/bawah
+  tooltipEl.classList.add('caret-left');
+}
+  });
 }
 
 
-
-/* chart data payload */
+/* ========= Chart Data ========= */
 const defaultColors = [
-  "rgba(255, 99, 132, 0.8)",
-  "rgba(54, 162, 235, 0.8)",
-  "rgba(255, 205, 86, 0.8)",
+  "#42b883",
+  "#36a2eb",
+  "#ffcd56",
+  "#ff6384",
+  "#9966ff",
   "#4bc0c0",
-  "#9966ff"
 ];
 
-const chartDataPayload = computed(() => ({
+const chartData = computed(() => ({
   labels: props.labels,
   datasets: [
     {
@@ -193,84 +229,60 @@ const chartDataPayload = computed(() => ({
       data: props.values,
       backgroundColor: defaultColors.slice(0, props.values.length),
       hoverOffset: 6,
-      borderRadius: 10, // 🔹 Rounded corner tiap arc
-      borderWidth: 0,   // opsional, bisa diatur agar halus
-      spacing: 4        // opsional, jarak antar shape biar kelihatan lebih terpisah
-    }
-  ]
+      borderRadius: 10,
+      borderWidth: 0,
+      spacing: 4,
+    },
+  ],
 }));
 
-
-/* default options similar to BarChart */
+/* ========= Default Options ========= */
 const defaultOptions = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
+    legend: {
+      position: "bottom",
+       labels: {
+        font: { size: 14 },
+        usePointStyle: true,
+        pointStyle: 'rectRounded',
+        padding: 12,
+      }
+    },
     tooltip: {
-      enabled: true, // will be overridden by mergedOptions depending on slot
-      backgroundColor: "#FFFFFF",
+      enabled: true,
+      backgroundColor: "#fff",
       titleColor: "#252528",
       bodyColor: "#252528",
       cornerRadius: 12,
       padding: 12,
-      usePointStyle: true,
-      callbacks: {
-        title: (ctx) => ctx[0]?.dataset?.label ?? "",
-        label: (ctx) => `Nilai: ${ctx.raw}%`,
-        labelPointStyle: function () {
-          return { pointStyle: "rectRounded", rotation: 0, borderRadius: 4 };
-        }
-      }
     },
-    legend: {
-      position: "bottom",
-      labels: {
-        font: { size: 14 },
-        usePointStyle: true,
-        pointStyle: "rectRounded",
-        padding: 12
-      }
-    }
-  }
-};
-/* merged options: override tooltip.enabled/external if slot exists */
-const mergedOptions = computed(() => {
-  const merged = {
-    ...defaultOptions,
-    ...props.options,
-    plugins: {
-      ...defaultOptions.plugins,
-      ...((props.options && props.options.plugins) || {})
-    }
-  };
-
-  merged.plugins.tooltip = {
-    ...merged.plugins.tooltip,
-    enabled: !hasTooltipSlot,
-    external: hasTooltipSlot ? externalTooltip : merged.plugins.tooltip.external
-  };
-
-  return merged;
-});
-
-/* choose plugins: if parent provides slot, DON'T use tooltipShadowPlugin
-   (since we render DOM tooltip with its own shadow). Otherwise keep plugin. */
-const chartPlugins = computed(() => {
-  return hasTooltipSlot ? [] : [tooltipShadowPlugin];
-});
-
-/* keep chart data reactive */
-watch(
-  () => [props.labels, props.values],
-  () => {
-    // chartDataPayload computed will publish new value automatically
   },
-  { deep: true }
-);
+};
+
+/* ========= Deep Merge Options ========= */
+const mergedOptions = computed(() => {
+  const combined = deepMerge(defaultOptions, props.options);
+  combined.plugins.tooltip = {
+    ...combined.plugins.tooltip,
+    enabled: !hasTooltipSlot,
+    external: hasTooltipSlot ? externalTooltip : combined.plugins.tooltip.external,
+  };
+  return combined;
+});
+
+/* ========= Combine Plugins ========= */
+const mergedPlugins = computed(() => {
+  const internal = hasTooltipSlot ? [] : [tooltipShadowPlugin];
+  const pluginIds = new Set(internal.map(p => p.id));
+  const external = props.plugins.filter(p => !pluginIds.has(p.id));
+  return [...internal, ...external];
+});
 </script>
 
 <style>
-.chartjs-tooltip-slot {
+.doughnut-chart-tooltip-slot {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -279,33 +291,27 @@ watch(
   position: absolute;
 }
 
-/* caret kanan (tooltip ditampilkan di kiri chart point -> caret ke kanan) */
-.chartjs-tooltip-slot.caret-right::after {
+/* Caret kanan */
+.doughnut-chart-tooltip-slot.caret-right::after {
   content: "";
   position: absolute;
   top: 50%;
-  left: -5px;
+  left: -6px;
   transform: translateY(-50%);
-  width: 0;
-  height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   border-right: 6px solid #fff;
-  filter: drop-shadow(-2px 0 2px rgba(0, 0, 0, 0.08));
 }
 
-/* caret kiri (tooltip di kanan point -> caret ke kiri) */
-.chartjs-tooltip-slot.caret-left::after {
+/* Caret kiri */
+.doughnut-chart-tooltip-slot.caret-left::after {
   content: "";
   position: absolute;
   top: 50%;
-  right: -5px;
+  right: -6px;
   transform: translateY(-50%);
-  width: 0;
-  height: 0;
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   border-left: 6px solid #fff;
-  filter: drop-shadow(2px 0 2px rgba(0, 0, 0, 0.08));
 }
 </style>
