@@ -16,11 +16,12 @@ import LabelIcon from "./Label/LabelIcon.vue";
 import NewInputCamera from "@/components/Input/NewInputCamera.vue";
 import TablePagination from "./Table/TablePagination.vue";
 import { BButton, BCarousel, BCarouselSlide } from 'bootstrap-vue-next'
+import InputSearch from "./Input/InputSearch.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
-const nik = ref("1234 1234");
+const ceknik = ref("");
 const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
@@ -142,6 +143,21 @@ const chartDatasetsMultiple = [
   },
 ];
 
+const chartStackDatasets = [
+  {
+    data: [100],
+    label: "Medan I",
+  },
+  {
+    data: [20],
+    label: "Medan II",
+  },
+  {
+    data: [50],
+    label: "Medan III",
+  },
+]
+
 const chartDatasetsSingle = [
   {
     label: "Medan I",
@@ -153,7 +169,7 @@ const chartDatasetsSingle = [
 const customOptions = {
   plugins: {
     legend: {
-      position: "bottom",             // pindah legend ke bawah
+      position: "top",             // pindah legend ke bawah
     },
   },
 };
@@ -551,6 +567,7 @@ import SideNavCMS from "./Navbar/SideNavCMS.vue";
 import ListSorted from "./ListGroup/ListSorted.vue";
 import BarChart from "./Chart/BarChart.vue";
 import DoughnutChart from "./Chart/DoughnutChart.vue";
+import StackedBarChart from "./Chart/StackedBarChart.vue";
 
 export default {
   name: "App",
@@ -2001,21 +2018,18 @@ export default {
 
               <p>Search old Value: {{ text }}</p>
 
-              <InputNIK
-                id="input-nik"
-                label="Ini search nik sendiri"
-                placeholder="Cari nik"
-                v-model="nik"
-                type="nik"
-              />
+              <InputNIK id="input-nik" label="Ini search nik sendiri" placeholder="Cari nik" type="nik" v-model="ceknik" />
 
-              <p>Search nik Value: {{ nik }}</p>
+              <InputSearch id="input-nik" label="Ini search nik sendiri" placeholder="Cari nik" type="nik" v-model="ceknik" />
+              <InputSearch id="input-nik" label="Ini search nik sendiri" placeholder="Cari text" type="text" v-model="ceknik" />
 
-             <LabelIcon
-                  text="Status Aktif"
-                  iconEnd
-                  tooltip="Status ini menandakan akun aktif."
-                  tooltipPosition="bottom"
+              <p>NIK Value: {{ ceknik }}</p>
+
+              <LabelIcon
+                text="Status Aktif"
+                iconEnd
+                tooltip="Status ini menandakan akun aktif."
+                tooltipPosition="bottom"
               />
               <InputNominalStart
                 id="input-rupiah"
@@ -2749,8 +2763,6 @@ export default {
             </div>
           </div>
         </div>
-
-        <div class="col-lg-12 mt-4">
           <div class="card">
             <div class="card-header">
               <h5>Table Kredit & Barang Jaminan</h5>
@@ -3016,20 +3028,50 @@ export default {
                   </template>
                 </BarChart>
                 <DoughnutChart
-  :labels="['Produk A', 'Produk B', 'Produk C', 'Produk D']"
-                  :values="[120, 90, 60,20]"
-  :options="{ /* override bila perlu */ }"
->
-  <template #tooltip="{ datasetLabel, label, value }">
-    <div class="flex items-center gap-2">
-      <div class="w-3 h-3 rounded bg-blue-500"></div>
-      <div>
-        <div class="font-semibold">{{ datasetLabel }}</div>
-        <div class="text-xs">{{ label }} — {{ value }}</div>
-      </div>
+                  :labels="['Produk A', 'Produk B', 'Produk C', 'Produk D']"
+                                  :values="[120, 90, 60,20]"
+                  :options="customOptions"
+                >
+                  <template #tooltip="{ datasetLabel, label, value }">
+                    <div class="flex items-center gap-2">
+                      <div class="w-3 h-3 rounded bg-blue-500"></div>
+                      <div>
+                        <div class="font-semibold">{{ datasetLabel }}</div>
+                        <div class="text-xs">{{ label }} — {{ value }}</div>
+                      </div>
+                    </div>
+                  </template>
+                </DoughnutChart>
+                <DoughnutChart
+                  :labels="['Produk A', 'Produk B', 'Produk C', 'Produk D']"
+                                  :values="[120, 90, 60,20]"
+                  :options="customOptions"
+                >
+                  <template #tooltip="{ datasetLabel, label, value }">
+                    <div class="flex items-center gap-2">
+                      <div class="w-3 h-3 rounded bg-blue-500"></div>
+                      <div>
+                        <div class="font-semibold">{{ datasetLabel }}</div>
+                        <div class="text-xs">{{ label }} — {{ value }}</div>
+                      </div>
+                    </div>
+                  </template>
+                </DoughnutChart>
+
+<StackedBarChart
+      :labels="['2014']"
+      :datasets="chartStackDatasets"
+    />
+
+
+  <StackedBarChart :options="customOptions" style="height: 100px;" :labels="['2014']" :datasets="chartStackDatasets">
+  <template #tooltip="{ label, value, datasetLabel }">
+    <div class="p-2 text-xs">
+      <strong>{{ datasetLabel }}</strong><br>
+      {{ label }} — <span class="text-green-600">{{ value }}</span>
     </div>
   </template>
-</DoughnutChart>
+</StackedBarChart>
 
               </div>
             </div>
@@ -3397,5 +3439,4 @@ export default {
         </div>
       </div>
     </div>
-  </div>
 </template>
