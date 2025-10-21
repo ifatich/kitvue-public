@@ -118,21 +118,18 @@ const props = defineProps({
 });
 
 const slots = useSlots();
-const hasTooltipSlot = !!slots.tooltip; // apakah parent memberi slot tooltip?
-const tooltipElRef = ref(null); // DOM element untuk external tooltip
+const hasTooltipSlot = !!slots.tooltip;
+const tooltipElRef = ref(null);
 
-// create / cleanup helper
 function createTooltipElIfNeeded() {
   if (tooltipElRef.value) return tooltipElRef.value;
   const el = document.createElement("div");
-  el.className = "chartjs-tooltip-slot";
-  // default wrapper styles (developer still can style inner slot content)
+  el.className = "barchart-tooltip-slot";
   el.style.position = "absolute";
   el.style.pointerEvents = "none";
   el.style.zIndex = "9999";
   el.style.opacity = "0";
   el.style.transform = "translate(-50%, -120%)";
-  // Default "frame" look: white bg, rounded, shadow, padding
   el.style.background = "#ffffff";
   el.style.borderRadius = "12px";
   el.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)";
@@ -294,14 +291,13 @@ const defaultOptions = {
       }
     },
     legend: { 
-      labels: { 
-        font: {
-          size: 14,  
-        },
+      position: "bottom",
+      labels: {
+        font: { size: 14 },
         usePointStyle: true,
         pointStyle: "rectRounded",
-        padding: 16
-      }, 
+        padding: 12
+      },
       display: true 
     },
     verticalLineInBar: {
@@ -355,25 +351,36 @@ const defaultOptions = {
 
 // mergedOptions: override tooltip.enabled and tooltip.external when slot exists
 const mergedOptions = computed(() => {
-  // shallow merge props.options into defaultOptions
   const merged = {
     ...defaultOptions,
     ...props.options,
     plugins: {
       ...defaultOptions.plugins,
-      ...((props.options && props.options.plugins) || {})
-    }
+      ...((props.options && props.options.plugins) || {}),
+      legend: {
+        ...defaultOptions.plugins.legend,
+        ...((props.options.plugins && props.options.plugins.legend) || {}),
+        labels: {
+          ...defaultOptions.plugins.legend.labels,
+          ...((props.options.plugins?.legend?.labels) || {}),
+        },
+      },
+      tooltip: {
+        ...defaultOptions.plugins.tooltip,
+        ...(props.options.plugins?.tooltip || {}),
+      },
+    },
   };
 
-  // override tooltip enabled / external when slot provided
   merged.plugins.tooltip = {
     ...merged.plugins.tooltip,
-    enabled: !hasTooltipSlot, // jika ada slot -> disable default tooltip drawing
-    external: hasTooltipSlot ? externalTooltip : merged.plugins.tooltip.external
+    enabled: !hasTooltipSlot,
+    external: hasTooltipSlot ? externalTooltip : merged.plugins.tooltip.external,
   };
 
   return merged;
 });
+
 
 // pilih plugin list: kalau ada slot, jangan aktifkan tooltipShadowPlugin (kebalikan)
 const chartPlugins = computed(() => {
@@ -386,7 +393,7 @@ const chartPlugins = computed(() => {
 </script>
 
 <template>
-  <div class="h-full">
+  <div class="bar-chart h-full">
     <Bar
       :data="{ labels: props.labels, datasets: styledDatasets }"
       :options="mergedOptions"
@@ -396,7 +403,7 @@ const chartPlugins = computed(() => {
 </template>
 
 <style>
-.chartjs-tooltip-slot {
+.barchart-tooltip-slot {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
@@ -406,7 +413,7 @@ const chartPlugins = computed(() => {
 }
 
 /* caret kanan (tooltip di kiri bar) */
-.chartjs-tooltip-slot.caret-right::after {
+.barchart-tooltip-slot.caret-right::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -421,7 +428,7 @@ const chartPlugins = computed(() => {
 }
 
 /* caret kiri (tooltip di kanan bar) */
-.chartjs-tooltip-slot.caret-left::after {
+.barchart-tooltip-slot.caret-left::after {
   content: "";
   position: absolute;
   top: 50%;
