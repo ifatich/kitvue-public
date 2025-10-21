@@ -16,11 +16,12 @@ import LabelIcon from "./Label/LabelIcon.vue";
 import NewInputCamera from "@/components/Input/NewInputCamera.vue";
 import TablePagination from "./Table/TablePagination.vue";
 import { BButton, BCarousel, BCarouselSlide } from 'bootstrap-vue-next'
+import InputSearch from "./Input/InputSearch.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
-const nik = ref("1234 1234");
+const ceknik = ref("");
 const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
@@ -2001,21 +2002,18 @@ export default {
 
               <p>Search old Value: {{ text }}</p>
 
-              <InputNIK
-                id="input-nik"
-                label="Ini search nik sendiri"
-                placeholder="Cari nik"
-                v-model="nik"
-                type="nik"
-              />
+              <InputNIK id="input-nik" label="Ini search nik sendiri" placeholder="Cari nik" type="nik" v-model="ceknik" />
 
-              <p>Search nik Value: {{ nik }}</p>
+              <InputSearch id="input-nik" label="Ini search nik sendiri" placeholder="Cari nik" type="nik" v-model="ceknik" />
+              <InputSearch id="input-nik" label="Ini search nik sendiri" placeholder="Cari text" type="text" v-model="ceknik" />
 
-             <LabelIcon
-                  text="Status Aktif"
-                  iconEnd
-                  tooltip="Status ini menandakan akun aktif."
-                  tooltipPosition="bottom"
+              <p>NIK Value: {{ ceknik }}</p>
+
+              <LabelIcon
+                text="Status Aktif"
+                iconEnd
+                tooltip="Status ini menandakan akun aktif."
+                tooltipPosition="bottom"
               />
               <InputNominalStart
                 id="input-rupiah"
