@@ -1,5 +1,5 @@
 <template>
-    <label class="checkbox-wrapper">
+    <label class="checkbox-wrapper" >
         <input
             type="checkbox"
             v-model="isChecked"
@@ -7,7 +7,7 @@
             :class="[`g-checkbox hidden-checkbox`]"
             :disabled="props.disabled"
         />
-        <span class="checkbox-container" @mousedown="createRipple">
+        <span class="checkbox-container" @mousedown="createRipple"  tabindex="0" @keydown.enter.prevent="toggleValue">
             <img
                 :src="checkboxIcon"
                 alt="checkbox"
@@ -55,6 +55,10 @@ watch(() => props.modelValue, (val) => {
 
 function handleChange() {
     emit('update:modelValue', isChecked.value)
+}
+
+const toggleValue = () => {
+    emit("update:modelValue", !isChecked.value);
 }
 
 const checkboxIcon = computed(() => {
@@ -120,6 +124,10 @@ function createRipple(event) {
     display: flex;
     overflow: hidden;
     border-radius: 25%;
+
+    &:focus {
+        outline: var(--g-kit-lime-50) auto 1px;
+    }
 }
 .ripple {
     position: absolute;
