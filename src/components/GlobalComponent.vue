@@ -25,6 +25,7 @@ const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
 const nominalEndValue = ref(20000);
+const activeStepper = ref(3);
 
 const showModal = ref(false);
 const showModalSlider = ref(false);
@@ -678,7 +679,7 @@ export default {
 
       startDate: ref(null),
       endDate: ref(null),
-      allDate: ref(null),
+      allDate: ref(true),
       timePicker: ref(""),
 
       generatedFileName: "",
@@ -1603,6 +1604,11 @@ export default {
                 size="md"
                 label="Button Link"
               />
+
+              <Button class="me-2 mb-2" type="primary" label="Small Button" size="sm" />
+              <Button class="me-2 mb-2" type="primary" size="md" label="Medium Button" />
+              <Button class="me-2 mb-2" type="primary" label="Large Button" size="lg" />
+              <Button class="me-2 mb-2" type="primary" size="xl" label="Very Large Button" />
             </div>
           </div>
         </div>
@@ -1837,8 +1843,8 @@ export default {
                 >
                   I accept the terms and use
                 </BFormCheckbox>
-                  <CustomCheckbox v-model="isSelected" color="secondary" label="asdfsadfsadf"/>
-                  <CustomCheckbox disabled v-model="isSelected" label="asdfsadfsadf" color="primary" />
+                  <CustomCheckbox v-model="isSelected" color="secondary" label="secondaryCheckbox"/>
+                  <CustomCheckbox disabled v-model="isSwitched" label="primaryCheckbox" color="primary" />
                 <div>
                   State: <strong>{{ status }}</strong>
                 </div>
@@ -1921,7 +1927,15 @@ export default {
                     :error="teksError"
                     chevron="chevron"
                     required
-                  />
+                  >
+                    <div class="">
+                      <Alert
+                        class="variant"
+                        color="info"
+                        label="Pilih salah satu opsi yang tersedia"
+                      />
+                    </div>
+                  </Dropdown>
                 </div>
               </div>
 
@@ -1938,7 +1952,6 @@ export default {
                 id="iniidnumber"
                 v-model="number"
                 type="number"
-
                 general
               />
               <InputText
@@ -2146,6 +2159,14 @@ export default {
 
               <Accordion class="mb-2" v-model="modelAccordion">
                 <AccordionItem header="Test header accordion" active>
+                  <template #title>
+                    <div class="d-flex justify-content-between align-items-center gap-2">
+                      <span>Custom Title Accordion</span>
+                      <a href="https://sprint.pegadaian.co.id/sign-in">
+                        <Button type="neutral" size="md" label="Ubah" />
+                      </a>
+                    </div>
+                  </template>
                   <InputSmallDate
                     v-model="selectedDate"
                     id="birthdate"
@@ -3119,7 +3140,8 @@ export default {
               </p>
             </div>
             <div class="card-body">
-              <StepperComponents :activeStep="1" />
+              <StepperComponents v-model:active-step="activeStepper" :enable-step-untill="3" />
+              {{ activeStepper }}
             </div>
           </div>
         </div>
