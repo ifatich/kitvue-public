@@ -80,12 +80,12 @@ const props = defineProps({
   },
 });
 
-const SELECTED_PRESET = ref(props.showAll ? "ALL" : "ANY");
-
 const startDate = defineModel("startDate");
 const endDate = defineModel("endDate");
 const allDate = defineModel("allDate");
 const showOffcanvas = ref(false);
+
+const SELECTED_PRESET = ref(allDate.value ? "ALL" : "ANY");
 
 const getDateString = (date) => {
   const year = date.getFullYear();
