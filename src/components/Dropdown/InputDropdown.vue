@@ -292,10 +292,17 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
 
     .search-wrapper {
         padding-inline: 16px;
+        padding-top: 16px;
     }
 
     .offcanvas-body {
-        padding-top: 16px !important;
+        padding-top: 16px;
+        ul {
+            padding-inline: 16px;
+            li {
+                padding-top: 16px !important;   
+            }
+        }
     } 
 }
 
