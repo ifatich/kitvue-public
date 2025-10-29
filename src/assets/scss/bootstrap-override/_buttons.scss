@@ -94,17 +94,21 @@
     //Button Size
     &-sm {
         height: min-content;
-        --g-bs-btn-padding-y: 2px;
+        --g-bs-btn-padding-y: 3px;
         --g-bs-btn-padding-x: 10px;
+        font-size: var(--g-kit-font-size-omega);
+        line-height: var(--g-kit-line-height-omega);
     }
 
     &-md {
-        --g-bs-btn-padding-y: 0.438rem;
-        --g-bs-btn-padding-x: 1rem;
+        --g-bs-btn-padding-y: 0.375rem;
+        --g-bs-btn-padding-x: .75rem;
+        font-size: var(--g-kit-font-size-sigma);
+        line-height: var(--g-kit-line-height-sigma);
     }
 
     &-lg {
-        --g-bs-btn-padding-y: 0.438rem;
+        --g-bs-btn-padding-y: 0.5rem;
         --g-bs-btn-padding-x: 1rem;
         font-size: var(--g-kit-font-size-omicron);
         line-height: var(--g-kit-line-height-omicron);
@@ -112,7 +116,7 @@
     }
 
     &-xl {
-        --g-bs-btn-padding-y: 0.688rem;
+        --g-bs-btn-padding-y: 0.75rem;
         --g-bs-btn-padding-x: 1rem;
         font-size: var(--g-kit-font-size-omicron);
         line-height: var(--g-kit-line-height-omicron);

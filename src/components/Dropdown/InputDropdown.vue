@@ -208,22 +208,24 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
             </template>
             <div v-if="!props.useBottomSheet">
                 <slot></slot>
-                <b-form-input
-                    v-if="props.items && props.items.length > 10"
-                    @click.stop
-                    v-model="search"
-                    :placeholder="'Cari ' + props.label.toLowerCase()"
-                    :id="$attrs.id + '_search'"
-                    class="mb-0"
-                >
-                </b-form-input>
+                <div class="search-dropdown">
+                    <b-form-input
+                        v-if="props.items && props.items.length > 10"
+                        @click.stop
+                        v-model="search"
+                        :placeholder="'Cari ' + props.label.toLowerCase()"
+                        :id="$attrs.id + '_search'"
+                        class="mb-0"
+                    >
+                    </b-form-input>
+                </div>
                 <BDropdownItem
                     v-for="(option, index) in filteredItems"
                     :key="option[props.itemValue]"
                     @click="handleOptionClick(option)"
                     :id="$attrs.id + '_value_' + option[props.itemValue]"
                 >
-                    <div class="d-flex justify-content-between align-items-center" style="text-wrap: wrap">
+                    <div class="list-dropdown d-flex justify-content-between align-items-center" style="text-wrap: wrap">
                         {{ option[props.itemText] }}
                         <span v-if="selectedValue === option[props.itemValue]">
               <img src="../../assets/icon/icon-system/icon-check.svg" />
@@ -242,15 +244,17 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
                 :class="props.items && props.items.length > 10 ? 'full-height' : 'content-height'"
             >
                 <template #title>Pilih {{ props.label }}</template>
-                <b-form-input
-                    v-if="props.items && props.items.length > 10"
-                    @click.stop
-                    v-model="search"
-                    :placeholder="'Cari ' + props.label.toLowerCase()"
-                    :id="$attrs.id + '_search'"
-                    style="margin-top: 15px"
-                >
-                </b-form-input>
+                 <slot></slot>
+                 <div class="search-wrapper">
+                    <b-form-input
+                        v-if="props.items && props.items.length > 10"
+                        @click.stop
+                        v-model="search"
+                        :placeholder="'Cari ' + props.label.toLowerCase()"
+                        :id="$attrs.id + '_search'"
+                    >
+                    </b-form-input>
+                 </div>
                 <ul class="list-group list-group-flush">
                     <li
                         v-for="(option, index) in filteredItems"
@@ -278,17 +282,28 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
 .input-dropdown {
     max-height: 95% !important;
 
-    .offcanvas-body {
-        padding: 0px 16px 0px 16px !important;
-    }
-
     &.full-height {
-        height: 95% !important;
+        height: 95%;
     }
 
     &.content-height {
         height: max-content !important;
     }
+
+    .search-wrapper {
+        padding-inline: 16px;
+        padding-top: 16px;
+    }
+
+    .offcanvas-body {
+        padding-top: 16px;
+        ul {
+            padding-inline: 16px;
+            li {
+                padding-top: 16px !important;   
+            }
+        }
+    } 
 }
 
 .btn-group {
@@ -320,13 +335,28 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
         padding-right: 12px;
     }
     .dropdown-menu {
+        padding-block: 16px;
+        padding-inline: 0px;
         &.show {
             max-height: 358px !important;
+
+            .search-dropdown {
+                padding-inline: 16px;
+            }
+            
             li {
+                padding: 0px;
+                padding-inline: 16px;
+                   &:has(:focus) {
+                        background-color: var(--g-kit-black-10);
+                    }
                 button {
                     .d-flex.justify-content-between.align-items-center {
                         margin-top: 1rem;
                         margin-bottom: 1rem;
+                    }
+                    &:focus {
+                        background-color: var(--g-kit-black-10);
                     }
                 }
                 &:first-child {
