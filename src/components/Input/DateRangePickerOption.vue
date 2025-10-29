@@ -22,9 +22,8 @@ import Dropdown from "../Dropdown/InputDropdown.vue";
 defineOptions({ name: "DateRangePickerOption", inheritAttrs: false });
 const emit = defineEmits(["buttomSheetShown"]);
 
-const SELECTED_PRESET = ref("ANY");
 const dateRangeDisabled = computed(() =>
-  SELECTED_PRESET.value === "ANY" ? false : true
+  SELECTED_PRESET.value === "ANY" || SELECTED_PRESET.value === "ALL" ? false : true
 );
 const props = defineProps({
   title: {},
@@ -86,6 +85,8 @@ const endDate = defineModel("endDate");
 const allDate = defineModel("allDate");
 const showOffcanvas = ref(false);
 
+const SELECTED_PRESET = ref(allDate.value ? "ALL" : "ANY");
+
 const getDateString = (date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -146,7 +147,7 @@ const handleShown = (value) => {
 </script>
 
 <template>
-  <div class="group-input">
+  <div class="date-picker-option group-input">
     <div class="label-container">
       <label class="form-label"> {{ props.title }} </label>
     </div>
@@ -168,7 +169,7 @@ const handleShown = (value) => {
           {{ valueString || props.placeholder }}
         </p>
       </template>
-      <div v-if="!props.useBottomSheet" class="date-picker-option desktop">
+      <div v-if="!props.useBottomSheet" class="desktop">
         <!-- Tampilkan pilihan "Semua" -->
         <div
           v-if="props.showAll"
@@ -262,7 +263,7 @@ const handleShown = (value) => {
       </div>
 
       <BOffcanvas
-        class="date-picker-option mobile"
+        class="mobile"
         v-if="props.useBottomSheet"
         v-model="showOffcanvas"
         placement="bottom"
@@ -316,7 +317,7 @@ const handleShown = (value) => {
           v-if="props.showAny"
           class="preset-btn mt-2"
           :class="{ 'preset-btn--selected': SELECTED_PRESET === 'ANY' }"
-          @click.stop="SELECTED_PRESET = 'ALL'"
+          @click.stop="SELECTED_PRESET = 'ANY'"
         >
           <BFormRadio
             class="btn-identifier d-flex align-items-center"
@@ -350,12 +351,28 @@ const handleShown = (value) => {
 </template>
 
 <style lang="scss">
+
+.date-picker-option {
+  .dropdown-menu.show li {
+      padding-inline: 0px;
+
+      &:has(:focus) {
+          background-color: transparent;
+      }
+  }
+  .desktop {
+    .calendar-input {
+      margin-bottom: 0px;
+    }
+  }
+}
 .input-filter {
   .dropdown-menu {
-    &.show {
-      overflow: visible !important;
-      max-height: fit-content !important;
-    }
+      padding: 16px;
+      &.show {
+        overflow: visible !important;
+        max-height: fit-content !important;
+      }
   }
 }
 .preset-btn {
@@ -408,11 +425,11 @@ const handleShown = (value) => {
   display: flex;
 
   &--selected {
-       border: 5.5px solid var(--g-kit-lime-50);
+      border: 5.5px solid var(--g-kit-lime-50);
   }
 }
 
-.date-picker-option.mobile {
+.mobile {
   .offcanvas-body {
     padding-top: 1rem !important;
     padding-inline: 1rem !important;
@@ -423,20 +440,20 @@ const handleShown = (value) => {
       }
 
       > :last-child{
-         width: 100%;
+        width: 100%;
       }
     }
   }
 }
 
-.date-picker-option.desktop {
+.desktop {
   .date-range-picker.with-separator {
       > :first-child{
         width: 100%;
       }
 
       > :last-child{
-         width: 100%;
+        width: 100%;
       }
 
       .custom-width {
@@ -445,4 +462,5 @@ const handleShown = (value) => {
     }
 
 }
+
 </style>
