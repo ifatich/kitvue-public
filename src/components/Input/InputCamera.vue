@@ -29,7 +29,6 @@ const props = defineProps({
   uniqueKey: {},
   imagePlaceholder: {
     type: String,
-    default: 'idcard'
   },
   useBottomSheet: {
     type: Boolean,
