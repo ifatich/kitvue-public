@@ -24,7 +24,7 @@
       </template>
 
       <template #footer>
-        <div :class="[`modal-slider-footer d-flex flex-column w-100 gap-2 p-3 rounded-3`, props.stickyFooter && `sticky`]">
+        <div :class="[`modal-slider-footer d-flex flex-column w-100 gap-2 rounded-3`, props.stickyFooter && `sticky  p-3`]">
             <slot name="footer" :hide="hide"></slot>
         </div>
       </template>
