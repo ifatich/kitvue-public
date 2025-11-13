@@ -129,7 +129,7 @@ watch(isDesktop, (newVal) => {
         </div>
       </template>
 
-      <div >
+     <div :class="['carousel-ratio', `ratio-${props.ratio.replace('/', '-')}`]">
             <BCarousel
               no-hover-pause
               v-model="carouselModel"
@@ -143,7 +143,7 @@ watch(isDesktop, (newVal) => {
               <BCarouselSlide v-for="(imgSrc, index) in props.images" :key="index" :img-src="imgSrc">
                 <div v-if="props.timeImages && props.dateImages" class="timestamp flex content-between">
                   <div class="uploader"> {{ "Diambil oleh: " + props.uploader }}</div>
-                  <div class="date-time"> {{ "Waktu Ambil Foto: "+ dateImages[carouselModel] + ", " + timeImages[carouselModel] }}</div>
+                  <div class="date-time"> {{ "Waktu: "+ dateImages[carouselModel] + ", " + timeImages[carouselModel] }}</div>
                 </div>
               </BCarouselSlide>
             </BCarousel>
@@ -197,41 +197,70 @@ watch(isDesktop, (newVal) => {
         width: 100%;
         border-bottom-right-radius: 0.75rem;
         border-bottom-left-radius: 0.75rem;
+
+         @media screen and (max-width: 567px) {
+          font-size: var(--g-kit-font-size-omega);
+        }
       }
-}
+    }
+
+     @media screen and (max-width: 567px) {
+      .carousel-caption {
+         width: 100%;
+        .timestamp {
+            padding-inline: 8px;
+            border-bottom-right-radius: 0rem;
+            border-bottom-left-radius: 0rem;
+        }
+      }
+    }
 
     .carousel {
       button {
+
           &.carousel-control-next {
             left: unset;
-            right: 24px;
-            bottom: 50%;
-            padding: 0.5rem;
-            height: 40px;
-            background-color: white;
-            border-radius: 20rem;
-            .carousel-control-next-icon {
-              width: 24px;
-              height: 24px;
-              background-size: cover;
-              background-image: url('../../assets/icon/chevron_right.svg');
-            }
+            right: 28px;
           }
+
           &.carousel-control-prev {
-            left: 24px;
-            bottom: 50%;
+              left: 28px;
+          } 
+
+
+          &.carousel-control-next, &.carousel-control-prev  {
+            display: flex;
+            top: 50%;
+            transform: translateY(-50%);
             padding: 0.5rem;
             height: 40px;
             background-color: white;
             border-radius: 20rem;
-            .carousel-control-prev-icon{
+            opacity: 1;
+            .carousel-control-next-icon, .carousel-control-prev-icon {
               width: 24px;
               height: 24px;
               background-size: cover;
-              background-image: url('../../assets/icon/chevron_left.svg');
+            }
+            .carousel-control-next-icon {
+               background-image: url('../../assets/icon/chevron_right.svg');
+            }
+
+            .carousel-control-prev-icon {
+               background-image: url('../../assets/icon/chevron_left.svg');
             }
           }
-        
+
+          @media screen and (max-width: 567px) {
+
+            &.carousel-control-next {
+              right: 12px;
+            }
+
+            &.carousel-control-prev {
+                left: 12px;
+            }
+          }
       }
       .carousel-inner {
         .carousel-item {
@@ -266,11 +295,41 @@ watch(isDesktop, (newVal) => {
 
 
   }
-
-
   .modal-slider-component.border-bottom {
     .modal-header{
       border-bottom: 1px solid var(--g-kit-black-20);
     }
   }
+
+  .carousel-ratio {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.75rem;
+
+  &.ratio-2-3 {
+    padding-top: calc(100% * 2 / 3);
+  }
+
+  &.ratio-1-1 {
+    padding-top: 100%;
+  }
+
+  .carousel,
+  .carousel-inner,
+  .carousel-item,
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100% !important;
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: 0.75rem;
+  }
+}
+
+
 </style>
