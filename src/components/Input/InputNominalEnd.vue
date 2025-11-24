@@ -6,7 +6,7 @@
             <img :src="require('../../assets/images/icon-info.svg')" />
         </label>
 
-        <div class="input-group rupiah custom-input-group-icon p-0">
+        <div class="input-group rupiah custom-input-group-icon p-0 input-nominal-end">
             <input 
                 type="tel" :class="['form-control prevent-zero', { 'is-inval': localError }]" 
                 :placeholder="placeholder || ['Masukkan ' + title.toLowerCase()]"
@@ -119,3 +119,31 @@
 
     };
 </script>
+
+<style lang="scss">
+
+.rupiah.custom-input-group-icon {
+
+    &.input-nominal-end {
+
+        &:has(:focus) {
+            border: 1px solid var(--g-kit-lime-50);
+        } 
+        
+        input {
+            border-left: none !important;
+            border-right: 1px solid var(--g-kit-black-20) !important;
+
+            &:disabled {
+                border-left: none !important;
+                border-right: 1px solid var(--g-kit-black-40) !important;
+            }
+
+            &:hover:not(:disabled),&:focus {
+                border-right-color: var(--g-kit-lime-50) !important;
+            }
+        }
+    }
+}
+
+</style>

@@ -85,6 +85,7 @@ const tooltipShadowPlugin = {
 const props = defineProps({
   labels: { type: Array, default: () => [] },
   values: { type: Array, default: () => [] },
+  colors: { type: Array, default: () => [] },
   class: { type: String, default: "" },
   options: { type: Object, default: () => ({}) },
   plugins: { type: Array, default: () => [] },
@@ -95,14 +96,14 @@ const slots = useSlots();
 const hasTooltipSlot = !!slots.tooltip;
 const tooltipElRef = ref(null);
 
-function createTooltipEl() {
+function createTooltipEl(chart) {
   if (tooltipElRef.value) return tooltipElRef.value;
   const el = document.createElement("div");
   el.className = "doughnut-chart-tooltip-slot";
   Object.assign(el.style, {
     position: "absolute",
     pointerEvents: "none",
-    zIndex: 9999,
+    zIndex: 10,
     opacity: 0,
     background: "#fff",
     borderRadius: "12px",
@@ -110,10 +111,15 @@ function createTooltipEl() {
     padding: "8px 12px",
     transition: "opacity 0.3s ease-in-out, left 0.5s ease, top 0.5s ease",
   });
-  document.body.appendChild(el);
+
+  // ✅ Tempel ke parent container chart agar ikut scroll
+  chart.canvas.parentNode.style.position = 'relative';
+  chart.canvas.parentNode.appendChild(el);
+
   tooltipElRef.value = el;
   return el;
 }
+
 
 onUnmounted(() => {
   if (tooltipElRef.value) {
@@ -127,7 +133,7 @@ onUnmounted(() => {
 function externalTooltip(context) {
   if (!hasTooltipSlot) return;
   const { chart, tooltip } = context;
-  const tooltipEl = createTooltipEl();
+  const tooltipEl = createTooltipEl(chart);
 
   // hide
   if (!tooltip || tooltip.opacity === 0) {
@@ -154,60 +160,51 @@ function externalTooltip(context) {
   render(h('div', {}, slots.tooltip(slotProps)), tooltipEl);
 
   // position AFTER DOM updated (size available)
-  requestAnimationFrame(() => {
-    const canvasRect = chart.canvas.getBoundingClientRect();
-    // caretX / caretY adalah titik referensi relatif ke canvas
-    const caretX = typeof tooltip.caretX === 'number' ? tooltip.caretX : tooltip.x || (canvasRect.width / 2);
-    const caretY = typeof tooltip.caretY === 'number' ? tooltip.caretY : tooltip.y || (canvasRect.height / 2);
+requestAnimationFrame(() => {
+  const canvasRect = chart.canvas.getBoundingClientRect();
+  const parentRect = chart.canvas.parentNode.getBoundingClientRect();
 
-    const tooltipW = tooltipEl.offsetWidth;
-    const tooltipH = tooltipEl.offsetHeight;
+  const caretX = typeof tooltip.caretX === 'number' ? tooltip.caretX : tooltip.x || (canvasRect.width / 2);
+  const caretY = typeof tooltip.caretY === 'number' ? tooltip.caretY : tooltip.y || (canvasRect.height / 2);
 
-    // base pos in viewport coords
-    let left = canvasRect.left + window.pageXOffset + caretX;
-    let top  = canvasRect.top  + window.pageYOffset + caretY;
+  const tooltipW = tooltipEl.offsetWidth;
+  const tooltipH = tooltipEl.offsetHeight;
 
-    // adjust by xAlign / yAlign like Chart.js does
-    // small gap (8px) to mimic default caret spacing
-    const GAP = 1;
+  let left = caretX - (canvasRect.left - parentRect.left);
+  let top  = caretY - (canvasRect.top  - parentRect.top);
 
-    // vertical alignment
-    if (tooltip.yAlign === 'top') {
-      top -= (tooltipH + GAP);
-    } else if (tooltip.yAlign === 'bottom') {
-      top += GAP;
-    } else { // center
-      top -= tooltipH / 2;
-    }
+  const GAP = 6;
 
-    // horizontal alignment
-    if (tooltip.xAlign === 'left') {
-      left -= (tooltipW + GAP);
-    } else if (tooltip.xAlign === 'right') {
-      left += GAP;
-    } else { // center
-      left -= tooltipW / 2;
-    }
+  if (tooltip.yAlign === 'top') {
+    top -= (tooltipH + GAP);
+  } else if (tooltip.yAlign === 'bottom') {
+    top += GAP;
+  } else {
+    top -= tooltipH / 2;
+  }
 
-    // apply
-    tooltipEl.style.left = `${Math.round(left)}px`;
-    tooltipEl.style.top = `${Math.round(top)}px`;
-    tooltipEl.style.opacity = '1';
+  if (tooltip.xAlign === 'left') {
+    left -= (tooltipW + GAP);
+  } else if (tooltip.xAlign === 'right') {
+    left += GAP;
+  } else {
+    left -= tooltipW / 2;
+  }
 
-    // caret direction (optional, for styling)
-    tooltipEl.classList.remove('caret-left', 'caret-right');
+  tooltipEl.style.left = `${Math.round(left)}px`;
+  tooltipEl.style.top = `${Math.round(top)}px`;
+  tooltipEl.style.opacity = '1';
 
-if (tooltip.xAlign === 'left') {
-  // tooltip muncul di kanan titik data → caret di kiri
-  tooltipEl.classList.add('caret-left');
-} else if (tooltip.xAlign === 'right') {
-  // tooltip muncul di kiri titik data → caret di kanan
-  tooltipEl.classList.add('caret-right');
-} else {
-  // posisi tengah, misalnya atas/bawah
-  tooltipEl.classList.add('caret-left');
-}
-  });
+  tooltipEl.classList.remove('caret-left', 'caret-right');
+  if (tooltip.xAlign === 'left') {
+    tooltipEl.classList.add('caret-left');
+  } else if (tooltip.xAlign === 'right') {
+    tooltipEl.classList.add('caret-right');
+  } else {
+    tooltipEl.classList.add('caret-left');
+  }
+});
+
 }
 
 
@@ -224,14 +221,14 @@ const defaultColors = [
 const chartData = computed(() => ({
   labels: props.labels,
   datasets: [
-    {
-      label: "Dataset",
+    { 
       data: props.values,
-      backgroundColor: defaultColors.slice(0, props.values.length),
-      hoverOffset: 6,
-      borderRadius: 10,
+      backgroundColor: props.colors.length
+          ? props.colors
+          : defaultColors.slice(0, props.values.length),
+      hoverOffset: 0,
       borderWidth: 0,
-      spacing: 4,
+      spacing: 12,
     },
   ],
 }));
@@ -242,12 +239,12 @@ const defaultOptions = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: "bottom",
+      position: "right",
        labels: {
         font: { size: 14 },
         usePointStyle: true,
         pointStyle: 'rectRounded',
-        padding: 12,
+        padding: 24,
       }
     },
     tooltip: {

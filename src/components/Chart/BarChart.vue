@@ -121,30 +121,21 @@ const slots = useSlots();
 const hasTooltipSlot = !!slots.tooltip;
 const tooltipElRef = ref(null);
 
-function createTooltipElIfNeeded() {
+function createTooltipElIfNeeded(chart) {
   if (tooltipElRef.value) return tooltipElRef.value;
   const el = document.createElement("div");
   el.className = "barchart-tooltip-slot";
-  el.style.position = "absolute";
-  el.style.pointerEvents = "none";
-  el.style.zIndex = "9999";
-  el.style.opacity = "0";
-  el.style.transform = "translate(-50%, -120%)";
-  el.style.background = "#ffffff";
-  el.style.borderRadius = "12px";
-  el.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)";
-  el.style.padding = "8px 12px";
-  el.style.transition = "opacity 0.5s ease, left 0.3s ease, top 0.3s ease";
-el.style.willChange = "left, top, opacity";
-el.style.cssText = `
-  position: absolute;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transition: opacity 0.3s ease, left 0.2s ease, top 0.2s ease;
-  will-change: left, top, opacity;
-`;
-  document.body.appendChild(el);
+  Object.assign(el.style, {
+    position: "absolute",
+    pointerEvents: "none",
+    zIndex: "99",
+    opacity: "0",
+    transition: "opacity 0.3s ease, left 0.2s ease, top 0.2s ease",
+    willChange: "left, top, opacity",
+  });
+  
+  chart.canvas.parentNode.style.position = "relative";
+  chart.canvas.parentNode.appendChild(el);
   tooltipElRef.value = el;
   return el;
 }
@@ -163,9 +154,8 @@ onUnmounted(() => {
 function externalTooltip(context) {
   if (!hasTooltipSlot) return;
   const { chart, tooltip } = context;
-  const tooltipEl = createTooltipElIfNeeded();
+  const tooltipEl = createTooltipElIfNeeded(chart);
 
-  // hide
   if (!tooltip || tooltip.opacity === 0) {
     tooltipEl.style.opacity = "0";
     return;
@@ -190,35 +180,29 @@ function externalTooltip(context) {
     tooltip
   };
 
-  // render slot
+  // render custom slot
   render(h("div", {}, slots.tooltip(slotProps)), tooltipEl);
 
-  // posisi
-  const canvasRect = chart.canvas.getBoundingClientRect();
+  // posisi relatif ke container chart
   const caretX = tooltip.caretX;
   const caretY = tooltip.caretY;
   const tooltipWidth = tooltipEl.offsetWidth || 120;
   const tooltipHeight = tooltipEl.offsetHeight || 40;
 
-  const left = canvasRect.left + window.pageXOffset + caretX;
-  const top = canvasRect.top + window.pageYOffset + caretY;
-
-  // cek apakah di kanan atau kiri center
-  const centerX = canvasRect.left + canvasRect.width / 2;
+  const left = caretX;
+  const top = caretY;
+  const centerX = chart.width / 2;
 
   if (left > centerX) {
-    // tooltip di kanan -> caret di kiri
     tooltipEl.classList.add("caret-left");
     tooltipEl.classList.remove("caret-right");
-    tooltipEl.style.left = `${left - tooltipWidth - 12}px`; // geser kiri
+    tooltipEl.style.left = `${left - tooltipWidth - 12}px`;
   } else {
-    // tooltip di kiri -> caret di kanan
     tooltipEl.classList.add("caret-right");
     tooltipEl.classList.remove("caret-left");
-    tooltipEl.style.left = `${left + 12}px`; // geser kanan
+    tooltipEl.style.left = `${left + 12}px`;
   }
 
-  // vertikal posisi biar caret center
   tooltipEl.style.top = `${top - tooltipHeight / 2}px`;
   tooltipEl.style.opacity = "1";
 }
@@ -308,6 +292,7 @@ const defaultOptions = {
   },
   scales: {
     x: { 
+      fontSize: 10,
       grid: { 
         display: false
       },
@@ -325,6 +310,7 @@ const defaultOptions = {
       }
     },
     y: {
+      fontSize: 10,
       grid: {
         display: true,
         color: "#e0e0e0",

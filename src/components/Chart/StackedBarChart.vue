@@ -48,16 +48,15 @@ const hasTooltipSlot = !!slots.tooltip
 const tooltipElRef = ref(null)
 
 // create tooltip DOM (for external slot)
-function createTooltipElIfNeeded() {
+function createTooltipElIfNeeded(chart) {
   if (tooltipElRef.value) return tooltipElRef.value
   const el = document.createElement('div')
   el.className = 'stack-bar-chart-tooltip-slot'
   Object.assign(el.style, {
     position: 'absolute',
     pointerEvents: 'none',
-    zIndex: '9999',
+    zIndex: '10',
     opacity: '0',
-    transform: 'translate(-50%, -120%)',
     background: '#ffffff',
     borderRadius: '12px',
     boxShadow: '0 8px 20px rgba(0,0,0,0.12)',
@@ -65,10 +64,12 @@ function createTooltipElIfNeeded() {
     transition: 'opacity 0.3s ease, left 0.2s ease, top 0.2s ease',
     willChange: 'left, top, opacity',
   })
-  document.body.appendChild(el)
+  chart.canvas.parentNode.style.position = 'relative'
+  chart.canvas.parentNode.appendChild(el)
   tooltipElRef.value = el
   return el
 }
+
 
 onUnmounted(() => {
   if (tooltipElRef.value) {
@@ -82,7 +83,7 @@ onUnmounted(() => {
 function externalTooltipHandler(context) {
   if (!hasTooltipSlot) return
   const { chart, tooltip } = context
-  const tooltipEl = createTooltipElIfNeeded()
+  const tooltipEl = createTooltipElIfNeeded(chart)
 
   if (!tooltip || tooltip.opacity === 0) {
     tooltipEl.style.opacity = '0'
@@ -106,24 +107,30 @@ function externalTooltipHandler(context) {
     tooltip,
   }
 
-  // render slot content
   render(h('div', {}, slots.tooltip(slotProps)), tooltipEl)
 
-  // position like Chart.js: caretX/caretY relative to canvas
-  const rect = chart.canvas.getBoundingClientRect()
-  const left = rect.left + window.scrollX + tooltip.caretX - 25
-  const top = rect.top + window.scrollY + tooltip.caretY - 35
+  requestAnimationFrame(() => {
+    const canvasRect = chart.canvas.getBoundingClientRect()
+    const parentRect = chart.canvas.parentNode.getBoundingClientRect()
 
-  let transform = ''
-  if (tooltip.xAlign === 'center') transform += 'translateX(-50%)'
-  else if (tooltip.xAlign === 'right') transform += 'translateX(-100%)'
-  if (tooltip.yAlign === 'bottom') transform += ' translateY(-100%)'
+    const tooltipW = tooltipEl.offsetWidth
+    const tooltipH = tooltipEl.offsetHeight
 
-  tooltipEl.style.transform = transform || 'translate(0, 0)'
-  tooltipEl.style.left = `${left}px`
-  tooltipEl.style.top = `${top}px`
-  tooltipEl.style.opacity = '1'
+    // posisi relatif terhadap parent container
+    let left = tooltip.caretX - (canvasRect.left - parentRect.left)  + 40
+    let top = tooltip.caretY - (canvasRect.top - parentRect.top) -35
+
+    // sesuaikan seperti posisi Chart.js
+    if (tooltip.yAlign === 'bottom') top -= tooltipH + 8
+    if (tooltip.xAlign === 'center') left -= tooltipW / 2
+    if (tooltip.xAlign === 'right') left -= tooltipW
+
+    tooltipEl.style.left = `${Math.round(left)}px`
+    tooltipEl.style.top = `${Math.round(top)}px`
+    tooltipEl.style.opacity = '1'
+  })
 }
+
 
 // Data / chart payload
 const defaultColors = [
