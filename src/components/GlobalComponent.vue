@@ -740,6 +740,8 @@ export default {
 
       startDate: ref(null),
       endDate: ref(null),
+      minDays: ref(7),
+      dateRangePickerRef: null,
       allDate: ref(true),
       timePicker: ref(""),
 
@@ -1554,6 +1556,18 @@ export default {
     handleLabelClick(id) {
       this.activeLabel = id;
     },
+    handleResetButtonDatePicker() {
+    const today = new Date()
+    const pastDate = new Date()
+    pastDate.setDate(today.getDate() - this.minDays)
+    
+
+    this.startDate = pastDate.toISOString().split("T")[0]
+    this.endDate = today.toISOString().split("T")[0]
+
+    this.$refs.dateRangePickerRef?.resetToPreset("7")
+    console.log("refs dateRangePicker", this.$refs.dateRangePickerRef)
+    }
   },
 };
 </script>
@@ -1883,6 +1897,28 @@ export default {
                 showAll
               />
               <p>Selected Date: {{ startDate }} - {{ endDate }}</p>
+
+              <DateRangePickerOption
+                :disabled="false"
+                placeholder="Pilih Tanggal"
+                title="Date Range Picker with Reset Checkbox to default 7 days dynamic adjustment default"
+                v-model:start-date="startDate"
+                v-model:end-date="endDate"
+                v-model:all-date="allDate"
+                firstLabel="Periode Program"
+                secondLabel=" "
+                separator
+                showAll
+                ref="dateRangePickerRef"
+              />
+              <p>Selected Date: {{ startDate }} - {{ endDate }}</p>
+              <Button
+                class="me-2 mb-2"
+                type="secondary"
+                size="md"
+                label="Reset Button"
+                @click="handleResetButtonDatePicker"
+              />
               <div class="row">
                 <div class="col-md-4">
                   <TimePicker
