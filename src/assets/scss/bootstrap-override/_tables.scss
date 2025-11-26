@@ -45,7 +45,8 @@
 
     >thead {
         tr th {
-            padding: 16px !important;
+            padding-inline: 16px !important;
+            padding-block: 18px !important;
             font-size: var(--g-kit-font-size-sigma);
             line-height: var(--g-kit-line-height-sigma);
             font-weight: var(--g-kit-font-weight-bold);
