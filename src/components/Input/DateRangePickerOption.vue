@@ -8,6 +8,7 @@ import {
   computed,
   defineProps,
   defineEmits,
+  defineExpose,
 } from "vue";
 import DateRangePicker from "./DateRangePicker.vue";
 import {
@@ -144,6 +145,14 @@ const handleShown = (value) => {
     emit("buttomSheetShown", value);
   }
 };
+
+const resetToPreset = (presetValue) => {
+  SELECTED_PRESET.value = presetValue;
+};
+
+defineExpose({
+  resetToPreset
+});
 </script>
 
 <template>
