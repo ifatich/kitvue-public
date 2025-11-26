@@ -8,6 +8,7 @@ import {
   computed,
   defineProps,
   defineEmits,
+  defineExpose,
 } from "vue";
 import DateRangePicker from "./DateRangePicker.vue";
 import {
@@ -144,6 +145,14 @@ const handleShown = (value) => {
     emit("buttomSheetShown", value);
   }
 };
+
+const resetToPreset = (presetValue) => {
+  SELECTED_PRESET.value = presetValue;
+};
+
+defineExpose({
+  resetToPreset
+});
 </script>
 
 <template>
@@ -169,7 +178,7 @@ const handleShown = (value) => {
           {{ valueString || props.placeholder }}
         </p>
       </template>
-      <div v-if="!props.useBottomSheet" class="desktop">
+      <div v-if="!props.useBottomSheet" class="desktop" @click.prevent.stop>
         <!-- Tampilkan pilihan "Semua" -->
         <div
           v-if="props.showAll"
