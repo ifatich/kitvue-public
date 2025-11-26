@@ -92,9 +92,12 @@ const showModalSlider = ref(false);
 const showModalSliderJaminan = ref(false);
 const showModalJaminanBarang = ref(false);
 const showModalKreditJaminanBarang = ref(false);
+const showModalHasilPemeriksaan = ref(false);
+const showModalFotoHasilPemeriksaan = ref(false);
 const showModalSliderKreditJaminan = ref(false);
 const selectedRowData = ref(0)
 const selectedImgData = ref(0)
+const selectedImgData2 = ref(0)
 const offCanvasOpen = ref(false);
 const modalOpen1 = ref(false);
 const modalOpen2 = ref(false);
@@ -623,7 +626,6 @@ import HeaderCMS from "./Header/HeaderCMS.vue";
 import FilterCMS from "./Filter/FilterCMS.vue"
 import ImageView from "./Image/ImageView.vue";
 import GOffCanvas from "./BottomSheet/GOffCanvas.vue";
-import TestDataTable from "./Table/TestDataTable.vue";
 import SideNavCMS from "./Navbar/SideNavCMS.vue";
 import ListSorted from "./ListGroup/ListSorted.vue";
 import BarChart from "./Chart/BarChart.vue";
@@ -1126,7 +1128,7 @@ export default {
           { src: "https://picsum.photos/200/150?image=2", dateImages: "13 Jan 2024", timeImages: "12:00" },
           { src: "https://picsum.photos/200/150?image=2", dateImages: "14 Jan 2024", timeImages: "11:00" },
           { src: "https://picsum.photos/200/150?image=2", dateImages: "15 Jan 2024", timeImages: "10:00" },
-        ]
+        ],
       },
       {
         id: 2,
@@ -1187,7 +1189,7 @@ export default {
        ],
 
       tableJaminanColumns: [
-        { data: "nomorJaminan", title: "Nomor Jaminan" },
+        { data: "nomorJaminan", title: "No. Jaminan" },
         { data: "tipeJaminan", title: "Tipe Jaminan" },
         { data: "rincianBarangJaminan", title: "Rincian Barang Jaminan" },
         { data: "fotoJaminan", title: "Foto Jaminan" },
@@ -1200,52 +1202,150 @@ export default {
         city: "New York",
         occupation: "Software Engineer",
         salary: 80000,
-        daftarJaminan: [
-          {
-            id: 1,
-            nomorJaminan: "JMN-001",
-            tipeJaminan: "Emas",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Cincin Emas 24K" },
-              { title: "Berat", value: "5 gram" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-          {
-            id: 2,
-            nomorJaminan: "JMN-002",
-            tipeJaminan: "Elektronik",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Laptop MacBook Pro" },
-              { title: "Kondisi", value: "Baik" },
-              { title: "Tahun", value: "2021" },
-            ],
-          },
-          {
-            id: 3,
-            nomorJaminan: "JMN-003",
-            tipeJaminan: "Kendaraan",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Motor Honda Vario" },
-              { title: "Tahun", value: "2020" },
-              { title: "Kondisi", value: "Sangat Baik" },
-            ],
-          },
-        ],
-        fotoJaminan: [
-          [
-            { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
-            { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        daftarJaminan: [{
+          id: 1,
+          nomorJaminan: "JMN-002",
+          tipeJaminan: "Elektronik",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Laptop MacBook Pro" },
+            { title: "Kondisi", value: "Baik" },
+            { title: "Tahun", value: "2021" },
           ],
-          [
+          fotoJaminan: [
             { src: "https://picsum.photos/200/150?image=3", dateImages: "10 Feb 2024", timeImages: "09:30" },
             { src: "https://picsum.photos/200/150?image=4", dateImages: "10 Feb 2024", timeImages: "09:45" },
           ],
-          [
+        },
+        {
+          id: 2,
+          nomorJaminan: "JMN-003",
+          tipeJaminan: "Kendaraan",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Motor Honda Vario" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+          ],
+           fotoJaminan:  [
             { src: "https://picsum.photos/200/150?image=5", dateImages: "15 Mar 2024", timeImages: "14:20" },
             { src: "https://picsum.photos/200/150?image=6", dateImages: "15 Mar 2024", timeImages: "14:25" },
           ],
-        ]
+        },
+        {
+          id: 3,
+          nomorJaminan: "JMN-001",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Emas 24K" },
+            { title: "Berat", value: "5 gram" },
+            { title: "Kondisi", value: "Baik" },
+            { title: "Berat", value: "5 gram" },
+            { title: "Kondisi", value: "Baik" },
+            { title: "Berat", value: "5 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+           fotoJaminan:  [
+            { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+            { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+          ],
+        },
+      ],
+        fotoJaminan: [
+          { src: "https://picsum.photos/200/150?image=3", dateImages: "10 Feb 2024", timeImages: "09:30" },
+          { src: "https://picsum.photos/200/150?image=4", dateImages: "10 Feb 2024", timeImages: "09:45" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.000" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.000" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
+      {
+        id: 1,
+        name: "John Doe",
+        city: "New York",
+        occupation: "Software Engineer",
+        salary: 80000,
+        daftarJaminan: [{
+          id: 2,
+          nomorJaminan: "JMN-003",
+          tipeJaminan: "Kendaraan",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Motor Honda Vario" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            { title: "Tahun", value: "2020" },
+            { title: "Kondisi", value: "Sangat Baik" },
+            
+          ],
+           fotoJaminan:  [
+            { src: "https://picsum.photos/200/150?image=5", dateImages: "15 Mar 2024", timeImages: "14:20" },
+            { src: "https://picsum.photos/200/150?image=6", dateImages: "15 Mar 2024", timeImages: "14:25" },
+          ],
+        },
+      ],
+        fotoJaminan:  [
+          { src: "https://picsum.photos/200/150?image=5", dateImages: "15 Mar 2024", timeImages: "14:20" },
+          { src: "https://picsum.photos/200/150?image=6", dateImages: "15 Mar 2024", timeImages: "14:25" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.000" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.000" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
+      {
+        id: 1,
+        name: "John Doe",
+        city: "New York",
+        occupation: "Software Engineer",
+        salary: 80000,
+        daftarJaminan:  [{
+          id: 3,
+          nomorJaminan: "JMN-001",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Emas 24K" },
+            { title: "Berat", value: "5 gram" },
+            { title: "Kondisi", value: "Baik" },
+            { title: "Berat", value: "5 gram" },
+            { title: "Kondisi", value: "Baik" },
+            { title: "Berat", value: "5 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+            fotoJaminan:  [
+            { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+            { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+          ],
+        },
+      ],
+        fotoJaminan:  [
+          { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.000" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.000" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=1", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=2", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
       },
       {
         id: 2,
@@ -1253,52 +1353,33 @@ export default {
         city: "Los Angeles",
         occupation: "Graphic Designer",
         salary: 65000,
-        daftarJaminan: [
-          {
-            id: 1,
-            nomorJaminan: "JMN-004",
-            tipeJaminan: "Emas",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Kalung Emas 22K" },
-              { title: "Berat", value: "10 gram" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-          {
-            id: 2,
-            nomorJaminan: "JMN-005",
-            tipeJaminan: "Elektronik",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Kamera DSLR Canon" },
-              { title: "Kondisi", value: "Sangat Baik" },
-              { title: "Tahun", value: "2022" },
-            ],
-          },
-          {
-            id: 3,
-            nomorJaminan: "JMN-006",
-            tipeJaminan: "Kendaraan",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Mobil Toyota Avanza" },
-              { title: "Tahun", value: "2019" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-        ],
-        fotoJaminan: [
-          [
+        daftarJaminan: [{
+          id: 5,
+          nomorJaminan: "JMN-004",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Kalung Emas 22K" },
+            { title: "Berat", value: "10 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan:  [
             { src: "https://picsum.photos/200/150?image=7", dateImages: "20 Apr 2024", timeImages: "11:00" },
             { src: "https://picsum.photos/200/150?image=8", dateImages: "20 Apr 2024", timeImages: "11:05" },
           ],
-          [
-            { src: "https://picsum.photos/200/150?image=9", dateImages: "25 Apr 2024", timeImages: "15:15" },
-            { src: "https://picsum.photos/200/150?image=10", dateImages: "25 Apr 2024", timeImages: "15:20" },
-          ],
-          [
-            { src: "https://picsum.photos/200/150?image=11", dateImages: "30 Apr 2024", timeImages: "14:00" },
-            { src: "https://picsum.photos/200/150?image=12", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
-          ]
-        ]
+        },
+      ],
+        fotoJaminan:  [
+          { src: "https://picsum.photos/200/150?image=7", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=8", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.001" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.001" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=3", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=4", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
       },
       {
         id: 3,
@@ -1306,52 +1387,33 @@ export default {
         city: "Chicago",
         occupation: "Data Analyst",
         salary: 72000,
-        daftarJaminan: [
-          {
-            id: 1,
-            nomorJaminan: "JMN-007",
-            tipeJaminan: "Emas",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Gelang Emas 24K" },
-              { title: "Berat", value: "8 gram" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-          {
-            id: 2,
-            nomorJaminan: "JMN-008",
-            tipeJaminan: "Elektronik",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Smartphone Samsung Galaxy" },
-              { title: "Kondisi", value: "Baik" },
-              { title: "Tahun", value: "2023" },
-            ],
-          },
-          {
-            id: 3,
-            nomorJaminan: "JMN-009",
-            tipeJaminan: "Kendaraan",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Sepeda Polygon" },
-              { title: "Tahun", value: "2021" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-        ],
-        fotoJaminan: [
-          [
+        daftarJaminan: [{
+          id: 6,
+          nomorJaminan: "JMN-007",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Gelang Emas 24K" },
+            { title: "Berat", value: "8 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+           fotoJaminan: [
             { src: "https://picsum.photos/200/150?image=13", dateImages: "20 Apr 2024", timeImages: "11:00" },
             { src: "https://picsum.photos/200/150?image=14", dateImages: "20 Apr 2024", timeImages: "11:05" },
           ],
-          [
-            { src: "https://picsum.photos/200/150?image=15", dateImages: "25 Apr 2024", timeImages: "15:15" },
-            { src: "https://picsum.photos/200/150?image=16", dateImages: "25 Apr 2024", timeImages: "15:20" },
-          ],
-          [
-            { src: "https://picsum.photos/200/150?image=17", dateImages: "30 Apr 2024", timeImages: "14:00" },
-            { src: "https://picsum.photos/200/150?image=18", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
-          ]
-        ]
+        },
+      ],
+      fotoJaminan: [
+        { src: "https://picsum.photos/200/150?image=13", dateImages: "20 Apr 2024", timeImages: "11:00" },
+        { src: "https://picsum.photos/200/150?image=14", dateImages: "20 Apr 2024", timeImages: "11:05" },
+      ],
+      hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.002" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.002" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=5", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=6", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
       },
       {
         id: 4,
@@ -1359,52 +1421,33 @@ export default {
         city: "Houston",
         occupation: "Marketing Manager",
         salary: 90000,
-        daftarJaminan: [
-          {
-            id: 1,
-            nomorJaminan: "JMN-010",
-            tipeJaminan: "Emas",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Anting Emas 22K" },
-              { title: "Berat", value: "4 gram" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-          {
-            id: 2,
-            nomorJaminan: "JMN-011",
-            tipeJaminan: "Elektronik",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Tablet iPad Pro" },
-              { title: "Kondisi", value: "Sangat Baik" },
-              { title: "Tahun", value: "2022" },
-            ],
-          },
-          {
-            id: 3,
-            nomorJaminan: "JMN-012",
-            tipeJaminan: "Kendaraan",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Motor Yamaha NMAX" },
-              { title: "Tahun", value: "2021" },
-              { title: "Kondisi", value: "Sangat Baik" },
-            ],
-          },
-        ],
-        fotoJaminan: [
-          [
+        daftarJaminan:  [{
+          id: 7,
+          nomorJaminan: "JMN-010",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Anting Emas 22K" },
+            { title: "Berat", value: "4 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan:   [
             { src: "https://picsum.photos/200/150?image=19", dateImages: "20 Apr 2024", timeImages: "11:00" },
             { src: "https://picsum.photos/200/150?image=20", dateImages: "20 Apr 2024", timeImages: "11:05" },
           ],
-          [
-            { src: "https://picsum.photos/200/150?image=21", dateImages: "25 Apr 2024", timeImages: "15:15" },
-            { src: "https://picsum.photos/200/150?image=22", dateImages: "25 Apr 2024", timeImages: "15:20" },
-          ],
-          [
-            { src: "https://picsum.photos/200/150?image=23", dateImages: "30 Apr 2024", timeImages: "14:00" },
-            { src: "https://picsum.photos/200/150?image=24", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
-          ]
-        ]
+        },
+      ],
+        fotoJaminan:   [
+          { src: "https://picsum.photos/200/150?image=19", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=20", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.003" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.003" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=7", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=8", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
       },
       {
         id: 5,
@@ -1412,53 +1455,226 @@ export default {
         city: "Phoenix",
         occupation: "HR Specialist",
         salary: 70000,
-        daftarJaminan: [
-          {
-            id: 1,
-            nomorJaminan: "JMN-013",
-            tipeJaminan: "Emas",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
-              { title: "Berat", value: "7 gram" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-          {
-            id: 2,
-            nomorJaminan: "JMN-014",
-            tipeJaminan: "Elektronik",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "TV LED Samsung 55 inch" },
-              { title: "Kondisi", value: "Baik" },
-              { title: "Tahun", value: "2020" },
-            ],
-          },
-          {
-            id: 3,
-            nomorJaminan: "JMN-015",
-            tipeJaminan: "Kendaraan",
-            rincianBarangJaminan: [
-              { title: "Nama Barang", value: "Mobil Honda Jazz" },
-              { title: "Tahun", value: "2018" },
-              { title: "Kondisi", value: "Baik" },
-            ],
-          },
-        ],
-        fotoJaminan: [
-          [
+        daftarJaminan: [{
+          id: 8,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan: [
             { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
             { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
           ],
-          [
-            { src: "https://picsum.photos/200/150?image=27", dateImages: "25 Apr 2024", timeImages: "15:15" },
-            { src: "https://picsum.photos/200/150?image=28", dateImages: "25 Apr 2024", timeImages: "15:20" },
+        },
+        {
+          id: 9,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
           ],
-          [
-            { src: "https://picsum.photos/200/150?image=29", dateImages: "30 Apr 2024", timeImages: "14:00" },
-            { src: "https://picsum.photos/200/150?image=", dateImages: "30 Apr 2024", timeImages: "14:05" }, 
-          ]
-        ]
-      }
+           fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+        {
+          id: 10,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+        {
+          id: 11,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+           fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+        {
+          id: 12,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+      ],
+        fotoJaminan: [
+          { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.004" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.004" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=9", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=10", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
+      {
+        id: 5,
+        name: "David Brown",
+        city: "Phoenix",
+        occupation: "HR Specialist",
+        salary: 70000,
+        daftarJaminan: [{
+          id: 9,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+           fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+      ],
+        fotoJaminan: [
+          { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.005" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.005" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=9", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=10", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
+      {
+        id: 5,
+        name: "David Brown",
+        city: "Phoenix",
+        occupation: "HR Specialist",
+        salary: 70000,
+        daftarJaminan: [{
+          id: 10,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+      ],
+        fotoJaminan: [
+          { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.005" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.005" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=9", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=10", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
+      {
+        id: 5,
+        name: "David Brown",
+        city: "Phoenix",
+        occupation: "HR Specialist",
+        salary: 70000,
+        daftarJaminan: [{
+          id: 11,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+           fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+      ],
+        fotoJaminan: [
+          { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.005" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.005" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=9", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=10", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
+      {
+        id: 5,
+        name: "David Brown",
+        city: "Phoenix",
+        occupation: "HR Specialist",
+        salary: 70000,
+        daftarJaminan: [{
+          id: 12,
+          nomorJaminan: "JMN-013",
+          tipeJaminan: "Emas",
+          rincianBarangJaminan: [
+            { title: "Nama Barang", value: "Cincin Kawin Emas Putih" },
+            { title: "Berat", value: "7 gram" },
+            { title: "Kondisi", value: "Baik" },
+          ],
+          fotoJaminan: [
+            { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+            { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+          ],
+        },
+      ],
+        fotoJaminan: [
+          { src: "https://picsum.photos/200/150?image=25", dateImages: "20 Apr 2024", timeImages: "11:00" },
+          { src: "https://picsum.photos/200/150?image=26", dateImages: "20 Apr 2024", timeImages: "11:05" },
+        ],
+        hasilPemeriksaan: [
+          { title: "Taksiran", value: "Rp 22.400.005" },
+          { title: "Taksiran Pemeriksa", value: "Rp 22.400.005" },
+        ],
+        fotoBuktiPemeriksaan : [
+          { src: "https://picsum.photos/200/150?image=9", dateImages: "12 Jan 2024", timeImages: "13:00" },
+          { src: "https://picsum.photos/200/150?image=10", dateImages: "12 Jan 2024", timeImages: "12:00" },
+        ],
+      },
     ],
 
 
@@ -1490,7 +1706,17 @@ export default {
         {
           data: "fotoJaminan",
           title: "Foto Jaminan",
-        } 
+          hideMobile: true,
+        }, 
+        {
+          data: "hasilPemeriksaan",
+          title: "Hasil Pemeriksaan",
+          arrayObjectCollapse: true
+        },
+        {
+          data: "fotoBuktiPemeriksaan",
+          title: "Foto Bukti Pemeriksaan",
+        },
       ],
 
 
@@ -2818,15 +3044,15 @@ export default {
                 :columns="tableJaminanColumns"
                 leftContent="nomorJaminan"
                 rightContent="tipeJaminan"
-                v-model:modalSliderOpen="showModalSliderJaminan"
-                v-model:selectedImgIndex="selectedImgData"
+                v-model:firstModalFirstLayerOpen="showModalSliderJaminan"
+                v-model:selectedFirstLayerIndex="selectedImgData"
               >
               </DataTable> 
 
               <ModalSlider
                 v-model="showModalSliderJaminan"
                 title="Foto Jaminan"
-                ratio="2/3"
+                ratio="1/1"
                 :persistent="true"
                 :centered="true"
                 :images="tableJaminanDatas[selectedImgData].fotoJaminan?.map(f => f.src)"
@@ -2840,7 +3066,7 @@ export default {
                       label="Ambil Ulang Foto"
                       class="w-100"
                     />
-                    <Button
+                    <Buttond
                       type="neutral"
                       label="Lihat Lokasi"
                       class="w-100"
@@ -2860,15 +3086,20 @@ export default {
               </p>
             </div>
             <div class="card-body"> 
-              <!-- <TestDataTable
+              <DataTable
                 :data="tableKreditBarangJaminan"
                 :columns="tableKreditBarangJaminanColumns"
                 leftContent="name"
                 rightContent="city"
-                v-model:modalSliderOpen="showModalSliderKreditJaminan"
-                v-model:modalTableOpen="showModalKreditJaminanBarang"
-                v-model:selectedDataIndex="selectedRowData"
-                v-model:selectedImgIndex="selectedImgData"
+
+                v-model:selectedFirstLayerIndex="selectedRowData"
+                v-model:firstModalFirstLayerOpen="showModalKreditJaminanBarang"
+                v-model:secondModalFirstLayerOpen="showModalHasilPemeriksaan"
+                v-model:thirdModalFirstLayerOpen="showModalFotoHasilPemeriksaan"
+
+                v-model:selectedSecondLayerIndex="selectedImgData2"
+                v-model:modalSecondLayerOpen="showModalSliderKreditJaminan"
+                :rows-pan-col-index="[0,1,2,3,4,7,8]"
               >
                 <template v-slot:tableActionButtons="{ item }">
                   <div class="d-flex">
@@ -2888,17 +3119,17 @@ export default {
                     />
                   </div>
                 </template>
-              </TestDataTable>  -->
+              </DataTable> 
 
               <ModalSlider
                 v-model="showModalSliderKreditJaminan"
-                title="Foto Jaminan"
+                title="Foto Jaminan Kredit"
                 ratio="1/1"
                 :persistent="true"
                 :centered="true"
-                :images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.src)"
-                :date-images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.dateImages)"
-                :time-images="tableKreditBarangJaminan?.[selectedRowData]?.daftarJaminan?.[selectedImgData]?.fotoJaminan?.map(f => f.timeImages)"
+                :images="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.daftarJaminan.find(item => item.id === selectedImgData2)?.fotoJaminan?.map(f => f.src)"
+                :date-images="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.daftarJaminan.find(item => item.id === selectedImgData2)?.fotoJaminan?.map(f => f.dateImages)"
+                :time-images="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.daftarJaminan.find(item => item.id === selectedImgData2)?.fotoJaminan?.map(f => f.timeImages)"
                 uploader="P12345"
               >
                <template v-slot:footer>
@@ -2915,23 +3146,34 @@ export default {
                 </template>
               </ModalSlider>
 
+              <ModalSlider
+                v-model="showModalFotoHasilPemeriksaan"
+                title="Foto Hasil Pemeriksaan"
+                ratio="1/1"
+                :persistent="true"
+                :centered="true"
+                :images="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.fotoBuktiPemeriksaan?.map(f => f.src)"
+                :date-images="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.fotoBuktiPemeriksaan?.map(f => f.dateImages)"
+                :time-images="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.fotoBuktiPemeriksaan?.map(f => f.timeImages)"
+                uploader="P12345"
+              >
+              </ModalSlider>
+
               <GOffCanvas
                 v-model="showModalKreditJaminanBarang"
                 close-button
                 sticky-footer
-                title="Daftar Barang Jaminan"
+                title="Daftar Barang Jaminannn"
                 >
 
                 <div >
-                    <TestDataTable
-                      :data="tableKreditBarangJaminan[selectedRowData]?.daftarJaminan || []"
+                    <DataTable
+                      :data="tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.daftarJaminan || []"
                       :columns="tableJaminanColumns"
                       leftContent="nomorJaminan"
                       rightContent="tipeJaminan"
-                      v-model:modalTableOpen="showModalKreditJaminanBarang"
-                      v-model:modalSliderOpen="showModalSliderKreditJaminan"
-                      v-model:selectedDataIndex="selectedRowData"
-                      v-model:selectedImgIndex="selectedImgData"
+                      v-model:firstModalFirstLayerOpen="showModalSliderKreditJaminan"
+                      v-model:selectedFirstLayerIndex="selectedImgData2"
                     >
                       <template v-slot:tableActionButtons="{ item }">
                         <div class="d-flex">
@@ -2951,7 +3193,7 @@ export default {
                           />
                         </div>
                       </template>
-                    </TestDataTable>
+                    </DataTable>
                 </div>
 
                 <template #footer>
@@ -2966,6 +3208,20 @@ export default {
                       class="w-100"
                     />
                 </template>
+              </GOffCanvas>
+
+              <GOffCanvas
+                v-model="showModalHasilPemeriksaan"
+                close-button
+                title="Hasil Pemeriksaan"
+                >
+
+                <div class="flex flex-column gap-1">
+                  <div v-for="obj in tableKreditBarangJaminan.find(item => item.id === selectedRowData)?.hasilPemeriksaan" :key="obj.title" class="flex justify-between">
+                    <span>{{ obj.title }}</span>
+                    <span>{{ obj.value }}</span>
+                  </div>
+                </div>
               </GOffCanvas>
             </div>
           </div>
