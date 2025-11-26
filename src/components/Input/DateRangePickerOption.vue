@@ -178,7 +178,7 @@ defineExpose({
           {{ valueString || props.placeholder }}
         </p>
       </template>
-      <div v-if="!props.useBottomSheet" class="desktop">
+      <div v-if="!props.useBottomSheet" class="desktop" @click.prevent.stop>
         <!-- Tampilkan pilihan "Semua" -->
         <div
           v-if="props.showAll"
