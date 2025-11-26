@@ -66,7 +66,7 @@
                             </div>
                          </template>
                          <template v-else-if="isDataImg(item[column.data])">
-                            <div class="image-data-table-wrapper" @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan[0].id)">
+                            <div class="image-data-table-wrapper" @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan && item.daftarJaminan[0].id)">
                                 <img
                                     v-if="item[column.data] && item[column.data][0]"
                                     :src="item[column.data][0].src || item[column.data][0][0].src"
@@ -74,7 +74,7 @@
                                     class="image-data-table image-data-no-overlay"
                                 />
 
-                                <div class="image-data-second-wrapper"  @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan[0].id)">
+                                <div class="image-data-second-wrapper"  @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan && item.daftarJaminan[0].id)">
                                     <img
                                     v-if="item[column.data] && item[column.data][1]"
                                     :src="item[column.data][1].src || item[column.data][1][0].src"
@@ -400,6 +400,7 @@
                     this.$emit('update:selectedFirstLayerIndex', index);
                     this.$emit('update:modalSecondLayerOpen', true)
                 }
+                 console.log("open modal table"+ index );
             },
             openModalTable(index){
                 this.$emit('update:selectedFirstLayerIndex', index);

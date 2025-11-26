@@ -3055,9 +3055,9 @@ export default {
                 ratio="1/1"
                 :persistent="true"
                 :centered="true"
-                :images="tableJaminanDatas[selectedImgData].fotoJaminan?.map(f => f.src)"
-                :date-images="tableJaminanDatas[selectedImgData].fotoJaminan?.map(f => f.dateImages)"
-                :time-images="tableJaminanDatas[selectedImgData].fotoJaminan?.map(f => f.timeImages)"
+                :images="tableJaminanDatas.find(item => item.id === selectedImgData)?.fotoJaminan?.map(f => f.src)"
+                :date-images="tableJaminanDatas.find(item => item.id === selectedImgData)?.fotoJaminan?.map(f => f.dateImages)"
+                :time-images="tableJaminanDatas.find(item => item.id === selectedImgData)?.fotoJaminan?.map(f => f.timeImages)"
                 uploader="P12345"
               >
                <template v-slot:footer>
