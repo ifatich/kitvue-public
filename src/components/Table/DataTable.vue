@@ -644,6 +644,12 @@
                         visibility: collapse !important;
                     }
 
+                    tbody {
+                        td {
+                            border-bottom: 1px solid var(--g-kit-black-20) !important;
+                        }
+                    }
+
                     &.rounded-corners {
                         border-radius: 0 0 0.375rem 0.375rem !important;
                     }
@@ -653,7 +659,7 @@
         .dataTables_scrollHead {
                 .table {
                     margin-bottom: 0 !important;
-
+                    
                     &.rounded-corners {
                         border-radius: 0.375rem 0.375rem 0 0 !important;
                     }
