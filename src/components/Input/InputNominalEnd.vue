@@ -137,6 +137,7 @@
             &:disabled {
                 border-left: none !important;
                 border-right: 1px solid var(--g-kit-black-40) !important;
+                color: var(--g-kit-black-60);
             }
 
             &:hover:not(:disabled),&:focus {
