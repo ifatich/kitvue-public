@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in sortedData" :key="index">
-                    <td v-for="column in columns" :key="column.data" class="align-start">
+                    <td v-for="column in columns" :key="column.data" :class="getVerticalAlign(verticalAlign)">
                            <template v-if="isDataArrayhasArrayObject(item[column.data])">
                                 <span v-html="getLimitedArrayObjectDisplay(item[column.data][0].rincianBarangJaminan, index)"></span>
                                 <div v-if="item[column.data][0].rincianBarangJaminan.length > 5" class="d-flex gap-1 align-items-center text-link-data-table" @click="isDataObjectArrayExpanded[index] = !isDataObjectArrayExpanded[index]">
@@ -233,6 +233,13 @@
             rowsPanColIndex: {
                 type: Array,
             },
+            verticalAlign: {
+                type: String,
+                default: "middle",
+                validator: function (value) {
+                    return ["top", "middle", "bottom"].includes(value);
+                }
+            },
         },
         mounted() {
             this.initializeDataTable();
@@ -267,6 +274,9 @@
             }
         },
         methods: {
+            getVerticalAlign(align) {
+                return `align-${align}`;
+            },
             rebuildDataTable() {
                 if (this.dataTableInstance) {
                     this.dataTableInstance.destroy();
