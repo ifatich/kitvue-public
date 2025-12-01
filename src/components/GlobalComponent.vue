@@ -2265,7 +2265,7 @@ export default {
               <InputText
                 id="ini-id"
                 placeholder="hello world!"
-                label="Ini Bisa Text"
+                label="Ini Bisa Textttttt"
                 disabled
               />
 
@@ -2370,12 +2370,13 @@ export default {
                 id="input-rupiah"
                 v-model="rupiah"
                 class="pb-4"
+                
               />
 
               {{ rupiah }}
               <InputNominalEnd id="15" title="Persentase DP" required="" />
 
-              <InputTextArea v-model="text" id="16" />
+              <InputTextArea disabled v-model="text" id="16" />
               <InputTextArea v-model="text" variant="count" :maxLength="270" />
               <Dropdown
                 v-model="nilaiTerpilih"
@@ -2583,7 +2584,7 @@ export default {
                     <AccordionItem header="Test header accordion" active>
                       <InputNominalStart id="1" title="Nominal" required="" />
                       <InputNominalStart id="2" title="Nominal" required="" />
-                      <InputNominalStart id="3" title="Nominal" required="" />
+                      <InputNominalStart  v-model="nominalEndValue" id="3" title="Nominal" required="" />
                     </AccordionItem>
                     <AccordionItem header="Test header accordion 2" active>
                       <InputNominalEnd
@@ -2592,6 +2593,7 @@ export default {
                         required=""
                         delimeter="comma"
                         v-model="nominalEndValue"
+                        disabled
                       />
                       {{ nominalEndValue }}
                       
@@ -3127,6 +3129,7 @@ export default {
                 :columns="tableKreditBarangJaminanColumns"
                 leftContent="name"
                 rightContent="city"
+                vertical-align="top"
 
                 v-model:selectedFirstLayerIndex="selectedRowData"
                 v-model:firstModalFirstLayerOpen="showModalKreditJaminanBarang"
