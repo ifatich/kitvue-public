@@ -17,11 +17,13 @@ import NewInputCamera from "@/components/Input/NewInputCamera.vue";
 import TablePagination from "./Table/TablePagination.vue";
 import { BButton, BCarousel, BCarouselSlide } from 'bootstrap-vue-next'
 import InputSearch from "./Input/InputSearch.vue";
+import InputSearchQR from "./Input/InputSearchQR.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
 const text = ref("ini value");
 const ceknik = ref("");
+const modelValueQR = ref("");
 const number = ref("12000000");
 const rupiah = ref(12000000);
 const myFileSrc = ref();
@@ -2335,7 +2337,7 @@ export default {
 
               <InputText
                 id="iniidnumber"
-                placeholder="Test placeholder!"
+                placeholder="Test placeholder!!!!"
                 v-model="number"
                 label="Ini Number Only"
                 type="number"
@@ -2357,6 +2359,9 @@ export default {
 
               <InputSearch id="input-nik" label="Ini search nik sendiri" placeholder="Cari nik" type="nik" v-model="ceknik" />
               <InputSearch id="input-nik" label="Ini search nik sendiri" placeholder="Cari text" type="text" v-model="ceknik" />
+              <InputSearchQR  label="Nomor Kredit" v-model="modelValueQR" type="number" helper-text="Nomor kredit harus 16 karakter." placeholder="Masukkan NIK"></InputSearchQR>
+
+              {{ modelValueQR}}
 
               <p>NIK Value: {{ ceknik }}</p>
 
