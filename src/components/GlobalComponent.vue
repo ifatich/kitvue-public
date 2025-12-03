@@ -7,7 +7,7 @@ import TimePicker from "./Input/TimePicker.vue";
 import ModalSlider from "./Modal/ModalSlider.vue";
 import InputTimePicker from "./Input/InputTimePicker.vue";
 import TimePickerResponsive from "./Input/TimePickerResponsive.vue";
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import CustomTable from "@/components/Table/CustomTable.vue";
 import SwitchComponent from "./Switch/Switch.vue";
 import InputPhone from "./Input/InputPhone.vue";
@@ -228,6 +228,44 @@ const chartDatasetsSingle = [
   },
 ];
 
+//dropdown
+const provinces = ref([
+  { id: '11', name: 'Aceh' },
+  { id: '12', name: 'Sumatera Utara' },
+  { id: '13', name: 'Sumatera Barat' },
+  { id: '14', name: 'Riau' },
+  { id: '15', name: 'Jambi' },
+  { id: '16', name: 'Sumatera Selatan' },
+  { id: '17', name: 'Bengkulu' },
+  { id: '18', name: 'Lampung' },
+  { id: '19', name: 'Kepulauan Bangka Belitung' },
+  { id: '21', name: 'Kepulauan Riau' },
+  { id: '31', name: 'DKI Jakarta' },
+  { id: '32', name: 'Jawa Barat' },
+  { id: '33', name: 'Jawa Tengah' },
+  { id: '34', name: 'DI Yogyakarta' },
+  { id: '35', name: 'Jawa Timur' },
+  { id: '36', name: 'Banten' },
+  { id: '51', name: 'Bali' },
+  { id: '52', name: 'Nusa Tenggara Barat' },
+  { id: '53', name: 'Nusa Tenggara Timur' },
+  { id: '61', name: 'Kalimantan Barat' },
+  { id: '62', name: 'Kalimantan Tengah' },
+  { id: '63', name: 'Kalimantan Selatan' },
+  { id: '64', name: 'Kalimantan Timur' },
+  { id: '65', name: 'Kalimantan Utara' },
+  { id: '71', name: 'Sulawesi Utara' },
+  { id: '72', name: 'Sulawesi Tengah' },
+  { id: '73', name: 'Sulawesi Selatan' },
+  { id: '74', name: 'Sulawesi Tenggara' },
+  { id: '75', name: 'Gorontalo' },
+  { id: '76', name: 'Sulawesi Barat' },
+  { id: '81', name: 'Maluku' },
+  { id: '82', name: 'Maluku Utara' },
+  { id: '91', name: 'Papua Barat' },
+  { id: '94', name: 'Papua' }
+])
+const selectedProvinces = ref([]) 
 
 const customOptions = {
   plugins: {
@@ -632,6 +670,8 @@ import BarChart from "./Chart/BarChart.vue";
 import DoughnutChart from "./Chart/DoughnutChart.vue";
 import StackedBarChart from "./Chart/StackedBarChart.vue";
 
+import InputDropdownMultiple from "./Dropdown/InputDropdownMultiple.vue";
+
 export default {
   name: "App",
   components: {
@@ -688,6 +728,7 @@ export default {
     RadioComponent,
     SwitchComponent,
     InputPhone,
+    InputDropdownMultiple,
   },
   data() {
     return {
@@ -2377,6 +2418,19 @@ export default {
 
               <InputTextArea v-model="text" id="16" />
               <InputTextArea v-model="text" variant="count" :maxLength="270" />
+              ==============================
+              <InputDropdownMultiple
+                v-model="selectedProvinces"
+                :items="provinces"
+                :select-all="true"
+                itemValue="id"
+                itemText="name"
+                label="Provinsi"
+                placeholder="Pilih provinsi"
+              />
+
+              <p>Selected Provinces: {{ selectedProvinces }}</p>
+              ==============================
               <Dropdown
                 v-model="nilaiTerpilih"
                 :label="'Pilihan Anda'"
