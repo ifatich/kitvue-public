@@ -380,7 +380,7 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
     }
     .disabled {
         .dropdown-placeholder {
-            color: var(--g-kit-black-50) !important;
+            color: var(--g-kit-black-60) !important;
         }
     }
     .dropdown-placeholder {

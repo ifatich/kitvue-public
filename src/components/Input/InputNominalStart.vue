@@ -80,6 +80,7 @@ const onlyNumber = (event) => {
     .input-group-text{
       color: var(--g-kit-black-60);
       height: 46px;
+      min-width: 92px;
     }
 
     input {
