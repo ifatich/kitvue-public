@@ -32,7 +32,7 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in sortedData" :key="index">
-                    <td v-for="column in columns" :key="column.data" class="align-start">
+                    <td v-for="column in columns" :key="column.data" :class="getVerticalAlign(verticalAlign)">
                            <template v-if="isDataArrayhasArrayObject(item[column.data])">
                                 <span v-html="getLimitedArrayObjectDisplay(item[column.data][0].rincianBarangJaminan, index)"></span>
                                 <div v-if="item[column.data][0].rincianBarangJaminan.length > 5" class="d-flex gap-1 align-items-center text-link-data-table" @click="isDataObjectArrayExpanded[index] = !isDataObjectArrayExpanded[index]">
@@ -66,7 +66,7 @@
                             </div>
                          </template>
                          <template v-else-if="isDataImg(item[column.data])">
-                            <div class="image-data-table-wrapper" @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan[0].id)">
+                            <div class="image-data-table-wrapper" @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan && item.daftarJaminan[0].id)">
                                 <img
                                     v-if="item[column.data] && item[column.data][0]"
                                     :src="item[column.data][0].src || item[column.data][0][0].src"
@@ -74,7 +74,7 @@
                                     class="image-data-table image-data-no-overlay"
                                 />
 
-                                <div class="image-data-second-wrapper"  @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan[0].id)">
+                                <div class="image-data-second-wrapper"  @click="openModalSlider(item.id, column.hideMobile, item.daftarJaminan && item.daftarJaminan[0].id)">
                                     <img
                                     v-if="item[column.data] && item[column.data][1]"
                                     :src="item[column.data][1].src || item[column.data][1][0].src"
@@ -233,6 +233,13 @@
             rowsPanColIndex: {
                 type: Array,
             },
+            verticalAlign: {
+                type: String,
+                default: "middle",
+                validator: function (value) {
+                    return ["top", "middle", "bottom"].includes(value);
+                }
+            },
         },
         mounted() {
             this.initializeDataTable();
@@ -267,6 +274,9 @@
             }
         },
         methods: {
+            getVerticalAlign(align) {
+                return `align-${align}`;
+            },
             rebuildDataTable() {
                 if (this.dataTableInstance) {
                     this.dataTableInstance.destroy();
@@ -400,6 +410,7 @@
                     this.$emit('update:selectedFirstLayerIndex', index);
                     this.$emit('update:modalSecondLayerOpen', true)
                 }
+                 console.log("open modal table"+ index );
             },
             openModalTable(index){
                 this.$emit('update:selectedFirstLayerIndex', index);
