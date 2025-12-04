@@ -209,6 +209,7 @@
                         padding: 0px;
                         display: flex !important;
                         align-items: center !important;
+                        overflow: hidden;
                     }
 
                     .modal-footer {
