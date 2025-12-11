@@ -3822,7 +3822,6 @@ export default {
                 :compressionMaxKb="1024"
                 title="Upload Foto Anda"
                 uniqueKey="userPhoto"
-                imagePlaceholder="idcard"
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
@@ -3832,7 +3831,7 @@ export default {
                 :compressionMaxKb="1024"
                 title="Upload Foto Anda"
                 uniqueKey="userPhoto"
-                imagePlaceholder="idcard"
+                imagePlaceholder="card-general"
                 useBottomSheet
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
