@@ -1,6 +1,6 @@
 <template>
   <div class="chart-wrapper">
-    <Line :data="chartData" :options="mergedOptions" :plugins="[dotsPlugin, !hasTooltipSlot && tooltipShadowPlugin, autoGradientPlugin]"/>
+    <Line :data="chartData" :options="mergedOptions" :plugins="[dotsPlugin, !hasTooltipSlot && tooltipShadowPlugin, autoGradientPlugin, verticalLinePlugin]"/>
   </div>
 </template>
 
@@ -266,6 +266,31 @@ const dotsPlugin = {
 
     ctx.restore()
   } 
+}
+
+const verticalLinePlugin = {
+  id: 'verticalLinePlugin',
+  afterDraw(chart) {
+    const tooltip = chart.tooltip
+    if (tooltip?._active && tooltip.opacity && tooltip.dataPoints?.length) {
+      const { ctx, chartArea } = chart
+      const activePoint = tooltip.dataPoints[0]
+      const x = activePoint.element.x
+      const y = activePoint.element.y
+      const dataset = chart.data.datasets[activePoint.datasetIndex]
+      const lineColor = dataset.borderColor || '#BBBDC0'
+
+      ctx.save()
+      ctx.beginPath()
+      ctx.setLineDash([4, 4])
+      ctx.strokeStyle = lineColor
+      ctx.lineWidth = 1
+      ctx.moveTo(x, y)
+      ctx.lineTo(x, chartArea.bottom)
+      ctx.stroke()
+      ctx.restore()
+    }
+  }
 }
 
 function isPlainObject(v) {
