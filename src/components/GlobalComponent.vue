@@ -18,6 +18,7 @@ import TablePagination from "./Table/TablePagination.vue";
 import { BButton, BCarousel, BCarouselSlide } from 'bootstrap-vue-next'
 import InputSearch from "./Input/InputSearch.vue";
 import InputSearchQR from "./Input/InputSearchQR.vue";
+import LineChart from "./Chart/LineChart.vue";
 
 const testValue = ref("test value");
 const { scrollTo } = useScrollTo();
@@ -170,6 +171,14 @@ const dateUpdate = today.toLocaleDateString('en-GB')
 
 const chartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
 
+const chartDatasets = [
+  {
+    label: 'Penjualan',
+    data: [65, 59, 80, 81, 56, 55],
+    backgroundColor: '#fc8403'
+  }
+]
+
 const chartDatasetsMultiple = [
   {
     label: "Example",
@@ -229,6 +238,8 @@ const chartDatasetsSingle = [
     data: [-20, 30, 40, 50, 60, 70, 80, 90, 100],
   },
 ];
+
+
 
 //dropdown
 const provinces = ref([
@@ -3451,6 +3462,16 @@ export default {
             </div>
             <div class="card-body">
               <div class="row row-cols-3 g-3">
+                <LineChart 
+                  :labels="['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']"
+                  :datasets="chartDatasets"
+                />
+
+                <LineChart 
+                  :labels="monthLabels"
+                  :datasets="datasets"
+                  :options="customOptions"
+                />
                 <BarChart style="height: 370px;" :labels="chartLabels" :datasets="chartDatasetsMultiple" :options="customOptions"/>
                 <BarChart
                   style="height: 300px;"
