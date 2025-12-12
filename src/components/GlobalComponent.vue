@@ -91,6 +91,7 @@ const countDenom = ref([
 ])
 
 const showModal = ref(false);
+const showModal2 = ref(false);
 const showModalSlider = ref(false);
 const showModalSliderJaminan = ref(false);
 const showModalJaminanBarang = ref(false);
@@ -3800,26 +3801,60 @@ export default {
               </p>
             </div>
             <div id="btm-scroll" class="card-body">
-              <BButton @click="showModal = true">Show Modal</BButton>
+              <BButton @click="showModal = true">Show Modal Slider</BButton>
 
               <ModalSlider
                 v-model="showModal"
                 v-model:carousel="caraouselModalModel"
                 title="Foto Jaminan"
-                ratio="2/3"
+                ratio="1/1"
                 :persistent="true"
                 :centered="true"
                 :images="[
-                  'https://picsum.photos/1024/480/?image=58',
-                  'https://picsum.photos/1024/480/?image=59',
-                  'https://picsum.photos/1024/480/?image=60',
-                  'https://picsum.photos/1024/480/?image=61',
+                  'https://picsum.photos/1024/480/?image=70',
+                  'https://picsum.photos/1024/480/?image=71',
+                  'https://picsum.photos/1024/480/?image=72',
+                  'https://picsum.photos/1024/480/?image=73',
                 ]"
                 :date-images="[
                   `12 Jan 2024`, `12 Feb 2024`, `12 Mar 2024`, `12 Apr 2024`
                 ]"
                 :time-images="[
                   `13:00`, `14:00`, `15:00`, `16:00`
+                ]"
+                uploader="P12345"
+              >
+               <template v-slot:footer>
+                    <Button
+                      type="neutral"
+                      label="Ambil Ulang Foto"
+                      class="w-100"
+                    />
+                    <Button
+                      type="neutral"
+                      label="Lihat Lokasi"
+                      class="w-100"
+                    />
+                </template>
+              </ModalSlider>
+
+              <BButton @click="showModal2 = true">Show Modal Slider [single image]</BButton>
+
+              <ModalSlider
+                v-model="showModal2"
+                v-model:carousel="caraouselModalModel"
+                title="Foto Jaminan"
+                ratio="1/1"
+                :persistent="true"
+                :centered="true"
+                :images="[
+                  'https://picsum.photos/1024/480/?image=70'
+                ]"
+                :date-images="[
+                  `12 Jan 2024`
+                ]"
+                :time-images="[
+                  `13:00`
                 ]"
                 uploader="P12345"
               >

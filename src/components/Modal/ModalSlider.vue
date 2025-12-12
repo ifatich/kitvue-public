@@ -21,7 +21,7 @@ const props = defineProps({
   ratio: {
     type: String,
     default: '2/3',
-    validator: (value) => ['2/3', '1/1'].includes(value)
+    validator: (value) => ['2/3', '3/2', '1/1'].includes(value)
   },
   uploader: {
     type: String,
@@ -81,8 +81,9 @@ watch(isDesktop, (newVal) => {
         </BButton>
       </template>
 
-      <div >
+      <div>
           <BCarousel
+            v-if="props.images.length > 1"
             no-hover-pause
             v-model="carouselModel"
             id="carousel"
@@ -99,6 +100,14 @@ watch(isDesktop, (newVal) => {
               </div>
             </BCarouselSlide>
           </BCarousel>
+          
+          <div v-else-if="props.images.length === 1" class="single-image-preview">
+            <img :src="props.images[0]" alt="Preview image" :height="props.ratio === '2/3' ? 328 : 532" />
+            <div v-if="props.timeImages && props.dateImages" class="timestamp flex content-between">
+              <div class="uploader"> {{ "Diambil oleh: " + props.uploader }}</div>
+              <div class="date-time"> {{ "Waktu: "+ dateImages[carouselModel] + ", " + timeImages[carouselModel] }}</div>
+            </div>
+          </div>
       </div>
 
       <template v-slot:footer="{ hide }">
@@ -131,6 +140,7 @@ watch(isDesktop, (newVal) => {
 
      <div :class="['carousel-ratio', `ratio-${props.ratio.replace('/', '-')}`]">
             <BCarousel
+              v-if="props.images.length > 1"
               no-hover-pause
               v-model="carouselModel"
               id="carousel"
@@ -147,6 +157,14 @@ watch(isDesktop, (newVal) => {
                 </div>
               </BCarouselSlide>
             </BCarousel>
+            
+            <div v-else-if="props.images.length === 1" class="single-image-preview">
+              <img :src="props.images[0]" alt="Preview image" :height="props.ratio === '2/3' ? 328 : 532"/>
+              <div v-if="props.timeImages && props.dateImages" class="timestamp flex content-between">
+                <div class="uploader"> {{ "Diambil oleh: " + props.uploader }}</div>
+                <div class="date-time"> {{ "Waktu: "+ dateImages[0] + ", " + timeImages[0] }}</div>
+              </div>
+            </div>
       </div>
 
       <template #footer>
@@ -328,6 +346,43 @@ watch(isDesktop, (newVal) => {
   img {
     object-fit: cover;
     border-radius: 0.75rem;
+  }
+}
+
+.single-image-preview {
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  img {
+    width: 100%;
+    object-fit: cover !important;
+    border-radius: 0.75rem;
+  }
+
+  .timestamp {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    background-color: rgba(#252528, 0.74);
+    padding-inline: 16px;
+    padding-block: 8px;
+    gap: 8px;
+    color: var(--g-kit-white);
+    display: flex;
+    justify-content: space-between;
+    border-bottom-right-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+
+    @media screen and (max-width: 567px) {
+      bottom: 0px;
+      font-size: var(--g-kit-font-size-omega);
+      width: 100%;
+      padding-inline: 8px;
+      border-bottom-right-radius: 0rem;
+      border-bottom-left-radius: 0rem;
+    }
   }
 }
 
