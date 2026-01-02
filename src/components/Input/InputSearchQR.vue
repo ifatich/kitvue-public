@@ -1,7 +1,7 @@
 
 
 <script setup>
-    import { defineProps, defineModel, ref, computed, useAttrs } from 'vue';
+    import { defineProps, defineModel, ref, computed, useAttrs, watch } from 'vue';
     import InputText from './InputText.vue';
     import { QrcodeStream } from 'vue-qrcode-reader';
 
@@ -49,7 +49,26 @@
 			type: Boolean,
 			default: false
 		},
+		numericOnly: {
+			type: Boolean,
+			default: true
+		},
 	})
+
+    const filterNumericInput = (value) => {
+        if (!props.numericOnly) return value
+        if (!value) return ''
+        return value.replace(/\D/g, '')
+    }
+
+    watch(modelValue, (newValue) => {
+        if (props.numericOnly && newValue) {
+            const filtered = filterNumericInput(newValue)
+            if (filtered !== newValue) {
+                modelValue.value = filtered
+            }
+        }
+    })
 
     const passThroughProps = computed(() => ({
         ...attrs,
@@ -122,10 +141,30 @@
           break
       }
     }
+
+    // Prevent non-numeric input ketika numericOnly = true
+    const handleKeypress = (event) => {
+        if (props.numericOnly) {
+            const charCode = event.which ? event.which : event.keyCode
+            // Allow: backspace, delete, tab, escape, enter
+            if ([8, 9, 27, 13, 46].includes(charCode)) {
+                return
+            }
+            // Prevent jika bukan angka (0-9)
+            if (charCode < 48 || charCode > 57) {
+                event.preventDefault()
+            }
+        }
+    }
 </script>
 
 <template>
-    <InputText class="input-search-qr" v-bind="passThroughProps" v-model="modelValue">
+    <InputText 
+        class="input-search-qr" 
+        v-bind="passThroughProps" 
+        v-model="modelValue"
+        @keypress="handleKeypress"
+    >
          <template #prefix>
             <img style="margin-left: 12px;" src="../../assets/icon/search.svg" />
         </template>
@@ -147,7 +186,7 @@
         <div class="mx-2 fw-bolder">Scan QR</div>
       </template>
 
-        <div class="camera-container">
+        <div class="camera-container" v-if="cameraOpen">
             <qrcode-stream
                 :constraints="{ facingMode }" 
                 @detect="onDetect"

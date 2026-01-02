@@ -241,20 +241,22 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
                 @shown="handleOffcanvasToggle(true)"
                 @hidden="handleOffcanvasToggle(false)"
                 class="input-dropdown"
-                :class="props.items && props.items.length > 10 ? 'full-height' : 'content-height'"
+                :class="props.items && props.items.length > 10 ? 'full-height has-search' : 'content-height'"
             >
                 <template #title>Pilih {{ props.label }}</template>
-                 <slot></slot>
-                 <div class="search-wrapper">
+                
+                <slot></slot>
+                
+                <div class="search-wrapper" v-if="props.items && props.items.length > 10">
                     <b-form-input
-                        v-if="props.items && props.items.length > 10"
                         @click.stop
                         v-model="search"
                         :placeholder="'Cari ' + props.label.toLowerCase()"
                         :id="$attrs.id + '_search'"
                     >
                     </b-form-input>
-                 </div>
+                </div>
+
                 <ul class="list-group list-group-flush">
                     <li
                         v-for="(option, index) in filteredItems"
@@ -266,8 +268,8 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
                     >
                         {{ option[props.itemText] }}
                         <span v-if="selectedValue === option[props.itemValue]">
-              <img src="../../assets/icon/icon-system/icon-check.svg" />
-            </span>
+                            <img src="../../assets/icon/icon-system/icon-check.svg" />
+                        </span>
                     </li>
                 </ul>
             </BOffcanvas>
@@ -288,6 +290,13 @@ const uniqueId = `mask-${Math.random().toString(36).substring(2, 10)}`
 
     &.content-height {
         height: max-content !important;
+    }
+
+     &.has-search {
+        .offcanvas-body {
+            min-height: 55vh !important;
+            overflow-y: auto;
+        }
     }
 
     .search-wrapper {
