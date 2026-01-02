@@ -142,7 +142,6 @@
       }
     }
 
-    // Prevent non-numeric input ketika numericOnly = true
     const handleKeypress = (event) => {
         if (props.numericOnly) {
             const charCode = event.which ? event.which : event.keyCode
