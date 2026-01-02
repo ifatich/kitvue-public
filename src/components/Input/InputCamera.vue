@@ -338,7 +338,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
           ref="imgElement"
           :src="fileSrc"
           alt="Captured Image"
-          class="imgCaptured"
+          :class="[`imgCaptured`, props.imagePlaceholder === 'idcard' && 'idcard']"
           :id="`${$attrs.id}_img`"
         />
         <img 
@@ -450,7 +450,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         </div>
       </template>
       <template v-else>
-        <div class="preview-container">
+        <div :class="[`preview-container`, props.imagePlaceholder === 'idcard' && 'idcard']">
           <div class="timestamp">
             <div>{{ userName }}</div>
             <div>{{ 'Waktu: '+ new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}}</div>
@@ -529,7 +529,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       hide-footer
     >
       <template v-if="!snappedCameraPict" class="modal-camera">
-        <div class="camera-container">
+        <div :class="[`camera-container`, props.imagePlaceholder === 'idcard' && 'idcard']">
           <video class="video" ref="video" autoplay></video>
         </div>
         <div class="slot-container">
@@ -550,7 +550,7 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
         </div>
       </template>
       <div v-else>
-        <div class="preview-container">
+         <div :class="[`preview-container`, props.imagePlaceholder === 'idcard' && 'idcard']">
           <div class="timestamp">
             <div>{{ userName }}</div>
             <div>{{ 'Waktu: '+ new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) + ', ' + new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute: '2-digit'})}}</div>
@@ -633,23 +633,38 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
       justify-content: center;
       align-items: center;
 
+      &.idcard {
+        video {
+           height: 416px;
+        }
+      }
+
       video {
-        height: 416px !important; 
+        height: 100% ; 
         width: 100% !important;   
         border-radius: .5rem;
         background-color: #000; 
         object-fit: cover;
+        aspect-ratio: 1/1;
       }
     }
 
   .preview-container {
     position: relative;
     padding: 16px;
+
+    &.idcard {
+      img {
+         aspect-ratio: 16/10 !important;
+      }
+    }
+
     img{
       width: 100%;
       height: 100%;
       border-radius: .75rem;
       object-fit: cover;
+      aspect-ratio: 1/1;
     }
 
     .timestamp {
@@ -791,9 +806,13 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
     border-radius: .75rem;
 
     width: 100vw;            
-    aspect-ratio: 16 / 10; 
+    aspect-ratio: 1/1; 
     background: #000;
     overflow: hidden;
+
+    &.idcard {
+       aspect-ratio: 16 / 10; 
+    }
 
     img {
       width: 100%;
@@ -844,10 +863,14 @@ const compressImg = (maxSize, dataUrl, quality = 0.7) =>
 }
 
 .imgCaptured {
-  width: 180px;
+  width: 135px;
   height: 135px;
   object-fit: cover;
   border-radius: .5rem;
+
+  &.idcard {
+    width: 180px;
+  }
 }
 
 .remove-button {

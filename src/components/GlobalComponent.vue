@@ -807,17 +807,21 @@ export default {
 
       nilaiTerpilih: null,
       daftarPilihan: [
-        { id: 1, img: "beli_emas", nama: "Pilihan Pilihanb", link: "asa" },
+        { id: 1, img: "beli_emas", nama: "Pilihan 1", link: "asa" },
         { id: 2, img: "beli_emas", nama: "Pilihan 2", link: "b.html" },
         { id: 3, img: "beli_emas", nama: "Pilihan 3", link: "c.html" },
         { id: 4, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 5, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 6, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 7, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 8, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 9, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 10, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
-        { id: 11, img: "beli_emas", nama: "Pilihan 4", link: "d.html" },
+        { id: 5, img: "beli_emas", nama: "Pilihan 5", link: "d.html" },
+        { id: 6, img: "beli_emas", nama: "Pilihan 6", link: "d.html" },
+        { id: 7, img: "beli_emas", nama: "Pilihan 7", link: "d.html" },
+        { id: 8, img: "beli_emas", nama: "Pilihan 8", link: "d.html" },
+        { id: 9, img: "beli_emas", nama: "Pilihan 9", link: "d.html" },
+        { id: 10, img: "beli_emas", nama: "Pilihan 10", link: "d.html" },
+        { id: 11, img: "beli_emas", nama: "Pilihan 11", link: "d.html" },
+        { id: 12, img: "beli_emas", nama: "Pilihan 12", link: "d.html" },
+        { id: 13, img: "beli_emas", nama: "Pilihan 13", link: "d.html" },
+        { id: 14, img: "beli_emas", nama: "Pilihan 14", link: "d.html" },
+        { id: 15, img: "beli_emas", nama: "Pilihan 15", link: "d.html" },
       ],
       propertiNilaiPilihan: "id",
       propertiTeksPilihan: "nama",
@@ -2296,7 +2300,7 @@ export default {
                 <div class="col-6">
                   <Dropdown
                     v-model="nilaiTerpilih"
-                    :label="'Pilihan Anda'"
+                    :label="'Pilihan Anda Awkwkwk'"
                     :items="daftarPilihan"
                     :itemValue="'id'"
                     :itemText="'nama'"
@@ -3878,7 +3882,6 @@ export default {
                 :compressionMaxKb="1024"
                 title="Upload Foto Anda"
                 uniqueKey="userPhoto"
-                imagePlaceholder="idcard"
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"
                 @errorPermission="handleErrorPermission"
@@ -3888,7 +3891,7 @@ export default {
                 :compressionMaxKb="1024"
                 title="Upload Foto Anda"
                 uniqueKey="userPhoto"
-                imagePlaceholder="idcard"
+                imagePlaceholder="card-general"
                 useBottomSheet
                 @fileDropped="handleFileDropped"
                 @fileRemoved="handleFileRemoved"

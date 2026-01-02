@@ -32,6 +32,9 @@ importers:
       datatables.net-responsive-dt:
         specifier: ^2.5.0
         version: 2.5.1
+      html5-qrcode:
+        specifier: ^2.3.8
+        version: 2.3.8
       jquery:
         specifier: ^3.7.1
         version: 3.7.1
@@ -1108,9 +1111,6 @@ packages:
   '@parcel/watcher@2.5.1':
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
-
-  '@pegadaian/gwind-ic@0.1.0':
-    resolution: {integrity: sha512-7qPrO3t08zxip86CZtgYJiN75NIjVl/CWwQqTdKUljkVEut1ofDbZ64LvLKWQ56n7wUdOE41UInroym8lZJH6w==}
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -3424,6 +3424,9 @@ packages:
       webpack:
         optional: true
 
+  html5-qrcode@2.3.8:
+    resolution: {integrity: sha512-jsr4vafJhwoLVEDW3n1KvPnCCXWaQfRng0/EEYk1vNcQGcG/htAdhJX0be8YyqMoSz7+hZvOZSTAepsabiuhiQ==}
+
   htmlparser2@6.1.0:
     resolution: {integrity: sha512-gyyPk6rgonLFEDGoeRgQNaEUvdJ4ktTmmUh/h2t7s+M8oPpIPxgNACWa+6ESR57kXstwqPiCut0V8NRpcwgU7A==}
 
@@ -5566,8 +5569,8 @@ packages:
       chart.js: ^4.1.1
       vue: ^3.0.0-0 || ^2.7.0
 
-  vue-component-type-helpers@3.1.5:
-    resolution: {integrity: sha512-7V3yJuNWW7/1jxCcI1CswnpDsvs02Qcx/N43LkV+ZqhLj2PKj50slUflHAroNkN4UWiYfzMUUUXiNuv9khmSpQ==}
+  vue-component-type-helpers@3.1.6:
+    resolution: {integrity: sha512-lqPXjac98uz7zh8fxHxJPJDP4SKeaYn2Fx4kQLCBthMXm9VsmPdzUWOGWMcXN7reJ9IkcBiOFxsFS/Po7dARiw==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -6959,12 +6962,6 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.1
     optional: true
 
-  '@pegadaian/gwind-ic@0.1.0(typescript@5.9.2)':
-    dependencies:
-      vue: 3.5.20(typescript@5.9.2)
-    transitivePeerDependencies:
-      - typescript
-
   '@polka/url@1.0.0-next.29': {}
 
   '@popperjs/core@2.11.8': {}
@@ -7262,7 +7259,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.20(typescript@5.9.2)
-      vue-component-type-helpers: 3.1.5
+      vue-component-type-helpers: 3.1.6
 
   '@swc/core-darwin-arm64@1.13.5':
     optional: true
@@ -9803,6 +9800,8 @@ snapshots:
     optionalDependencies:
       webpack: 5.101.3(@swc/core@1.13.5)(esbuild@0.25.9)
 
+  html5-qrcode@2.3.8: {}
+
   htmlparser2@6.1.0:
     dependencies:
       domelementtype: 2.3.0
@@ -12003,7 +12002,7 @@ snapshots:
       chart.js: 4.5.0
       vue: 3.5.20(typescript@5.9.2)
 
-  vue-component-type-helpers@3.1.5: {}
+  vue-component-type-helpers@3.1.6: {}
 
   vue-demi@0.14.10(vue@3.5.20(typescript@5.9.2)):
     dependencies:
