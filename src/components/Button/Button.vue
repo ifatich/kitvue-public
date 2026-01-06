@@ -49,15 +49,15 @@
   }
 
   .btn-md {
-    height: 32px;
-  }
-
-  .btn-lg {
     height: 40px;
   }
 
-  .btn-xl {
+  .btn-lg {
     height: 48px;
+  }
+
+  .btn-xl {
+    height: 52px;
   }
 
   .icon {
