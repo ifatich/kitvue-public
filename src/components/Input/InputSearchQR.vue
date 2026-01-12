@@ -1,7 +1,7 @@
 
 
 <script setup>
-    import { defineProps, defineModel, ref, computed, useAttrs, watch } from 'vue';
+    import { ref, computed, useAttrs, watch } from 'vue';
     import InputText from './InputText.vue';
     import { QrcodeStream } from 'vue-qrcode-reader';
 
