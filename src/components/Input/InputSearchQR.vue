@@ -1,10 +1,12 @@
-
-
 <script setup>
-    import { defineProps, defineModel, ref, computed, useAttrs, watch } from 'vue';
-    import InputText from './InputText.vue';
+    import { defineProps, defineModel, defineEmits, ref, computed, useAttrs, watch } from 'vue';
+    import InputNik from './InputNIK.vue';
+    import Button from '../Button/Button.vue';
     import { QrcodeStream } from 'vue-qrcode-reader';
+    import useScreen from '@/hooks/use-screen';
+    import CustomModal from '../Modal/CustomModal.vue';
 
+    const screenStore = useScreen()
     const modelValue = defineModel();
 
     const attrs = useAttrs()
@@ -49,7 +51,7 @@
 			type: Boolean,
 			default: false
 		},
-		numericOnly: {
+        numericOnly: {
 			type: Boolean,
 			default: true
 		},
@@ -70,18 +72,26 @@
         }
     })
 
+    const emit = defineEmits(['scan'])
+
     const passThroughProps = computed(() => ({
         ...attrs,
         ...props,
     }))
 
-
+    const warningModal5 = ref(false)
     const cameraOpen = ref(false)
+    const isCameraActive = ref(false)
 
     const facingMode = ref('environment')
 
     const handleCameraOpen = () => {
-        cameraOpen.value = true
+        if (screenStore.value.isMobile) {
+            isCameraActive.value = true
+            cameraOpen.value = true
+        } else {
+            warningModal5.value = true
+        }
     }
 
     function paintBoundingBox(detectedCodes, ctx) {
@@ -124,10 +134,15 @@
         matrix_codes: false
     })
     
-    
+    const onCloseWarning5 = () => {
+        warningModal5.value = false
+    }
+
     function onDetect(detectedCodes) {
         console.log(detectedCodes)
-        modelValue.value = detectedCodes.map((code) => code.rawValue)[0]
+        const sbk = detectedCodes.map((code) => code.rawValue)[0]
+        emit('scan', sbk)
+        isCameraActive.value = false
         cameraOpen.value = false
     }
 
@@ -140,6 +155,10 @@
           facingMode.value = 'environment'
           break
       }
+    }
+
+    const onCameraClosed = () => {
+        isCameraActive.value = false
     }
 
     const handleKeypress = (event) => {
@@ -158,12 +177,7 @@
 </script>
 
 <template>
-    <InputText 
-        class="input-search-qr" 
-        v-bind="passThroughProps" 
-        v-model="modelValue"
-        @keypress="handleKeypress"
-    >
+    <InputNik class="input-search-qr" v-bind="passThroughProps" v-model="modelValue" @keypress="handleKeypress">
          <template #prefix>
             <img style="margin-left: 12px;" src="../../assets/icon/search.svg" />
         </template>
@@ -172,9 +186,9 @@
                 <path d="M2 7V2H7V4H4V7H2ZM2 22V17H4V20H7V22H2ZM17 22V20H20V17H22V22H17ZM20 7V4H17V2H22V7H20ZM17.5 17.5H19V19H17.5V17.5ZM17.5 14.5H19V16H17.5V14.5ZM16 16H17.5V17.5H16V16ZM14.5 17.5H16V19H14.5V17.5ZM13 16H14.5V17.5H13V16ZM16 13H17.5V14.5H16V13ZM14.5 14.5H16V16H14.5V14.5ZM13 13H14.5V14.5H13V13ZM19 5V11H13V5H19ZM11 13V19H5V13H11ZM11 5V11H5V5H11ZM9.5 17.5V14.5H6.5V17.5H9.5ZM9.5 9.5V6.5H6.5V9.5H9.5ZM17.5 9.5V6.5H14.5V9.5H17.5Z" fill="#58585B"/>
             </svg>
         </template>
-    </InputText>    
+    </InputNik>    
 
-    <BModal class="inputCameraQR" centered v-model="cameraOpen" hide-footer>
+    <BModal class="inputCameraQR" centered v-model="cameraOpen" @hidden="onCameraClosed" hide-footer>
         <template #header="{ close }">
             <svg  :id="`${$attrs.id}_closeCamera`" @click="close" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path
@@ -185,8 +199,9 @@
         <div class="mx-2 fw-bolder">Scan QR</div>
       </template>
 
-        <div class="camera-container" v-if="cameraOpen">
+        <div class="camera-container">
             <qrcode-stream
+                v-if="isCameraActive"
                 :constraints="{ facingMode }" 
                 @detect="onDetect"
                 :formats="selectedBarcodeFormats"
@@ -194,7 +209,7 @@
             />
         </div>
 
-        <div class="cameraGuidance"></div>
+        <div class="cameraGuidance mt-3"></div>
 
         <div class="helper-text">
             <div class="title">{{ `Instruksi` }}</div>
@@ -214,9 +229,27 @@
             </defs>
         </svg>
     </BModal>
+
+    <CustomModal v-model="warningModal5" size="sm" centered :use-bottom-sheet="screenStore.isMobile" :show-close-button="false" :hide-divider="true">
+        <template #body>
+            <div class="text-center pt-2-px">
+                <img style="margin-left: 12px;" src="../../assets/icon/search.svg" />
+            </div>
+            <h4 class="pt-4 pb-2">Perangkat Tidak Mendukung</h4>
+            <p class="pb-2">Anda dapat melakukan scan QR dengan mesin scan atau lakukan pelaksanaan melalui handphone.</p>
+        </template>
+        <template #footer>
+            <div class="modal-footer-spacing d-flex flex-column w-100 m-0">
+                <Button width="100" type="primary" label="Mengerti" @click="onCloseWarning5" />
+            </div>
+        </template>
+    </CustomModal>
 </template>
 
 <style lang="scss">
+    .group-input .helper-text {
+        color: var(--g-kit-black-60) !important;
+    }
     .input-search-qr {
          .input-group {
             .form-control {
@@ -266,11 +299,11 @@
                                 content: "";
                                 position: absolute;
                                 inset: 0;
-                                background-image: url('../../assets/images/background-broccolli.svg');
+                                background-image: url('@/assets/images/background-broccolli.svg');
                                 background-repeat: no-repeat;
                                 background-size: 100% auto;
                                 background-position: center center;
-                                opacity: 0.2;  /* <-- Atur opacity di sini */
+                                opacity: 0.2;
                                 z-index: -1;
                         }
                     }
@@ -343,6 +376,10 @@
             }
         }
 
+    }
+
+    .p-icon-search {
+        padding: 12px 0 12px 12px;
     }
 
 </style>
