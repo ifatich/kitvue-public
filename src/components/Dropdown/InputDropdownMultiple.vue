@@ -389,7 +389,6 @@
 
         .dropdown-menu {
             padding-block: 16px;
-            padding-inline: 0px;
 
             &.show {
                 max-height: 358px !important;
