@@ -3,6 +3,8 @@
     import { ref, defineEmits, defineOptions, defineModel, defineProps, computed, watch, reactive, onMounted, nextTick } from 'vue'
     import Button from '../Button/Button.vue'
     import { BModal, BOffcanvas } from 'bootstrap-vue-next'
+    import blankImage from '../../assets/images/blank_img.svg'
+    import brokenImage from '../../assets/images/broken_img.svg'
 
     defineOptions({
         name: 'InputKtp',
@@ -12,6 +14,7 @@
     const fileSourceChooserDialog = ref(false)
     const cameraDialog = ref(false)
     const video = ref()
+    const cameraGuidance = ref()
     const fileInput = ref()
     const snappedCameraPict = ref()
     const imgElement = ref()
@@ -35,10 +38,62 @@
             type: String,
             default: 'unknown'
         },
+        /**
+         * Mode component: 'ktp' (normal upload/camera), 'general' (free upload without crop), 'preview' (read-only)
+         */
+        mode: {
+            type: String,
+            default: 'ktp',
+            validator: (value) => ['ktp', 'general', 'preview'].includes(value)
+        },
+        /**
+         * Path to blank image (shown when no image in preview mode)
+         */
+        blankImage: {
+            type: String,
+            required: false,
+            default: blankImage
+        },
+        /**
+         * Path to broken image (shown when image fails to load in preview mode)
+         */
+        brokenImage: {
+            type: String,
+            required: false,
+            default: brokenImage
+        },
     })
 
     const emit = defineEmits(['fileDropped', 'fileRemoved', 'errorPermission'])
     const fileSrc = defineModel()
+    const imageSource = ref('camera') // 'camera' or 'gallery'
+    const imageState = ref('loaded') // 'loaded' or 'broken'
+    const isRealImageLoaded = ref(false)
+    
+    // Computed: Display image source dengan fallback ke placeholder
+    const displayImageSrc = computed(() => {
+        if (props.mode === 'preview') {
+            // Mode preview:
+            // 1. Jika broken → tampilkan broken placeholder
+            // 2. Jika ada fileSrc → tampilkan image
+            // 3. Jika kosong → tampilkan blank placeholder
+            if (imageState.value === 'broken') return props.brokenImage || ''
+            if (fileSrc.value) return fileSrc.value
+            return props.blankImage || ''
+        }
+        // Mode KTP/General: hanya tampilkan fileSrc
+        return fileSrc.value || ''
+    })
+
+    // Computed: Check if currently showing placeholder (not real image)
+    const isImagePlaceholder = computed(() => {
+        if (props.mode !== 'preview') return false
+        if (imageState.value === 'broken') return true
+        if (!fileSrc.value) return true
+        return false
+    })
+
+    const isGeneralMode = computed(() => props.mode === 'general')
 
     // ---------------------------------------------------------------------------
     // Responsive: auto-detect mobile via matchMedia, NOT props
@@ -69,26 +124,43 @@
     onResizeScreen()
 
     // ---------------------------------------------------------------------------
-    // Camera constraints — KTP always uses environment (rear) camera
+    // Camera constraints
+    // Mobile: portrait stream by default
+    // Desktop: landscape stream by default
     // ---------------------------------------------------------------------------
-    const constraints = computed(() => ({
-        video: {
-            width: {
-                ideal: 1920
-            },
-            height: {
-                ideal: 1080
-            },
-            facingMode: facingMode.value,
-            deviceId: {},
-        },
-        audio: false,
-    }))
+    const constraints = computed(() => {
+        const mobilePortrait = isMobile.value
 
-    const helperText = {
-        title: 'Foto KTP',
-        message: 'Pastikan KTP berada di area foto yang ditentukan dan data terlihat jelas.'
-    }
+        return {
+            video: {
+                width: {
+                    ideal: mobilePortrait ? 1080 : 1920
+                },
+                height: {
+                    ideal: mobilePortrait ? 1920 : 1080
+                },
+                aspectRatio: {
+                    ideal: mobilePortrait ? 9 / 16 : 16 / 9
+                },
+                facingMode: facingMode.value,
+                deviceId: {},
+            },
+            audio: false,
+        }
+    })
+
+    const helperText = computed(() => {
+        if (props.mode === 'general') {
+            return {
+                title: 'Ambil Foto',
+                message: 'Ambil foto dengan posisi yang jelas dan terang.'
+            }
+        }
+        return {
+            title: 'Foto KTP',
+            message: 'Pastikan KTP berada di area foto yang ditentukan dan data terlihat jelas.'
+        }
+    })
 
     watch(() => screenSize.potrait, async () => {
         if (cameraIsReady.value) {
@@ -96,6 +168,62 @@
             startCamera()
         }
     })
+
+    watch(() => fileSrc.value, () => {
+        // Reset load marker every time bound source changes.
+        isRealImageLoaded.value = false
+        previewDialog.value = false
+
+        if (props.mode === 'preview') {
+            imageState.value = 'loaded'
+        }
+    })
+
+    const normalizeImageSrc = (src = '') => {
+        if (!src) return ''
+
+        try {
+            return new URL(src, window.location.origin).pathname
+        } catch {
+            return src.split('?')[0]
+        }
+    }
+
+    const isPlaceholderImageSrc = (src = '') => {
+        const normalizedSrc = normalizeImageSrc(src)
+        const normalizedBroken = normalizeImageSrc(props.brokenImage)
+        const normalizedBlank = normalizeImageSrc(props.blankImage)
+
+        return Boolean(normalizedSrc) && (normalizedSrc === normalizedBroken || normalizedSrc === normalizedBlank)
+    }
+
+    const getEventImageSrc = (event) => event?.target?.currentSrc || event?.target?.src || ''
+
+    // Image error handler — jika gambar real gagal load di preview mode, fallback ke broken placeholder
+    const handleImageError = (event) => {
+        const failedSrc = getEventImageSrc(event)
+
+        // Placeholder gagal load tidak perlu ubah state agar tidak looping.
+        if (isPlaceholderImageSrc(failedSrc)) return
+
+        isRealImageLoaded.value = false
+
+        if (props.mode === 'preview') {
+            imageState.value = 'broken'
+            previewDialog.value = false
+        }
+    }
+
+    // Image load success handler — hanya tandai loaded untuk gambar real
+    const handleImageLoad = (event) => {
+        const loadedSrc = getEventImageSrc(event)
+
+        // Jangan reset state saat yang load adalah placeholder.
+        if (isPlaceholderImageSrc(loadedSrc)) return
+
+        imageState.value = 'loaded'
+        isRealImageLoaded.value = true
+    }
 
     // ---------------------------------------------------------------------------
     // Utility helpers
@@ -184,8 +312,60 @@
         startCamera()
     }
 
+    const getGuidanceCropArea = (videoEl, guidanceEl) => {
+        if (!videoEl || !guidanceEl) return null
+
+        const sourceW = videoEl.videoWidth
+        const sourceH = videoEl.videoHeight
+        if (!sourceW || !sourceH) return null
+
+        const videoRect = videoEl.getBoundingClientRect()
+        const guidanceRect = guidanceEl.getBoundingClientRect()
+
+        if (!videoRect.width || !videoRect.height || !guidanceRect.width || !guidanceRect.height) {
+            return null
+        }
+
+        // Match viewport crop for object-fit: cover mapping from DOM space to source pixels.
+        const scale = Math.max(videoRect.width / sourceW, videoRect.height / sourceH)
+        const displayedW = sourceW * scale
+        const displayedH = sourceH * scale
+        const offsetX = (displayedW - videoRect.width) / 2
+        const offsetY = (displayedH - videoRect.height) / 2
+
+        const guideX = guidanceRect.left - videoRect.left
+        const guideY = guidanceRect.top - videoRect.top
+        const guideW = guidanceRect.width
+        const guideH = guidanceRect.height
+
+        const guidanceStyle = window.getComputedStyle(guidanceEl)
+        const borderLeft = parseFloat(guidanceStyle.borderLeftWidth) || 0
+        const borderRight = parseFloat(guidanceStyle.borderRightWidth) || 0
+        const borderTop = parseFloat(guidanceStyle.borderTopWidth) || 0
+        const borderBottom = parseFloat(guidanceStyle.borderBottomWidth) || 0
+
+        const innerGuideX = guideX + borderLeft
+        const innerGuideY = guideY + borderTop
+        const innerGuideW = Math.max(0, guideW - borderLeft - borderRight)
+        const innerGuideH = Math.max(0, guideH - borderTop - borderBottom)
+
+        let cropX = (innerGuideX + offsetX) / scale
+        let cropY = (innerGuideY + offsetY) / scale
+        let cropW = innerGuideW / scale
+        let cropH = innerGuideH / scale
+
+        cropX = Math.max(0, cropX)
+        cropY = Math.max(0, cropY)
+        cropW = Math.min(cropW, sourceW - cropX)
+        cropH = Math.min(cropH, sourceH - cropY)
+
+        if (cropW <= 0 || cropH <= 0) return null
+
+        return { cropX, cropY, cropW, cropH }
+    }
+
     // ---------------------------------------------------------------------------
-    // Snap — KTP crop (idcard mode)
+    // Snap — crop from guidance area when available
     // ---------------------------------------------------------------------------
     const handleCameraSnap = () => {
         const videoEl = video.value
@@ -196,23 +376,67 @@
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
 
-        // KTP crop: 25% width × 35% height of video frame
-        let guideW = videoW * 0.25
-        let guideH = videoH * 0.35
-        const scale = isMobile.value ? 1 : 2
-        guideW *= scale
-        guideH *= scale
-
-        const startX = (videoW - guideW) / 2
-        const startY = (videoH - guideH) / 2
-
         const outputScale = window.devicePixelRatio || 10
-        canvas.width = guideW * outputScale
-        canvas.height = guideH * outputScale
+        const guidanceCrop = getGuidanceCropArea(videoEl, cameraGuidance.value)
 
-        ctx.imageSmoothingEnabled = false
-        ctx.imageSmoothingQuality = 'high'
-        ctx.drawImage(videoEl, startX, startY, guideW, guideH, 0, 0, canvas.width, canvas.height)
+        if (guidanceCrop) {
+            const { cropX, cropY, cropW, cropH } = guidanceCrop
+
+            canvas.width = Math.round(cropW * outputScale)
+            canvas.height = Math.round(cropH * outputScale)
+            ctx.imageSmoothingEnabled = false
+            ctx.imageSmoothingQuality = 'high'
+            ctx.drawImage(videoEl, cropX, cropY, cropW, cropH, 0, 0, canvas.width, canvas.height)
+        } else {
+            // Fallback when guidance element is unavailable.
+            // General mode: center-crop to square so output follows 1:1 capture view
+            if (props.mode === 'general') {
+                const squareSize = Math.min(videoW, videoH)
+                const cropStartX = (videoW - squareSize) / 2
+                const cropStartY = (videoH - squareSize) / 2
+
+                canvas.width = squareSize * outputScale
+                canvas.height = squareSize * outputScale
+                ctx.imageSmoothingEnabled = false
+                ctx.imageSmoothingQuality = 'high'
+                ctx.drawImage(videoEl, cropStartX, cropStartY, squareSize, squareSize, 0, 0, canvas.width, canvas.height)
+            } else {
+                // KTP mode: keep output landscape by enforcing KTP aspect ratio.
+                const ktpAspectRatio = 85.6 / 54
+                let baseW = videoW * 0.25
+                let baseH = videoH * 0.35
+                const scale = isMobile.value ? 1 : 2
+                baseW *= scale
+                baseH *= scale
+
+                const targetArea = baseW * baseH
+                let guideW = Math.sqrt(targetArea * ktpAspectRatio)
+                let guideH = guideW / ktpAspectRatio
+
+                if (guideW > videoW) {
+                    guideW = videoW
+                    guideH = guideW / ktpAspectRatio
+                }
+
+                if (guideH > videoH) {
+                    guideH = videoH
+                    guideW = guideH * ktpAspectRatio
+                }
+
+                guideW = Math.round(guideW)
+                guideH = Math.round(guideH)
+
+                const startX = (videoW - guideW) / 2
+                const startY = (videoH - guideH) / 2
+
+                canvas.width = Math.round(guideW * outputScale)
+                canvas.height = Math.round(guideH * outputScale)
+
+                ctx.imageSmoothingEnabled = false
+                ctx.imageSmoothingQuality = 'high'
+                ctx.drawImage(videoEl, startX, startY, guideW, guideH, 0, 0, canvas.width, canvas.height)
+            }
+        }
 
         snappedCameraPict.value = canvas.toDataURL('image/png')
         stopCamera()
@@ -222,10 +446,14 @@
     // Source chooser actions
     // ---------------------------------------------------------------------------
     const fileSourceChooserDialogClick = () => {
+        // Prevent upload in preview mode
+        if (props.mode === 'preview') return
         if (!fileSrc.value) fileSourceChooserDialog.value = true
     }
 
     const handleSourceCameraClick = () => {
+        // Prevent camera in preview mode
+        if (props.mode === 'preview') return
         if (deviceList.value.length === 0) {
             emit('errorPermission', 'No device ready for take image')
             return
@@ -236,6 +464,8 @@
     }
 
     const handleSourceGalleryClick = () => {
+        // Prevent gallery in preview mode
+        if (props.mode === 'preview') return
         fileInput.value.click()
         fileSourceChooserDialog.value = false
     }
@@ -246,18 +476,32 @@
     const handleFilePicked = async (event) => {
         const file = event.target.files[0]
         if (!file) return
+        
+        // Reset state untuk image baru
+        imageState.value = 'loaded'
+        isRealImageLoaded.value = false
+        
         const reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = async () => {
             fileSrc.value = reader.result
+            imageSource.value = 'gallery'
             const compressedImg = await compressImg(props.compressionMaxKb, reader.result)
             emit('fileDropped', compressedImg, props.uniqueKey)
         }
     }
 
     const handleRemoveFileClick = () => {
+        // Prevent remove in preview mode
+        if (props.mode === 'preview') return
+        
+        // Reset state
+        imageState.value = 'loaded'
+        isRealImageLoaded.value = false
+        
         fileSrc.value = ''
         snappedCameraPict.value = ''
+        imageSource.value = 'camera'
         emit('fileRemoved', props.uniqueKey)
     }
 
@@ -265,7 +509,12 @@
     // Camera chosen / retake
     // ---------------------------------------------------------------------------
     const handleCameraChosen = async () => {
+        // Reset state untuk image baru
+        imageState.value = 'loaded'
+        isRealImageLoaded.value = false
+        
         fileSrc.value = snappedCameraPict.value
+        imageSource.value = 'camera'
         const compressedImg = await compressImg(props.compressionMaxKb, snappedCameraPict.value)
         emit('fileDropped', compressedImg, props.uniqueKey)
         cameraDialog.value = false
@@ -283,15 +532,17 @@
 
     const handleRetakePhotoClick = async () => {
         snappedCameraPict.value = ''
-        // Retake from preview modal: close preview, open camera again
+
         if (fileSrc.value) {
-            fileSrc.value = ''
+            // Dipanggil dari preview modal (foto sudah ada):
+            // Reset foto lalu buka source chooser agar user bisa pilih Galeri atau Kamera
+            fileSrc.value       = ''
             previewDialog.value = false
             await nextTick()
-            cameraDialog.value = true
-            await nextTick()
-            startCamera()
+            fileSourceChooserDialog.value = true
         } else {
+            // Dipanggil dari dalam modal kamera setelah snap (belum konfirmasi):
+            // Langsung restart kamera untuk ambil ulang
             await nextTick()
             startCamera()
         }
@@ -301,7 +552,12 @@
     // Preview modal
     // ---------------------------------------------------------------------------
     const openPreview = () => {
-        if (fileSrc.value) previewDialog.value = true
+        if (!fileSrc.value) return
+        if (isImagePlaceholder.value) return
+        if (imageState.value === 'broken') return
+        if (!isRealImageLoaded.value) return
+
+        previewDialog.value = true
     }
 
     // Timestamp helper used in camera view
@@ -328,21 +584,21 @@
     ==================================================================== -->
     <section>
         <div class="custom-file-upload" @click="fileSourceChooserDialogClick">
-            <!-- Empty state -->
-            <div v-if="!fileSrc" class="custom-file-upload__box-input" :id="`${$attrs.id}_openDialogChooser`">
+            <!-- Empty state: tampilkan hanya jika displayImageSrc kosong (tidak ada real photo, blank, atau broken) -->
+            <div v-if="!displayImageSrc" class="custom-file-upload__box-input" :id="`${$attrs.id}_openDialogChooser`" :class="{ 'disabled': props.mode === 'preview' }" :style="{ pointerEvents: props.mode === 'preview' ? 'none' : 'auto', opacity: props.mode === 'preview' ? 0.6 : 1 }">
                 <span class="custom-file-upload__box-input-icon">
                     <img src="../../assets/images/ico-image-upload.svg" alt="Upload Icon" />
                 </span>
                 <input type="file" ref="fileInput" style="display: none" accept="image/*" @change="handleFilePicked"
-                    :id="$attrs.id" />
+                    :id="$attrs.id" :disabled="props.mode === 'preview'" />
             </div>
 
-            <!-- Preview thumbnail — clickable to open preview modal -->
+            <!-- Preview thumbnail — tampilkan jika ada displayImageSrc (fileSrc real photo OR blank/broken image) -->
             <div v-else class="custom-file-upload__box-preview d-block" id="box-preview-image">
-                <img ref="imgElement" :src="fileSrc" alt="Foto KTP" class="imgCaptured idcard" @click.stop="openPreview"
-                    :id="`${$attrs.id}_img`" />
-                <img @click.stop="handleRemoveFileClick" v-if="fileSrc" :id="`${$attrs.id}_removeFile`"
-                    class="close-img" src="../../assets/icon/cross.svg" alt="Hapus Foto" />
+                <img ref="imgElement" :src="displayImageSrc" alt="Preview" class="imgCaptured" :class="[isGeneralMode ? 'general' : 'idcard', { 'img-contain': imageSource === 'gallery' || isGeneralMode }]" @click.stop="openPreview" @error="handleImageError" @load="handleImageLoad"
+                    :id="`${$attrs.id}_img`" :style="{ cursor: isRealImageLoaded ? 'pointer' : 'default' }" />
+                <img v-if="fileSrc && props.mode !== 'preview'" @click.stop="handleRemoveFileClick" :id="`${$attrs.id}_removeFile`"
+                    class="close-img" src="../../assets/icon/cross.svg" alt="Hapus Foto" height="24" width="24" />
             </div>
         </div>
 
@@ -355,9 +611,9 @@
     Source chooser — BOffcanvas (mobile) / BModal (desktop)
     ==================================================================== -->
     <section v-if="isMobile">
-        <BOffcanvas v-model="fileSourceChooserDialog" placement="bottom" bodyScrolling="true" noCloseOnBackdrop>
+        <BOffcanvas v-model="fileSourceChooserDialog" placement="bottom" bodyScrolling="true" noCloseOnBackdrop class="bottomsheetSourceChooser">
             <template #title>{{ props.title }}</template>
-            <ul class="list-group list-group-flush px-3">
+            <ul class="list-group list-group-flush pb-3 px-3">
                 <li style="height: 56px" @click="handleSourceGalleryClick"
                     class="list-group-item d-flex justify-content-between align-items-center" :id="`${$attrs.id}_file`">
                     Galeri
@@ -425,14 +681,14 @@
                 <div class="overlay-container" :class="!screenSize.potrait ? 'landscape' : ''">
 
                     <!-- Helper text (portrait: di atas card | landscape: di kiri) -->
-                    <div class="helper-text landscape" :class="!screenSize.potrait ? 'landscape' : ''">
+                    <div class="helper-text" :class="!screenSize.potrait ? 'landscape' : ''">
                         <div class="rect"></div>
                         <div class="title">{{ helperText.title }}</div>
                         <div class="subtitle">{{ helperText.message }}</div>
                     </div>
 
-                    <!-- Card KTP guide -->
-                    <div id="cameraGuidance" class="card-ktp" :class="!screenSize.potrait ? 'landscape' : ''"></div>
+                    <!-- Camera guidance: KTP ratio for ktp mode, 1:1 for general mode -->
+                    <div ref="cameraGuidance" id="cameraGuidance" class="card-ktp" :class="{ 'landscape': !screenSize.potrait, 'general': isGeneralMode }"></div>
 
                     <!-- Bottom actions: shutter + switch -->
                     <div class="bottom-actions" :class="!screenSize.potrait ? 'landscape' : ''" v-if="cameraIsReady">
@@ -458,9 +714,9 @@
 
             </div>
             <div class="snap-footer">
-                <Button @click="handleRetakePhotoClick" type="neutral" label="Ambil Ulang Foto"
+                <Button @click="handleRetakePhotoClick" type="neutral" size="md" label="Ambil Ulang Foto"
                     :id="`${$attrs.id}_cameraRetake`" class="w-100" />
-                <Button @click="handleCameraChosen" type="primary" label="Gunakan Foto"
+                <Button @click="handleCameraChosen" type="primary" size="md" label="Gunakan Foto"
                     :id="`${$attrs.id}_cameraChoose`" class="w-100" />
             </div>
         </template>
@@ -470,23 +726,23 @@
     <BModal v-else @update:model-value="handleCameraDialogValueChange" v-model="cameraDialog" class="inputKtpCamera"
         title="Ambil Foto KTP" centered hide-footer>
         <template v-if="!snappedCameraPict">
-            <div class="camera-container idcard">
+            <div class="camera-container" :class="isGeneralMode ? 'general' : 'idcard'">
                 <video class="video" ref="video" autoplay></video>
             </div>
             <div class="slot-container">
-                <div class="helper-text landscape">
+                <div v-if="props.mode !== 'general'" class="helper-text landscape">
                     <div class="rect"></div>
                     <div class="title">{{ helperText.title }}</div>
                     <div class="subtitle">{{ helperText.message }}</div>
                 </div>
-                <div id="cameraGuidance" class="card-ktp"></div>
+                <div v-if="props.mode !== 'general'" ref="cameraGuidance" id="cameraGuidance" class="card-ktp"></div>
                 <img v-if="cameraIsReady" @click="handleCameraSnap" src="../../assets/icon/shutter-button.svg"
                     alt="Take Image" :id="`${$attrs.id}_cameraSnap`" class="shutter-btn" />
             </div>
         </template>
 
         <div v-else>
-            <div class="preview-container idcard">
+            <div class="preview-container" :class="isGeneralMode ? 'general' : 'idcard'">
                 <div class="timestamp">
                     <div>{{ props.userName }}</div>
                     <div>{{ nowFormatted() }}</div>
@@ -494,9 +750,9 @@
                 <img :src="snappedCameraPict" alt="Captured Image" />
             </div>
             <div class="footer-button">
-                <Button @click="handleRetakePhotoClick" type="neutral" label="Ambil Ulang Foto"
+                <Button @click="handleRetakePhotoClick" type="neutral" size="md" label="Ambil Ulang Foto"
                     :id="`${$attrs.id}_cameraRetake`" />
-                <Button @click="handleCameraChosen" type="primary" label="Gunakan Foto"
+                <Button @click="handleCameraChosen" type="primary" size="md" label="Gunakan Foto"
                     :id="`${$attrs.id}_cameraChoose`" />
             </div>
         </div>
@@ -506,23 +762,23 @@
        Preview modal — shown when clicking thumbnail in file picker
        BModal (desktop) / BOffcanvas bottom (mobile)
     ==================================================================== -->
-    <div v-if="fileSrc">
+    <div v-if="fileSrc && previewDialog">
         <!-- DESKTOP: preview in modal -->
-        <BModal v-if="!isMobile" v-model="previewDialog" title="Lihat Foto KTP" size="lg"
+        <BModal v-if="!isMobile" v-model="previewDialog" :title="props.mode === 'preview' ? 'Lihat' : 'Lihat Foto'" size="lg"
             body-class="p-0 m-0 remove-overflow" dialog-class="preview-modal-content" header-class="preview-modal-title"
             hide-footer centered>
             <div>
                 <div class="preview-container p-3">
                     <div class="img-wrapper">
-                        <img :src="fileSrc" alt="Preview Gambar KTP" class="img-preview" />
-                        <div class="timestamp">
+                        <img :src="displayImageSrc" alt="Preview" class="img-preview" :class="{ 'img-contain': imageSource === 'gallery' || isGeneralMode, 'general': isGeneralMode }" />
+                        <div v-if="props.mode !== 'preview' || fileSrc" class="timestamp">
                             <div>{{ props.userName }}</div>
                             <div>{{ nowFormatted() }}</div>
                         </div>
                     </div>
                 </div>
-                <div class="footer-button">
-                    <Button @click="handleRetakePhotoClick" type="neutral" label="Ambil Ulang Foto"
+                <div class="footer-button" v-if="props.mode !== 'preview'">
+                    <Button @click="handleRetakePhotoClick" type="neutral" size="md" label="Ganti Foto"
                         :id="`${$attrs.id}_previewRetake`" class="w-100" />
                 </div>
             </div>
@@ -531,18 +787,18 @@
         <!-- MOBILE: preview in bottom offcanvas -->
         <BOffcanvas v-else v-model="previewDialog" placement="bottom" noCloseOnBackdrop
             class="preview-offcanvas preview-mobile">
-            <template #title>Lihat Foto KTP</template>
+            <template #title>{{ props.mode === 'preview' ? 'Lihat' : 'Lihat Foto' }}</template>
             <div class="preview-container">
                 <div class="img-wrapper">
-                    <img :src="fileSrc" alt="Preview Gambar KTP" class="img-preview" />
-                    <div class="timestamp">
+                    <img :src="displayImageSrc" alt="Preview" class="img-preview" :class="{ 'img-contain': imageSource === 'gallery' || isGeneralMode, 'general': isGeneralMode }" />
+                    <div v-if="props.mode !== 'preview' || fileSrc" class="timestamp">
                         <div>{{ props.userName }}</div>
                         <div>{{ nowFormatted() }}</div>
                     </div>
                 </div>
             </div>
-            <div class="footer-button">
-                <Button @click="handleRetakePhotoClick" type="neutral" label="Ambil Ulang Foto"
+            <div class="footer-button" v-if="props.mode !== 'preview'">
+                <Button @click="handleRetakePhotoClick" type="neutral" size="md" label="Ganti Foto"
                     :id="`${$attrs.id}_previewRetake`" class="w-100" />
             </div>
         </BOffcanvas>
@@ -593,6 +849,14 @@
 
             &.idcard video {
                 height: 416px;
+            }
+
+            &.general video {
+                width: 100% !important;
+                height: auto;
+                aspect-ratio: 1 / 1 !important;
+                object-fit: cover;
+                background-color: #000;
             }
 
             video {
@@ -675,6 +939,13 @@
                 aspect-ratio: 16 / 10 !important;
             }
 
+            &.general img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                aspect-ratio: 1 / 1 !important;
+            }
+
             img {
                 width: 100%;
                 height: 100%;
@@ -693,8 +964,6 @@
                 justify-content: space-between;
                 display: flex;
                 background: color-mix(in srgb, var(--g-kit-black-80) 80%, transparent);
-                border-bottom-right-radius: 0.75rem;
-                border-bottom-left-radius: 0.75rem;
                 color: var(--g-kit-white);
                 text-align: center;
             }
@@ -877,6 +1146,11 @@
                 // Dark vignette outside card — large spread to cover whole screen
                 box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.65);
                 pointer-events: none;
+
+                &.general {
+                    aspect-ratio: 1 / 1;
+                    max-width: 320px;
+                }
             }
 
             // Bottom bar: shutter + switch
@@ -929,6 +1203,10 @@
                     transform: translate(-50%, -50%);
                     width: 50%;
                     max-width: 320px;
+
+                    &.general {
+                        aspect-ratio: 1 / 1;
+                    }
                 }
 
                 .bottom-actions {
@@ -953,6 +1231,7 @@
         background: #000;
         align-items: center;
         justify-content: center;
+        padding: 1rem;
 
         .snap-preview-container {
             position: relative;
@@ -1016,6 +1295,18 @@
                 border-radius: 8px;
                 aspect-ratio: 16 / 10;
                 display: block;
+                border: 1px solid var(--g-kit-black-20);
+
+
+                &.img-contain {
+                    object-fit: contain;
+                }
+
+                &.general {
+                    object-fit: contain;
+                    aspect-ratio: 1 / 1;
+                    background: var(--g-kit-black-10);
+                }
             }
 
             .timestamp {
@@ -1040,6 +1331,12 @@
             gap: 0.5rem !important;
             padding: 1rem !important;
             border-radius: 12px;
+        }
+    }
+
+    .offcanvas.bottomsheetSourceChooser {
+        .offcanvas-body {
+            padding: 0 !important;
         }
     }
 
@@ -1068,6 +1365,17 @@
                             border-radius: 8px;
                             aspect-ratio: 16 / 10;
                             display: block;
+                            border: 1px solid var(--g-kit-black-20);
+
+                            &.img-contain {
+                                object-fit: contain;
+                            }
+
+                            &.general {
+                                object-fit: contain;
+                                aspect-ratio: 1 / 1;
+                                background: var(--g-kit-black-10);
+                            }
                         }
 
                         .timestamp {
@@ -1110,7 +1418,17 @@
             height: auto;
             object-fit: contain;
             border-radius: 8px;
+            border: 1px solid var(--g-kit-black-20);
             aspect-ratio: 16 / 10;
+
+            &.img-contain {
+                object-fit: contain;
+            }
+
+            &.general {
+                object-fit: contain;
+                aspect-ratio: 1 / 1;
+            }
         }
 
         .footer-button {
@@ -1152,6 +1470,14 @@
         }
     }
 
+    .custom-file-upload__box-input {
+        &.disabled {
+            opacity: 0.6;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+    }
+
     .imgCaptured {
         width: 135px;
         height: 135px;
@@ -1160,8 +1486,21 @@
 
         &.idcard {
             width: 180px;
-            aspect-ratio: 16 / 10;
+            height: 120px;
+        }
+
+        &.general {
+            width: 120px;
             height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            border: 1px solid var(--g-kit-black-20);
+            background: var(--g-kit-black-10);
+        }
+
+        &.img-contain {
+            object-fit: contain;
+            border: 1px solid var(--g-kit-black-20);
         }
     }
 
