@@ -9,6 +9,7 @@ module.exports = defineConfig({
         // ini yang bakal sembunyikan warning dari node_modules
         sassOptions: {
           quietDeps: true,
+          silenceDeprecations: ['import'],
         },
       },
     },
