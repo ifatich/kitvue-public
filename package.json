@@ -1,7 +1,7 @@
 {
-  "name": "@pegadaian/kitvue",
+  "name": "kitvue",
   "author": "Fatich Imam Al-Arasy <ifatich@gmail.com>",
-  "version": "0.1.13-5",
+  "version": "0.9.72-2",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -63,6 +63,14 @@
     "root": true,
     "env": {
       "node": true
+    },
+    "globals": {
+      "defineProps": "readonly",
+      "defineEmits": "readonly",
+      "defineExpose": "readonly",
+      "defineModel": "readonly",
+      "defineOptions": "readonly",
+      "withDefaults": "readonly"
     },
     "extends": [
       "plugin:vue/vue3-essential",
