@@ -38,9 +38,6 @@ importers:
       jquery:
         specifier: ^3.7.1
         version: 3.7.1
-      user:
-        specifier: ^0.0.0
-        version: 0.0.0
       vue:
         specifier: ^3.4.7
         version: 3.5.20(typescript@5.9.2)
@@ -5474,9 +5471,6 @@ packages:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
 
-  user@0.0.0:
-    resolution: {integrity: sha512-eRNM5isOvr6aEFAGi1CqAkmLkYxW2NJ5ThhbD+6IJXYKM1mo7Gtxx4mQIveHz/5K3p/SVnlW9k17ETn+QAu8IQ==}
-
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -5523,8 +5517,8 @@ packages:
       chart.js: ^4.1.1
       vue: ^3.0.0-0 || ^2.7.0
 
-  vue-component-type-helpers@3.2.7:
-    resolution: {integrity: sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==}
+  vue-component-type-helpers@3.3.3:
+    resolution: {integrity: sha512-x4nsFpy5Pe8fqPzp/5vkTPeTTDBpAx4WVtV47Ejt0+2FQrq4pRRsJs7JmYRqMFzTu/LW+pCWEjQ3YVCkPV7f9g==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -7200,7 +7194,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.20(typescript@5.9.2)
-      vue-component-type-helpers: 3.2.7
+      vue-component-type-helpers: 3.3.3
 
   '@swc/core-darwin-arm64@1.13.5':
     optional: true
@@ -11880,8 +11874,6 @@ snapshots:
 
   use@3.1.1: {}
 
-  user@0.0.0: {}
-
   util-deprecate@1.0.2: {}
 
   util.promisify@1.0.1:
@@ -11926,7 +11918,7 @@ snapshots:
       chart.js: 4.5.0
       vue: 3.5.20(typescript@5.9.2)
 
-  vue-component-type-helpers@3.2.7: {}
+  vue-component-type-helpers@3.3.3: {}
 
   vue-demi@0.14.10(vue@3.5.20(typescript@5.9.2)):
     dependencies:
