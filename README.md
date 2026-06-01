@@ -28,11 +28,20 @@ pnpm add kitvue-public
 import { createApp } from 'vue'
 import App from './App.vue'
 import KitVue from 'kitvue-public'
-import 'kitvue-public/dist/kitvue-public.css'
+import 'kitvue-public/style.css'
 
 const app = createApp(App)
 app.use(KitVue)
 app.mount('#app')
+```
+
+After installing the plugin, components can be used globally:
+
+```vue
+<template>
+  <Button label="Primary Button" />
+  <Badge label="Status" />
+</template>
 ```
 
 # Configuration

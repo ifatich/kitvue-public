@@ -17,6 +17,7 @@
       "require": "./dist/kitvue-public.common.js",
       "default": "./dist/kitvue-public.common.js"
     },
+    "./style.css": "./dist/kitvue-public.css",
     "./dist/kitvue-public.css": "./dist/kitvue-public.css",
     "./package.json": "./package.json"
   },
