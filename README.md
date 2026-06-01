@@ -44,6 +44,20 @@ After installing the plugin, components can be used globally:
 </template>
 ```
 
+Or import components locally:
+
+```vue
+<script setup>
+import { Button, Badge } from 'kitvue-public'
+import 'kitvue-public/style.css'
+</script>
+
+<template>
+  <Button label="Primary Button" />
+  <Badge label="Status" />
+</template>
+```
+
 # Configuration
 Add sass plugin
 
