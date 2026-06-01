@@ -703,20 +703,20 @@ import { Meta } from '@storybook/blocks';
 {`# Install dengan pnpm / npm / yarn
 npm config set registry https://artifactory.pegadaian.co.id/repository/npm-group-1/
 
-pnpm add @pegadaian/kitvue
+pnpm add kitvue-public
 
 # Import di main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import PegadaianUIKit from '@pegadaian/kitvue'
-import '@pegadaian/kitvue/dist/style.css'
+import PegadaianUIKit from 'kitvue-public'
+import 'kitvue-public/dist/style.css'
 
 const app = createApp(App)
 app.use(PegadaianUIKit)
 app.mount('#app')
 
 # Atau import komponen individual
-import { Button, InputText, Card } from '@pegadaian/kitvue'`}
+import { Button, InputText, Card } from 'kitvue-public'`}
     </code>
   </div>
 

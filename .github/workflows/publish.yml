@@ -92,7 +92,7 @@ jobs:
           tag_name: ${{ steps.tag_version.outputs.tag }}
           name: Release ${{ steps.tag_version.outputs.version }}
           body: |
-            Published to npm registry: https://www.npmjs.com/package/kitvue
+            Published to npm registry: https://www.npmjs.com/package/kitvue-public
             
             Version: ${{ steps.tag_version.outputs.version }}
           draft: false

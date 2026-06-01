@@ -3,7 +3,7 @@
 # CI/CD Setup Script
 # This script helps you set up GitHub Actions for npm publishing
 
-echo "🚀 kitvue CI/CD Setup"
+echo "🚀 kitvue-public CI/CD Setup"
 echo "=================="
 echo ""
 

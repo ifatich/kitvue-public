@@ -1,6 +1,6 @@
 # Publishing to npmjs
 
-This guide explains how to publish `kitvue` to the npm registry.
+This guide explains how to publish `kitvue-public` to the npm registry.
 
 ## Prerequisites
 
@@ -60,13 +60,13 @@ Verify the package is published correctly:
 
 ```bash
 # Check npm registry
-npm view kitvue
+npm view kitvue-public
 
 # Install from npm to test
-npm install kitvue
+npm install kitvue-public
 
 # View all versions
-npm view kitvue versions
+npm view kitvue-public versions
 ```
 
 ## Troubleshooting
@@ -81,7 +81,7 @@ npm view kitvue versions
 
 ### Package name unavailable
 - The name must be unique on npmjs
-- Check [npmjs.com](https://www.npmjs.com/package/kitvue)
+- Check [npmjs.com](https://www.npmjs.com/package/kitvue-public)
 
 ## Additional Resources
 

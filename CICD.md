@@ -150,7 +150,7 @@ ls -la dist/  # Should show output files
 ### Verify Package Name
 
 ```bash
-npm view kitvue  # Replace with your package name
+npm view kitvue-public  # Replace with your package name
 ```
 
 ---
@@ -174,7 +174,7 @@ git push origin --tags
 # Watch the workflow complete
 
 # 5. Verify on npmjs
-# https://www.npmjs.com/package/kitvue
+# https://www.npmjs.com/package/kitvue-public
 ```
 
 ---

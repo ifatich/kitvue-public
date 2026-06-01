@@ -48,7 +48,7 @@
 - [ ] NPM_TOKEN secret configured in GitHub if using automation
 
 ### 7. **Version Management**
-- [ ] Current version: `0.9.72-2`
+- [ ] Current version: `0.9.72-3`
 - [ ] Decide on first public version (can reset to `1.0.0` if desired)
 - [ ] Semantic versioning plan established
 
@@ -58,15 +58,15 @@
 - [ ] `pnpm build` - Build distribution files
 - [ ] `pnpm lint` - Run linting checks
 - [ ] `npm publish` - Publish to npmjs
-- [ ] Verify on [npmjs.com/package/kitvue](https://www.npmjs.com/package/kitvue)
+- [ ] Verify on [npmjs.com/package/kitvue-public](https://www.npmjs.com/package/kitvue-public)
 - [ ] Push to GitHub with git tags
 - [ ] Create Release on GitHub
 
 ## Important Notes
 
 1. **First Time Setup**
-   - If package name "kitvue" is already taken on npmjs, you'll need to choose a different name
-   - Check with: `npm view kitvue`
+   - If package name "kitvue-public" is already taken on npmjs, you'll need to choose a different name
+   - Check with: `npm view kitvue-public`
 
 2. **Publishing from CI/CD**
    - Set `NPM_TOKEN` in GitHub Secrets for automated publishing

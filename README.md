@@ -1,4 +1,4 @@
-# kitvue - Vue 3 Design System
+# kitvue-public - Vue 3 Design System
 
 A modern Vue 3 component library built with Bootstrap for enterprise applications.
 
@@ -7,19 +7,19 @@ A modern Vue 3 component library built with Bootstrap for enterprise application
 Install from npm:
 
 ```bash
-npm install kitvue
+npm install kitvue-public
 ```
 
 Or using yarn:
 
 ```bash
-yarn add kitvue
+yarn add kitvue-public
 ```
 
 Or using pnpm:
 
 ```bash
-pnpm add kitvue
+pnpm add kitvue-public
 ```
 
 ## Getting Started
@@ -27,7 +27,7 @@ pnpm add kitvue
 ```javascript
 import { createApp } from 'vue'
 import App from './App.vue'
-import KitVue from 'kitvue'
+import KitVue from 'kitvue-public'
 
 const app = createApp(App)
 app.use(KitVue)
@@ -78,7 +78,7 @@ We welcome contributions! Here's how you can help:
 1. **Fork and Clone Repository**
    ```bash
    git clone https://github.com/ifatich/kitvue-public.git
-   cd kitvue
+  cd kitvue-public
    ```
 
 2. **Install Dependencies**
