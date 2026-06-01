@@ -19,8 +19,11 @@ pnpm install
 # Build the library
 pnpm build
 
-# (Optional) Run tests and linting
+# Run linting
 pnpm lint
+
+# Preview exactly what will be published
+npm pack --dry-run
 ```
 
 ## Publishing
@@ -41,6 +44,30 @@ npm version major  # for major release (0.9.72 -> 1.0.0)
 
 # Or manually update package.json and then publish
 npm publish
+```
+
+## Consumer Smoke Test
+
+Before publishing a new version, test the generated tarball in a clean Vue 3 app:
+
+```bash
+# From this repository
+pnpm build
+npm pack --pack-destination /tmp
+
+# From a separate Vue 3 project
+npm install /tmp/kitvue-public-<version>.tgz
+```
+
+Use the plugin and CSS in the consumer app:
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+import KitVue from 'kitvue-public'
+import 'kitvue-public/dist/kitvue-public.css'
+
+createApp(App).use(KitVue).mount('#app')
 ```
 
 ## GitHub Release

@@ -28,6 +28,7 @@ pnpm add kitvue-public
 import { createApp } from 'vue'
 import App from './App.vue'
 import KitVue from 'kitvue-public'
+import 'kitvue-public/dist/kitvue-public.css'
 
 const app = createApp(App)
 app.use(KitVue)

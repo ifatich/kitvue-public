@@ -3,7 +3,6 @@ import AddAmount from './AddAmount/AddAmountCounter.vue';
 import Alert from './Alert/Alert.vue';
 import AlertVarian from './Alert/AlertVarian.vue';
 import Aspect from './Aspect/Aspect.vue';
-import BaseIcon from './Icons/BaseIcon.vue';
 import Breadcrumb from './Breadcrumb/Breadcrumb.vue';
 import Button from './Button/Button.vue';
 import ButtonSize from './Button/ButtonSize.vue';
@@ -17,29 +16,28 @@ import CardProduct from './Card/CardProduct.vue';
 import CardProductKonvensional from './Card/CardProductKonvensional.vue';
 import CardProductSyariah from './Card/CardProductSyariah.vue';
 import CardPromo from './Card/CardPromo.vue';
-import CardPromoCode from './Card/CardPromoCode1.vue';
+import CardPromoCode from './Card/CardPromoCode.vue';
 import CardVoucher from './Card/CardVoucher.vue';
-import DatePicker from './Input/DatePicker.vue';
-import Dropdown from './Dropdown/Dropdown.vue';
+import DatePicker from './Dropdown/DatePicker.vue';
+import Dropdown from './Dropdown/InputDropdown.vue';
 import FilePickerLG from './Filepicker/FilePickerLG.vue';
 import FilePickerSM from './Filepicker/FilePickerSM.vue';
 import InputPersen from './Input/InputNominalEnd.vue';
 import Input from './Input/InputSmallText.vue';
 import InputKtp from './Input/InputKTP.vue';
 import TextArea from './Input/InputTextArea.vue';
-import ModalComponent from './Modal/Modal.vue';
+import ModalComponent from './Modal/ModalComponent.vue';
 import InputSmallDate from './Input/InputSmallDate.vue';
 import ListGroupUnordered from './ListGroup/ListGroupUnordered.vue';
 import ListGroupUnit from './ListGroup/ListGroupUnit.vue';
-import ListOrdered from './ListGroup/ListOrdered.vue';
+import ListOrdered from './ListGroup/ListGroupOrdered.vue';
 import TableData from './Table/TableData.vue';
 import DataTable from './Table/DataTable.vue';
 import TableSticky from './Table/TableSticky.vue';
-import DataApps from './Table/Data.vue';
+import DataApps from './Table/TableData.vue';
 import Badge from './Badge/Badge.vue';
 import DropdownGroupItem from './Dropdown/DropdownGroupItem.vue';
 import DropdownItem from './Dropdown/DropdownItem.vue';
-import DeleteIcon from './Icons/DeleteFill.vue';
 import InputSearch from './Input/InputSearch.vue';
 
 export default {
@@ -48,7 +46,6 @@ export default {
     Alert,
     AlertVarian,
     Aspect,
-    BaseIcon,
     Breadcrumb,
     Button,
     ButtonSize,
@@ -65,7 +62,6 @@ export default {
     CardPromoCode,
     CardVoucher,
     DatePicker,
-    DeleteIcon,
     Dropdown,
     FilePickerLG,
     FilePickerSM,
