@@ -102,14 +102,14 @@ jobs:
         run: pnpm build
 
       - name: Upload dist artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist-${{ github.sha }}
           path: dist/
           retention-days: 5
 
       - name: Upload Storybook artifacts (optional)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: storybook-${{ github.sha }}
           path: storybook-static/
