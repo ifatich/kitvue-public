@@ -1,80 +1,122 @@
 # kitvue-public - Vue 3 Design System
 
-A modern Vue 3 component library built with Bootstrap for enterprise applications.
+A modern Vue 3 component library built with Bootstrap and Tailwind utilities for enterprise applications at Pegadaian.
 
-## Installation
+---
 
-Install from npm:
+## 🚀 Installation
+
+Install the library and its required peer dependency (`jquery`) using your preferred package manager:
 
 ```bash
+# Using pnpm (Recommended)
+pnpm add kitvue-public jquery
+
+# Using npm
 npm install kitvue-public jquery
-```
 
-Or using yarn:
-
-```bash
+# Using yarn
 yarn add kitvue-public jquery
 ```
 
-Or using pnpm:
+> [!NOTE]
+> `jquery` is a required peer dependency for certain legacy Bootstrap dropdowns and overlay components.
 
-```bash
-pnpm add kitvue-public jquery
-```
+---
 
-## Getting Started
+## 🛠️ Getting Started
+
+You can integrate `kitvue-public` in two ways:
+
+### Option A: Global Registration (Plugin)
+Registers all 80+ components globally in your Vue app so you can use them anywhere without importing them individually.
 
 ```javascript
+// main.js or main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import KitVue from 'kitvue-public'
+import PegadaianUIKit from 'kitvue-public'
 import 'kitvue-public/style.css'
 
 const app = createApp(App)
-app.use(KitVue)
+app.use(PegadaianUIKit)
 app.mount('#app')
 ```
 
-`jquery` is a required peer dependency for components that rely on Bootstrap's
-DOM helpers and dropdown behavior.
-
-After installing the plugin, components can be used globally:
-
+Then in any Vue file:
 ```vue
 <template>
-  <Button label="Primary Button" />
-  <Badge label="Status" />
+  <Button label="Simpan Transaksi" type="primary" size="lg" />
+  <Badge label="Disetujui" type="primary" />
 </template>
 ```
 
-Or import components locally:
+### Option B: Individual Tree-shakeable Imports (Recommended)
+Allows you to import only the components you need, optimizing your final production build size.
 
 ```vue
 <script setup>
-import { Button, Badge } from 'kitvue-public'
+import { Button, Badge, CardProduct } from 'kitvue-public'
 import 'kitvue-public/style.css'
 </script>
 
 <template>
-  <Button label="Primary Button" />
-  <Badge label="Status" />
+  <Button label="Simpan Transaksi" type="primary" size="lg" />
+  <Badge label="Disetujui" type="primary" />
+  <CardProduct title="Gadai Emas Premium" body="Proses cair cepat 15 menit..." />
 </template>
 ```
 
-# Configuration
-Add sass plugin
+---
 
-```
-vue add style-resource-loader
+## ⚡ Vite Production Build Configuration
+
+Due to pre-compiled nested pseudo-elements in certain Bootstrap style overrides (e.g. `.list-group-item::before .active`), modern CSS minifiers like **LightningCSS** (default in Vite 6+) will fail to build. 
+
+To ensure your production build compiles seamlessly, **disable CSS minification** or configure it to use **esbuild** in your `vite.config.ts`:
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
+export default defineConfig({
+  plugins: [vue()],
+  build: {
+    // Disable CSS minifier to bypass LightningCSS pseudo-element parser errors
+    cssMinify: false
+  }
+})
 ```
 
-On your vue config add
+---
 
-```
+## 🏗️ Information Architecture (Component Index)
+
+Here is a quick reference guide to the key components exported by this library:
+
+| Category | Component Name | Description |
+| :--- | :--- | :--- |
+| **Buttons & Badges** | `Button`, `ButtonSize`, `Badge`, `AddAmount` | Interactive actions, spinners, counters, and status badges. |
+| **Forms & Fields** | `Input` *(SmallText)*, `InputText`, `TextArea`, `InputPhone`, `InputNIK` | Standard text, numbers, phones, and NIK inputs with error handling. |
+| **Pickers & Dropdowns** | `DatePicker`, `DateRangePicker`, `Dropdown`, `InputDropdownMultiple` | Date range inputs, calendar dropdowns, and selectable menus. |
+| **Overlays & Modals** | `ModalComponent`, `CustomModal`, `BottomSheet` | AlertVarian containers, confirmation slide-ins, and popups. |
+| **Cards** | `CardProduct`, `CardAccount`, `CardArticle`, `CardPromoCode` | Information tiles, tabungan emas indicators, and click-to-copy code blocks. |
+| **Data Display** | `DataTable`, `TableSticky`, `ListOrdered`, `ListGroupUnordered` | Dynamic grids, pagination modules, list bullets, and stepper indicators. |
+| **Navigation** | `Breadcrumb`, `NavbarCorporate`, `BerandaHeader`, `SideNavCMS` | Link navigators, headers, sidebars, and tab groups. |
+
+---
+
+## 🔧 Legacy Vue CLI Configuration
+
+If you are using `@vue/cli` (Webpack), add `style-resources-loader` and configure `vue.config.js` to transpile dependency styles properly:
+
+```javascript
+// vue.config.js
 const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: ['bootstrap-vue'],
 
+module.exports = defineConfig({
+  transpileDependencies: ['bootstrap-vue-next'],
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',
@@ -84,111 +126,34 @@ module.exports = defineConfig({
 })
 ```
 
-Spesific on line 
-```
-transpileDependencies: ['bootstrap-vue'],
+---
 
-pluginOptions: {
-    'style-resources-loader': {
-        preProcessor: 'scss',
-        patterns: []
-    }
-}
-```
+## 🤝 Contributing
 
-# Contributing
+We welcome contributions to make the Pegadaian Design System even stronger!
 
-We welcome contributions! Here's how you can help:
+### Development Setup
 
-## Development Setup
-
-1. **Fork and Clone Repository**
+1. **Clone the repository**:
    ```bash
    git clone https://github.com/ifatich/kitvue-public.git
-  cd kitvue-public
+   cd kitvue-public
    ```
-
-2. **Install Dependencies**
+2. **Install dependencies**:
    ```bash
    pnpm install
    ```
+3. **Common CLI Commands**:
+   * Start local Storybook environment: `pnpm storybook`
+   * Compile and build library bundles: `pnpm build`
+   * Lint and style checks: `pnpm lint`
 
-3. **Development Commands**
-   - Start dev server: `pnpm serve`
-   - View Storybook: `pnpm storybook`
-   - Build: `pnpm build`
-   - Lint: `pnpm lint`
+### Naming Conventions for Branches
 
-## Branch Strategy
-
-- **`main`:** Stable release branch
-- **`develop`:** Development branch for new features
-- **`feature/*`:** Feature branches
-- **`fix/*`:** Bug fix branches
-
-3. **Buat Branch Baru dari `dev-update-component`**
-   - **Untuk Penambahan Komponen Baru:**
-     - Buat branch baru dengan penamaan `dev-add-(nama-komponen)`:
-     - Contoh jika kamu melakukan penambahan komponen button : 
-       ```bash
-       git checkout -b dev-add-button
-       ```
-
-   - **Untuk Update atau Bug Fixing Komponen yang Ada:**
-     - Buat branch baru dengan penamaan `dev-update-(nama-komponen)`:
-     - Contoh jika kamu melakukan penambahan komponen button : 
-       ```bash
-       git checkout -b dev-update-button
-       ```
-
-4. **Mulai Pengembangan**
-   - **Penambahan Komponen Baru:**
-     - Tambahkan komponen baru sesuai dengan standar kode yang telah disepakati.
-     - Pastikan untuk menulis komentar dan menambahkan dokumentasi yang relevan.
-  
-   - **Update atau Bug Fixing:**
-     - Perbaiki bug atau update styling komponen yang ada.
-     - Tambahkan komentar untuk memastikan perubahan tersebut.
-
-5. **Commit dan Push**
-   - Buat commit yang jelas dan deskriptif:
-     ```bash
-     git commit -m "Add Button component with primary and secondary variants"
-     git push origin dev-add-button
-     ```
-
-6. **Buka Merge Request (PR)**
-   - Setelah selesai, buka Merge Request ke branch `dev-update-component`.
-   - Tambahkan deskripsi mengenai perubahan yang kamu lakukan.
-
-7. **Code Review**
-   - Merge Request kamu akan di-review oleh maintainer proyek.
-   - Lakukan perbaikan berdasarkan umpan balik yang diberikan.
-
-8. **Merge ke `dev-update-component`**
-   - Setelah review selesai, request akan di-merge ke `dev-update-component`.
-
-# Penting Diperhatikan 
-## Penamaan Branch
-
-- **Penambahan Komponen Baru:**
-  - Branch name: `dev-add-(nama-komponen)`
-  - Contoh: `dev-add-button`, `dev-add-modal`
-
-- **Perbaikan atau Update Komponen yang Ada:**
-  - Branch name: `dev-update-(nama-komponen)`
-  - Contoh: `dev-update-button`, `dev-update-card`
-
-### Praktik Terbaik
-
-- **Coding Style:** Ikuti pedoman coding style yang ada dalam proyek ini.
-- **Test:** Selalu tambahkan atau perbarui unit tests untuk memastikan kode yang kamu tambahkan atau ubah berfungsi dengan baik.
-- **Dokumentasi:** Jangan lupa untuk menambahkan atau memperbarui dokumentasi jika kamu menambahkan fitur baru atau mengubah yang sudah ada.
-- **Jaga Kualitas:** Semua kode harus melalui proses review dan testing sebelum di-merge ke branch `dev-update-component`.
+* **Add New Components**: `dev-add-(nama-komponen)` (e.g. `dev-add-tooltip`)
+* **Bug Fix / Update Component**: `dev-update-(nama-komponen)` (e.g. `dev-update-button`)
 
 ---
 
-Terima kasih telah berkontribusi ke `kitvue`! Kami sangat menghargai usaha dan waktu yang kamu luangkan untuk membuat proyek ini menjadi lebih baik.
-
-## Love, Regard and Cheers. Happy Development 
-### <3 Pegadaian Design <3
+## Love, Regard and Cheers. Happy Development!
+💚 **Pegadaian Design System Team** 💚
