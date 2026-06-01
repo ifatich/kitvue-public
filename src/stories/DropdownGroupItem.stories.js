@@ -1,5 +1,4 @@
 import DropdownGroupItem from "../components/Dropdown/DropdownGroupItem.vue";
-import { ref } from "vue";
 
 export default {
   title: 'Components/Dropdown/DropdownGroupItem',

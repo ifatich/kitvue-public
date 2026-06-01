@@ -700,7 +700,7 @@ The InputKTP component provides a user-friendly interface for capturing or uploa
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| \`mode\` | 'ktp' \| 'general' \| 'preview' | 'ktp' | Mode perilaku komponen |
+| \`mode\` | 'ktp' | 'general' | 'preview' | 'ktp' | Mode perilaku komponen |
 | \`compressionMaxKb\` | number | 1024 | Maximum compression size in KB |
 | \`title\` | string | "Upload Foto KTP" | Dialog title text |
 | \`userName\` | string | "unknown" | Name to display on timestamp |

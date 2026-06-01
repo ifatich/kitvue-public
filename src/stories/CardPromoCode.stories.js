@@ -1,5 +1,4 @@
 import CardPromoCode from "../components/Card/CardPromoCode.vue";
-import { ref } from 'vue';
 
 export default {
   title: 'Components/Card/CardPromoCode',

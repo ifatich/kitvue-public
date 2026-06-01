@@ -262,34 +262,6 @@ export default {
       </DataTable>
       `,      
     }),
-    parameters: {
-      docs: {
-        source: {
-          code: `
-  <DataTable :data="data" :columns="columns">
-    <template v-slot:tableActionButtons="{ item }">
-      <div class="d-flex">
-        <Button
-          class="w-100"
-          type="neutral"
-          size="sm"
-          label="Edit"
-          @click="handleEditAction(item)"
-        />
-        <Button
-          class="w-100"
-          type="secondary"
-          size="sm"
-          label="Delete"
-          @click="handleViewAction(item)"
-        />
-      </div>
-    </template>
-  </DataTable>
-          `.trim(),
-        },
-      },
-    },
   };
 
   export const Table = {

@@ -1,10 +1,10 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <span class="badge" :class="[`badge-${type}`]">{{ label }}</span>
 </template>
 <script setup>
-    // eslint-disable-next-line vue/multi-word-component-names
     defineOptions({
-      name: 'Badge'
+      name: 'PgdBadge'
     })
     defineProps({
         type: {
