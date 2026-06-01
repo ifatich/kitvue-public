@@ -1,9 +1,37 @@
-# kitvue - Pegadaian Design System
+# kitvue - Vue 3 Design System
 
-## Getting started
+A modern Vue 3 component library built with Bootstrap for enterprise applications.
 
+## Installation
+
+Install from npm:
+
+```bash
+npm install kitvue
 ```
-npm install git+https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue.git
+
+Or using yarn:
+
+```bash
+yarn add kitvue
+```
+
+Or using pnpm:
+
+```bash
+pnpm add kitvue
+```
+
+## Getting Started
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+import KitVue from 'kitvue'
+
+const app = createApp(App)
+app.use(KitVue)
+app.mount('#app')
 ```
 
 # Configuration
@@ -41,37 +69,35 @@ pluginOptions: {
 }
 ```
 
-# kitvue - Pegadaian Design System - Kontribusi
+# Contributing
 
-`kitvue` adalah library komponen UI yang dikembangkan untuk mendukung proyek-proyek internal di Pegadaian. Library ini menggunakan Vue versi 3.4.7 dan Bootstrap CSS versi 5.3.2 sebagai teknologi utama.
+We welcome contributions! Here's how you can help:
 
-## Branches
+## Development Setup
 
-Kami menggunakan dua branch utama dalam pengembangan proyek ini:
+1. **Fork and Clone Repository**
+   ```bash
+   git clone https://github.com/ifatich/kitvue-public.git
+   cd kitvue
+   ```
 
-- **`master`:** Branch ini berisi versi stabil dari library yang akan di-publish sebagai package di artifactory pegadaian.
-- **`dev-update-component`:** Branch ini digunakan sebagai branch pengembangan utama. Semua fitur baru dan perbaikan akan di-review di sini sebelum di-merge ke `master`.
+2. **Install Dependencies**
+   ```bash
+   pnpm install
+   ```
 
-## Kontribusi
+3. **Development Commands**
+   - Start dev server: `pnpm serve`
+   - View Storybook: `pnpm storybook`
+   - Build: `pnpm build`
+   - Lint: `pnpm lint`
 
-Kami sangat menyambut kontribusi dari developer lain untuk menambahkan komponen baru, memperbaiki styling, atau melakukan bug fixing pada komponen yang ada.
+## Branch Strategy
 
-### Langkah-Langkah Kontribusi
-
-1. **Fork dan Clone Repository**
-   - Fork repository `kitvue` ke akun GitHub kamu.
-   - Clone repository fork kamu:
-     ```bash
-     git clone https://repo.pegadaian.co.id/client/pegadaian-ui-kit-vue.git
-
-     cd pegadaian-ui-kit-vue
-     ```
-
-2. **Checkout Branch `dev-update-component`**
-   - Pastikan kamu selalu bekerja dari branch pengembangan, `dev-update-component`:
-     ```bash
-     git checkout dev-update-component
-     ```
+- **`main`:** Stable release branch
+- **`develop`:** Development branch for new features
+- **`feature/*`:** Feature branches
+- **`fix/*`:** Bug fix branches
 
 3. **Buat Branch Baru dari `dev-update-component`**
    - **Untuk Penambahan Komponen Baru:**

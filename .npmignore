@@ -1,0 +1,59 @@
+# Development and build files
+.git
+.gitignore
+.DS_Store
+.gitlab-ci.yml
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Development tools
+.storybook/
+storybook-static/
+.cache/
+.eslintignore
+.prettierignore
+*.log
+
+# Test and coverage
+coverage/
+*.test.js
+*.spec.js
+__tests__/
+
+# Build artifacts
+build/
+dist/
+*.tsbuildinfo
+
+# Documentation
+WARNINGS_AND_SOLUTIONS.md
+CODE_STYLE_GUIDE.md
+migration-storybook.log
+storybook.log
+
+# Config and other development files
+babel.config.js
+jsconfig.json
+jest.config.js
+tsconfig.json
+vue.config.js
+config.js
+server.js
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Other
+.env
+.env.local
+.env.*.local
+.npmrc
+.npm
