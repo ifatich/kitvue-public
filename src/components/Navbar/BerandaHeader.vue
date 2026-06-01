@@ -3,7 +3,7 @@
     <div class="sprint-nav">
         <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="fixed-top my-3 exa-header desktop container">
             <BNavbarBrand href="#">
-                <img :src="require('../../assets/images/BG-Broccolli.svg')" />
+                <img :src="broccoliImage" />
             </BNavbarBrand>
             <BNavbarToggle target="nav-collapse" />
             <BCollapse id="nav-collapse" is-nav>
@@ -43,7 +43,7 @@
 
         <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'light'" class="navbar fixed-bottom exa-header my-2 mx-2 mobile">
             <BNavbarBrand href="#">
-                <img :src="require('../../assets/images/logo-pgd/exa.svg')" />
+                <img :src="exaLogo" />
             </BNavbarBrand>
         </BNavbar>
     </div>
@@ -60,6 +60,8 @@
         BNavItemDropdown,
         BCard,
     } from 'bootstrap-vue-next';
+    import broccoliImage from "../../assets/images/BG-Broccolli.svg";
+    import exaLogo from "../../assets/images/logo-pgd/exa.svg";
 
     export default {
         name: "BerandaHeader",
@@ -73,6 +75,10 @@
     BNavItemDropdown,
     BCard
 },
+        data: () => ({
+            broccoliImage,
+            exaLogo,
+        }),
         props: {
             user: {
                 type: String

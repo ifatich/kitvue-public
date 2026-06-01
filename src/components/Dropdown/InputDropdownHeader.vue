@@ -31,6 +31,11 @@
 
     const search = ref()
     const selectedText = ref()
+    const iconUrls = import.meta.glob('../../assets/icon/*.svg', {
+        eager: true,
+        import: 'default',
+        query: '?url',
+    })
 
     const filteredItems = computed(() =>
         search.value ?
@@ -56,6 +61,8 @@
             attrs.onBlur()
         }
     }
+
+    const getOptionIcon = (iconName) => iconUrls[`../../assets/icon/${iconName}.svg`] || ''
 </script>
 
 <template>
@@ -99,7 +106,7 @@
                     <BDropdownItem v-for="(option, index) in filteredItems" :key="index" @click="handleOptionClick(option)">
                         <BDropdownItemButton buttonClass="d-flex search-items">
                             <a class="d-flex flex-column text-wrap" :href="option[props.itemLink]">
-                                <img class="imgSearch" :src="require(`../../assets/icon/${option[props.itemImg]}.svg`)" alt="Icon" />
+                                <img class="imgSearch" :src="getOptionIcon(option[props.itemImg])" alt="Icon" />
                                 {{ option[props.itemText] }}
                             </a>
                         </BDropdownItemButton>

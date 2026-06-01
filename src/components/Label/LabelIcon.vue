@@ -3,7 +3,7 @@
     <div :class="[classes]" style="position: relative;">
         <template v-if="iconStart">
             <span class="icon-tooltip-wrapper">
-                <img :src="require('../../assets/images/icon-info.svg')" />
+                <img :src="iconInfo" />
                 <span
                   class="custom-tooltip"
                   :class="tooltipPosition"
@@ -15,7 +15,7 @@
         <template v-else-if="iconEnd">
             {{ text }}
             <span class="icon-tooltip-wrapper icon-tooltip-right">
-                <img :src="require('../../assets/images/icon-info.svg')" />
+                <img :src="iconInfo" />
                 <span
                   class="custom-tooltip"
                   :class="tooltipPosition"
@@ -28,6 +28,7 @@
 
 <script>
 import { computed, reactive } from "vue";
+import iconInfo from "../../assets/images/icon-info.svg";
 
 export default {
     name: "LabelIcon",
@@ -66,6 +67,7 @@ export default {
             console.warn("Hanya salah satu dari iconStart atau iconEnd yang sebaiknya diisi.");
         }
         return {
+            iconInfo,
             classes: computed(() => ({
                 [`${
                     props.variant

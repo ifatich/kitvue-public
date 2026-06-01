@@ -3,7 +3,7 @@
     <div class="group-input">
         <label :for="id" class="form-label">
             {{ title }}
-            <img :src="require('../../assets/images/icon-info.svg')" />
+            <img :src="iconInfo" />
         </label>
 
         <div class="input-group rupiah custom-input-group-icon p-0 input-nominal-end">
@@ -27,8 +27,15 @@
 </template>
 
 <script>
+    import iconInfo from "../../assets/images/icon-info.svg";
+
     export default {
         name: "InputNominalEnd",
+        data: () => ({
+            currentValue: "",
+            localError: false,
+            iconInfo,
+        }),
         props: {
             id: {
                 type: String,
@@ -81,10 +88,6 @@
                 required: false,
             }
         },
-        data: () => ({
-            currentValue: "",
-            localError: false,
-        }),
         watch: {
             currentValue(newVal) {
                 this.localError = this.required && !newVal;
