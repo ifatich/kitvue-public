@@ -1,6 +1,6 @@
 {
   "name": "kitvue-public",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packageManager": "pnpm@10.15.0",
   "description": "A Vue 3 Design System component library built with Bootstrap for enterprise applications",
   "author": "Fatich Imam Al-Arasy <ifatich@gmail.com>",
