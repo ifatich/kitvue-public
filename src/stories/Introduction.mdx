@@ -703,13 +703,13 @@ import { Meta } from '@storybook/blocks';
 {`# Install dengan pnpm / npm / yarn
 npm config set registry https://artifactory.pegadaian.co.id/repository/npm-group-1/
 
-pnpm add kitvue-public
+pnpm add kitvue-public jquery
 
 # Import di main.js
 import { createApp } from 'vue'
 import App from './App.vue'
 import PegadaianUIKit from 'kitvue-public'
-import 'kitvue-public/dist/style.css'
+import 'kitvue-public/style.css'
 
 const app = createApp(App)
 app.use(PegadaianUIKit)

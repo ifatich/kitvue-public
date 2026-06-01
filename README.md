@@ -7,19 +7,19 @@ A modern Vue 3 component library built with Bootstrap for enterprise application
 Install from npm:
 
 ```bash
-npm install kitvue-public
+npm install kitvue-public jquery
 ```
 
 Or using yarn:
 
 ```bash
-yarn add kitvue-public
+yarn add kitvue-public jquery
 ```
 
 Or using pnpm:
 
 ```bash
-pnpm add kitvue-public
+pnpm add kitvue-public jquery
 ```
 
 ## Getting Started
@@ -34,6 +34,9 @@ const app = createApp(App)
 app.use(KitVue)
 app.mount('#app')
 ```
+
+`jquery` is a required peer dependency for components that rely on Bootstrap's
+DOM helpers and dropdown behavior.
 
 After installing the plugin, components can be used globally:
 
